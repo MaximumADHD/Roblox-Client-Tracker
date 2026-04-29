@@ -4,28 +4,7 @@ category: Inputs
 
 ## Overview
 
-!!! note "Work In Progress Component"
-
-    `ColorPicker` is currently WIP and requires the `FoundationColorPickerComponent` feature flag to be enabled. The API may change in future releases.
-
-    `ColorPicker` is an interactive color selection component that allows users to pick colors using multiple input methods. It combines a saturation/value picker, hue slider, optional alpha slider, and text inputs that support RGB, RGBA, HSV, and Hex color formats.
-
----
-
-## Enabling ColorPicker
-
-Since ColorPicker is WIP, you need to enable the feature flag before using it:
-
-```luau
--- Enable the feature flag (this would typically be done at the application level)
-game:SetFastFlag("FoundationColorPickerComponent", true)
-
--- Then you can use ColorPicker normally
-local Foundation = require(Packages.Foundation)
-local ColorPicker = Foundation.ColorPicker
-```
-
-If you attempt to use ColorPicker without the flag enabled, it will return `nil`.
+ColorPicker allows the user to select a color using raw color values or a standard color picker interface.
 
 ---
 

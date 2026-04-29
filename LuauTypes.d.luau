@@ -497,6 +497,8 @@ type TerrainMergeConfig = {
 
 type GetCampaignEligibilityResult = { IsEligible: boolean }
 
+type UniversalAppAdsEligibilityResult = { IsEligible: boolean }
+
 type GetAdAvailabilityNowResult = {
     AdAvailabilityResult: Enum.AdAvailabilityResult,
 }

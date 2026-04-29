@@ -42,8 +42,8 @@
 
       <addaction name="gameSettingsAction"/>
       <addaction name="avatarSettingsActionMenu"/>
-      <addaction fflag="EnableCreatorConfigSystemMenu" name="creatorConfigAction"/>
-      <addseparator fflag="EnableCreatorConfigSystemMenu" />
+      <addaction name="creatorConfigAction"/>
+      <addseparator />
       <addaction name="settingsAction"/>
       <addaction name="betaFeaturesAction"/>
       <addaction name="onlineHelpAction"/>

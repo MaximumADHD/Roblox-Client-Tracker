@@ -8,6 +8,7 @@
                         "$className": "LocalScript",
                         "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds.lua",
                         "AtomicBinding": {
+                            "$className": "ModuleScript",
                             "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds/AtomicBinding.lua",
                         }
                     }

@@ -9,7 +9,8 @@
                         "$className": "LocalScript",
                         "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds.lua",
                         "AtomicBinding": {
-                            "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds/AtomicBinding.lua",
+                            "$className": "ModuleScript",
+                            "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds/AtomicBinding.lua"
                         }
                     }
                 },
@@ -27,36 +28,41 @@
                         }
                     },
                     "InputContexts": {
-                        "Character": {
+                        "CharacterContext": {
                             "$className": "InputContext",
                             "$properties": {
-                                "Priority": 1000
+                                "Priority": 100
                             },
                             "ClickToMoveAction": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Enabled": false
                                 },
-                                "Binding": {
+                                "MouseBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "MouseRightButton"
                                     }
                                 }
                             },
-                            "Move": {
+                            "ClickToMovePositionAction": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Type": "ViewportPosition"
+                                },
+                                "MouseBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "MousePosition"
+                                    }
+                                }
+                            },
+                            "MoveAction": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Type": "Direction2D"
                                 },
-                                "ArrowKeyMoveBinding": {
-                                    "$className": "InputBinding",
-                                    "$properties": {
-                                        "Down": "Down",
-                                        "Up": "Up"
-                                    }
-                                },
-                                "KeyboardMoveBinding": {
+                                "KeyboardPrimaryBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "Left": "A",
@@ -65,46 +71,62 @@
                                         "Up": "W"
                                     }
                                 },
-                                "GamepadMoveBinding": {
+                                "KeyboardSecondaryBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Down": "Down",
+                                        "Up": "Up"
+                                    }
+                                },
+                                "GamepadBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "Thumbstick1"
                                     }
                                 }
                             },
-                            "Jump": {
+                            "JumpAction": {
                                 "$className": "InputAction",
                                 "$properties": {},
-                                "KeyboardJumpBinding": {
+                                "KeyboardBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "Space"
                                     }
                                 },
-                                "GamepadJumpBinding": {
+                                "GamepadBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "ButtonA"
                                     }
                                 },
-                                "TouchJumpBinding": {
+                                "TouchBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {}
                                 }
                             },
-                            "CameraGamepadZoom": {
+                            "RotationAction": {
+                                "$className": "InputAction"
+                            }
+                        },
+                        "CameraContext": {
+                            "$className": "InputContext",
+                            "$properties": {
+                                "Priority": 100
+                            },
+                            "CameraGamepadZoomAction": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Enabled": false
                                 },
-                                "Binding": {
+                                "GamepadBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "ButtonR3"
                                     }
                                 }
                             },
-                            "CameraZoom": {
+                            "CameraZoomAction": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Type": "Direction1D"
@@ -116,9 +138,23 @@
                                         "Down": "I",
                                         "Up": "O"
                                     }
+                                },
+                                "MouseBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Scale": -1.0,
+                                        "KeyCode": "MouseWheel"
+                                    }
+                                },
+                                "TrackpadBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Scale": -1.0,
+                                        "KeyCode": "TrackpadPinch"
+                                    }
                                 }
                             },
-                            "CameraRotation": {
+                            "CameraRotationAction": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Type": "Direction2D"
@@ -141,6 +177,38 @@
                                         "ResponseCurve": 2,
                                         "KeyCode": "Thumbstick2"
                                     }
+                                },
+                                "MouseBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Vector2Scale": [
+                                            0.008727,
+                                            0.006720
+                                        ],
+                                        "KeyCode": "MouseDelta"
+                                    }
+                                },
+                                "TrackpadBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "Vector2Scale": [
+                                            0.12217,
+                                            0.09407
+                                        ],
+                                        "KeyCode": "TrackpadPan"
+                                    }
+                                }
+                            },
+                            "CameraPanActiveAction": {
+                                "$className": "InputAction",
+                                "$properties": {
+                                    "Enabled": false
+                                },
+                                "MouseBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "MouseRightButton"
+                                    }
                                 }
                             },
                             "MouseLockSwitchAction": {
@@ -148,47 +216,44 @@
                                 "$properties": {
                                     "Enabled": false
                                 },
-                                "LeftShift": {
+                                "KeyboardPrimaryBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "LeftShift"
                                     }
                                 },
-                                "RightShift": {
+                                "KeyboardSecondaryBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "RightShift"
                                     }
                                 }
                             },
-                            "CameraGamepadReset": {
+                            "CameraGamepadResetAction": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Enabled": false
                                 },
-                                "Binding": {
+                                "GamepadBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "ButtonL3"
                                     }
                                 }
                             },
-                            "CameraToggle": {
+                            "CameraToggleAction": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Enabled": false
                                 },
-                                "Binding": {
+                                "MouseBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "KeyCode": "MouseRightButton"
                                     }
                                 }
                             },
-                            "Rotation": {
-                                "$className": "InputAction"
-                            },
-                            "Camera": {
+                            "CameraAction": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Type": "Direction3D"
@@ -198,16 +263,16 @@
                         "VehicleContext": {
                             "$className": "InputContext",
                             "$properties": {
-                                "Priority": 1001,
+                                "Priority": 200,
                                 "Sink": true,
                                 "Enabled": false
                             },
-                            "Throttle": {
+                            "ThrottleAction": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Type": "Direction1D"
                                 },
-                                "ThrottleBinding": {
+                                "GamepadBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "Down": "ButtonR2",
@@ -215,12 +280,12 @@
                                     }
                                 }
                             },
-                            "Steer": {
+                            "SteerAction": {
                                 "$className": "InputAction",
                                 "$properties": {
                                     "Type": "Direction1D"
                                 },
-                                "VehicleArrowKeyBinding": {
+                                "KeyboardBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
                                         "Down": "Left",
