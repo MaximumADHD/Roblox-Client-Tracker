@@ -27,7 +27,7 @@ PROTO_0:
        34 GETUPVAL                         R8 4
        35 GETTABLEKS                       R7 R8 K9 ["ContextStack"]
        37 DUPTABLE                         R8 K13 [{"providers"}]
-       38 NEWTABLE                         R9 0 6
+       38 NEWTABLE                         R9 0 7
        40 GETUPVAL                         R11 3
        41 GETTABLEKS                       R10 R11 K11 ["createElement"]
        43 GETUPVAL                         R11 5
@@ -51,28 +51,33 @@ PROTO_0:
        67 GETTABLEKS                       R13 R14 K11 ["createElement"]
        69 GETUPVAL                         R15 8
        70 GETTABLEKS                       R14 R15 K20 ["Provider"]
-       72 DUPTABLE                         R15 K22 [{"value"}]
-       73 SETTABLEKS                       R1 R15 K21 ["value"]
-       75 CALL                             R13 2 1
-       76 GETUPVAL                         R15 3
-       77 GETTABLEKS                       R14 R15 K11 ["createElement"]
-       79 GETUPVAL                         R16 9
-       80 GETTABLEKS                       R15 R16 K20 ["Provider"]
-       82 DUPTABLE                         R16 K22 [{"value"}]
-       83 SETTABLEKS                       R2 R16 K21 ["value"]
-       85 CALL                             R14 2 1
-       86 GETUPVAL                         R16 3
-       87 GETTABLEKS                       R15 R16 K11 ["createElement"]
-       89 GETUPVAL                         R17 10
-       90 GETTABLEKS                       R16 R17 K20 ["Provider"]
-       92 CALL                             R15 1 -1
-       93 SETLIST                          R9 R10 -1 [1]
-       95 SETTABLEKS                       R9 R8 K12 ["providers"]
-       97 MOVE                             R9 R0
-       98 CALL                             R6 3 1
-       99 SETTABLEKS                       R6 R5 K9 ["ContextStack"]
-      101 CALL                             R3 2 -1
-      102 RETURN                           R3 -1
+       72 CALL                             R13 1 1
+       73 GETUPVAL                         R15 3
+       74 GETTABLEKS                       R14 R15 K11 ["createElement"]
+       76 GETUPVAL                         R16 9
+       77 GETTABLEKS                       R15 R16 K20 ["Provider"]
+       79 DUPTABLE                         R16 K22 [{"value"}]
+       80 SETTABLEKS                       R1 R16 K21 ["value"]
+       82 CALL                             R14 2 1
+       83 GETUPVAL                         R16 3
+       84 GETTABLEKS                       R15 R16 K11 ["createElement"]
+       86 GETUPVAL                         R17 10
+       87 GETTABLEKS                       R16 R17 K20 ["Provider"]
+       89 DUPTABLE                         R17 K22 [{"value"}]
+       90 SETTABLEKS                       R2 R17 K21 ["value"]
+       92 CALL                             R15 2 1
+       93 GETUPVAL                         R17 3
+       94 GETTABLEKS                       R16 R17 K11 ["createElement"]
+       96 GETUPVAL                         R18 11
+       97 GETTABLEKS                       R17 R18 K20 ["Provider"]
+       99 CALL                             R16 1 -1
+      100 SETLIST                          R9 R10 -1 [1]
+      102 SETTABLEKS                       R9 R8 K12 ["providers"]
+      104 MOVE                             R9 R0
+      105 CALL                             R6 3 1
+      106 SETTABLEKS                       R6 R5 K9 ["ContextStack"]
+      108 CALL                             R3 2 -1
+      109 RETURN                           R3 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -124,40 +129,46 @@ MAIN:
        82 CALL                             R12 1 1
        83 GETIMPORT                        R13 K5 [require]
        85 GETTABLEKS                       R16 R0 K17 ["Src"]
-       87 GETTABLEKS                       R15 R16 K22 ["Util"]
-       89 GETTABLEKS                       R14 R15 K23 ["mockNetworking"]
+       87 GETTABLEKS                       R15 R16 K15 ["Contexts"]
+       89 GETTABLEKS                       R14 R15 K22 ["SchemaKeyCodes"]
        91 CALL                             R13 1 1
-       92 GETTABLEKS                       R15 R6 K22 ["Util"]
-       94 GETTABLEKS                       R14 R15 K24 ["createFoundationDesignBinding"]
-       96 CALL                             R14 0 1
-       97 GETTABLEKS                       R16 R3 K25 ["Styling"]
-       99 GETTABLEKS                       R15 R16 K26 ["registerPluginStyles"]
-      101 GETIMPORT                        R16 K28 [plugin]
-      103 LOADNIL                          R17
-      104 LOADNIL                          R18
-      105 NEWTABLE                         R19 0 1
-      107 MOVE                             R20 R14
-      108 SETLIST                          R19 R20 1 [1]
-      110 CALL                             R15 4 1
-      111 NEWTABLE                         R16 0 2
-      113 GETTABLEKS                       R18 R5 K29 ["Analytics"]
-      115 GETTABLEKS                       R17 R18 K30 ["mock"]
-      117 CALL                             R17 0 1
-      118 GETTABLEKS                       R19 R5 K31 ["Design"]
-      120 GETTABLEKS                       R18 R19 K32 ["new"]
-      122 MOVE                             R19 R15
-      123 CALL                             R18 1 -1
-      124 SETLIST                          R16 R17 -1 [1]
-      126 DUPCLOSURE                       R17 K33 [PROTO_0]
-      127 CAPTURE                          VAL R13
-      128 CAPTURE                          VAL R4
-      129 CAPTURE                          VAL R16
-      130 CAPTURE                          VAL R1
-      131 CAPTURE                          VAL R2
-      132 CAPTURE                          VAL R7
-      133 CAPTURE                          VAL R8
-      134 CAPTURE                          VAL R12
-      135 CAPTURE                          VAL R11
-      136 CAPTURE                          VAL R10
-      137 CAPTURE                          VAL R9
-      138 RETURN                           R17 1
+       92 GETIMPORT                        R14 K5 [require]
+       94 GETTABLEKS                       R17 R0 K17 ["Src"]
+       96 GETTABLEKS                       R16 R17 K23 ["Util"]
+       98 GETTABLEKS                       R15 R16 K24 ["mockNetworking"]
+      100 CALL                             R14 1 1
+      101 GETTABLEKS                       R16 R6 K23 ["Util"]
+      103 GETTABLEKS                       R15 R16 K25 ["createFoundationDesignBinding"]
+      105 CALL                             R15 0 1
+      106 GETTABLEKS                       R17 R3 K26 ["Styling"]
+      108 GETTABLEKS                       R16 R17 K27 ["registerPluginStyles"]
+      110 GETIMPORT                        R17 K29 [plugin]
+      112 LOADNIL                          R18
+      113 LOADNIL                          R19
+      114 NEWTABLE                         R20 0 1
+      116 MOVE                             R21 R15
+      117 SETLIST                          R20 R21 1 [1]
+      119 CALL                             R16 4 1
+      120 NEWTABLE                         R17 0 2
+      122 GETTABLEKS                       R19 R5 K30 ["Analytics"]
+      124 GETTABLEKS                       R18 R19 K31 ["mock"]
+      126 CALL                             R18 0 1
+      127 GETTABLEKS                       R20 R5 K32 ["Design"]
+      129 GETTABLEKS                       R19 R20 K33 ["new"]
+      131 MOVE                             R20 R16
+      132 CALL                             R19 1 -1
+      133 SETLIST                          R17 R18 -1 [1]
+      135 DUPCLOSURE                       R18 K34 [PROTO_0]
+      136 CAPTURE                          VAL R14
+      137 CAPTURE                          VAL R4
+      138 CAPTURE                          VAL R17
+      139 CAPTURE                          VAL R1
+      140 CAPTURE                          VAL R2
+      141 CAPTURE                          VAL R7
+      142 CAPTURE                          VAL R8
+      143 CAPTURE                          VAL R13
+      144 CAPTURE                          VAL R12
+      145 CAPTURE                          VAL R11
+      146 CAPTURE                          VAL R10
+      147 CAPTURE                          VAL R9
+      148 RETURN                           R18 1

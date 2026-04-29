@@ -269,48 +269,52 @@ PROTO_6:
       242 GETUPVAL                         R18 10
       243 GETUPVAL                         R20 9
       244 GETTABLEKS                       R19 R20 K77 ["ScrollView"]
-      246 DUPTABLE                         R20 K79 [{"LayoutOrder", "tag", "scroll"}]
+      246 DUPTABLE                         R20 K80 [{"LayoutOrder", "tag", "scroll", "layout"}]
       247 NAMECALL                         R21 R8 K55 ["getNextOrder"]
       249 CALL                             R21 1 1
       250 SETTABLEKS                       R21 R20 K53 ["LayoutOrder"]
-      252 LOADK                            R21 K80 ["col size-full-0 auto-y fill gap-medium"]
+      252 LOADK                            R21 K81 ["col size-full-0 auto-y fill gap-medium"]
       253 SETTABLEKS                       R21 R20 K47 ["tag"]
-      255 DUPTABLE                         R21 K85 [{"AutomaticSize", "AutomaticCanvasSize", "CanvasSize", "VerticalScrollBarInset"}]
-      256 GETIMPORT                        R22 K87 [Enum.AutomaticSize.None]
-      258 SETTABLEKS                       R22 R21 K81 ["AutomaticSize"]
-      260 GETIMPORT                        R22 K89 [Enum.AutomaticSize.Y]
-      262 SETTABLEKS                       R22 R21 K82 ["AutomaticCanvasSize"]
-      264 GETIMPORT                        R22 K92 [UDim2.fromScale]
+      255 DUPTABLE                         R21 K86 [{"AutomaticSize", "AutomaticCanvasSize", "CanvasSize", "VerticalScrollBarInset"}]
+      256 GETIMPORT                        R22 K88 [Enum.AutomaticSize.None]
+      258 SETTABLEKS                       R22 R21 K82 ["AutomaticSize"]
+      260 GETIMPORT                        R22 K90 [Enum.AutomaticSize.Y]
+      262 SETTABLEKS                       R22 R21 K83 ["AutomaticCanvasSize"]
+      264 GETIMPORT                        R22 K93 [UDim2.fromScale]
       266 LOADN                            R23 1
       267 LOADN                            R24 1
       268 CALL                             R22 2 1
-      269 SETTABLEKS                       R22 R21 K83 ["CanvasSize"]
-      271 GETIMPORT                        R22 K95 [Enum.ScrollBarInset.ScrollBar]
-      273 SETTABLEKS                       R22 R21 K84 ["VerticalScrollBarInset"]
+      269 SETTABLEKS                       R22 R21 K84 ["CanvasSize"]
+      271 GETIMPORT                        R22 K96 [Enum.ScrollBarInset.ScrollBar]
+      273 SETTABLEKS                       R22 R21 K85 ["VerticalScrollBarInset"]
       275 SETTABLEKS                       R21 R20 K78 ["scroll"]
-      277 GETUPVAL                         R21 15
-      278 GETTABLEKS                       R22 R5 K5 ["uploadResults"]
-      280 CALL                             R21 1 -1
-      281 CALL                             R18 -1 1
-      282 SETTABLEKS                       R18 R17 K50 ["Content"]
-      284 GETUPVAL                         R18 10
-      285 GETUPVAL                         R21 9
-      286 GETTABLEKS                       R20 R21 K27 ["Dialog"]
-      288 GETTABLEKS                       R19 R20 K96 ["Actions"]
-      290 DUPTABLE                         R20 K99 [{"LayoutOrder", "actions", "orientation"}]
-      291 NAMECALL                         R21 R8 K55 ["getNextOrder"]
-      293 CALL                             R21 1 1
-      294 SETTABLEKS                       R21 R20 K53 ["LayoutOrder"]
-      296 SETTABLEKS                       R7 R20 K97 ["actions"]
-      298 GETUPVAL                         R22 16
-      299 GETTABLEKS                       R21 R22 K100 ["Horizontal"]
-      301 SETTABLEKS                       R21 R20 K98 ["orientation"]
-      303 CALL                             R18 2 1
-      304 SETTABLEKS                       R18 R17 K51 ["Buttons"]
-      306 CALL                             R14 3 1
-      307 SETTABLEKS                       R14 R13 K42 ["MainView"]
-      309 CALL                             R10 3 -1
-      310 RETURN                           R10 -1
+      277 DUPTABLE                         R21 K98 [{"FillDirection"}]
+      278 GETIMPORT                        R22 K100 [Enum.FillDirection.Vertical]
+      280 SETTABLEKS                       R22 R21 K97 ["FillDirection"]
+      282 SETTABLEKS                       R21 R20 K79 ["layout"]
+      284 GETUPVAL                         R21 15
+      285 GETTABLEKS                       R22 R5 K5 ["uploadResults"]
+      287 CALL                             R21 1 -1
+      288 CALL                             R18 -1 1
+      289 SETTABLEKS                       R18 R17 K50 ["Content"]
+      291 GETUPVAL                         R18 10
+      292 GETUPVAL                         R21 9
+      293 GETTABLEKS                       R20 R21 K27 ["Dialog"]
+      295 GETTABLEKS                       R19 R20 K101 ["Actions"]
+      297 DUPTABLE                         R20 K104 [{"LayoutOrder", "actions", "orientation"}]
+      298 NAMECALL                         R21 R8 K55 ["getNextOrder"]
+      300 CALL                             R21 1 1
+      301 SETTABLEKS                       R21 R20 K53 ["LayoutOrder"]
+      303 SETTABLEKS                       R7 R20 K102 ["actions"]
+      305 GETUPVAL                         R22 16
+      306 GETTABLEKS                       R21 R22 K105 ["Horizontal"]
+      308 SETTABLEKS                       R21 R20 K103 ["orientation"]
+      310 CALL                             R18 2 1
+      311 SETTABLEKS                       R18 R17 K51 ["Buttons"]
+      313 CALL                             R14 3 1
+      314 SETTABLEKS                       R14 R13 K42 ["MainView"]
+      316 CALL                             R10 3 -1
+      317 RETURN                           R10 -1
 
 MAIN:
         0 PREPVARARGS                      0

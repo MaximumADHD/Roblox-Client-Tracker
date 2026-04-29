@@ -7,14 +7,10 @@ local React = require(Packages.React)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 
-local Device = require(Foundation.Enums.Device)
-local Theme = require(Foundation.Enums.Theme)
 local TokenProcessingUtilities = require(Foundation.Providers.Style.Tokens.TokenProcessingUtilities)
-local Tokens = require(Foundation.Providers.Style.Tokens)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 type StoryProps = {
-	theme: string,
-	platform: string,
 	controls: {
 		searchText: string,
 		flattenColors: boolean,
@@ -252,12 +248,11 @@ local function TokensStory(props: StoryProps)
 	local searchText = props.controls.searchText
 	local flattenColors = props.controls.flattenColors
 	local alternateRowBackgrounds = props.controls.alternateRowBackgrounds
-	local selectedTheme = Theme[props.theme]
-	local selectedDevice = Device[props.platform]
 
-	-- Get tokens for current theme/device
+	-- Get tokens from context (includes any overrides applied via StyleProvider)
+	local tokens = useTokens()
+
 	local allTokens = React.useMemo(function()
-		local tokens = Tokens.getTokens(selectedTheme, selectedDevice)
 		local collected: { [string]: any } = {}
 
 		-- Show official categories, excluding Config and Semantic
@@ -274,7 +269,7 @@ local function TokensStory(props: StoryProps)
 		end
 
 		return collected
-	end, { selectedTheme, selectedDevice, flattenColors })
+	end, { tokens, flattenColors } :: { unknown })
 
 	return React.createElement(
 		View,

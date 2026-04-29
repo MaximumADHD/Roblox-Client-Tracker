@@ -35,7 +35,7 @@ local TweenService = game:GetService("TweenService")
 
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
-local FFlagUserPlayerScriptsCanUseLCC = FlagUtil.getUserFlag("UserPlayerScriptsCanUseLCC")
+local FFlagUserAllowAbilityControls = FlagUtil.getUserFlag("UserAllowAbilityControls")
 
 local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	local success, result = pcall(function()
@@ -45,7 +45,7 @@ local FFlagUserDynamicThumbstickSafeAreaUpdate do
 end
 
 local AvatarAbilitiesInterface
-if FFlagUserPlayerScriptsCanUseLCC then
+if FFlagUserAllowAbilityControls then
 	AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
 end
 
@@ -397,7 +397,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 			self.absoluteSizeChangedConn:Disconnect()
 			self.absoluteSizeChangedConn = nil
 		end
-		if FFlagUserPlayerScriptsCanUseLCC then		
+		if FFlagUserAllowAbilityControls then		
 			if self.avatarAbilitiesEnabledChangedConn then
 				self.avatarAbilitiesEnabledChangedConn:Disconnect()
 				self.avatarAbilitiesEnabledChangedConn = nil
@@ -474,7 +474,7 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 		local RADIUS_OF_DEAD_ZONE = 2
 		local RADIUS_OF_MAX_SPEED = 20
 
-		if FFlagUserPlayerScriptsCanUseLCC then
+		if FFlagUserAllowAbilityControls then
 			local scaleFactor = isBigScreen and 2 or 1
 
 			self.thumbstickSize = DEFAULT_THUMBSTICK_SIZE * scaleFactor
@@ -485,9 +485,10 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 			self.radiusOfMaxSpeed = RADIUS_OF_MAX_SPEED * scaleFactor
 			local outerRingSize = DEFAULT_OUTER_RING_SIZE * scaleFactor
 
-			if AvatarAbilitiesInterface:isEnabled() then
-				local thumbstickInset = isBigScreen and 88 or 64
-				self.startImage.Position = UDim2.new(0, outerRingSize * 0.5 + safeInset + thumbstickInset, 1, -outerRingSize * 0.5 - safeInset - thumbstickInset)
+			if AvatarAbilitiesInterface.isEnabled() then
+				local thumbstickInsetX = isBigScreen and 100 or 64
+				local thumbstickInsetY = isBigScreen and 112 or 64
+				self.startImage.Position = UDim2.new(0, outerRingSize * 0.5 + safeInset + thumbstickInsetX, 1, -outerRingSize * 0.5 - safeInset - thumbstickInsetY)
 				self.startImage.Size = UDim2.new(0, outerRingSize, 0, outerRingSize)
 			else
 				self.startImage.Position = UDim2.new(0, self.thumbstickRingSize * 3.3 + safeInset, 1, -self.thumbstickRingSize * 2.8 - safeInset)
@@ -520,8 +521,8 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 
 	ResizeThumbstick()
 	self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
-	if FFlagUserPlayerScriptsCanUseLCC then
-		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeThumbstick)
+	if FFlagUserAllowAbilityControls then
+		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal():Connect(ResizeThumbstick)
 	end
 
 	local CameraChangedConn: RBXScriptConnection? = nil

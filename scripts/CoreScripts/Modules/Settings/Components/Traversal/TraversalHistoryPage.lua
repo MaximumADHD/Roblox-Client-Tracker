@@ -8,7 +8,6 @@ local React = require(CorePackages.Packages.React)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
-local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 
 local Settings = script.Parent.Parent.Parent
@@ -22,7 +21,6 @@ local View = Foundation.View
 
 local Traversal = CoreScriptsRoactCommon.Traversal
 local LocalTraversalHistory = Traversal.LocalTraversalHistory.default
-local useLastInputMode = FocusNavigationUtils.useLastInputMode
 local GetInputModeStore = Responsive.GetInputModeStore
 local Input = Responsive.Input
 local TraversalConstants = Traversal.Constants
@@ -31,7 +29,6 @@ local useHistoryItems = Traversal.useHistoryItems
 local FIntMaximumTraversalHistoryItemsFetch = Traversal.Flags.FIntMaximumTraversalHistoryItemsFetch
 local FFlagTraversalExpPagePaddingFixes = Traversal.Flags.FFlagTraversalExpPagePaddingFixes
 local FFlagTraversalPerfFixes = Traversal.Flags.FFlagTraversalPerfFixes
-local FFlagTraversalRemoveLastInput = Traversal.Flags.FFlagTraversalRemoveLastInput
 local FFlagFixTraversalHistoryMenuFixesV3 = Traversal.Flags.FFlagFixTraversalHistoryMenuFixesV3
 
 export type TraversalHistoryPageProps = {}
@@ -45,10 +42,6 @@ local function TraversalHistoryPage(props: TraversalHistoryPageProps, ref: React
 	local historyItems = useHistoryItems(numItems)
 	local selectedUniverseId, setSelectedUniverseId = React.useState(TraversalConstants.NO_UNIVERSE_ID)
 	local reactPageSignal = SignalsReact.useSignalState(ReactPageSignal)
-	local lastInput
-	if not FFlagTraversalRemoveLastInput then
-		lastInput = useLastInputMode()
-	end
 
 	if FFlagFixTraversalHistoryMenuFixesV3 then
 		React.useEffect(function()
@@ -67,18 +60,13 @@ local function TraversalHistoryPage(props: TraversalHistoryPageProps, ref: React
 
 	local closeDialog = React.useCallback(function()
 		setSelectedUniverseId(TraversalConstants.NO_UNIVERSE_ID)
-		local isUsingFocus
-		if FFlagTraversalRemoveLastInput then
-			local lastInputType = UserInputService:GetLastInputType()
-			local inputMode = GetInputModeStore().getLastInputType()
-			isUsingFocus = inputMode == Input.Directional or inputMode == Input.Pointer and lastInputType == Enum.UserInputType.Keyboard
-		else
-			isUsingFocus = lastInput == "Focus"
-		end
+		local lastInputType = UserInputService:GetLastInputType()
+		local inputMode = GetInputModeStore().getLastInputType()
+		local isUsingFocus = inputMode == Input.Directional or inputMode == Input.Pointer and lastInputType == Enum.UserInputType.Keyboard
 		if isUsingFocus and pageRef.current then
 			GuiService.SelectedCoreObject = pageRef.current
 		end
-	end, if FFlagTraversalRemoveLastInput then {} else { setSelectedUniverseId, lastInput } :: { unknown })
+	end, {} )
 
 	local items = React.useMemo(function()
 		local mappedItems = Cryo.List.map(historyItems, function(item)

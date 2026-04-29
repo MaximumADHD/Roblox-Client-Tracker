@@ -11,8 +11,8 @@
 
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
 local vehicleContext = inputContexts:WaitForChild("VehicleContext")
-local throttleAction = vehicleContext:WaitForChild("Throttle") :: InputAction
-local steerAction = vehicleContext:WaitForChild("Steer") :: InputAction
+local throttleAction = vehicleContext:WaitForChild("ThrottleAction") :: InputAction
+local steerAction = vehicleContext:WaitForChild("SteerAction") :: InputAction
 
 local VehicleController = {}
 VehicleController.__index = VehicleController

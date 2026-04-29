@@ -1,7 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 local CoreGui = game:GetService("CoreGui")
-local GuiService = game:GetService("GuiService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
@@ -23,14 +22,8 @@ local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.
 
 local AppFontBaseSize = 16 * 1.2
 
-local UseBiggerText = false
-local UseStickyBarEnabled = false
-local UseBottomButtonBarOnMobile = false
-
 -- Roblox -> Nominal scaling factor depending on font
 local nominalSizeFactor = 0.794
-local topCornerInset, _ = GuiService:GetGuiInset()
-
 -- roughly maps SourceSans font size to Gotham/Builder using nominalSizeFactor, rounding down
 local fontSizeMap = {
 	[Enum.FontSize.Size14] = Enum.FontSize.Size11,
@@ -101,7 +94,7 @@ local AppFont = {
 		TextSize = 22 * nominalSizeFactor,
 	},
 	Username = {
-		RelativeSize = if UseBiggerText or isTenFootInterface
+		RelativeSize = if isTenFootInterface
 			then fontSizeMap[Enum.FontSize.Size24]
 			else fontSizeMap[Enum.FontSize.Size18],
 	},
@@ -182,11 +175,6 @@ local ComponentThemeKeys = {
 	HubBarContainer = "IGM_Background",
 	HubBarContainerTransparency = "IGM_Background",
 	HubBarContainerHover = "IGM_Background",
-	HubBarHomeButton = "IGM_Background",
-	HubBarHomeButtonHover = "IGM_Background",
-	HubBarHomeButtonTransparency = "IGM_Background",
-	HubBarHomeButtonTransparencyHover = "IGM_Background",
-
 	DarkenBackground = "Overlay",
 
 	PlayerRowFrame = "BackgroundDefault",
@@ -264,21 +252,10 @@ local function getViewportSize(): any
 	return (workspace.CurrentCamera :: Camera).ViewportSize
 end
 
-local function isPortrait()
-	local viewport = getViewportSize()
-	return viewport and viewport.Y > viewport.X
-end
-
 local viewportSize = getViewportSize()
 local IsSmallTouchScreen = viewportSize
 	and UserInputService.TouchEnabled
 	and (viewportSize.Y < 500 or viewportSize.X < 700)
-local UseStickyBar = function()
-	local currentViewportSize = getViewportSize()
-	local isSmallScreen = currentViewportSize and (currentViewportSize.Y < 500 or currentViewportSize.X < 700)
-	return UseStickyBarEnabled and isSmallScreen
-end
-
 local HubPadding = {
 	PaddingTop = UDim.new(0, 0),
 	PaddingLeft = UDim.new(0, 20),
@@ -307,40 +284,14 @@ local MenuContainerPositionMobile = {
 	AutomaticSize = Enum.AutomaticSize.XY,
 }
 
-local MenuContainerPositionMobileWithStickyBar = {
-	AnchorPoint = Vector2.new(0.5, 0),
-	Position = UDim2.new(0.5, 0, 0, topCornerInset.Y),
-	Size = UDim2.new(1, -24, 0, 0),
-	AutomaticSize = Enum.AutomaticSize.Y,
-}
-
 return {
 	DefaultScrollBarThickness = 1,
 	DefaultCornerRadius = UDim.new(0, 8),
 	MenuContainerCornerRadius = UDim.new(0, 10),
 	DefaultStokeThickness = 1,
 	AlwaysShowBottomBar = function()
-		if UseStickyBar() then
-			return true
-		end
-		if IsSmallTouchScreen then
-			if not UseBottomButtonBarOnMobile then
-				return false
-			elseif isPortrait() then
-				return UseBottomButtonBarOnMobile
-			else
-				return not UseBottomButtonBarOnMobile
-			end
-		else
-			return true
-		end
+		return not IsSmallTouchScreen
 	end,
-	UIBloxThemeEnabled = true,
-	ShowHomeButton = false,
-	EnableVerticalBottomBar = UseBottomButtonBarOnMobile,
-	UseBiggerText = UseBiggerText,
-	UseStickyBar = UseStickyBar,
-	EnableDarkenBackground = true,
 	TabHeaderIconPadding = 5,
 	UseInspectAndBuyPanel = function()
 		return IsSmallTouchScreen
@@ -377,11 +328,7 @@ return {
 			end
 		end
 		if IsSmallTouchScreen then
-			if UseStickyBar() then
-				return MenuContainerPositionMobileWithStickyBar
-			else
-				return MenuContainerPositionMobile
-			end
+			return MenuContainerPositionMobile
 		else
 			return MenuContainerPosition
 		end
@@ -390,7 +337,6 @@ return {
 	ButtonHeight = 36,
 	LargeButtonHeight = 48,
 	SelectorArrowButtonWidth = 32,
-	VerticalMenuWidth = 92,
 	Images = UIBloxImages,
 	getIconSize = getIconSize,
 	IconSize = IconSize,

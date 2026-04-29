@@ -29,6 +29,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 
 local FFlagFixIGMTabTransitions = require(script.Parent.Flags.GetFFlagFixIGMTabTransitions)
 local FFlagIEMSettingsGroups = require(script.Parent.Flags.FFlagIEMSettingsGroups)
+local FFlagIEMFocusNavSupportNewButtons = require(script.Parent.Flags.FFlagIEMFocusNavSupportNewButtons)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
@@ -303,7 +304,7 @@ local function Initialize()
 						valueChangerFrame = this:getValueChangerFrame(rows[1].ValueChanger)
 					end
 					GuiService.SelectedCoreObject = valueChangerFrame
-				elseif FFlagIEMFocusNavToButtons and this.PageNextSelectionDown then
+				elseif FFlagIEMFocusNavToButtons and this.PageNextSelectionDown and (not FFlagIEMFocusNavSupportNewButtons or this.PageNextSelectionDown:IsDescendantOf(CoreGui)) then
 					GuiService.SelectedCoreObject = this.PageNextSelectionDown
 				end
 			end

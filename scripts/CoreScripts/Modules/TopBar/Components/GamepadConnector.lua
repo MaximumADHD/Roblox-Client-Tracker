@@ -24,7 +24,6 @@ local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
-local FFlagVirtualCursorTopbarAlwaysVisible = SharedFlags.FFlagVirtualCursorTopbarAlwaysVisible
 local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
 
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
@@ -187,7 +186,7 @@ function GamepadConnector.new(): GamepadConnector
 					or self._tiltMenuOpen:get()
 					or (FFlagAddNewPlayerListFocusNav and self._playerListModalOpen:get())
 					or (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled)
-					or (FFlagVirtualCursorTopbarAlwaysVisible and GamepadService.GamepadCursorEnabled)
+					or GamepadService.GamepadCursorEnabled
 				self._showTopBar:set(showTopBar)
 				if showTopBar then
 					GuiService.CoreGuiNavigationEnabled = true
@@ -199,9 +198,7 @@ function GamepadConnector.new(): GamepadConnector
 			self._selectedCoreObject:connect(shouldShowTopBar)
 			self._chromeFocused:connect(shouldShowTopBar)
 			self._tiltMenuOpen:connect(shouldShowTopBar)
-			if FFlagShowUnibarOnVirtualCursor or FFlagVirtualCursorTopbarAlwaysVisible then
-				GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"):Connect(shouldShowTopBar)
-			end
+			GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"):Connect(shouldShowTopBar)
 			self._gamepadActive:connect(shouldShowTopBar, true)
 		end
 	end
@@ -212,7 +209,7 @@ function GamepadConnector.new(): GamepadConnector
 		end)
 	end
 		self._isTopBarFocused = function(): boolean
-			if FFlagVirtualCursorTopbarAlwaysVisible and GamepadService.GamepadCursorEnabled then
+			if GamepadService.GamepadCursorEnabled then
 				return false
 			end
 			return self._chromeFocused:get() or MenuIconSelectedSignal:get()

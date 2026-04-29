@@ -24,9 +24,20 @@ local SafeFlags = require(Packages.SafeFlags)
 	(you will be bugged by us to clean up your flag if you forget 👁️)
 ]]
 
-local FoundationBindableStateLayer = SafeFlags.createGetFFlag("FoundationBindableStateLayer")()
 local FoundationNumberInputTextFix = SafeFlags.createGetFFlag("FoundationNumberInputTextFix")()
+local FoundationNumberInputBindableValue = SafeFlags.createGetFFlag("FoundationNumberInputBindableValue")()
 local FoundationDisableStyleProviderDerives = SafeFlags.createGetFFlag("FoundationDisableStyleProviderDerives")()
+local FoundationSharedInputVariants = SafeFlags.createGetFFlag("FoundationSharedInputVariants")()
+local FoundationNumberInputVariant = SafeFlags.createGetFFlag("FoundationNumberInputVariant")()
+local FoundationInputFieldFixDisabled = SafeFlags.createGetFFlag("FoundationInputFieldFixDisabled")()
+local FoundationTextInputDisabledField = SafeFlags.createGetFFlag("FoundationTextInputDisabledField")()
+local FoundationNumberInputDisabledField = SafeFlags.createGetFFlag("FoundationNumberInputDisabledField")()
+local FoundationCleanupTextInputPolyfill = SafeFlags.createGetFFlag("FoundationCleanupTextInputPolyfill3")()
+local FoundationInputVariantsConsolidateContainer =
+	SafeFlags.createGetFFlag("FoundationInputVariantsConsolidateContainer")()
+local FoundationUseAttributeTokens = SafeFlags.createGetFFlag("FoundationUseAttributeTokens")()
+local FoundationPopoverPluginDepthPool = SafeFlags.createGetFFlag("FoundationPopoverPluginDepthPool")()
+local FoundationPopoverPluginPrewarmDepthPool = SafeFlags.createGetFFlag("FoundationPopoverPluginPrewarmDepthPool")()
 
 return {
 	-- Foundation@1.47.0
@@ -59,7 +70,6 @@ return {
 	FoundationSideSheetNewWidthCalculation = SafeFlags.createGetFFlag("FoundationSideSheetNewWidthCalculation")(),
 
 	-- Foundation@1.71.0
-	FoundationNumberInputFixControlSizes = SafeFlags.createGetFFlag("FoundationNumberInputFixControlSizes")(),
 	FoundationSideSheetFixNewWidth = SafeFlags.createGetFFlag("FoundationSideSheetFixNewWidth")(),
 
 	-- Foundation@1.72.0
@@ -72,15 +82,11 @@ return {
 	-- Foundation@1.73.0
 	FoundationAllowMockDataModel = SafeFlags.createGetFFlag("FoundationAllowMockDataModel")(),
 	FoundationBuildingBlocksRemoveDashUnion = SafeFlags.createGetFFlag("FoundationBuildingBlocksRemoveDashUnion")(),
-	FoundationDropdownControlIconFix = SafeFlags.createGetFFlag("FoundationDropdownControlIconFix")(),
 	FoundationOverlayKeyboardAwareness = SafeFlags.createGetFFlag("FoundationOverlayKeyboardAwareness")(),
-	FoundationSheetActionsNotSelectable = SafeFlags.createGetFFlag("FoundationSheetActionsNotSelectable")(),
-	FoundationSheetContentSelectable = SafeFlags.createGetFFlag("FoundationSheetContentSelectable")(),
 	FoundationSheetPreventCloseOnResize = SafeFlags.createGetFFlag("FoundationSheetPreventCloseOnResize")(),
 	FoundationViewRemoveDashUnion = SafeFlags.createGetFFlag("FoundationViewRemoveDashUnion")(),
 
 	-- Foundation@1.74.0
-	FFlagFoundationDateTimePickerDSTFix = SafeFlags.createGetFFlag("FFlagFoundationDateTimePickerDSTFix")(),
 	FoundationBaseMenuSubmenuSupport = SafeFlags.createGetFFlag("FoundationBaseMenuSubmenuSupport")(),
 	FoundationCenterSheetUseStableContainer = SafeFlags.createGetFFlag("FoundationCenterSheetUseStableContainer")(),
 	FoundationColorPickerDesignUpdate = SafeFlags.createGetFFlag("FoundationColorPickerDesignUpdate")(),
@@ -89,8 +95,6 @@ return {
 	FoundationTruncateBadgeText = SafeFlags.createGetFFlag("FoundationTruncateBadgeText2")(),
 
 	-- Foundation@1.75.0
-	FoundationBindableStateLayer = FoundationBindableStateLayer,
-	FoundationDateTimePickerScreenSize = SafeFlags.createGetFFlag("FoundationDateTimePickerScreenSize")(),
 	FoundationImageOnLoadedCallback = SafeFlags.createGetFFlag("FoundationImageOnLoadedCallback")(),
 
 	-- Foundation@1.76.0
@@ -122,7 +126,6 @@ return {
 	FoundationUseMainGuiUtility = SafeFlags.createGetFFlag("FoundationUseMainGuiUtility2")(),
 
 	-- Foundation@1.80.0
-	FoundationCleanupTextInputPolyfill = SafeFlags.createGetFFlag("FoundationCleanupTextInputPolyfill3")(),
 	FoundationFixUserLevelPlugins = SafeFlags.createGetFFlag("FoundationFixUserLevelPlugins")(),
 	FoundationImageFixBindingAspectRatio = SafeFlags.createGetFFlag("FoundationImageFixBindingAspectRatio")(),
 	FoundationTextInputFocusBehavior = SafeFlags.createGetFFlag("FoundationTextInputFocusBehavior")(),
@@ -133,6 +136,39 @@ return {
 	-- Foundation@1.81.0
 	FoundationTextAreaVariant = SafeFlags.createGetFFlag("FoundationTextAreaVariant")(),
 	FoundationTextInputVariant = SafeFlags.createGetFFlag("FoundationTextInputVariant")(),
+
+	-- Foundation@1.82.0
+	FoundationInputFieldFixDisabled = FoundationInputFieldFixDisabled,
+	FoundationInternalTextInputClearButton = SafeFlags.createGetFFlag("FoundationInternalTextInputClearButton")(),
+	FoundationMutedDropdownArrow = SafeFlags.createGetFFlag("FoundationMutedDropdownArrow")(),
+	FoundationNumberInputBindableValue = FoundationNumberInputTextFix and FoundationNumberInputBindableValue,
+	FoundationNumberInputDisabledField = FoundationNumberInputDisabledField and FoundationInputFieldFixDisabled,
+	FoundationNumberInputVariant = FoundationNumberInputTextFix and FoundationNumberInputVariant,
+	FoundationPopoverPluginDepthPool = FoundationPopoverPluginDepthPool,
+	FoundationReducedMotionAccordion = SafeFlags.createGetFFlag("FoundationReducedMotionAccordion")(),
+	FoundationSheetFullBleed = SafeFlags.createGetFFlag("FoundationSheetFullBleed")(),
+	FoundationTabsNavArrowsOnlyOnHover = SafeFlags.createGetFFlag("FoundationTabsNavArrowsOnlyOnHover")(),
+	FoundationTextAreaFixDoubleSelection = SafeFlags.createGetFFlag("FoundationTextAreaFixDoubleSelection")(),
+	FoundationTextInputDisabledField = FoundationTextInputDisabledField and FoundationInputFieldFixDisabled,
+
+	-- Foundation@1.83.0
+	FoundationPopoverPluginSecurityGate = SafeFlags.createGetFFlag("FoundationPopoverPluginSecurityGate")(),
+	FoundationSegmentedControlIconSupport = SafeFlags.createGetFFlag("FoundationSegmentedControlIconSupport")(),
+	FoundationTokenOverrides = FoundationUseAttributeTokens and SafeFlags.createGetFFlag("FoundationTokenOverrides")(),
+	FoundationUseAttributeTokens = FoundationUseAttributeTokens,
+
+	-- Foundation@1.84.0
+	FoundationCleanupTextInputPolyfill = FoundationCleanupTextInputPolyfill,
+	FoundationInputVariantsConsolidateContainer = FoundationInputVariantsConsolidateContainer
+		and FoundationNumberInputTextFix
+		and FoundationCleanupTextInputPolyfill,
+	FoundationPopoverPluginPrewarmDepthPool = FoundationPopoverPluginPrewarmDepthPool
+		and FoundationPopoverPluginDepthPool,
+	FoundationSharedInputVariants = FoundationSharedInputVariants
+		and FoundationCleanupTextInputPolyfill
+		and FoundationInputVariantsConsolidateContainer
+		and FoundationNumberInputTextFix,
+	FoundationActionEmphasisStatusIndicator = SafeFlags.createGetFFlag("FoundationActionEmphasisStatusIndicator")(),
 
 	-- Unreleased flags
 }

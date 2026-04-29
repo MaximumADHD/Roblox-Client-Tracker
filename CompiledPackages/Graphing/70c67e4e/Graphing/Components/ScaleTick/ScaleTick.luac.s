@@ -1,0 +1,292 @@
+PROTO_0:
+        0 LOADB                            R1 1
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R2 R3 K0 ["SIDE_TOP"]
+        4 JUMPIFEQ                         R0 R2 ; [+8]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R2 R3 K1 ["SIDE_BOTTOM"]
+        9 JUMPIFEQ                         R0 R2 ; [+2]
+       11 LOADB                            R1 0 +1
+       12 LOADB                            R1 1
+       13 RETURN                           R1 1
+
+PROTO_1:
+        0 GETTABLEKS                       R1 R0 K0 ["Length"]
+        2 GETIMPORT                        R2 K3 [UDim.new]
+        4 LOADN                            R3 0
+        5 GETTABLEKS                       R4 R0 K4 ["Thickness"]
+        7 JUMPIF                           R4 ; [+3]
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R4 R5 K5 ["SCALE_TICK_THICKNESS"]
+       11 CALL                             R2 2 1
+       12 GETIMPORT                        R3 K3 [UDim.new]
+       14 LOADN                            R4 0
+       15 GETTABLEKS                       R5 R0 K6 ["TextPadding"]
+       17 JUMPIF                           R5 ; [+3]
+       18 GETUPVAL                         R6 0
+       19 GETTABLEKS                       R5 R6 K7 ["SCALE_TICK_LABEL_PADDING"]
+       21 CALL                             R3 2 1
+       22 LOADB                            R4 1
+       23 GETTABLEKS                       R5 R0 K8 ["HasLabel"]
+       25 JUMPIFEQKNIL                     R5 ; [+3]
+       27 GETTABLEKS                       R4 R0 K8 ["HasLabel"]
+       29 GETUPVAL                         R6 1
+       30 GETTABLEKS                       R5 R6 K9 ["useContext"]
+       32 GETUPVAL                         R6 2
+       33 CALL                             R5 1 1
+       34 GETTABLEKS                       R8 R0 K10 ["Side"]
+       36 LOADB                            R7 1
+       37 GETUPVAL                         R10 3
+       38 GETTABLEKS                       R9 R10 K11 ["SIDE_TOP"]
+       40 JUMPIFEQ                         R8 R9 ; [+8]
+       42 GETUPVAL                         R10 3
+       43 GETTABLEKS                       R9 R10 K12 ["SIDE_BOTTOM"]
+       45 JUMPIFEQ                         R8 R9 ; [+2]
+       47 LOADB                            R7 0 +1
+       48 LOADB                            R7 1
+       49 JUMPIFNOT                        R7 ; [+6]
+       50 GETTABLEKS                       R6 R5 K13 ["isPointInViewportX"]
+       52 GETTABLEKS                       R7 R0 K14 ["Value"]
+       54 CALL                             R6 1 1
+       55 JUMP                             ; [+5]
+       56 GETTABLEKS                       R6 R5 K15 ["isPointInViewportY"]
+       58 GETTABLEKS                       R7 R0 K14 ["Value"]
+       60 CALL                             R6 1 1
+       61 LOADN                            R7 0
+       62 LOADN                            R8 0
+       63 LOADN                            R9 0
+       64 LOADN                            R10 0
+       65 GETIMPORT                        R11 K19 [Enum.TextXAlignment.Center]
+       67 GETIMPORT                        R12 K21 [Enum.TextYAlignment.Center]
+       69 GETIMPORT                        R13 K24 [UDim2.fromOffset]
+       71 LOADN                            R14 0
+       72 LOADN                            R15 0
+       73 CALL                             R13 2 1
+       74 GETIMPORT                        R14 K24 [UDim2.fromOffset]
+       76 LOADN                            R15 0
+       77 LOADN                            R16 0
+       78 CALL                             R14 2 1
+       79 GETTABLEKS                       R16 R0 K10 ["Side"]
+       81 LOADB                            R15 1
+       82 GETUPVAL                         R18 3
+       83 GETTABLEKS                       R17 R18 K11 ["SIDE_TOP"]
+       85 JUMPIFEQ                         R16 R17 ; [+8]
+       87 GETUPVAL                         R18 3
+       88 GETTABLEKS                       R17 R18 K12 ["SIDE_BOTTOM"]
+       90 JUMPIFEQ                         R16 R17 ; [+2]
+       92 LOADB                            R15 0 +1
+       93 LOADB                            R15 1
+       94 JUMPIFNOT                        R15 ; [+68]
+       95 GETIMPORT                        R15 K25 [UDim2.new]
+       97 MOVE                             R16 R2
+       98 MOVE                             R17 R1
+       99 CALL                             R15 2 1
+      100 MOVE                             R13 R15
+      101 GETTABLEKS                       R15 R5 K26 ["plotToViewX"]
+      103 GETTABLEKS                       R16 R0 K14 ["Value"]
+      105 CALL                             R15 1 1
+      106 MOVE                             R9 R15
+      107 LOADK                            R7 K27 [0.5]
+      108 GETTABLEKS                       R15 R0 K10 ["Side"]
+      110 GETUPVAL                         R17 3
+      111 GETTABLEKS                       R16 R17 K11 ["SIDE_TOP"]
+      113 JUMPIFNOTEQ                      R15 R16 ; [+14]
+      115 GETIMPORT                        R15 K25 [UDim2.new]
+      117 GETUPVAL                         R16 4
+      118 GETUPVAL                         R19 4
+      119 SUB                              R18 R19 R3
+      120 SUB                              R17 R18 R1
+      121 CALL                             R15 2 1
+      122 MOVE                             R14 R15
+      123 LOADN                            R10 1
+      124 LOADN                            R8 1
+      125 GETIMPORT                        R12 K29 [Enum.TextYAlignment.Bottom]
+      127 JUMP                             ; [+97]
+      128 GETTABLEKS                       R15 R0 K10 ["Side"]
+      130 GETUPVAL                         R17 3
+      131 GETTABLEKS                       R16 R17 K12 ["SIDE_BOTTOM"]
+      133 JUMPIFNOTEQ                      R15 R16 ; [+15]
+      135 GETIMPORT                        R15 K25 [UDim2.new]
+      137 GETUPVAL                         R16 4
+      138 GETIMPORT                        R18 K3 [UDim.new]
+      140 LOADN                            R19 0
+      141 LOADN                            R20 4
+      142 CALL                             R18 2 1
+      143 ADD                              R17 R18 R1
+      144 CALL                             R15 2 1
+      145 MOVE                             R14 R15
+      146 GETIMPORT                        R12 K31 [Enum.TextYAlignment.Top]
+      148 JUMP                             ; [+76]
+      149 LOADB                            R16 0
+      150 LOADK                            R18 K32 ["Unsupported side %*"]
+      151 GETTABLEKS                       R20 R0 K10 ["Side"]
+      153 NAMECALL                         R18 R18 K33 ["format"]
+      155 CALL                             R18 2 1
+      156 MOVE                             R17 R18
+      157 FASTCALL2                        ASSERT R16 R17 ; [+3]
+      159 GETIMPORT                        R15 K35 [assert]
+      161 CALL                             R15 2 0
+      162 JUMP                             ; [+62]
+      163 GETIMPORT                        R15 K25 [UDim2.new]
+      165 MOVE                             R16 R1
+      166 MOVE                             R17 R2
+      167 CALL                             R15 2 1
+      168 MOVE                             R13 R15
+      169 GETTABLEKS                       R15 R5 K36 ["plotToViewY"]
+      171 GETTABLEKS                       R16 R0 K14 ["Value"]
+      173 CALL                             R15 1 1
+      174 MOVE                             R10 R15
+      175 LOADK                            R8 K27 [0.5]
+      176 GETTABLEKS                       R15 R0 K10 ["Side"]
+      178 GETUPVAL                         R17 3
+      179 GETTABLEKS                       R16 R17 K37 ["SIDE_LEFT"]
+      181 JUMPIFNOTEQ                      R15 R16 ; [+14]
+      183 GETIMPORT                        R15 K25 [UDim2.new]
+      185 GETUPVAL                         R18 4
+      186 SUB                              R17 R18 R3
+      187 SUB                              R16 R17 R1
+      188 GETUPVAL                         R17 4
+      189 CALL                             R15 2 1
+      190 MOVE                             R14 R15
+      191 LOADN                            R9 1
+      192 LOADN                            R7 1
+      193 GETIMPORT                        R11 K39 [Enum.TextXAlignment.Right]
+      195 JUMP                             ; [+29]
+      196 GETTABLEKS                       R15 R0 K10 ["Side"]
+      198 GETUPVAL                         R17 3
+      199 GETTABLEKS                       R16 R17 K40 ["SIDE_RIGHT"]
+      201 JUMPIFNOTEQ                      R15 R16 ; [+10]
+      203 GETIMPORT                        R15 K25 [UDim2.new]
+      205 ADD                              R16 R3 R1
+      206 GETUPVAL                         R17 4
+      207 CALL                             R15 2 1
+      208 MOVE                             R14 R15
+      209 GETIMPORT                        R11 K42 [Enum.TextXAlignment.Left]
+      211 JUMP                             ; [+13]
+      212 LOADB                            R16 0
+      213 LOADK                            R18 K32 ["Unsupported side %*"]
+      214 GETTABLEKS                       R20 R0 K10 ["Side"]
+      216 NAMECALL                         R18 R18 K33 ["format"]
+      218 CALL                             R18 2 1
+      219 MOVE                             R17 R18
+      220 FASTCALL2                        ASSERT R16 R17 ; [+3]
+      222 GETIMPORT                        R15 K35 [assert]
+      224 CALL                             R15 2 0
+      225 MOVE                             R15 R6
+      226 JUMPIFNOT                        R15 ; [+118]
+      227 GETUPVAL                         R16 1
+      228 GETTABLEKS                       R15 R16 K43 ["createElement"]
+      230 GETUPVAL                         R17 1
+      231 GETTABLEKS                       R16 R17 K44 ["Fragment"]
+      233 NEWTABLE                         R17 0 0
+      235 DUPTABLE                         R18 K47 [{"Tick", "Label"}]
+      236 GETUPVAL                         R20 1
+      237 GETTABLEKS                       R19 R20 K43 ["createElement"]
+      239 LOADK                            R20 K48 ["Frame"]
+      240 DUPTABLE                         R21 K55 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "BorderSizePixel", "ZIndex"}]
+      241 GETIMPORT                        R22 K57 [Vector2.new]
+      243 MOVE                             R23 R7
+      244 MOVE                             R24 R8
+      245 CALL                             R22 2 1
+      246 SETTABLEKS                       R22 R21 K49 ["AnchorPoint"]
+      248 GETIMPORT                        R22 K59 [UDim2.fromScale]
+      250 MOVE                             R23 R9
+      251 MOVE                             R24 R10
+      252 CALL                             R22 2 1
+      253 SETTABLEKS                       R22 R21 K50 ["Position"]
+      255 SETTABLEKS                       R13 R21 K51 ["Size"]
+      257 GETTABLEKS                       R22 R0 K60 ["Color3"]
+      259 JUMPIF                           R22 ; [+3]
+      260 GETUPVAL                         R23 0
+      261 GETTABLEKS                       R22 R23 K61 ["SCALE_TICK_COLOR3"]
+      263 SETTABLEKS                       R22 R21 K52 ["BackgroundColor3"]
+      265 LOADN                            R22 0
+      266 SETTABLEKS                       R22 R21 K53 ["BorderSizePixel"]
+      268 GETTABLEKS                       R22 R0 K54 ["ZIndex"]
+      270 SETTABLEKS                       R22 R21 K54 ["ZIndex"]
+      272 CALL                             R19 2 1
+      273 SETTABLEKS                       R19 R18 K45 ["Tick"]
+      275 MOVE                             R19 R4
+      276 JUMPIFNOT                        R19 ; [+65]
+      277 GETUPVAL                         R20 1
+      278 GETTABLEKS                       R19 R20 K43 ["createElement"]
+      280 LOADK                            R20 K62 ["TextLabel"]
+      281 DUPTABLE                         R21 K67 [{"AnchorPoint", "Position", "Text", "TextXAlignment", "TextYAlignment", "BackgroundTransparency", "TextColor3", "TextSize", "ZIndex"}]
+      282 GETIMPORT                        R22 K57 [Vector2.new]
+      284 MOVE                             R23 R7
+      285 MOVE                             R24 R8
+      286 CALL                             R22 2 1
+      287 SETTABLEKS                       R22 R21 K49 ["AnchorPoint"]
+      289 GETIMPORT                        R23 K59 [UDim2.fromScale]
+      291 MOVE                             R24 R9
+      292 MOVE                             R25 R10
+      293 CALL                             R23 2 1
+      294 ADD                              R22 R23 R14
+      295 SETTABLEKS                       R22 R21 K50 ["Position"]
+      297 GETTABLEKS                       R23 R0 K68 ["Formatter"]
+      299 JUMPIFNOT                        R23 ; [+6]
+      300 GETTABLEKS                       R22 R0 K68 ["Formatter"]
+      302 GETTABLEKS                       R23 R0 K14 ["Value"]
+      304 CALL                             R22 1 1
+      305 JUMP                             ; [+6]
+      306 GETTABLEKS                       R23 R0 K14 ["Value"]
+      308 FASTCALL1                        TOSTRING R23 ; [+2]
+      309 GETIMPORT                        R22 K70 [tostring]
+      311 CALL                             R22 1 1
+      312 SETTABLEKS                       R22 R21 K63 ["Text"]
+      314 SETTABLEKS                       R11 R21 K17 ["TextXAlignment"]
+      316 SETTABLEKS                       R12 R21 K20 ["TextYAlignment"]
+      318 LOADN                            R22 1
+      319 SETTABLEKS                       R22 R21 K64 ["BackgroundTransparency"]
+      321 GETTABLEKS                       R22 R0 K60 ["Color3"]
+      323 JUMPIF                           R22 ; [+3]
+      324 GETUPVAL                         R23 0
+      325 GETTABLEKS                       R22 R23 K71 ["SCALE_TICK_LABEL_COLOR3"]
+      327 SETTABLEKS                       R22 R21 K65 ["TextColor3"]
+      329 GETTABLEKS                       R22 R0 K66 ["TextSize"]
+      331 JUMPIF                           R22 ; [+3]
+      332 GETUPVAL                         R23 0
+      333 GETTABLEKS                       R22 R23 K72 ["SCALE_TICK_LABEL_SIZE"]
+      335 SETTABLEKS                       R22 R21 K66 ["TextSize"]
+      337 GETTABLEKS                       R22 R0 K54 ["ZIndex"]
+      339 SETTABLEKS                       R22 R21 K54 ["ZIndex"]
+      341 CALL                             R19 2 1
+      342 SETTABLEKS                       R19 R18 K46 ["Label"]
+      344 CALL                             R15 3 1
+      345 RETURN                           R15 1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Graphing"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R1 R0 K4 ["Parent"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["React"]
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K6 [require]
+       16 GETTABLEKS                       R4 R0 K8 ["CanvasContext"]
+       18 CALL                             R3 1 1
+       19 GETIMPORT                        R4 K6 [require]
+       21 GETTABLEKS                       R6 R0 K9 ["Util"]
+       23 GETTABLEKS                       R5 R6 K10 ["StyleUtil"]
+       25 CALL                             R4 1 1
+       26 GETIMPORT                        R5 K6 [require]
+       28 GETTABLEKS                       R6 R0 K11 ["Types"]
+       30 CALL                             R5 1 1
+       31 GETIMPORT                        R6 K14 [UDim.new]
+       33 LOADN                            R7 0
+       34 LOADN                            R8 0
+       35 CALL                             R6 2 1
+       36 DUPCLOSURE                       R7 K15 [PROTO_0]
+       37 CAPTURE                          VAL R5
+       38 DUPCLOSURE                       R8 K16 [PROTO_1]
+       39 CAPTURE                          VAL R4
+       40 CAPTURE                          VAL R2
+       41 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R5
+       43 CAPTURE                          VAL R6
+       44 SETGLOBAL                        R8 K17 ["ScaleTick"]
+       46 GETGLOBAL                        R8 K17 ["ScaleTick"]
+       48 RETURN                           R8 1

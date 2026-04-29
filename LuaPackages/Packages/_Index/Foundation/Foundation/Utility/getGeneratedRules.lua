@@ -28,6 +28,15 @@ local requirePaths: { [StyleTagFormat]: { [typeof("Common") | Theme | Device]: (
 		end,
 	},
 	[StyleTagFormat.Attribute] = {
+		Common = function()
+			return require(Foundation.Generated.StyleRules.CommonAttribute)
+		end,
+		Dark = function()
+			return require(Foundation.Generated.StyleRules.DarkAttribute)
+		end,
+		Light = function()
+			return require(Foundation.Generated.StyleRules.LightAttribute)
+		end,
 		Console = function()
 			return require(Foundation.Generated.StyleRules.ConsoleAttribute)
 		end,
@@ -39,14 +48,26 @@ local requirePaths: { [StyleTagFormat]: { [typeof("Common") | Theme | Device]: (
 
 local function getGeneratedRules(theme: Theme, device: Device): any
 	local format: StyleTagFormat = StyleTagFormat.Attribute
-	local themeRules, sizeRules
+	local themeRules, sizeRules, commonRules
 
-	local commonRules = requirePaths[StyleTagFormat.Static]["Common"]()
+	if Flags.FoundationUseAttributeTokens then
+		commonRules = requirePaths[StyleTagFormat.Attribute]["Common"]()
+	else
+		commonRules = requirePaths[StyleTagFormat.Static]["Common"]()
+	end
 
 	if theme == Theme.Dark then
-		themeRules = requirePaths[StyleTagFormat.Static]["Dark" :: Theme]()
+		if Flags.FoundationUseAttributeTokens then
+			themeRules = requirePaths[StyleTagFormat.Attribute]["Dark" :: Theme]()
+		else
+			themeRules = requirePaths[StyleTagFormat.Static]["Dark" :: Theme]()
+		end
 	elseif theme == Theme.Light then
-		themeRules = requirePaths[StyleTagFormat.Static]["Light" :: Theme]()
+		if Flags.FoundationUseAttributeTokens then
+			themeRules = requirePaths[StyleTagFormat.Attribute]["Light" :: Theme]()
+		else
+			themeRules = requirePaths[StyleTagFormat.Static]["Light" :: Theme]()
+		end
 	end
 
 	if device == Device.Console and not Flags.FoundationDisableTokenScaling then

@@ -27,6 +27,7 @@ type _DeveloperProductDataFields = {
 	description: string,
 	image_asset_id: number,
 	price_in_robux: number,
+	status_text: string,
 }
 
 type _DeveloperProductDataPartialFields = {
@@ -35,6 +36,7 @@ type _DeveloperProductDataPartialFields = {
 	description: string?,
 	image_asset_id: number?,
 	price_in_robux: number?,
+	status_text: string?,
 }
 
 export type DeveloperProductData = typeof(setmetatable(
@@ -54,6 +56,7 @@ do
 			description = if data == nil or data.description == nil then "" else data.description,
 			image_asset_id = if data == nil or data.image_asset_id == nil then 0 else data.image_asset_id,
 			price_in_robux = if data == nil or data.price_in_robux == nil then 0 else data.price_in_robux,
+			status_text = if data == nil or data.status_text == nil then "" else data.status_text,
 		}, _DeveloperProductDataImpl :: _DeveloperProductDataImpl)
 	end
 
@@ -84,6 +87,11 @@ do
 		if self.price_in_robux ~= nil and self.price_in_robux ~= 0 then
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.price_in_robux)
+		end
+
+		if self.status_text ~= nil and self.status_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.status_text)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -129,6 +137,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.description = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.status_text = buffer.tostring(value)
 					continue
 				end
 
@@ -177,6 +190,10 @@ do
 			output.priceInRobux = self.price_in_robux
 		end
 
+		if self.status_text ~= nil and self.status_text ~= "" then
+			output.statusText = self.status_text
+		end
+
 		return output
 	end
 
@@ -209,6 +226,14 @@ do
 
 		if input.priceInRobux ~= nil then
 			self.price_in_robux = input.priceInRobux
+		end
+
+		if input.status_text ~= nil then
+			self.status_text = input.status_text
+		end
+
+		if input.statusText ~= nil then
+			self.status_text = input.statusText
 		end
 
 		return self

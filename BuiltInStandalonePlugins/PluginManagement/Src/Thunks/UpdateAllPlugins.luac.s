@@ -24,15 +24,16 @@ PROTO_0:
        31 NAMECALL                         R8 R8 K7 ["IsPluginUpToDate"]
        33 CALL                             R8 3 1
        34 MOVE                             R7 R8
-       35 JUMPIF                           R7 ; [+7]
+       35 JUMPIF                           R7 ; [+8]
        36 GETUPVAL                         R10 3
-       37 MOVE                             R11 R6
-       38 GETUPVAL                         R12 4
-       39 CALL                             R10 2 -1
-       40 NAMECALL                         R8 R0 K8 ["dispatch"]
-       42 CALL                             R8 -1 0
-       43 FORGLOOP                         R2 2 ; [-32]
-       45 RETURN                           R0 0
+       37 GETUPVAL                         R11 1
+       38 MOVE                             R12 R6
+       39 GETUPVAL                         R13 4
+       40 CALL                             R10 3 -1
+       41 NAMECALL                         R8 R0 K8 ["dispatch"]
+       43 CALL                             R8 -1 0
+       44 FORGLOOP                         R2 2 ; [-33]
+       46 RETURN                           R0 0
 
 PROTO_1:
         0 NEWCLOSURE                       R2 P0

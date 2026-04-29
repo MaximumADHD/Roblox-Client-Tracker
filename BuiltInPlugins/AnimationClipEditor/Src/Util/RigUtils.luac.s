@@ -762,7 +762,7 @@ MAIN:
        36 GETTABLEKS                       R6 R7 K15 ["GetFFlagEngineAnimator"]
        38 CALL                             R5 1 1
        39 GETIMPORT                        R6 K1 [game]
-       41 LOADK                            R8 K16 ["AnimRigLoadFromModel"]
+       41 LOADK                            R8 K16 ["AnimRigLoadFromModel2"]
        42 LOADB                            R9 0
        43 NAMECALL                         R6 R6 K11 ["DefineFastFlag"]
        45 CALL                             R6 3 1

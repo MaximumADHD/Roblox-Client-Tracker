@@ -26,51 +26,27 @@ local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 
-local getFFlagUGCValidationUpdateHeadIsDynamic = require(root.flags.getFFlagUGCValidationUpdateHeadIsDynamic)
 local getEngineFeatureEngineUGCValidateMinMaxMeshSizeAcrossAllFacs =
 	require(root.flags.getEngineFeatureEngineUGCValidateMinMaxMeshSizeAcrossAllFacs)
-local requiredActiveFACSControls
-if getFFlagUGCValidationUpdateHeadIsDynamic() then
-	requiredActiveFACSControls = {
-		"LeftEyeClosed",
-		"EyesLookDown",
-		"RightEyeClosed",
-		"JawDrop",
-		"Pucker",
-		"LeftLipCornerPuller",
-		"RightLipCornerPuller",
-		"ChinRaiser",
-		"ChinRaiserUpperLip",
-		"LeftCheekRaiser",
-		"RightCheekRaiser",
-		"LeftInnerBrowRaiser",
-		"RightInnerBrowRaiser",
-		"LeftLipCornerDown",
-		"RightLipCornerDown",
-		"LeftLowerLipDepressor",
-		"RightLowerLipDepressor",
-	}
-else
-	requiredActiveFACSControls = {
-		"LipsTogether",
-		"Pucker",
-		"LeftLipStretcher",
-		"RightLipStretcher",
-		"LeftLipCornerPuller",
-		"RightLipCornerPuller",
-		"LeftUpperLipRaiser",
-		"RightUpperLipRaiser",
-		"LeftLowerLipDepressor",
-		"RightLowerLipDepressor",
-		"JawDrop",
-		"LeftEyeClosed",
-		"RightEyeClosed",
-		"EyesLookRight",
-		"EyesLookLeft",
-		"EyesLookUp",
-		"EyesLookDown",
-	}
-end
+local requiredActiveFACSControls = {
+	"LeftEyeClosed",
+	"EyesLookDown",
+	"RightEyeClosed",
+	"JawDrop",
+	"Pucker",
+	"LeftLipCornerPuller",
+	"RightLipCornerPuller",
+	"ChinRaiser",
+	"ChinRaiserUpperLip",
+	"LeftCheekRaiser",
+	"RightCheekRaiser",
+	"LeftInnerBrowRaiser",
+	"RightInnerBrowRaiser",
+	"LeftLipCornerDown",
+	"RightLipCornerDown",
+	"LeftLowerLipDepressor",
+	"RightLowerLipDepressor",
+}
 
 local function downloadFailure(
 	isServer: boolean?,

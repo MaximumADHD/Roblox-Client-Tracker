@@ -24,7 +24,7 @@ PROTO_1:
         4 GETUPVAL                         R2 1
         5 CALL                             R2 0 1
         6 GETUPVAL                         R3 2
-        7 LOADK                            R4 K1 ["InputAction"]
+        7 LOADK                            R4 K1 ["InputContext"]
         8 CALL                             R3 1 3
         9 GETUPVAL                         R7 3
        10 GETTABLEKS                       R6 R7 K2 ["useMemo"]
@@ -108,27 +108,31 @@ PROTO_1:
       119 CALL                             R19 3 1
       120 SETTABLEKS                       R19 R18 K37 ["Children"]
       122 MOVE                             R19 R3
-      123 JUMPIFNOT                        R19 ; [+18]
+      123 JUMPIFNOT                        R19 ; [+25]
       124 GETUPVAL                         R20 3
       125 GETTABLEKS                       R19 R20 K3 ["createElement"]
       127 GETUPVAL                         R20 10
-      128 DUPTABLE                         R21 K43 [{"depth", "itemType", "LayoutOrder", "onCreated"}]
-      129 LOADN                            R22 0
-      130 SETTABLEKS                       R22 R21 K40 ["depth"]
-      132 LOADK                            R22 K44 ["InputContext"]
-      133 SETTABLEKS                       R22 R21 K41 ["itemType"]
-      135 MOVE                             R22 R1
-      136 CALL                             R22 0 1
-      137 SETTABLEKS                       R22 R21 K4 ["LayoutOrder"]
-      139 SETTABLEKS                       R5 R21 K42 ["onCreated"]
-      141 CALL                             R19 2 1
-      142 SETTABLEKS                       R19 R18 K38 ["Creating"]
-      144 CALL                             R15 3 1
-      145 SETTABLEKS                       R15 R14 K33 ["Content"]
-      147 CALL                             R11 3 1
-      148 SETTABLEKS                       R11 R10 K10 ["ScrollView"]
-      150 CALL                             R7 3 -1
-      151 RETURN                           R7 -1
+      128 DUPTABLE                         R21 K45 [{"bindings", "depth", "icon", "LayoutOrder", "name", "onCreated"}]
+      129 NEWTABLE                         R22 0 0
+      131 SETTABLEKS                       R22 R21 K40 ["bindings"]
+      133 LOADN                            R22 0
+      134 SETTABLEKS                       R22 R21 K41 ["depth"]
+      136 LOADK                            R22 K1 ["InputContext"]
+      137 SETTABLEKS                       R22 R21 K42 ["icon"]
+      139 MOVE                             R22 R1
+      140 CALL                             R22 0 1
+      141 SETTABLEKS                       R22 R21 K4 ["LayoutOrder"]
+      143 LOADK                            R22 K1 ["InputContext"]
+      144 SETTABLEKS                       R22 R21 K43 ["name"]
+      146 SETTABLEKS                       R5 R21 K44 ["onCreated"]
+      148 CALL                             R19 2 1
+      149 SETTABLEKS                       R19 R18 K38 ["Creating"]
+      151 CALL                             R15 3 1
+      152 SETTABLEKS                       R15 R14 K33 ["Content"]
+      154 CALL                             R11 3 1
+      155 SETTABLEKS                       R11 R10 K10 ["ScrollView"]
+      157 CALL                             R7 3 -1
+      158 RETURN                           R7 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -158,11 +162,11 @@ MAIN:
        42 CALL                             R7 1 1
        43 GETIMPORT                        R8 K5 [require]
        45 GETTABLEKS                       R10 R6 K14 ["Tree"]
-       47 GETTABLEKS                       R9 R10 K16 ["Header"]
+       47 GETTABLEKS                       R9 R10 K16 ["EmptyRow"]
        49 CALL                             R8 1 1
        50 GETIMPORT                        R9 K5 [require]
        52 GETTABLEKS                       R11 R6 K14 ["Tree"]
-       54 GETTABLEKS                       R10 R11 K17 ["Row"]
+       54 GETTABLEKS                       R10 R11 K17 ["Header"]
        56 CALL                             R9 1 1
        57 GETTABLEKS                       R10 R3 K18 ["ScrollView"]
        59 GETIMPORT                        R11 K5 [require]
@@ -186,9 +190,9 @@ MAIN:
        88 CAPTURE                          VAL R1
        89 CAPTURE                          VAL R7
        90 CAPTURE                          VAL R5
-       91 CAPTURE                          VAL R8
+       91 CAPTURE                          VAL R9
        92 CAPTURE                          VAL R4
        93 CAPTURE                          VAL R3
        94 CAPTURE                          VAL R10
-       95 CAPTURE                          VAL R9
+       95 CAPTURE                          VAL R8
        96 RETURN                           R14 1

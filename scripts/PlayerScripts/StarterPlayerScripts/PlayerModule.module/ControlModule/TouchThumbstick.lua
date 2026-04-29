@@ -12,10 +12,10 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
-local FFlagUserPlayerScriptsCanUseLCC = FlagUtil.getUserFlag("UserPlayerScriptsCanUseLCC")
+local FFlagUserAllowAbilityControls = FlagUtil.getUserFlag("UserAllowAbilityControls")
 
 local AvatarAbilitiesInterface
-if FFlagUserPlayerScriptsCanUseLCC then
+if FFlagUserAllowAbilityControls then
 	AvatarAbilitiesInterface = require(script.Parent:WaitForChild("AvatarAbilitiesInterface"))
 end
 
@@ -87,7 +87,7 @@ function TouchThumbstick:Create(parentFrame)
 			self.absoluteSizeChangedConn:Disconnect()
 			self.absoluteSizeChangedConn = nil
 		end
-		if FFlagUserPlayerScriptsCanUseLCC then		
+		if FFlagUserAllowAbilityControls then		
 			if self.avatarAbilitiesEnabledChangedConn then
 				self.avatarAbilitiesEnabledChangedConn:Disconnect()
 				self.avatarAbilitiesEnabledChangedConn = nil
@@ -121,10 +121,11 @@ function TouchThumbstick:Create(parentFrame)
 		local minAxis = math.min(parentFrame.AbsoluteSize.X, parentFrame.AbsoluteSize.Y)
 		local isSmallScreen = minAxis <= 500
 
-		if FFlagUserPlayerScriptsCanUseLCC and AvatarAbilitiesInterface:isEnabled() then
-			local buttonInset = isSmallScreen and 64 or 88
+		if FFlagUserAllowAbilityControls and AvatarAbilitiesInterface.isEnabled() then
+			local buttonInsetX = isSmallScreen and 64 or 100
+			local buttonInsetY = isSmallScreen and 64 or 112
 			self.thumbstickSize = isSmallScreen and 72 or 120
-			self.screenPos = UDim2.new(0, buttonInset, 1, -self.thumbstickSize - buttonInset)
+			self.screenPos = UDim2.new(0, buttonInsetX, 1, -self.thumbstickSize - buttonInsetY)
 		else
 			self.thumbstickSize = isSmallScreen and 70 or 120
 			self.screenPos = isSmallScreen and UDim2.new(0, (self.thumbstickSize/2) - 10, 1, -self.thumbstickSize - 20) or
@@ -140,8 +141,8 @@ function TouchThumbstick:Create(parentFrame)
 
 	ResizeThumbstick()
 	self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
-	if FFlagUserPlayerScriptsCanUseLCC then
-		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface:GetEnabledChangedSignal():Connect(ResizeThumbstick)
+	if FFlagUserAllowAbilityControls then
+		self.avatarAbilitiesEnabledChangedConn = AvatarAbilitiesInterface.GetEnabledChangedSignal():Connect(ResizeThumbstick)
 	end
 
 	outerImage.Parent = self.thumbstickFrame

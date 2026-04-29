@@ -117,6 +117,7 @@ local function SegmentedControl(segmentedControlProps: SegmentedControlProps, re
 						id = segment.id,
 						size = props.size,
 						text = segment.text,
+						icon = segment.icon,
 						isActive = segment.id == props.value,
 						onActivated = props.onActivated,
 						LayoutOrder = segmentOrder,

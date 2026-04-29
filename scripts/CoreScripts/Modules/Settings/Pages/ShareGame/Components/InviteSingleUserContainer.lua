@@ -27,7 +27,6 @@ local SingleUserThumbnail = require(ShareGame.Components.SingleUserThumbnail)
 local GetFFlagAbuseReportAnalyticsHasLaunchData =
 	require(Modules.Settings.Flags.GetFFlagAbuseReportAnalyticsHasLaunchData)
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
-local GetFFlagInviteListStyleFixes = require(Modules.Flags.GetFFlagInviteListStyleFixes)
 local GetFFlagThrottleInviteSendEndpoint = require(Modules.Flags.GetFFlagThrottleInviteSendEndpoint)
 local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThrottleInviteSendEndpointDelay)
 local GetFFlagSingleUserInvitePageKeybind = require(Modules.Settings.Flags.GetFFlagSingleUserInvitePageKeybind)
@@ -63,15 +62,18 @@ local InviteSingleUserContainer = function(props)
 		end
 	end, {})
 
-	local onClose = React.useCallback(function()
-		props.closePage()
-		if props.onAfterClosePage then
-			props.onAfterClosePage()
-		end
-	end, {
-		props.closePage,
-		props.onAfterClosePage,
-	} :: { any })
+	local onClose = React.useCallback(
+		function()
+			props.closePage()
+			if props.onAfterClosePage then
+				props.onAfterClosePage()
+			end
+		end,
+		{
+			props.closePage,
+			props.onAfterClosePage,
+		} :: { any }
+	)
 
 	local onCloseButtonActivated = React.useCallback(function()
 		props.analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.CancelInvite)
@@ -80,71 +82,82 @@ local InviteSingleUserContainer = function(props)
 		onClose,
 	})
 
-	local onInvite = React.useCallback(function()
-		setSendingInvite(true)
-		local inviteUser = props.inviteUser
-		local analytics = props.analytics :: any
-		if inviteStatus and inviteStatus ~= InviteStatus.Failed then
-			return
-		end
-
-		local isLaunchDataProvided = props.launchData ~= nil and props.launchData ~= ""
-		analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.SendInvite, {
-			recipient = friend.id,
-			isLaunchDataProvided = if GetFFlagAbuseReportAnalyticsHasLaunchData() then isLaunchDataProvided else nil,
-		})
-
-		local onSuccess = function(results)
-			setSendingInvite(false)
-			if not results then
+	local onInvite = React.useCallback(
+		function()
+			setSendingInvite(true)
+			local inviteUser = props.inviteUser
+			local analytics = props.analytics :: any
+			if inviteStatus and inviteStatus ~= InviteStatus.Failed then
 				return
 			end
 
-			local participants = { friend.id }
-			if Players.LocalPlayer and results.conversationId then
-				local localPlayer = Players.LocalPlayer :: Player
-				analytics:onActivatedInviteSent(localPlayer.UserId, results.conversationId, participants)
+			local isLaunchDataProvided = props.launchData ~= nil and props.launchData ~= ""
+			analytics:sendEvent(ShareGameConstants.Triggers.DeveloperSingle, InviteEvents.SendInvite, {
+				recipient = friend.id,
+				isLaunchDataProvided = if GetFFlagAbuseReportAnalyticsHasLaunchData()
+					then isLaunchDataProvided
+					else nil,
+			})
+
+			local onSuccess = function(results)
+				setSendingInvite(false)
+				if not results then
+					return
+				end
+
+				local participants = { friend.id }
+				if Players.LocalPlayer and results.conversationId then
+					local localPlayer = Players.LocalPlayer :: Player
+					analytics:onActivatedInviteSent(localPlayer.UserId, results.conversationId, participants)
+				end
+
+				onClose()
 			end
 
-			onClose()
-		end
-
-		inviteUser(tostring(friend.id), analytics, props.inviteMessageId, props.launchData):andThen(onSuccess, onClose)
-	end, {
-		props.inviteUser,
-		props.inviteMessageId,
-		props.launchData,
-		props.analytics,
-		setSendingInvite,
-		inviteStatus,
-		friend,
-		onClose,
-	} :: { any })
+			inviteUser(tostring(friend.id), analytics, props.inviteMessageId, props.launchData):andThen(
+				onSuccess,
+				onClose
+			)
+		end,
+		{
+			props.inviteUser,
+			props.inviteMessageId,
+			props.launchData,
+			props.analytics,
+			setSendingInvite,
+			inviteStatus,
+			friend,
+			onClose,
+		} :: { any }
+	)
 
 	if GetFFlagSingleUserInvitePageKeybind() then
-		React.useEffect(function(): (() -> ())?
-			if props.isVisible then
-				ContextActionService:BindCoreAction(CONFIRM_BUTTON_BIND, function(_, inputState, _)
-					if inputState == Enum.UserInputState.Begin then
-						onInvite()
+		React.useEffect(
+			function(): (() -> ())?
+				if props.isVisible then
+					ContextActionService:BindCoreAction(CONFIRM_BUTTON_BIND, function(_, inputState, _)
+						if inputState == Enum.UserInputState.Begin then
+							onInvite()
+						end
+					end, false, Enum.KeyCode.ButtonA)
+					ContextActionService:BindCoreAction(CANCEL_BUTTON_BIND, function(_, inputState, _)
+						if inputState == Enum.UserInputState.Begin then
+							onCloseButtonActivated()
+						end
+					end, false, Enum.KeyCode.ButtonB)
+					return function()
+						ContextActionService:UnbindCoreAction(CONFIRM_BUTTON_BIND)
+						ContextActionService:UnbindCoreAction(CANCEL_BUTTON_BIND)
 					end
-				end, false, Enum.KeyCode.ButtonA)
-				ContextActionService:BindCoreAction(CANCEL_BUTTON_BIND, function(_, inputState, _)
-					if inputState == Enum.UserInputState.Begin then
-						onCloseButtonActivated()
-					end
-				end, false, Enum.KeyCode.ButtonB)
-				return function()
-					ContextActionService:UnbindCoreAction(CONFIRM_BUTTON_BIND)
-					ContextActionService:UnbindCoreAction(CANCEL_BUTTON_BIND)
 				end
-			end
-			return nil
-		end, {
-			props.isVisible,
-			onInvite,
-			onCloseButtonActivated,
-		} :: { any })
+				return nil
+			end,
+			{
+				props.isVisible,
+				onInvite,
+				onCloseButtonActivated,
+			} :: { any }
+		)
 	end
 
 	if GetFFlagThrottleInviteSendEndpoint() then
@@ -170,23 +183,19 @@ local InviteSingleUserContainer = function(props)
 		then "Feature.SettingsHub.Label.Invited"
 		else "Feature.SettingsHub.Action.InviteFriend"
 
-	local applyStyleFixes = GetFFlagInviteListStyleFixes()
-
 	return React.createElement("Frame", {
-		Size = if applyStyleFixes then UDim2.new(1, 0, 0, 0) else UDim2.new(0, MODAL_WIDTH, 0, 0),
+		Size = UDim2.new(1, 0, 0, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		BorderSizePixel = 0,
-		BackgroundColor3 = if applyStyleFixes then BACKGROUND_COLOR else Colors.FLINT,
-		BackgroundTransparency = if applyStyleFixes then 0.1 else 0,
+		BackgroundColor3 = BACKGROUND_COLOR,
+		BackgroundTransparency = 0.1,
 	}, {
-		SizeConstraint = if applyStyleFixes
-			then React.createElement("UISizeConstraint", {
-				MaxSize = Vector2.new(MODAL_WIDTH, math.huge),
-				MinSize = Vector2.new(0, 0),
-			})
-			else nil,
+		SizeConstraint = React.createElement("UISizeConstraint", {
+			MaxSize = Vector2.new(MODAL_WIDTH, math.huge),
+			MinSize = Vector2.new(0, 0),
+		}),
 		Corner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, BACKGROUND_BORDER_RADIUS),
 		}),
@@ -227,7 +236,7 @@ local InviteSingleUserContainer = function(props)
 				size = UDim2.new(0, 95, 0, 95),
 				layoutOrder = 1,
 				square = true,
-				backgroundTransparency = if applyStyleFixes then 1 else nil,
+				backgroundTransparency = 1,
 			}),
 
 			TextBody = React.createElement(StyledTextLabel, {

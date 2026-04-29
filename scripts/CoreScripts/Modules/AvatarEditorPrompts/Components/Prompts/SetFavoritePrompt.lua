@@ -1,5 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local GuiService = game:GetService("GuiService")
+local ContextActionService = game:GetService("ContextActionService")
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
@@ -18,6 +20,8 @@ local AvatarEditorPrompts = Components.Parent
 
 local PerformSetFavorite = require(AvatarEditorPrompts.Thunks.PerformSetFavorite)
 local SignalSetFavoritePermissionDenied = require(AvatarEditorPrompts.Thunks.SignalSetFavoritePermissionDenied)
+
+local FFlagCloseFavoritePromptWithB = game:DefineFastFlag("CloseFavoritePromptWithB", false)
 
 local DELAYED_INPUT_ANIM_SEC = 3
 
@@ -60,6 +64,26 @@ function SetFavoritePrompt:init()
 				showFailedStateWhenLoadingFailed = true,
 			}),
 		})
+	end
+
+	if FFlagCloseFavoritePromptWithB then 
+		self.menuKey = "favorite_prompt_" .. self.props.itemId
+		
+		GuiService:SetMenuIsOpen(true, self.menuKey)
+		ContextActionService:BindCoreAction(self.menuKey, function(actionName, inputState, inputObject) 
+			if inputState ~= Enum.UserInputState.End then
+				return Enum.ContextActionResult.Pass
+			end
+			self.props.signalSetFavoritePermissionDenied()
+			return Enum.ContextActionResult.Sink
+		end, false, Enum.KeyCode.ButtonB, Enum.KeyCode.Escape)
+	end
+end
+
+function SetFavoritePrompt:willUnmount()
+	if FFlagCloseFavoritePromptWithB then
+		GuiService:SetMenuIsOpen(false, self.menuKey)
+		ContextActionService:UnbindCoreAction(self.menuKey)
 	end
 end
 

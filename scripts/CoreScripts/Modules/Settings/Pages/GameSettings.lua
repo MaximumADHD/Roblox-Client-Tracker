@@ -84,9 +84,9 @@ local FFlagCenterShiftLockOverride = game:DefineFastFlag("CenterShiftLockOverrid
 local FFlagVoiceChatSelectorReconnectFocus = game:DefineFastFlag("VoiceChatSelectorReconnectFocus2_AEGIS2", false)
 local FFlagMicroProfilerReadOnlyInformationLabel = game:DefineFastFlag("MicroProfilerReadOnlyInformationLabel", false)
 local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRemoteEvent
-local FFlagModerateChatAnalytics = game:DefineFastFlag("ModerateChatAnalytics", false)
 local FFlagVoiceSelectorAvailableAfterFae = game:DefineFastFlag("VoiceSelectorAvailableAfterFae", false)
 local FFlagDifferentiateVoiceSelectorSystemAndUser = game:DefineFastFlag("DifferentiateVoiceSelectorSystemAndUser", false)
+local FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -3174,9 +3174,7 @@ local function Initialize()
 		this.ChatModerationSelector.IndexChanged:connect(function(newIndex)
 			local isEnabled = newIndex == 2
 			chatModerationStore.setIsSettingEnabled(isEnabled)
-			if FFlagModerateChatAnalytics then
-				reportSettingsChangeForAnalytics("moderate_chat", not isEnabled, isEnabled)
-			end
+			reportSettingsChangeForAnalytics("moderate_chat", not isEnabled, isEnabled)
 		end)
 		-- Fetches whether the user has the chat moderation permission. This will trigger updates in the store.
 		chatModerationStore.initialize()
@@ -3551,10 +3549,17 @@ local function Initialize()
 				return
 			end
 
-			VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
-				"clicked",
-				VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(newIndex == connectedIndex)
-			)
+			if FFlagVoiceRewarmTelemetry then
+				local universeId, placeId, playSessionId, voiceSessionId = VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(newIndex == connectedIndex)
+				VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
+					"clicked", universeId, placeId, playSessionId, voiceSessionId, VoiceChatServiceManager.joinVoiceButtonContext
+				)
+			else
+				VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
+					"clicked",
+					VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(newIndex == connectedIndex)
+				)
+			end
 
 			if newIndex == connectedIndex then
 				VoiceChatServiceManager:JoinVoice()
@@ -3634,18 +3639,32 @@ local function Initialize()
 					stateChangedConnection = VoiceChatServiceManager:getService().StateChanged
 						:Connect(function(oldState, newState)
 							if newState == (Enum :: any).VoiceChatState.Joined then
-								VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
-									"clicked",
-									VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true)
-								)
+								if FFlagVoiceRewarmTelemetry then
+									local universeId, placeId, playSessionId, voiceSessionId = VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true)
+									VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
+										"clicked", universeId, placeId, playSessionId, voiceSessionId, VoiceChatServiceManager.joinVoiceButtonContext
+									)
+								else
+									VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
+										"clicked",
+										VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true)
+									)
+								end
 								stateChangedConnection:Disconnect()
 							end
 						end)
 				else
-					VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
-						"clicked",
-						VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(false)
-					)
+					if FFlagVoiceRewarmTelemetry then
+						local universeId, placeId, playSessionId, voiceSessionId = VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(false)
+						VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
+							"clicked", universeId, placeId, playSessionId, voiceSessionId, VoiceChatServiceManager.joinVoiceButtonContext
+						)
+					else
+						VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
+							"clicked",
+							VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(false)
+						)
+					end
 				end
 				VoiceChatServiceManager:JoinVoice()
 			end

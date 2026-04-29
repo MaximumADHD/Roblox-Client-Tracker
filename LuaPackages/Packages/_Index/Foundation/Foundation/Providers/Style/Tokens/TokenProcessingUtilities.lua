@@ -237,6 +237,38 @@ local orderedTokenCategories = {
 	"Config",
 }
 
+-- Get a nested value from a token table using a dot-separated path
+-- Example: getTokenValue(tokens, "Color.Surface.Surface_0") -> Color3 value
+local function getTokenValue(tokens: any, path: string): any
+	local current = tokens
+	for _, segment in string.split(path, ".") do
+		if current == nil or type(current) ~= "table" then
+			return nil
+		end
+		current = current[segment]
+	end
+	return current
+end
+
+-- Set a nested value in a token table using a dot-separated path
+-- Does nothing if the path doesn't exist (won't create intermediate tables)
+local function setTokenValue(tokens: any, path: string, value: any)
+	local segments = string.split(path, ".")
+	local current = tokens
+	for i = 1, #segments - 1 do
+		local segment = segments[i]
+		if current[segment] == nil then
+			return
+		end
+		current = current[segment]
+	end
+
+	local lastSegment = segments[#segments]
+	if current and lastSegment then
+		current[lastSegment] = value
+	end
+end
+
 return {
 	isColorStyle = isColorStyle,
 	formatColorPreviewHTML = formatColorPreviewHTML,
@@ -247,4 +279,6 @@ return {
 	hasSubcategories = hasSubcategories,
 	sortTokens = sortTokens,
 	orderedTokenCategories = orderedTokenCategories,
+	getTokenValue = getTokenValue,
+	setTokenValue = setTokenValue,
 }

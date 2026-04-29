@@ -13,14 +13,19 @@ Reading the DataModel to get state for every operation can be very slow, especia
 local Foundation = script:FindFirstAncestor("Foundation")
 local Device = require(Foundation.Enums.Device)
 local Theme = require(Foundation.Enums.Theme)
+local Tokens = require(Foundation.Providers.Style.Tokens)
 local Types = require(script.Parent.Rules.Types)
 type Theme = Theme.Theme
 type Device = Device.Device
+type TokenOverrides = Tokens.TokenOverrides
 type StyleRuleNoTag = Types.StyleRuleNoTag
 
 local Flags = require(Foundation.Utility.Flags)
 local getGeneratedRules = require(Foundation.Utility.getGeneratedRules)
+local getOverrideAttributes = require(script.Parent.getOverrideAttributes)
 local scaleValue = require(Foundation.Utility.scaleValue)
+type OverrideAttributes = getOverrideAttributes.OverrideAttributes
+
 local registryFolder = Instance.new("Folder")
 registryFolder.Name = "FoundationStyleSheets"
 registryFolder.Parent = Foundation
@@ -29,6 +34,8 @@ type FoundationStyleSheet = {
 	theme: Theme,
 	device: Device,
 	scale: number,
+	tokenOverrides: TokenOverrides?,
+	overrideAttributes: OverrideAttributes,
 	instance: StyleSheet,
 	tags: { [string]: boolean },
 	rules: { [string]: StyleRuleNoTag },
@@ -37,16 +44,25 @@ type FoundationStyleSheet = {
 
 local styleSheetRegistry: { [StyleSheet]: FoundationStyleSheet } = {}
 
-local function createStyleSheet(theme: Theme, deviceInput: Device?, scaleInput: number?): FoundationStyleSheet
+local function createStyleSheet(
+	theme: Theme,
+	deviceInput: Device?,
+	scaleInput: number?,
+	tokenOverrides: TokenOverrides?
+): FoundationStyleSheet
 	local device: Device = deviceInput or Device.Desktop
 	local scale = scaleInput or 1
 	local styleSheet = Instance.new("StyleSheet")
-	styleSheet.Name = `{theme}-{device}-{scale}`
+	styleSheet.Name = if tokenOverrides ~= nil
+		then `{theme}-{device}-{scale}-{tostring(tokenOverrides)}`
+		else `{theme}-{device}-{scale}`
 	styleSheet.Parent = registryFolder
 	return {
 		theme = theme,
 		device = device,
 		scale = scale,
+		tokenOverrides = tokenOverrides,
+		overrideAttributes = getOverrideAttributes(theme, device, tokenOverrides),
 		instance = styleSheet,
 		tags = {},
 		rules = getGeneratedRules(theme, device),
@@ -82,11 +98,11 @@ local function applyAttributes(sheet: FoundationStyleSheet, attributes: { Types.
 			continue
 		end
 
-		local scaledValue = if Flags.FoundationDisableTokenScaling
-			then attribute.value
-			else scaleValue(attribute.value, sheet.scale)
+		local overrideValue = sheet.overrideAttributes[attribute.name]
+		local rawValue = if overrideValue ~= nil then overrideValue else attribute.value
+		local value = if Flags.FoundationDisableTokenScaling then rawValue else scaleValue(rawValue, sheet.scale)
 		sheet.attributes[attribute.name] = true
-		sheet.instance:SetAttribute(attribute.name, scaledValue)
+		sheet.instance:SetAttribute(attribute.name, value)
 	end
 end
 
@@ -114,7 +130,18 @@ local function addRegisteredStyleSheetTags(sheet: FoundationStyleSheet, tags: { 
 	end
 end
 
-local function getStyleSheet(theme: Theme, deviceInput: Device?, scaleInput: number?): StyleSheet
+--[[
+NOTE: `tokenOverrides` is compared by reference. Consumers MUST keep their
+overrides table stable across calls (e.g. via React.useMemo or storing it on a
+ref) -- passing a fresh table each time will create a new StyleSheet entry
+every call and never hit the cache.
+]]
+local function getStyleSheet(
+	theme: Theme,
+	deviceInput: Device?,
+	scaleInput: number?,
+	tokenOverrides: TokenOverrides?
+): StyleSheet
 	local device: Device = deviceInput or Device.Desktop
 	local scale = scaleInput or 1
 	for instance, foundationStyleSheet in styleSheetRegistry do
@@ -122,11 +149,12 @@ local function getStyleSheet(theme: Theme, deviceInput: Device?, scaleInput: num
 			foundationStyleSheet.theme == theme
 			and foundationStyleSheet.device == device
 			and foundationStyleSheet.scale == scale
+			and foundationStyleSheet.tokenOverrides == tokenOverrides
 		then
 			return instance
 		end
 	end
-	local foundationStyleSheet = createStyleSheet(theme, device, scale)
+	local foundationStyleSheet = createStyleSheet(theme, device, scale, tokenOverrides)
 	styleSheetRegistry[foundationStyleSheet.instance] = foundationStyleSheet
 	return foundationStyleSheet.instance
 end

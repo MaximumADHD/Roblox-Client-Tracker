@@ -28,8 +28,6 @@ local FFlagConnectIntegrationCheckForDirectionalInput =
 local FFlagEnableAppChatFocusableFixes =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAppChatFocusableFixes
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
-local GetFFlagAppChatRebrandStringUpdates =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAppChatRebrandStringUpdates
 
 return function(id: string, initialAvailability: number)
 	-- only enable squad (a.k.a. party) indicator for the unibar icon, other variants, like dropdown icon, won't need it
@@ -37,7 +35,7 @@ return function(id: string, initialAvailability: number)
 	local integration = ChromeService:register({
 		id = id,
 		sideSheetPlacement = if id == "connect_unibar" then SideSheetPlacement.Unibar else SideSheetPlacement.Vertical,
-		label = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()
+		label = if GetFFlagIsSquadEnabled()
 			then "Feature.Squads.Label.Party" -- translated in some languages
 			else "Feature.Chat.Label.RobloxChat", -- intentionally not translated, temp string before Party launch
 		activated = function()

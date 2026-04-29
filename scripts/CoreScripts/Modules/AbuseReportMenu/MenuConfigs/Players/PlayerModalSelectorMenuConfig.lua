@@ -7,8 +7,7 @@ local Types = require(root.Components.Types)
 local Constants = require(root.Components.Constants)
 local InExperienceCapabilities =
 	require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
-local GetFFlagAbuseReportShouldUseCanDisplayPeoplesUsernamesAppPolicy =
-	require(root.Flags.GetFFlagAbuseReportShouldUseCanDisplayPeoplesUsernamesAppPolicy)
+
 local FFlagInGameMenuAddChatLineReporting =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagInGameMenuAddChatLineReporting
 
@@ -22,21 +21,13 @@ local PlayerModalSelectorMenuConfig: Types.ModalSelectorMenuItemType = {
 			local verifiedEmoji = if UserLib.Utils.isPlayerVerified(playerObject)
 				then VerifiedBadges.emoji.verified
 				else ""
-			if GetFFlagAbuseReportShouldUseCanDisplayPeoplesUsernamesAppPolicy() then
-				return {
-					label = playerObject.DisplayName .. verifiedEmoji,
-					subLabel = if InExperienceCapabilities.canDisplayPeoplesUsernames
-						then "[@" .. playerObject.Name .. "]"
-						else nil,
-					identifier = playerObject.Name,
-				}
-			else
-				return {
-					label = playerObject.DisplayName .. verifiedEmoji,
-					subLabel = "[@" .. playerObject.Name .. "]",
-					identifier = playerObject.Name,
-				}
-			end
+			return {
+				label = playerObject.DisplayName .. verifiedEmoji,
+				subLabel = if InExperienceCapabilities.canDisplayPeoplesUsernames
+					then "[@" .. playerObject.Name .. "]"
+					else nil,
+				identifier = playerObject.Name,
+			}
 		end)
 		return list
 	end,
@@ -45,11 +36,8 @@ local PlayerModalSelectorMenuConfig: Types.ModalSelectorMenuItemType = {
 		if abuser then
 			local displayName = abuser.DisplayName
 			local userName = abuser.Name
-			local displayLabel = displayName .. "[@" .. userName .. "]"
-			if GetFFlagAbuseReportShouldUseCanDisplayPeoplesUsernamesAppPolicy() then
-				displayLabel = displayName
-					.. (if InExperienceCapabilities.canDisplayPeoplesUsernames then "[@" .. userName .. "]" else "")
-			end
+			local displayLabel = displayName
+				.. (if InExperienceCapabilities.canDisplayPeoplesUsernames then "[@" .. userName .. "]" else "")
 			return displayLabel
 		end
 		return nil

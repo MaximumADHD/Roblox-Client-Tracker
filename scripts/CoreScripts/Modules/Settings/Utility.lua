@@ -471,12 +471,7 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 	local constraint = Instance.new("UITextSizeConstraint", textLabel)
 
 	if isSmallTouchScreen() then
-		-- Special case to increase max size for 1 row of buttons
-		if Theme.UseBiggerText and (name == "ResumeButton" or name == "ResetButton" or name == "LeaveButton") then
-			textLabel.TextSize = Theme.textSize(20)
-		else
-			textLabel.TextSize = Theme.textSize(18)
-		end
+		textLabel.TextSize = Theme.textSize(18)
 	elseif isTenFootInterface() then
 		local isButtonWithOverflowingText = name == "FriendStatus" or name == "BlockButton"
 		if not (isButtonWithOverflowingText) then 

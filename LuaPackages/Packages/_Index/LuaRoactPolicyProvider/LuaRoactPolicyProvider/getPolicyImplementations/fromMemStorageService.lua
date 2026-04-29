@@ -5,6 +5,7 @@ local DefaultPlayersService = game:GetService("Players")
 local FFlagLogFirstGuacRead = game:DefineFastFlag("FFlagLogFirstGuacRead", false)
 local FFlagLogAllGuacRead = game:DefineFastFlag("FFlagLogAllGuacRead", false)
 local FFlagCacheReadParsePolicy = game:DefineFastFlag("CacheReadParsePolicy", false)
+local FFlagFixPolicyStalePlayerUpdates = game:DefineFastFlag("FixPolicyStalePlayerUpdates", false)
 
 local CorePackages
 local LoggingProtocol
@@ -48,25 +49,6 @@ return function(dependencies)
 
 		local onPolicyChangedEvent = Instance.new("BindableEvent")
 
-		if FFlagCacheReadParsePolicy then
-			-- since storeKey uses player ID, let's make sure we invalidate if it ever changes
-			local userIdConn
-			local function localPlayerChanged()
-				if userIdConn then
-					userIdConn:Disconnect()
-					userIdConn = nil
-				end
-				if PlayersService.LocalPlayer then
-					userIdConn = PlayersService.LocalPlayer:GetPropertyChangedSignal("UserId"):Connect(function()
-						previouslyReadPolicy = nil
-					end)
-				end
-				previouslyReadPolicy = nil
-			end
-			PlayersService:GetPropertyChangedSignal("LocalPlayer"):Connect(localPlayerChanged)
-			localPlayerChanged()
-		end
-
 		local function onPolicyUpdated(newPolicyData)
 			-- MemStorageService will not de-duplicate the same item from storage
 			if newPolicyData ~= previouslyReadJsonValue then
@@ -82,6 +64,48 @@ return function(dependencies)
 					end
 				end
 			end
+		end
+
+		if FFlagCacheReadParsePolicy then
+			-- since storeKey uses player ID, let's make sure we invalidate if it ever changes
+			local userIdConn
+			local function invalidateForKeyChange()
+				previouslyReadPolicy = nil
+				previouslyReadJsonValue = nil
+
+				if memStorageConnection then
+					memStorageConnection:Disconnect()
+					memStorageConnection = nil
+
+					local newStoreKey = getStoreKey()
+					connectionStoreKey = newStoreKey
+					memStorageConnection = MemStorageService:BindAndFire(newStoreKey, onPolicyUpdated)
+				else
+					connectionStoreKey = nil
+				end
+			end
+			local function localPlayerChanged()
+				if userIdConn then
+					userIdConn:Disconnect()
+					userIdConn = nil
+				end
+				if PlayersService.LocalPlayer then
+					userIdConn = PlayersService.LocalPlayer:GetPropertyChangedSignal("UserId"):Connect(function()
+						if FFlagFixPolicyStalePlayerUpdates then
+							invalidateForKeyChange()
+						else
+							previouslyReadPolicy = nil
+						end
+					end)
+				end
+				if FFlagFixPolicyStalePlayerUpdates then
+					invalidateForKeyChange()
+				else
+					previouslyReadPolicy = nil
+				end
+			end
+			PlayersService:GetPropertyChangedSignal("LocalPlayer"):Connect(localPlayerChanged)
+			localPlayerChanged()
 		end
 
 		return {

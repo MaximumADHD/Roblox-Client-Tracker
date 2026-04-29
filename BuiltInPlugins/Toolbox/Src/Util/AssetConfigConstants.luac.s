@@ -248,570 +248,667 @@ MAIN:
        36 GETIMPORT                        R5 K4 [require]
        38 GETTABLEKS                       R8 R0 K7 ["Src"]
        40 GETTABLEKS                       R7 R8 K11 ["Flags"]
-       42 GETTABLEKS                       R6 R7 K13 ["getFFlagEnableUploadingMakeup"]
+       42 GETTABLEKS                       R6 R7 K13 ["getFFlagEnableUploadingAvatarAnimations"]
        44 CALL                             R5 1 1
        45 GETIMPORT                        R6 K4 [require]
        47 GETTABLEKS                       R9 R0 K7 ["Src"]
        49 GETTABLEKS                       R8 R9 K11 ["Flags"]
-       51 GETTABLEKS                       R7 R8 K14 ["getFFlagUsePublishMarketplaceActionType"]
+       51 GETTABLEKS                       R7 R8 K14 ["getFFlagEnableUploadingMakeup"]
        53 CALL                             R6 1 1
        54 GETIMPORT                        R7 K4 [require]
-       56 GETTABLEKS                       R8 R2 K15 ["convertArrayToTable"]
-       58 CALL                             R7 1 1
-       59 NEWTABLE                         R8 64 0
-       61 LOADN                            R9 76
-       62 SETTABLEKS                       R9 R8 K16 ["WIDTH"]
-       64 LOADN                            R9 92
-       65 SETTABLEKS                       R9 R8 K17 ["HEIGHT"]
-       67 LOADN                            R9 132
-       68 SETTABLEKS                       R9 R8 K18 ["MIN_WIDTH"]
-       70 LOADN                            R9 244
-       71 SETTABLEKS                       R9 R8 K19 ["MIN_HEIGHT"]
-       73 LOADK                            R9 K20 ["https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use"]
-       74 SETTABLEKS                       R9 R8 K21 ["TERM_OF_USE_URL"]
-       76 LOADK                            R9 K22 ["https://www.roblox.com/my/account#!/info"]
-       77 SETTABLEKS                       R9 R8 K23 ["ACCOUNT_SETTING_URL"]
-       79 LOADN                            R9 50
-       80 SETTABLEKS                       R9 R8 K24 ["NAME_CHARACTER_LIMIT"]
-       82 LOADN                            R9 232
-       83 SETTABLEKS                       R9 R8 K25 ["DESCRIPTION_CHARACTER_LIMIT"]
-       85 LOADN                            R9 244
-       86 SETTABLEKS                       R9 R8 K26 ["PACKAGE_NOTE_CHARACTER_LIMIT"]
-       88 LOADN                            R9 180
-       89 SETTABLEKS                       R9 R8 K27 ["TITLE_GUTTER_WIDTH"]
-       91 GETIMPORT                        R9 K30 [UDim2.new]
-       93 LOADN                            R10 0
-       94 LOADN                            R11 150
-       95 LOADN                            R12 0
-       96 LOADN                            R13 200
-       97 CALL                             R9 4 1
-       98 SETTABLEKS                       R9 R8 K31 ["OverrideAssetItemSize"]
-      100 MOVE                             R9 R7
-      101 NEWTABLE                         R10 0 3
-      103 LOADK                            R11 K32 ["ImagePicker"]
-      104 LOADK                            R12 K33 ["Thumbnail"]
-      105 LOADK                            R13 K34 ["ModelPreview"]
-      106 SETLIST                          R10 R11 3 [1]
-      108 CALL                             R9 1 1
-      109 SETTABLEKS                       R9 R8 K35 ["PreviewTypes"]
-      111 MOVE                             R9 R7
-      112 NEWTABLE                         R10 0 5
-      114 LOADK                            R11 K36 ["Sales"]
-      115 LOADK                            R12 K37 ["General"]
-      116 LOADK                            R13 K38 ["Versions"]
-      117 LOADK                            R14 K39 ["Override"]
-      118 LOADK                            R15 K40 ["Permissions"]
-      119 SETLIST                          R10 R11 5 [1]
-      121 CALL                             R9 1 1
-      122 SETTABLEKS                       R9 R8 K41 ["SIDE_TABS"]
-      124 MOVE                             R9 R7
-      125 NEWTABLE                         R10 0 3
-      127 LOADK                            R11 K42 ["Title"]
-      128 LOADK                            R12 K43 ["Description"]
-      129 LOADK                            R13 K44 ["Price"]
-      130 SETLIST                          R10 R11 3 [1]
-      132 CALL                             R9 1 1
-      133 SETTABLEKS                       R9 R8 K45 ["FIELD_NAMES"]
-      135 NEWTABLE                         R9 0 14
-      137 DUPTABLE                         R10 K47 [{"name"}]
-      138 GETIMPORT                        R12 K51 [Enum.Genre.All]
-      140 GETTABLEKS                       R11 R12 K52 ["Name"]
-      142 SETTABLEKS                       R11 R10 K46 ["name"]
-      144 DUPTABLE                         R11 K47 [{"name"}]
-      145 GETIMPORT                        R13 K54 [Enum.Genre.TownAndCity]
-      147 GETTABLEKS                       R12 R13 K52 ["Name"]
-      149 SETTABLEKS                       R12 R11 K46 ["name"]
-      151 DUPTABLE                         R12 K47 [{"name"}]
-      152 GETIMPORT                        R14 K56 [Enum.Genre.Fantasy]
-      154 GETTABLEKS                       R13 R14 K52 ["Name"]
-      156 SETTABLEKS                       R13 R12 K46 ["name"]
-      158 DUPTABLE                         R13 K47 [{"name"}]
-      159 GETIMPORT                        R15 K58 [Enum.Genre.SciFi]
-      161 GETTABLEKS                       R14 R15 K52 ["Name"]
-      163 SETTABLEKS                       R14 R13 K46 ["name"]
-      165 DUPTABLE                         R14 K47 [{"name"}]
-      166 GETIMPORT                        R16 K60 [Enum.Genre.Ninja]
-      168 GETTABLEKS                       R15 R16 K52 ["Name"]
-      170 SETTABLEKS                       R15 R14 K46 ["name"]
-      172 DUPTABLE                         R15 K47 [{"name"}]
-      173 GETIMPORT                        R17 K62 [Enum.Genre.Scary]
-      175 GETTABLEKS                       R16 R17 K52 ["Name"]
-      177 SETTABLEKS                       R16 R15 K46 ["name"]
-      179 DUPTABLE                         R16 K47 [{"name"}]
-      180 GETIMPORT                        R18 K64 [Enum.Genre.Pirate]
-      182 GETTABLEKS                       R17 R18 K52 ["Name"]
-      184 SETTABLEKS                       R17 R16 K46 ["name"]
-      186 DUPTABLE                         R17 K47 [{"name"}]
-      187 GETIMPORT                        R19 K66 [Enum.Genre.Adventure]
-      189 GETTABLEKS                       R18 R19 K52 ["Name"]
-      191 SETTABLEKS                       R18 R17 K46 ["name"]
-      193 DUPTABLE                         R18 K47 [{"name"}]
-      194 GETIMPORT                        R20 K68 [Enum.Genre.Sports]
-      196 GETTABLEKS                       R19 R20 K52 ["Name"]
-      198 SETTABLEKS                       R19 R18 K46 ["name"]
-      200 DUPTABLE                         R19 K47 [{"name"}]
-      201 GETIMPORT                        R21 K70 [Enum.Genre.Funny]
-      203 GETTABLEKS                       R20 R21 K52 ["Name"]
-      205 SETTABLEKS                       R20 R19 K46 ["name"]
-      207 DUPTABLE                         R20 K47 [{"name"}]
-      208 GETIMPORT                        R22 K72 [Enum.Genre.WildWest]
-      210 GETTABLEKS                       R21 R22 K52 ["Name"]
-      212 SETTABLEKS                       R21 R20 K46 ["name"]
-      214 DUPTABLE                         R21 K47 [{"name"}]
-      215 GETIMPORT                        R23 K74 [Enum.Genre.War]
-      217 GETTABLEKS                       R22 R23 K52 ["Name"]
-      219 SETTABLEKS                       R22 R21 K46 ["name"]
-      221 DUPTABLE                         R22 K47 [{"name"}]
-      222 GETIMPORT                        R24 K76 [Enum.Genre.SkatePark]
-      224 GETTABLEKS                       R23 R24 K52 ["Name"]
-      226 SETTABLEKS                       R23 R22 K46 ["name"]
-      228 DUPTABLE                         R23 K47 [{"name"}]
-      229 GETIMPORT                        R25 K78 [Enum.Genre.Tutorial]
-      231 GETTABLEKS                       R24 R25 K52 ["Name"]
-      233 SETTABLEKS                       R24 R23 K46 ["name"]
-      235 SETLIST                          R9 R10 14 [1]
-      237 SETTABLEKS                       R9 R8 K79 ["GENRE_TYPE"]
-      239 MOVE                             R9 R7
-      240 NEWTABLE                         R10 0 3
-      242 LOADK                            R11 K80 ["EDIT_FLOW"]
-      243 LOADK                            R12 K81 ["UPLOAD_FLOW"]
-      244 LOADK                            R13 K82 ["DOWNLOAD_FLOW"]
-      245 SETLIST                          R10 R11 3 [1]
-      247 CALL                             R9 1 1
-      248 SETTABLEKS                       R9 R8 K83 ["FLOW_TYPE"]
-      250 MOVE                             R9 R7
-      251 NEWTABLE                         R10 0 5
-      253 LOADK                            R11 K84 ["ASSET_TYPE_SELECTION"]
-      254 LOADK                            R12 K85 ["ASSET_VALIDATION"]
-      255 LOADK                            R13 K86 ["CONFIGURE_ASSET"]
-      256 LOADK                            R14 K87 ["UPLOADING_ASSET"]
-      257 LOADK                            R15 K88 ["UPLOAD_ASSET_RESULT"]
-      258 SETLIST                          R10 R11 5 [1]
-      260 CALL                             R9 1 1
-      261 SETTABLEKS                       R9 R8 K89 ["SCREENS"]
-      263 MOVE                             R9 R7
-      264 NEWTABLE                         R10 0 8
-      266 LOADK                            R11 K90 ["Unknown"]
-      267 LOADK                            R12 K91 ["ReviewPending"]
-      268 LOADK                            R13 K92 ["Moderated"]
-      269 LOADK                            R14 K93 ["ReviewApproved"]
-      270 LOADK                            R15 K94 ["OnSale"]
-      271 LOADK                            R16 K95 ["OffSale"]
-      272 LOADK                            R17 K96 ["DelayedRelease"]
-      273 LOADK                            R18 K97 ["Free"]
-      274 SETLIST                          R10 R11 8 [1]
-      276 CALL                             R9 1 1
-      277 SETTABLEKS                       R9 R8 K98 ["ASSET_STATUS"]
-      279 MOVE                             R9 R7
-      280 NEWTABLE                         R10 0 10
-      282 LOADK                            R11 K99 ["AssetType"]
-      283 LOADK                            R12 K100 ["Authorization"]
-      284 LOADK                            R13 K101 ["Invalid"]
-      285 LOADK                            R14 K102 ["KillSwitch"]
-      286 LOADK                            R15 K103 ["Quota"]
-      287 LOADK                            R16 K104 ["SafetyStatus"]
-      288 LOADK                            R17 K105 ["SellerAccountNotOnboarded"]
-      289 LOADK                            R18 K106 ["SellerAccountRestricted"]
-      290 LOADK                            R19 K107 ["UnsupportedAssetOwner"]
-      291 LOADK                            R20 K108 ["Verification"]
-      292 SETLIST                          R10 R11 10 [1]
-      294 CALL                             R9 1 1
-      295 SETTABLEKS                       R9 R8 K109 ["RESTRICTION_TYPE"]
-      297 MOVE                             R9 R7
-      298 NEWTABLE                         R10 0 1
-      300 LOADK                            R11 K94 ["OnSale"]
-      301 SETLIST                          R10 R11 1 [1]
-      303 CALL                             R9 1 1
-      304 SETTABLEKS                       R9 R8 K110 ["SALES_STATUS_FOR_PRICE"]
-      306 DUPCLOSURE                       R9 K111 [PROTO_0]
-      307 DUPCLOSURE                       R10 K112 [PROTO_1]
-      308 NEWTABLE                         R11 0 0
-      310 SETTABLEKS                       R11 R8 K113 ["ASSET_TYPE_INFO"]
-      312 NEWTABLE                         R11 0 3
-      314 GETIMPORT                        R12 K115 [Enum.AssetType.TShirt]
-      316 GETIMPORT                        R13 K117 [Enum.AssetType.Shirt]
-      318 GETIMPORT                        R14 K119 [Enum.AssetType.Pants]
-      320 SETLIST                          R11 R12 3 [1]
-      322 SETTABLEKS                       R11 R8 K120 ["ASSET_TYPES_2D"]
-      324 DUPCLOSURE                       R11 K121 [PROTO_3]
-      325 CAPTURE                          VAL R8
-      326 CAPTURE                          VAL R6
-      327 SETTABLEKS                       R11 R8 K122 ["populateAssetTypeInfoFromNetwork"]
-      329 DUPCLOSURE                       R11 K123 [PROTO_4]
-      330 SETTABLEKS                       R11 R8 K124 ["getNormalizedAssetString"]
-      332 MOVE                             R11 R7
-      333 NEWTABLE                         R12 0 3
-      335 LOADK                            R13 K125 ["WhitelistedPlugins"]
-      336 LOADK                            R14 K126 ["MyPlugins"]
-      337 LOADK                            R15 K127 ["GroupPlugins"]
-      338 SETLIST                          R12 R13 3 [1]
-      340 CALL                             R11 1 1
-      341 SETTABLEKS                       R11 R8 K128 ["developCategoryType"]
-      343 MOVE                             R11 R7
-      344 NEWTABLE                         R12 0 2
-      346 LOADK                            R13 K129 ["MyPackages"]
-      347 LOADK                            R14 K130 ["GroupPackages"]
-      348 SETLIST                          R12 R13 2 [1]
-      350 CALL                             R11 1 1
-      351 SETTABLEKS                       R11 R8 K131 ["packagesCategoryType"]
-      353 MOVE                             R11 R7
-      354 NEWTABLE                         R12 0 9
-      356 LOADK                            R13 K132 ["Asset"]
-      357 LOADK                            R14 K133 ["Avatar"]
-      358 LOADK                            R15 K134 ["AvatarHeadShot"]
-      359 LOADK                            R16 K135 ["BadgeIcon"]
-      360 LOADK                            R17 K136 ["BundleThumbnail"]
-      361 LOADK                            R18 K137 ["GameIcon"]
-      362 LOADK                            R19 K138 ["GamePass"]
-      363 LOADK                            R20 K139 ["GroupIcon"]
-      364 LOADK                            R21 K140 ["Outfit"]
-      365 SETLIST                          R12 R13 9 [1]
-      367 CALL                             R11 1 1
-      368 SETTABLEKS                       R11 R8 K141 ["rbxThumbTypes"]
-      370 DUPTABLE                         R11 K145 [{"AvatarHeadshotImageSize", "GroupIconImageSize", "AssetThumbnailSize"}]
-      371 LOADN                            R12 60
-      372 SETTABLEKS                       R12 R11 K142 ["AvatarHeadshotImageSize"]
-      374 LOADN                            R12 150
-      375 SETTABLEKS                       R12 R11 K143 ["GroupIconImageSize"]
-      377 LOADN                            R12 164
-      378 SETTABLEKS                       R12 R11 K144 ["AssetThumbnailSize"]
-      380 SETTABLEKS                       R11 R8 K146 ["rbxThumbSizes"]
-      382 DUPTABLE                         R11 K152 [{"MaxThumbnails", "AspectRatioHeight", "AspectRatioWidth", "RecommendedHeight", "RecommendedWidth"}]
-      383 LOADN                            R12 5
-      384 SETTABLEKS                       R12 R11 K147 ["MaxThumbnails"]
-      386 LOADN                            R12 9
-      387 SETTABLEKS                       R12 R11 K148 ["AspectRatioHeight"]
-      389 LOADN                            R12 16
-      390 SETTABLEKS                       R12 R11 K149 ["AspectRatioWidth"]
-      392 LOADN                            R12 176
-      393 SETTABLEKS                       R12 R11 K150 ["RecommendedHeight"]
-      395 LOADN                            R12 0
-      396 SETTABLEKS                       R12 R11 K151 ["RecommendedWidth"]
-      398 SETTABLEKS                       R11 R8 K153 ["additionalImages"]
-      400 NEWTABLE                         R11 0 3
-      402 LOADK                            R12 K154 ["jpg"]
-      403 LOADK                            R13 K155 ["jpeg"]
-      404 LOADK                            R14 K156 ["png"]
-      405 SETLIST                          R11 R12 3 [1]
-      407 SETTABLEKS                       R11 R8 K157 ["IMAGE_TYPES"]
-      409 LOADK                            R11 K158 ["Success"]
-      410 SETTABLEKS                       R11 R8 K159 ["TAGS_SUGGESTION_SUCCESS"]
-      412 LOADN                            R11 5
-      413 SETTABLEKS                       R11 R8 K160 ["MAX_DISPLAY_SUGGESTIONS"]
-      415 LOADN                            R11 10
-      416 SETTABLEKS                       R11 R8 K161 ["MAX_FETCH_SUGGESTIONS"]
-      418 LOADK                            R11 K162 ["avatar_meshpart_accessory"]
-      419 SETTABLEKS                       R11 R8 K163 ["AVATAR_MESHPART_ACCESSORY_FORMAT"]
-      421 LOADK                            R11 K164 ["EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"]
-      422 SETTABLEKS                       R11 R8 K165 ["MULTIPART_FORM_BOUNDARY"]
-      424 LOADK                            R11 K166 ["OverrideAssetId"]
-      425 SETTABLEKS                       R11 R8 K167 ["OVERRIDE_ASSET_ID"]
-      427 DUPTABLE                         R11 K170 [{"Public", "Private"}]
-      428 LOADB                            R12 1
-      429 SETTABLEKS                       R12 R11 K168 ["Public"]
-      431 LOADB                            R12 0
-      432 SETTABLEKS                       R12 R11 K169 ["Private"]
-      434 SETTABLEKS                       R11 R8 K171 ["SHARING_KEYS"]
-      436 NEWTABLE                         R11 0 3
-      438 LOADK                            R12 K172 ["Body"]
-      439 LOADK                            R13 K173 ["DynamicHead"]
-      440 LOADK                            R14 K174 ["Shoes"]
-      441 SETLIST                          R11 R12 3 [1]
-      443 NEWTABLE                         R12 0 0
-      445 SETTABLEKS                       R12 R8 K175 ["UGCBundleTypes"]
-      447 GETIMPORT                        R12 K177 [ipairs]
-      449 MOVE                             R13 R11
-      450 CALL                             R12 1 3
-      451 FORGPREP_INEXT                   R12
-      452 DUPTABLE                         R17 K179 [{"Name", "Value"}]
-      453 SETTABLEKS                       R16 R17 K52 ["Name"]
-      455 SETTABLEKS                       R15 R17 K178 ["Value"]
-      457 GETTABLEKS                       R18 R8 K175 ["UGCBundleTypes"]
-      459 SETTABLE                         R17 R18 R16
-      460 NEWCLOSURE                       R18 P4
-      461 CAPTURE                          VAL R17
-      462 SETTABLEKS                       R18 R17 K180 ["rawValue"]
-      464 FORGLOOP                         R12 2 [inext] ; [-13]
-      466 NEWTABLE                         R12 4 0
-      468 GETTABLEKS                       R15 R8 K175 ["UGCBundleTypes"]
-      470 GETTABLEKS                       R14 R15 K172 ["Body"]
-      472 GETTABLEKS                       R13 R14 K180 ["rawValue"]
-      474 CALL                             R13 0 1
-      475 GETTABLEKS                       R15 R8 K175 ["UGCBundleTypes"]
-      477 GETTABLEKS                       R14 R15 K172 ["Body"]
-      479 SETTABLE                         R14 R12 R13
-      480 GETTABLEKS                       R15 R8 K175 ["UGCBundleTypes"]
-      482 GETTABLEKS                       R14 R15 K173 ["DynamicHead"]
-      484 GETTABLEKS                       R13 R14 K180 ["rawValue"]
-      486 CALL                             R13 0 1
-      487 GETTABLEKS                       R15 R8 K175 ["UGCBundleTypes"]
-      489 GETTABLEKS                       R14 R15 K173 ["DynamicHead"]
-      491 SETTABLE                         R14 R12 R13
-      492 GETTABLEKS                       R15 R8 K175 ["UGCBundleTypes"]
-      494 GETTABLEKS                       R14 R15 K174 ["Shoes"]
-      496 GETTABLEKS                       R13 R14 K180 ["rawValue"]
-      498 CALL                             R13 0 1
-      499 GETTABLEKS                       R15 R8 K175 ["UGCBundleTypes"]
-      501 GETTABLEKS                       R14 R15 K174 ["Shoes"]
-      503 SETTABLE                         R14 R12 R13
-      504 SETTABLEKS                       R12 R8 K181 ["UGCBundleTypeStringToEnumeration"]
-      506 NEWTABLE                         R12 16 0
-      508 GETIMPORT                        R13 K182 [Enum.AssetType.DynamicHead]
-      510 SETTABLEKS                       R13 R12 K173 ["DynamicHead"]
-      512 GETIMPORT                        R13 K184 [Enum.AssetType.LeftArm]
-      514 SETTABLEKS                       R13 R12 K183 ["LeftArm"]
-      516 GETIMPORT                        R13 K186 [Enum.AssetType.LeftLeg]
-      518 SETTABLEKS                       R13 R12 K185 ["LeftLeg"]
-      520 GETIMPORT                        R13 K188 [Enum.AssetType.RightArm]
-      522 SETTABLEKS                       R13 R12 K187 ["RightArm"]
-      524 GETIMPORT                        R13 K190 [Enum.AssetType.RightLeg]
-      526 SETTABLEKS                       R13 R12 K189 ["RightLeg"]
-      528 GETIMPORT                        R13 K192 [Enum.AssetType.Torso]
-      530 SETTABLEKS                       R13 R12 K191 ["Torso"]
-      532 GETIMPORT                        R13 K194 [Enum.AssetType.EyebrowAccessory]
-      534 SETTABLEKS                       R13 R12 K193 ["EyebrowAccessory"]
-      536 GETIMPORT                        R13 K196 [Enum.AssetType.EyelashAccessory]
-      538 SETTABLEKS                       R13 R12 K195 ["EyelashAccessory"]
-      540 GETIMPORT                        R13 K198 [Enum.AssetType.HairAccessory]
-      542 SETTABLEKS                       R13 R12 K197 ["HairAccessory"]
-      544 GETIMPORT                        R13 K200 [Enum.AssetType.LeftShoeAccessory]
-      546 SETTABLEKS                       R13 R12 K199 ["LeftShoeAccessory"]
-      548 GETIMPORT                        R13 K202 [Enum.AssetType.RightShoeAccessory]
-      550 SETTABLEKS                       R13 R12 K201 ["RightShoeAccessory"]
-      552 SETTABLEKS                       R12 R8 K203 ["AllowedAssetStringsMetadataToAssetTypeMap"]
-      554 DUPTABLE                         R12 K219 [{"Head", "UpperTorso", "LowerTorso", "LeftUpperLeg", "LeftLowerLeg", "LeftHand", "RightUpperArm", "RightLowerArm", "RightHand", "LeftUpperArm", "LeftLowerArm", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot", "EyebrowAccessory", "EyelashAccessory", "HairAccessory"}]
-      555 LOADK                            R13 K204 ["Head"]
-      556 SETTABLEKS                       R13 R12 K204 ["Head"]
-      558 LOADK                            R13 K205 ["UpperTorso"]
-      559 SETTABLEKS                       R13 R12 K205 ["UpperTorso"]
-      561 LOADK                            R13 K206 ["LowerTorso"]
-      562 SETTABLEKS                       R13 R12 K206 ["LowerTorso"]
-      564 LOADK                            R13 K207 ["LeftUpperLeg"]
-      565 SETTABLEKS                       R13 R12 K207 ["LeftUpperLeg"]
-      567 LOADK                            R13 K208 ["LeftLowerLeg"]
-      568 SETTABLEKS                       R13 R12 K208 ["LeftLowerLeg"]
-      570 LOADK                            R13 K209 ["LeftHand"]
-      571 SETTABLEKS                       R13 R12 K209 ["LeftHand"]
-      573 LOADK                            R13 K210 ["RightUpperArm"]
-      574 SETTABLEKS                       R13 R12 K210 ["RightUpperArm"]
-      576 LOADK                            R13 K211 ["RightLowerArm"]
-      577 SETTABLEKS                       R13 R12 K211 ["RightLowerArm"]
-      579 LOADK                            R13 K212 ["RightHand"]
-      580 SETTABLEKS                       R13 R12 K212 ["RightHand"]
-      582 LOADK                            R13 K213 ["LeftUpperArm"]
-      583 SETTABLEKS                       R13 R12 K213 ["LeftUpperArm"]
-      585 LOADK                            R13 K214 ["LeftLowerArm"]
-      586 SETTABLEKS                       R13 R12 K214 ["LeftLowerArm"]
-      588 LOADK                            R13 K215 ["LeftFoot"]
-      589 SETTABLEKS                       R13 R12 K215 ["LeftFoot"]
-      591 LOADK                            R13 K216 ["RightUpperLeg"]
-      592 SETTABLEKS                       R13 R12 K216 ["RightUpperLeg"]
-      594 LOADK                            R13 K217 ["RightLowerLeg"]
-      595 SETTABLEKS                       R13 R12 K217 ["RightLowerLeg"]
-      597 LOADK                            R13 K218 ["RightFoot"]
-      598 SETTABLEKS                       R13 R12 K218 ["RightFoot"]
-      600 LOADK                            R13 K193 ["EyebrowAccessory"]
-      601 SETTABLEKS                       R13 R12 K193 ["EyebrowAccessory"]
-      603 LOADK                            R13 K195 ["EyelashAccessory"]
-      604 SETTABLEKS                       R13 R12 K195 ["EyelashAccessory"]
-      606 LOADK                            R13 K197 ["HairAccessory"]
-      607 SETTABLEKS                       R13 R12 K197 ["HairAccessory"]
-      609 SETTABLEKS                       R12 R8 K220 ["UGC_BODY_PARTS"]
-      611 DUPTABLE                         R12 K221 [{"LeftShoeAccessory", "RightShoeAccessory"}]
-      612 LOADK                            R13 K199 ["LeftShoeAccessory"]
-      613 SETTABLEKS                       R13 R12 K199 ["LeftShoeAccessory"]
-      615 LOADK                            R13 K201 ["RightShoeAccessory"]
-      616 SETTABLEKS                       R13 R12 K201 ["RightShoeAccessory"]
-      618 SETTABLEKS                       R12 R8 K222 ["UGC_BUNDLE_PARTS"]
-      620 NEWTABLE                         R12 32 0
-      622 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      624 GETTABLEKS                       R13 R14 K204 ["Head"]
-      626 GETIMPORT                        R14 K182 [Enum.AssetType.DynamicHead]
-      628 SETTABLE                         R14 R12 R13
-      629 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      631 GETTABLEKS                       R13 R14 K205 ["UpperTorso"]
-      633 GETIMPORT                        R14 K192 [Enum.AssetType.Torso]
-      635 SETTABLE                         R14 R12 R13
-      636 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      638 GETTABLEKS                       R13 R14 K206 ["LowerTorso"]
-      640 GETIMPORT                        R14 K192 [Enum.AssetType.Torso]
-      642 SETTABLE                         R14 R12 R13
-      643 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      645 GETTABLEKS                       R13 R14 K213 ["LeftUpperArm"]
-      647 GETIMPORT                        R14 K184 [Enum.AssetType.LeftArm]
-      649 SETTABLE                         R14 R12 R13
-      650 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      652 GETTABLEKS                       R13 R14 K214 ["LeftLowerArm"]
-      654 GETIMPORT                        R14 K184 [Enum.AssetType.LeftArm]
-      656 SETTABLE                         R14 R12 R13
-      657 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      659 GETTABLEKS                       R13 R14 K209 ["LeftHand"]
-      661 GETIMPORT                        R14 K184 [Enum.AssetType.LeftArm]
-      663 SETTABLE                         R14 R12 R13
-      664 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      666 GETTABLEKS                       R13 R14 K210 ["RightUpperArm"]
-      668 GETIMPORT                        R14 K188 [Enum.AssetType.RightArm]
-      670 SETTABLE                         R14 R12 R13
-      671 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      673 GETTABLEKS                       R13 R14 K211 ["RightLowerArm"]
-      675 GETIMPORT                        R14 K188 [Enum.AssetType.RightArm]
-      677 SETTABLE                         R14 R12 R13
-      678 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      680 GETTABLEKS                       R13 R14 K212 ["RightHand"]
-      682 GETIMPORT                        R14 K188 [Enum.AssetType.RightArm]
-      684 SETTABLE                         R14 R12 R13
-      685 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      687 GETTABLEKS                       R13 R14 K207 ["LeftUpperLeg"]
-      689 GETIMPORT                        R14 K186 [Enum.AssetType.LeftLeg]
-      691 SETTABLE                         R14 R12 R13
-      692 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      694 GETTABLEKS                       R13 R14 K208 ["LeftLowerLeg"]
-      696 GETIMPORT                        R14 K186 [Enum.AssetType.LeftLeg]
-      698 SETTABLE                         R14 R12 R13
-      699 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      701 GETTABLEKS                       R13 R14 K215 ["LeftFoot"]
-      703 GETIMPORT                        R14 K186 [Enum.AssetType.LeftLeg]
-      705 SETTABLE                         R14 R12 R13
-      706 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      708 GETTABLEKS                       R13 R14 K216 ["RightUpperLeg"]
-      710 GETIMPORT                        R14 K190 [Enum.AssetType.RightLeg]
-      712 SETTABLE                         R14 R12 R13
-      713 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      715 GETTABLEKS                       R13 R14 K217 ["RightLowerLeg"]
-      717 GETIMPORT                        R14 K190 [Enum.AssetType.RightLeg]
-      719 SETTABLE                         R14 R12 R13
-      720 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      722 GETTABLEKS                       R13 R14 K218 ["RightFoot"]
-      724 GETIMPORT                        R14 K190 [Enum.AssetType.RightLeg]
-      726 SETTABLE                         R14 R12 R13
-      727 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      729 GETTABLEKS                       R13 R14 K193 ["EyebrowAccessory"]
-      731 GETIMPORT                        R14 K194 [Enum.AssetType.EyebrowAccessory]
-      733 SETTABLE                         R14 R12 R13
-      734 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      736 GETTABLEKS                       R13 R14 K195 ["EyelashAccessory"]
-      738 GETIMPORT                        R14 K196 [Enum.AssetType.EyelashAccessory]
-      740 SETTABLE                         R14 R12 R13
-      741 GETTABLEKS                       R14 R8 K220 ["UGC_BODY_PARTS"]
-      743 GETTABLEKS                       R13 R14 K197 ["HairAccessory"]
-      745 GETIMPORT                        R14 K198 [Enum.AssetType.HairAccessory]
-      747 SETTABLE                         R14 R12 R13
-      748 SETTABLEKS                       R12 R8 K223 ["UGC_BODY_PART_NAMES_TO_ASSET_TYPE"]
-      750 NEWTABLE                         R12 2 0
-      752 GETTABLEKS                       R14 R8 K222 ["UGC_BUNDLE_PARTS"]
-      754 GETTABLEKS                       R13 R14 K199 ["LeftShoeAccessory"]
-      756 GETIMPORT                        R14 K200 [Enum.AssetType.LeftShoeAccessory]
-      758 SETTABLE                         R14 R12 R13
-      759 GETTABLEKS                       R14 R8 K222 ["UGC_BUNDLE_PARTS"]
-      761 GETTABLEKS                       R13 R14 K201 ["RightShoeAccessory"]
-      763 GETIMPORT                        R14 K202 [Enum.AssetType.RightShoeAccessory]
-      765 SETTABLE                         R14 R12 R13
-      766 SETTABLEKS                       R12 R8 K224 ["UGC_BUNDLE_PART_NAMES_TO_ASSET_TYPE"]
-      768 MOVE                             R12 R3
-      769 CALL                             R12 0 1
-      770 JUMPIFNOT                        R12 ; [+90]
-      771 DUPTABLE                         R12 K228 [{"Classic", "ProportionsNormal", "ProportionsSlender", "Unknown"}]
-      772 LOADK                            R13 K225 ["Classic"]
-      773 SETTABLEKS                       R13 R12 K225 ["Classic"]
-      775 LOADK                            R13 K226 ["ProportionsNormal"]
-      776 SETTABLEKS                       R13 R12 K226 ["ProportionsNormal"]
-      778 LOADK                            R13 K227 ["ProportionsSlender"]
-      779 SETTABLEKS                       R13 R12 K227 ["ProportionsSlender"]
-      781 LOADK                            R13 K90 ["Unknown"]
-      782 SETTABLEKS                       R13 R12 K90 ["Unknown"]
-      784 SETTABLEKS                       R12 R8 K229 ["BodyScaleTypes"]
-      786 DUPTABLE                         R12 K230 [{"Classic", "ProportionsNormal", "ProportionsSlender"}]
-      787 DUPTABLE                         R13 K236 [{"height", "width", "head", "proportion", "bodyType"}]
-      788 LOADN                            R14 1
-      789 SETTABLEKS                       R14 R13 K231 ["height"]
-      791 LOADN                            R14 1
-      792 SETTABLEKS                       R14 R13 K232 ["width"]
-      794 LOADN                            R14 1
-      795 SETTABLEKS                       R14 R13 K233 ["head"]
-      797 LOADN                            R14 0
-      798 SETTABLEKS                       R14 R13 K234 ["proportion"]
-      800 LOADN                            R14 0
-      801 SETTABLEKS                       R14 R13 K235 ["bodyType"]
-      803 SETTABLEKS                       R13 R12 K225 ["Classic"]
-      805 DUPTABLE                         R13 K236 [{"height", "width", "head", "proportion", "bodyType"}]
-      806 LOADN                            R14 1
-      807 SETTABLEKS                       R14 R13 K231 ["height"]
-      809 LOADN                            R14 1
-      810 SETTABLEKS                       R14 R13 K232 ["width"]
-      812 LOADN                            R14 1
-      813 SETTABLEKS                       R14 R13 K233 ["head"]
-      815 LOADN                            R14 0
-      816 SETTABLEKS                       R14 R13 K234 ["proportion"]
-      818 LOADN                            R14 1
-      819 SETTABLEKS                       R14 R13 K235 ["bodyType"]
-      821 SETTABLEKS                       R13 R12 K226 ["ProportionsNormal"]
-      823 DUPTABLE                         R13 K236 [{"height", "width", "head", "proportion", "bodyType"}]
-      824 LOADN                            R14 1
-      825 SETTABLEKS                       R14 R13 K231 ["height"]
-      827 LOADN                            R14 1
-      828 SETTABLEKS                       R14 R13 K232 ["width"]
-      830 LOADN                            R14 1
-      831 SETTABLEKS                       R14 R13 K233 ["head"]
-      833 LOADN                            R14 1
-      834 SETTABLEKS                       R14 R13 K234 ["proportion"]
-      836 LOADN                            R14 1
-      837 SETTABLEKS                       R14 R13 K235 ["bodyType"]
-      839 SETTABLEKS                       R13 R12 K227 ["ProportionsSlender"]
-      841 SETTABLEKS                       R12 R8 K237 ["BodyScaleDefaults"]
-      843 DUPTABLE                         R12 K238 [{"height", "width", "head", "bodyType", "proportion"}]
-      844 LOADK                            R13 K239 ["BodyHeightScale"]
-      845 SETTABLEKS                       R13 R12 K231 ["height"]
-      847 LOADK                            R13 K240 ["BodyWidthScale"]
-      848 SETTABLEKS                       R13 R12 K232 ["width"]
-      850 LOADK                            R13 K241 ["HeadScale"]
-      851 SETTABLEKS                       R13 R12 K233 ["head"]
-      853 LOADK                            R13 K242 ["BodyTypeScale"]
-      854 SETTABLEKS                       R13 R12 K235 ["bodyType"]
-      856 LOADK                            R13 K243 ["BodyProportionScale"]
-      857 SETTABLEKS                       R13 R12 K234 ["proportion"]
-      859 SETTABLEKS                       R12 R8 K244 ["bodyScaleNameToString"]
-      861 DUPTABLE                         R12 K250 [{"NONE", "BEGIN", "VALIDATING", "SUCCESS", "FAILURE"}]
-      862 LOADK                            R13 K251 ["None"]
-      863 SETTABLEKS                       R13 R12 K245 ["NONE"]
-      865 LOADK                            R13 K252 ["Begin"]
-      866 SETTABLEKS                       R13 R12 K246 ["BEGIN"]
-      868 LOADK                            R13 K253 ["Validating"]
-      869 SETTABLEKS                       R13 R12 K247 ["VALIDATING"]
-      871 LOADK                            R13 K158 ["Success"]
-      872 SETTABLEKS                       R13 R12 K248 ["SUCCESS"]
-      874 LOADK                            R13 K254 ["Failure"]
-      875 SETTABLEKS                       R13 R12 K249 ["FAILURE"]
-      877 SETTABLEKS                       R12 R8 K255 ["VALIDATION_STATE"]
-      879 MOVE                             R12 R4
-      880 CALL                             R12 0 1
-      881 JUMPIFNOT                        R12 ; [+8]
-      882 NEWTABLE                         R12 0 2
-      884 LOADK                            R13 K0 ["script"]
-      885 LOADK                            R14 K1 [script]
-      886 SETLIST                          R12 R13 2 [1]
-      888 SETTABLEKS                       R12 R8 K258 ["assetIdStringPatterns"]
-      890 NEWTABLE                         R12 0 10
-      892 GETIMPORT                        R13 K182 [Enum.AssetType.DynamicHead]
-      894 GETIMPORT                        R14 K194 [Enum.AssetType.EyebrowAccessory]
-      896 GETIMPORT                        R15 K196 [Enum.AssetType.EyelashAccessory]
-      898 GETIMPORT                        R16 K184 [Enum.AssetType.LeftArm]
-      900 GETIMPORT                        R17 K186 [Enum.AssetType.LeftLeg]
-      902 GETIMPORT                        R18 K200 [Enum.AssetType.LeftShoeAccessory]
-      904 GETIMPORT                        R19 K188 [Enum.AssetType.RightArm]
-      906 GETIMPORT                        R20 K190 [Enum.AssetType.RightLeg]
-      908 GETIMPORT                        R21 K202 [Enum.AssetType.RightShoeAccessory]
-      910 GETIMPORT                        R22 K192 [Enum.AssetType.Torso]
-      912 SETLIST                          R12 R13 10 [1]
-      914 SETTABLEKS                       R12 R8 K259 ["BODY_PARTS"]
-      916 MOVE                             R12 R5
-      917 CALL                             R12 0 1
-      918 JUMPIFNOT                        R12 ; [+16]
-      919 NEWTABLE                         R12 0 5
-      921 GETIMPORT                        R13 K194 [Enum.AssetType.EyebrowAccessory]
-      923 GETIMPORT                        R14 K196 [Enum.AssetType.EyelashAccessory]
-      925 GETIMPORT                        R15 K261 [Enum.AssetType.FaceMakeup]
-      927 GETIMPORT                        R16 K263 [Enum.AssetType.LipMakeup]
-      929 GETIMPORT                        R17 K265 [Enum.AssetType.EyeMakeup]
-      931 SETLIST                          R12 R13 5 [1]
-      933 SETTABLEKS                       R12 R8 K266 ["MAKEUP_ASSET_TYPES"]
-      935 RETURN                           R8 1
+       56 GETTABLEKS                       R10 R0 K7 ["Src"]
+       58 GETTABLEKS                       R9 R10 K11 ["Flags"]
+       60 GETTABLEKS                       R8 R9 K15 ["getFFlagUsePublishMarketplaceActionType"]
+       62 CALL                             R7 1 1
+       63 GETIMPORT                        R8 K4 [require]
+       65 GETTABLEKS                       R9 R2 K16 ["convertArrayToTable"]
+       67 CALL                             R8 1 1
+       68 NEWTABLE                         R9 64 0
+       70 LOADN                            R10 76
+       71 SETTABLEKS                       R10 R9 K17 ["WIDTH"]
+       73 LOADN                            R10 92
+       74 SETTABLEKS                       R10 R9 K18 ["HEIGHT"]
+       76 LOADN                            R10 132
+       77 SETTABLEKS                       R10 R9 K19 ["MIN_WIDTH"]
+       79 LOADN                            R10 244
+       80 SETTABLEKS                       R10 R9 K20 ["MIN_HEIGHT"]
+       82 LOADK                            R10 K21 ["https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use"]
+       83 SETTABLEKS                       R10 R9 K22 ["TERM_OF_USE_URL"]
+       85 LOADK                            R10 K23 ["https://www.roblox.com/my/account#!/info"]
+       86 SETTABLEKS                       R10 R9 K24 ["ACCOUNT_SETTING_URL"]
+       88 LOADN                            R10 50
+       89 SETTABLEKS                       R10 R9 K25 ["NAME_CHARACTER_LIMIT"]
+       91 LOADN                            R10 232
+       92 SETTABLEKS                       R10 R9 K26 ["DESCRIPTION_CHARACTER_LIMIT"]
+       94 LOADN                            R10 244
+       95 SETTABLEKS                       R10 R9 K27 ["PACKAGE_NOTE_CHARACTER_LIMIT"]
+       97 LOADN                            R10 180
+       98 SETTABLEKS                       R10 R9 K28 ["TITLE_GUTTER_WIDTH"]
+      100 GETIMPORT                        R10 K31 [UDim2.new]
+      102 LOADN                            R11 0
+      103 LOADN                            R12 150
+      104 LOADN                            R13 0
+      105 LOADN                            R14 200
+      106 CALL                             R10 4 1
+      107 SETTABLEKS                       R10 R9 K32 ["OverrideAssetItemSize"]
+      109 MOVE                             R10 R8
+      110 NEWTABLE                         R11 0 3
+      112 LOADK                            R12 K33 ["ImagePicker"]
+      113 LOADK                            R13 K34 ["Thumbnail"]
+      114 LOADK                            R14 K35 ["ModelPreview"]
+      115 SETLIST                          R11 R12 3 [1]
+      117 CALL                             R10 1 1
+      118 SETTABLEKS                       R10 R9 K36 ["PreviewTypes"]
+      120 MOVE                             R10 R8
+      121 NEWTABLE                         R11 0 5
+      123 LOADK                            R12 K37 ["Sales"]
+      124 LOADK                            R13 K38 ["General"]
+      125 LOADK                            R14 K39 ["Versions"]
+      126 LOADK                            R15 K40 ["Override"]
+      127 LOADK                            R16 K41 ["Permissions"]
+      128 SETLIST                          R11 R12 5 [1]
+      130 CALL                             R10 1 1
+      131 SETTABLEKS                       R10 R9 K42 ["SIDE_TABS"]
+      133 MOVE                             R10 R8
+      134 NEWTABLE                         R11 0 3
+      136 LOADK                            R12 K43 ["Title"]
+      137 LOADK                            R13 K44 ["Description"]
+      138 LOADK                            R14 K45 ["Price"]
+      139 SETLIST                          R11 R12 3 [1]
+      141 CALL                             R10 1 1
+      142 SETTABLEKS                       R10 R9 K46 ["FIELD_NAMES"]
+      144 NEWTABLE                         R10 0 14
+      146 DUPTABLE                         R11 K48 [{"name"}]
+      147 GETIMPORT                        R13 K52 [Enum.Genre.All]
+      149 GETTABLEKS                       R12 R13 K53 ["Name"]
+      151 SETTABLEKS                       R12 R11 K47 ["name"]
+      153 DUPTABLE                         R12 K48 [{"name"}]
+      154 GETIMPORT                        R14 K55 [Enum.Genre.TownAndCity]
+      156 GETTABLEKS                       R13 R14 K53 ["Name"]
+      158 SETTABLEKS                       R13 R12 K47 ["name"]
+      160 DUPTABLE                         R13 K48 [{"name"}]
+      161 GETIMPORT                        R15 K57 [Enum.Genre.Fantasy]
+      163 GETTABLEKS                       R14 R15 K53 ["Name"]
+      165 SETTABLEKS                       R14 R13 K47 ["name"]
+      167 DUPTABLE                         R14 K48 [{"name"}]
+      168 GETIMPORT                        R16 K59 [Enum.Genre.SciFi]
+      170 GETTABLEKS                       R15 R16 K53 ["Name"]
+      172 SETTABLEKS                       R15 R14 K47 ["name"]
+      174 DUPTABLE                         R15 K48 [{"name"}]
+      175 GETIMPORT                        R17 K61 [Enum.Genre.Ninja]
+      177 GETTABLEKS                       R16 R17 K53 ["Name"]
+      179 SETTABLEKS                       R16 R15 K47 ["name"]
+      181 DUPTABLE                         R16 K48 [{"name"}]
+      182 GETIMPORT                        R18 K63 [Enum.Genre.Scary]
+      184 GETTABLEKS                       R17 R18 K53 ["Name"]
+      186 SETTABLEKS                       R17 R16 K47 ["name"]
+      188 DUPTABLE                         R17 K48 [{"name"}]
+      189 GETIMPORT                        R19 K65 [Enum.Genre.Pirate]
+      191 GETTABLEKS                       R18 R19 K53 ["Name"]
+      193 SETTABLEKS                       R18 R17 K47 ["name"]
+      195 DUPTABLE                         R18 K48 [{"name"}]
+      196 GETIMPORT                        R20 K67 [Enum.Genre.Adventure]
+      198 GETTABLEKS                       R19 R20 K53 ["Name"]
+      200 SETTABLEKS                       R19 R18 K47 ["name"]
+      202 DUPTABLE                         R19 K48 [{"name"}]
+      203 GETIMPORT                        R21 K69 [Enum.Genre.Sports]
+      205 GETTABLEKS                       R20 R21 K53 ["Name"]
+      207 SETTABLEKS                       R20 R19 K47 ["name"]
+      209 DUPTABLE                         R20 K48 [{"name"}]
+      210 GETIMPORT                        R22 K71 [Enum.Genre.Funny]
+      212 GETTABLEKS                       R21 R22 K53 ["Name"]
+      214 SETTABLEKS                       R21 R20 K47 ["name"]
+      216 DUPTABLE                         R21 K48 [{"name"}]
+      217 GETIMPORT                        R23 K73 [Enum.Genre.WildWest]
+      219 GETTABLEKS                       R22 R23 K53 ["Name"]
+      221 SETTABLEKS                       R22 R21 K47 ["name"]
+      223 DUPTABLE                         R22 K48 [{"name"}]
+      224 GETIMPORT                        R24 K75 [Enum.Genre.War]
+      226 GETTABLEKS                       R23 R24 K53 ["Name"]
+      228 SETTABLEKS                       R23 R22 K47 ["name"]
+      230 DUPTABLE                         R23 K48 [{"name"}]
+      231 GETIMPORT                        R25 K77 [Enum.Genre.SkatePark]
+      233 GETTABLEKS                       R24 R25 K53 ["Name"]
+      235 SETTABLEKS                       R24 R23 K47 ["name"]
+      237 DUPTABLE                         R24 K48 [{"name"}]
+      238 GETIMPORT                        R26 K79 [Enum.Genre.Tutorial]
+      240 GETTABLEKS                       R25 R26 K53 ["Name"]
+      242 SETTABLEKS                       R25 R24 K47 ["name"]
+      244 SETLIST                          R10 R11 14 [1]
+      246 SETTABLEKS                       R10 R9 K80 ["GENRE_TYPE"]
+      248 MOVE                             R10 R8
+      249 NEWTABLE                         R11 0 3
+      251 LOADK                            R12 K81 ["EDIT_FLOW"]
+      252 LOADK                            R13 K82 ["UPLOAD_FLOW"]
+      253 LOADK                            R14 K83 ["DOWNLOAD_FLOW"]
+      254 SETLIST                          R11 R12 3 [1]
+      256 CALL                             R10 1 1
+      257 SETTABLEKS                       R10 R9 K84 ["FLOW_TYPE"]
+      259 MOVE                             R10 R8
+      260 NEWTABLE                         R11 0 5
+      262 LOADK                            R12 K85 ["ASSET_TYPE_SELECTION"]
+      263 LOADK                            R13 K86 ["ASSET_VALIDATION"]
+      264 LOADK                            R14 K87 ["CONFIGURE_ASSET"]
+      265 LOADK                            R15 K88 ["UPLOADING_ASSET"]
+      266 LOADK                            R16 K89 ["UPLOAD_ASSET_RESULT"]
+      267 SETLIST                          R11 R12 5 [1]
+      269 CALL                             R10 1 1
+      270 SETTABLEKS                       R10 R9 K90 ["SCREENS"]
+      272 MOVE                             R10 R8
+      273 NEWTABLE                         R11 0 8
+      275 LOADK                            R12 K91 ["Unknown"]
+      276 LOADK                            R13 K92 ["ReviewPending"]
+      277 LOADK                            R14 K93 ["Moderated"]
+      278 LOADK                            R15 K94 ["ReviewApproved"]
+      279 LOADK                            R16 K95 ["OnSale"]
+      280 LOADK                            R17 K96 ["OffSale"]
+      281 LOADK                            R18 K97 ["DelayedRelease"]
+      282 LOADK                            R19 K98 ["Free"]
+      283 SETLIST                          R11 R12 8 [1]
+      285 CALL                             R10 1 1
+      286 SETTABLEKS                       R10 R9 K99 ["ASSET_STATUS"]
+      288 MOVE                             R10 R8
+      289 NEWTABLE                         R11 0 10
+      291 LOADK                            R12 K100 ["AssetType"]
+      292 LOADK                            R13 K101 ["Authorization"]
+      293 LOADK                            R14 K102 ["Invalid"]
+      294 LOADK                            R15 K103 ["KillSwitch"]
+      295 LOADK                            R16 K104 ["Quota"]
+      296 LOADK                            R17 K105 ["SafetyStatus"]
+      297 LOADK                            R18 K106 ["SellerAccountNotOnboarded"]
+      298 LOADK                            R19 K107 ["SellerAccountRestricted"]
+      299 LOADK                            R20 K108 ["UnsupportedAssetOwner"]
+      300 LOADK                            R21 K109 ["Verification"]
+      301 SETLIST                          R11 R12 10 [1]
+      303 CALL                             R10 1 1
+      304 SETTABLEKS                       R10 R9 K110 ["RESTRICTION_TYPE"]
+      306 MOVE                             R10 R8
+      307 NEWTABLE                         R11 0 1
+      309 LOADK                            R12 K95 ["OnSale"]
+      310 SETLIST                          R11 R12 1 [1]
+      312 CALL                             R10 1 1
+      313 SETTABLEKS                       R10 R9 K111 ["SALES_STATUS_FOR_PRICE"]
+      315 DUPCLOSURE                       R10 K112 [PROTO_0]
+      316 DUPCLOSURE                       R11 K113 [PROTO_1]
+      317 NEWTABLE                         R12 0 0
+      319 SETTABLEKS                       R12 R9 K114 ["ASSET_TYPE_INFO"]
+      321 NEWTABLE                         R12 0 3
+      323 GETIMPORT                        R13 K116 [Enum.AssetType.TShirt]
+      325 GETIMPORT                        R14 K118 [Enum.AssetType.Shirt]
+      327 GETIMPORT                        R15 K120 [Enum.AssetType.Pants]
+      329 SETLIST                          R12 R13 3 [1]
+      331 SETTABLEKS                       R12 R9 K121 ["ASSET_TYPES_2D"]
+      333 DUPCLOSURE                       R12 K122 [PROTO_3]
+      334 CAPTURE                          VAL R9
+      335 CAPTURE                          VAL R7
+      336 SETTABLEKS                       R12 R9 K123 ["populateAssetTypeInfoFromNetwork"]
+      338 DUPCLOSURE                       R12 K124 [PROTO_4]
+      339 SETTABLEKS                       R12 R9 K125 ["getNormalizedAssetString"]
+      341 MOVE                             R12 R8
+      342 NEWTABLE                         R13 0 3
+      344 LOADK                            R14 K126 ["WhitelistedPlugins"]
+      345 LOADK                            R15 K127 ["MyPlugins"]
+      346 LOADK                            R16 K128 ["GroupPlugins"]
+      347 SETLIST                          R13 R14 3 [1]
+      349 CALL                             R12 1 1
+      350 SETTABLEKS                       R12 R9 K129 ["developCategoryType"]
+      352 MOVE                             R12 R8
+      353 NEWTABLE                         R13 0 2
+      355 LOADK                            R14 K130 ["MyPackages"]
+      356 LOADK                            R15 K131 ["GroupPackages"]
+      357 SETLIST                          R13 R14 2 [1]
+      359 CALL                             R12 1 1
+      360 SETTABLEKS                       R12 R9 K132 ["packagesCategoryType"]
+      362 MOVE                             R12 R8
+      363 NEWTABLE                         R13 0 9
+      365 LOADK                            R14 K133 ["Asset"]
+      366 LOADK                            R15 K134 ["Avatar"]
+      367 LOADK                            R16 K135 ["AvatarHeadShot"]
+      368 LOADK                            R17 K136 ["BadgeIcon"]
+      369 LOADK                            R18 K137 ["BundleThumbnail"]
+      370 LOADK                            R19 K138 ["GameIcon"]
+      371 LOADK                            R20 K139 ["GamePass"]
+      372 LOADK                            R21 K140 ["GroupIcon"]
+      373 LOADK                            R22 K141 ["Outfit"]
+      374 SETLIST                          R13 R14 9 [1]
+      376 CALL                             R12 1 1
+      377 SETTABLEKS                       R12 R9 K142 ["rbxThumbTypes"]
+      379 DUPTABLE                         R12 K146 [{"AvatarHeadshotImageSize", "GroupIconImageSize", "AssetThumbnailSize"}]
+      380 LOADN                            R13 60
+      381 SETTABLEKS                       R13 R12 K143 ["AvatarHeadshotImageSize"]
+      383 LOADN                            R13 150
+      384 SETTABLEKS                       R13 R12 K144 ["GroupIconImageSize"]
+      386 LOADN                            R13 164
+      387 SETTABLEKS                       R13 R12 K145 ["AssetThumbnailSize"]
+      389 SETTABLEKS                       R12 R9 K147 ["rbxThumbSizes"]
+      391 DUPTABLE                         R12 K153 [{"MaxThumbnails", "AspectRatioHeight", "AspectRatioWidth", "RecommendedHeight", "RecommendedWidth"}]
+      392 LOADN                            R13 5
+      393 SETTABLEKS                       R13 R12 K148 ["MaxThumbnails"]
+      395 LOADN                            R13 9
+      396 SETTABLEKS                       R13 R12 K149 ["AspectRatioHeight"]
+      398 LOADN                            R13 16
+      399 SETTABLEKS                       R13 R12 K150 ["AspectRatioWidth"]
+      401 LOADN                            R13 176
+      402 SETTABLEKS                       R13 R12 K151 ["RecommendedHeight"]
+      404 LOADN                            R13 0
+      405 SETTABLEKS                       R13 R12 K152 ["RecommendedWidth"]
+      407 SETTABLEKS                       R12 R9 K154 ["additionalImages"]
+      409 NEWTABLE                         R12 0 3
+      411 LOADK                            R13 K155 ["jpg"]
+      412 LOADK                            R14 K156 ["jpeg"]
+      413 LOADK                            R15 K157 ["png"]
+      414 SETLIST                          R12 R13 3 [1]
+      416 SETTABLEKS                       R12 R9 K158 ["IMAGE_TYPES"]
+      418 LOADK                            R12 K159 ["Success"]
+      419 SETTABLEKS                       R12 R9 K160 ["TAGS_SUGGESTION_SUCCESS"]
+      421 LOADN                            R12 5
+      422 SETTABLEKS                       R12 R9 K161 ["MAX_DISPLAY_SUGGESTIONS"]
+      424 LOADN                            R12 10
+      425 SETTABLEKS                       R12 R9 K162 ["MAX_FETCH_SUGGESTIONS"]
+      427 LOADK                            R12 K163 ["avatar_meshpart_accessory"]
+      428 SETTABLEKS                       R12 R9 K164 ["AVATAR_MESHPART_ACCESSORY_FORMAT"]
+      430 LOADK                            R12 K165 ["EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"]
+      431 SETTABLEKS                       R12 R9 K166 ["MULTIPART_FORM_BOUNDARY"]
+      433 LOADK                            R12 K167 ["OverrideAssetId"]
+      434 SETTABLEKS                       R12 R9 K168 ["OVERRIDE_ASSET_ID"]
+      436 DUPTABLE                         R12 K171 [{"Public", "Private"}]
+      437 LOADB                            R13 1
+      438 SETTABLEKS                       R13 R12 K169 ["Public"]
+      440 LOADB                            R13 0
+      441 SETTABLEKS                       R13 R12 K170 ["Private"]
+      443 SETTABLEKS                       R12 R9 K172 ["SHARING_KEYS"]
+      445 NEWTABLE                         R12 0 3
+      447 LOADK                            R13 K173 ["Body"]
+      448 LOADK                            R14 K174 ["DynamicHead"]
+      449 LOADK                            R15 K175 ["Shoes"]
+      450 SETLIST                          R12 R13 3 [1]
+      452 MOVE                             R13 R5
+      453 CALL                             R13 0 1
+      454 JUMPIFNOT                        R13 ; [+7]
+      455 FASTCALL2K                       TABLE_INSERT R12 K176 ; [+5]
+      457 MOVE                             R14 R12
+      458 LOADK                            R15 K176 ["AvatarAnimations"]
+      459 GETIMPORT                        R13 K179 [table.insert]
+      461 CALL                             R13 2 0
+      462 NEWTABLE                         R13 0 0
+      464 SETTABLEKS                       R13 R9 K180 ["UGCBundleTypes"]
+      466 GETIMPORT                        R13 K182 [ipairs]
+      468 MOVE                             R14 R12
+      469 CALL                             R13 1 3
+      470 FORGPREP_INEXT                   R13
+      471 DUPTABLE                         R18 K184 [{"Name", "Value"}]
+      472 SETTABLEKS                       R17 R18 K53 ["Name"]
+      474 SETTABLEKS                       R16 R18 K183 ["Value"]
+      476 GETTABLEKS                       R19 R9 K180 ["UGCBundleTypes"]
+      478 SETTABLE                         R18 R19 R17
+      479 NEWCLOSURE                       R19 P4
+      480 CAPTURE                          VAL R18
+      481 SETTABLEKS                       R19 R18 K185 ["rawValue"]
+      483 FORGLOOP                         R13 2 [inext] ; [-13]
+      485 NEWTABLE                         R13 4 0
+      487 GETTABLEKS                       R16 R9 K180 ["UGCBundleTypes"]
+      489 GETTABLEKS                       R15 R16 K173 ["Body"]
+      491 GETTABLEKS                       R14 R15 K185 ["rawValue"]
+      493 CALL                             R14 0 1
+      494 GETTABLEKS                       R16 R9 K180 ["UGCBundleTypes"]
+      496 GETTABLEKS                       R15 R16 K173 ["Body"]
+      498 SETTABLE                         R15 R13 R14
+      499 GETTABLEKS                       R16 R9 K180 ["UGCBundleTypes"]
+      501 GETTABLEKS                       R15 R16 K174 ["DynamicHead"]
+      503 GETTABLEKS                       R14 R15 K185 ["rawValue"]
+      505 CALL                             R14 0 1
+      506 GETTABLEKS                       R16 R9 K180 ["UGCBundleTypes"]
+      508 GETTABLEKS                       R15 R16 K174 ["DynamicHead"]
+      510 SETTABLE                         R15 R13 R14
+      511 GETTABLEKS                       R16 R9 K180 ["UGCBundleTypes"]
+      513 GETTABLEKS                       R15 R16 K175 ["Shoes"]
+      515 GETTABLEKS                       R14 R15 K185 ["rawValue"]
+      517 CALL                             R14 0 1
+      518 GETTABLEKS                       R16 R9 K180 ["UGCBundleTypes"]
+      520 GETTABLEKS                       R15 R16 K175 ["Shoes"]
+      522 SETTABLE                         R15 R13 R14
+      523 SETTABLEKS                       R13 R9 K186 ["UGCBundleTypeStringToEnumeration"]
+      525 MOVE                             R13 R5
+      526 CALL                             R13 0 1
+      527 JUMPIFNOT                        R13 ; [+14]
+      528 GETTABLEKS                       R13 R9 K186 ["UGCBundleTypeStringToEnumeration"]
+      530 GETTABLEKS                       R16 R9 K180 ["UGCBundleTypes"]
+      532 GETTABLEKS                       R15 R16 K176 ["AvatarAnimations"]
+      534 GETTABLEKS                       R14 R15 K185 ["rawValue"]
+      536 CALL                             R14 0 1
+      537 GETTABLEKS                       R16 R9 K180 ["UGCBundleTypes"]
+      539 GETTABLEKS                       R15 R16 K176 ["AvatarAnimations"]
+      541 SETTABLE                         R15 R13 R14
+      542 NEWTABLE                         R13 16 0
+      544 GETIMPORT                        R14 K187 [Enum.AssetType.DynamicHead]
+      546 SETTABLEKS                       R14 R13 K174 ["DynamicHead"]
+      548 GETIMPORT                        R14 K189 [Enum.AssetType.LeftArm]
+      550 SETTABLEKS                       R14 R13 K188 ["LeftArm"]
+      552 GETIMPORT                        R14 K191 [Enum.AssetType.LeftLeg]
+      554 SETTABLEKS                       R14 R13 K190 ["LeftLeg"]
+      556 GETIMPORT                        R14 K193 [Enum.AssetType.RightArm]
+      558 SETTABLEKS                       R14 R13 K192 ["RightArm"]
+      560 GETIMPORT                        R14 K195 [Enum.AssetType.RightLeg]
+      562 SETTABLEKS                       R14 R13 K194 ["RightLeg"]
+      564 GETIMPORT                        R14 K197 [Enum.AssetType.Torso]
+      566 SETTABLEKS                       R14 R13 K196 ["Torso"]
+      568 GETIMPORT                        R14 K199 [Enum.AssetType.EyebrowAccessory]
+      570 SETTABLEKS                       R14 R13 K198 ["EyebrowAccessory"]
+      572 GETIMPORT                        R14 K201 [Enum.AssetType.EyelashAccessory]
+      574 SETTABLEKS                       R14 R13 K200 ["EyelashAccessory"]
+      576 GETIMPORT                        R14 K203 [Enum.AssetType.HairAccessory]
+      578 SETTABLEKS                       R14 R13 K202 ["HairAccessory"]
+      580 GETIMPORT                        R14 K205 [Enum.AssetType.LeftShoeAccessory]
+      582 SETTABLEKS                       R14 R13 K204 ["LeftShoeAccessory"]
+      584 GETIMPORT                        R14 K207 [Enum.AssetType.RightShoeAccessory]
+      586 SETTABLEKS                       R14 R13 K206 ["RightShoeAccessory"]
+      588 SETTABLEKS                       R13 R9 K208 ["AllowedAssetStringsMetadataToAssetTypeMap"]
+      590 MOVE                             R13 R5
+      591 CALL                             R13 0 1
+      592 JUMPIFNOT                        R13 ; [+42]
+      593 GETTABLEKS                       R13 R9 K208 ["AllowedAssetStringsMetadataToAssetTypeMap"]
+      595 GETIMPORT                        R14 K210 [Enum.AssetType.ClimbAnimation]
+      597 SETTABLEKS                       R14 R13 K209 ["ClimbAnimation"]
+      599 GETTABLEKS                       R13 R9 K208 ["AllowedAssetStringsMetadataToAssetTypeMap"]
+      601 GETIMPORT                        R14 K212 [Enum.AssetType.FallAnimation]
+      603 SETTABLEKS                       R14 R13 K211 ["FallAnimation"]
+      605 GETTABLEKS                       R13 R9 K208 ["AllowedAssetStringsMetadataToAssetTypeMap"]
+      607 GETIMPORT                        R14 K214 [Enum.AssetType.IdleAnimation]
+      609 SETTABLEKS                       R14 R13 K213 ["IdleAnimation"]
+      611 GETTABLEKS                       R13 R9 K208 ["AllowedAssetStringsMetadataToAssetTypeMap"]
+      613 GETIMPORT                        R14 K216 [Enum.AssetType.JumpAnimation]
+      615 SETTABLEKS                       R14 R13 K215 ["JumpAnimation"]
+      617 GETTABLEKS                       R13 R9 K208 ["AllowedAssetStringsMetadataToAssetTypeMap"]
+      619 GETIMPORT                        R14 K218 [Enum.AssetType.RunAnimation]
+      621 SETTABLEKS                       R14 R13 K217 ["RunAnimation"]
+      623 GETTABLEKS                       R13 R9 K208 ["AllowedAssetStringsMetadataToAssetTypeMap"]
+      625 GETIMPORT                        R14 K220 [Enum.AssetType.SwimAnimation]
+      627 SETTABLEKS                       R14 R13 K219 ["SwimAnimation"]
+      629 GETTABLEKS                       R13 R9 K208 ["AllowedAssetStringsMetadataToAssetTypeMap"]
+      631 GETIMPORT                        R14 K222 [Enum.AssetType.WalkAnimation]
+      633 SETTABLEKS                       R14 R13 K221 ["WalkAnimation"]
+      635 DUPTABLE                         R13 K238 [{"Head", "UpperTorso", "LowerTorso", "LeftUpperLeg", "LeftLowerLeg", "LeftHand", "RightUpperArm", "RightLowerArm", "RightHand", "LeftUpperArm", "LeftLowerArm", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot", "EyebrowAccessory", "EyelashAccessory", "HairAccessory"}]
+      636 LOADK                            R14 K223 ["Head"]
+      637 SETTABLEKS                       R14 R13 K223 ["Head"]
+      639 LOADK                            R14 K224 ["UpperTorso"]
+      640 SETTABLEKS                       R14 R13 K224 ["UpperTorso"]
+      642 LOADK                            R14 K225 ["LowerTorso"]
+      643 SETTABLEKS                       R14 R13 K225 ["LowerTorso"]
+      645 LOADK                            R14 K226 ["LeftUpperLeg"]
+      646 SETTABLEKS                       R14 R13 K226 ["LeftUpperLeg"]
+      648 LOADK                            R14 K227 ["LeftLowerLeg"]
+      649 SETTABLEKS                       R14 R13 K227 ["LeftLowerLeg"]
+      651 LOADK                            R14 K228 ["LeftHand"]
+      652 SETTABLEKS                       R14 R13 K228 ["LeftHand"]
+      654 LOADK                            R14 K229 ["RightUpperArm"]
+      655 SETTABLEKS                       R14 R13 K229 ["RightUpperArm"]
+      657 LOADK                            R14 K230 ["RightLowerArm"]
+      658 SETTABLEKS                       R14 R13 K230 ["RightLowerArm"]
+      660 LOADK                            R14 K231 ["RightHand"]
+      661 SETTABLEKS                       R14 R13 K231 ["RightHand"]
+      663 LOADK                            R14 K232 ["LeftUpperArm"]
+      664 SETTABLEKS                       R14 R13 K232 ["LeftUpperArm"]
+      666 LOADK                            R14 K233 ["LeftLowerArm"]
+      667 SETTABLEKS                       R14 R13 K233 ["LeftLowerArm"]
+      669 LOADK                            R14 K234 ["LeftFoot"]
+      670 SETTABLEKS                       R14 R13 K234 ["LeftFoot"]
+      672 LOADK                            R14 K235 ["RightUpperLeg"]
+      673 SETTABLEKS                       R14 R13 K235 ["RightUpperLeg"]
+      675 LOADK                            R14 K236 ["RightLowerLeg"]
+      676 SETTABLEKS                       R14 R13 K236 ["RightLowerLeg"]
+      678 LOADK                            R14 K237 ["RightFoot"]
+      679 SETTABLEKS                       R14 R13 K237 ["RightFoot"]
+      681 LOADK                            R14 K198 ["EyebrowAccessory"]
+      682 SETTABLEKS                       R14 R13 K198 ["EyebrowAccessory"]
+      684 LOADK                            R14 K200 ["EyelashAccessory"]
+      685 SETTABLEKS                       R14 R13 K200 ["EyelashAccessory"]
+      687 LOADK                            R14 K202 ["HairAccessory"]
+      688 SETTABLEKS                       R14 R13 K202 ["HairAccessory"]
+      690 SETTABLEKS                       R13 R9 K239 ["UGC_BODY_PARTS"]
+      692 DUPTABLE                         R13 K240 [{"LeftShoeAccessory", "RightShoeAccessory"}]
+      693 LOADK                            R14 K204 ["LeftShoeAccessory"]
+      694 SETTABLEKS                       R14 R13 K204 ["LeftShoeAccessory"]
+      696 LOADK                            R14 K206 ["RightShoeAccessory"]
+      697 SETTABLEKS                       R14 R13 K206 ["RightShoeAccessory"]
+      699 SETTABLEKS                       R13 R9 K241 ["UGC_BUNDLE_PARTS"]
+      701 NEWTABLE                         R13 32 0
+      703 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      705 GETTABLEKS                       R14 R15 K223 ["Head"]
+      707 GETIMPORT                        R15 K187 [Enum.AssetType.DynamicHead]
+      709 SETTABLE                         R15 R13 R14
+      710 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      712 GETTABLEKS                       R14 R15 K224 ["UpperTorso"]
+      714 GETIMPORT                        R15 K197 [Enum.AssetType.Torso]
+      716 SETTABLE                         R15 R13 R14
+      717 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      719 GETTABLEKS                       R14 R15 K225 ["LowerTorso"]
+      721 GETIMPORT                        R15 K197 [Enum.AssetType.Torso]
+      723 SETTABLE                         R15 R13 R14
+      724 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      726 GETTABLEKS                       R14 R15 K232 ["LeftUpperArm"]
+      728 GETIMPORT                        R15 K189 [Enum.AssetType.LeftArm]
+      730 SETTABLE                         R15 R13 R14
+      731 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      733 GETTABLEKS                       R14 R15 K233 ["LeftLowerArm"]
+      735 GETIMPORT                        R15 K189 [Enum.AssetType.LeftArm]
+      737 SETTABLE                         R15 R13 R14
+      738 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      740 GETTABLEKS                       R14 R15 K228 ["LeftHand"]
+      742 GETIMPORT                        R15 K189 [Enum.AssetType.LeftArm]
+      744 SETTABLE                         R15 R13 R14
+      745 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      747 GETTABLEKS                       R14 R15 K229 ["RightUpperArm"]
+      749 GETIMPORT                        R15 K193 [Enum.AssetType.RightArm]
+      751 SETTABLE                         R15 R13 R14
+      752 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      754 GETTABLEKS                       R14 R15 K230 ["RightLowerArm"]
+      756 GETIMPORT                        R15 K193 [Enum.AssetType.RightArm]
+      758 SETTABLE                         R15 R13 R14
+      759 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      761 GETTABLEKS                       R14 R15 K231 ["RightHand"]
+      763 GETIMPORT                        R15 K193 [Enum.AssetType.RightArm]
+      765 SETTABLE                         R15 R13 R14
+      766 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      768 GETTABLEKS                       R14 R15 K226 ["LeftUpperLeg"]
+      770 GETIMPORT                        R15 K191 [Enum.AssetType.LeftLeg]
+      772 SETTABLE                         R15 R13 R14
+      773 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      775 GETTABLEKS                       R14 R15 K227 ["LeftLowerLeg"]
+      777 GETIMPORT                        R15 K191 [Enum.AssetType.LeftLeg]
+      779 SETTABLE                         R15 R13 R14
+      780 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      782 GETTABLEKS                       R14 R15 K234 ["LeftFoot"]
+      784 GETIMPORT                        R15 K191 [Enum.AssetType.LeftLeg]
+      786 SETTABLE                         R15 R13 R14
+      787 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      789 GETTABLEKS                       R14 R15 K235 ["RightUpperLeg"]
+      791 GETIMPORT                        R15 K195 [Enum.AssetType.RightLeg]
+      793 SETTABLE                         R15 R13 R14
+      794 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      796 GETTABLEKS                       R14 R15 K236 ["RightLowerLeg"]
+      798 GETIMPORT                        R15 K195 [Enum.AssetType.RightLeg]
+      800 SETTABLE                         R15 R13 R14
+      801 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      803 GETTABLEKS                       R14 R15 K237 ["RightFoot"]
+      805 GETIMPORT                        R15 K195 [Enum.AssetType.RightLeg]
+      807 SETTABLE                         R15 R13 R14
+      808 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      810 GETTABLEKS                       R14 R15 K198 ["EyebrowAccessory"]
+      812 GETIMPORT                        R15 K199 [Enum.AssetType.EyebrowAccessory]
+      814 SETTABLE                         R15 R13 R14
+      815 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      817 GETTABLEKS                       R14 R15 K200 ["EyelashAccessory"]
+      819 GETIMPORT                        R15 K201 [Enum.AssetType.EyelashAccessory]
+      821 SETTABLE                         R15 R13 R14
+      822 GETTABLEKS                       R15 R9 K239 ["UGC_BODY_PARTS"]
+      824 GETTABLEKS                       R14 R15 K202 ["HairAccessory"]
+      826 GETIMPORT                        R15 K203 [Enum.AssetType.HairAccessory]
+      828 SETTABLE                         R15 R13 R14
+      829 SETTABLEKS                       R13 R9 K242 ["UGC_BODY_PART_NAMES_TO_ASSET_TYPE"]
+      831 NEWTABLE                         R13 2 0
+      833 GETTABLEKS                       R15 R9 K241 ["UGC_BUNDLE_PARTS"]
+      835 GETTABLEKS                       R14 R15 K204 ["LeftShoeAccessory"]
+      837 GETIMPORT                        R15 K205 [Enum.AssetType.LeftShoeAccessory]
+      839 SETTABLE                         R15 R13 R14
+      840 GETTABLEKS                       R15 R9 K241 ["UGC_BUNDLE_PARTS"]
+      842 GETTABLEKS                       R14 R15 K206 ["RightShoeAccessory"]
+      844 GETIMPORT                        R15 K207 [Enum.AssetType.RightShoeAccessory]
+      846 SETTABLE                         R15 R13 R14
+      847 SETTABLEKS                       R13 R9 K243 ["UGC_BUNDLE_PART_NAMES_TO_ASSET_TYPE"]
+      849 MOVE                             R13 R5
+      850 CALL                             R13 0 1
+      851 JUMPIFNOT                        R13 ; [+77]
+      852 DUPTABLE                         R13 K244 [{"ClimbAnimation", "FallAnimation", "IdleAnimation", "JumpAnimation", "RunAnimation", "SwimAnimation", "WalkAnimation"}]
+      853 LOADK                            R14 K209 ["ClimbAnimation"]
+      854 SETTABLEKS                       R14 R13 K209 ["ClimbAnimation"]
+      856 LOADK                            R14 K211 ["FallAnimation"]
+      857 SETTABLEKS                       R14 R13 K211 ["FallAnimation"]
+      859 LOADK                            R14 K213 ["IdleAnimation"]
+      860 SETTABLEKS                       R14 R13 K213 ["IdleAnimation"]
+      862 LOADK                            R14 K215 ["JumpAnimation"]
+      863 SETTABLEKS                       R14 R13 K215 ["JumpAnimation"]
+      865 LOADK                            R14 K217 ["RunAnimation"]
+      866 SETTABLEKS                       R14 R13 K217 ["RunAnimation"]
+      868 LOADK                            R14 K219 ["SwimAnimation"]
+      869 SETTABLEKS                       R14 R13 K219 ["SwimAnimation"]
+      871 LOADK                            R14 K221 ["WalkAnimation"]
+      872 SETTABLEKS                       R14 R13 K221 ["WalkAnimation"]
+      874 SETTABLEKS                       R13 R9 K245 ["UGC_AVATAR_ANIMATIONS_PARTS"]
+      876 NEWTABLE                         R13 8 0
+      878 GETTABLEKS                       R15 R9 K245 ["UGC_AVATAR_ANIMATIONS_PARTS"]
+      880 GETTABLEKS                       R14 R15 K209 ["ClimbAnimation"]
+      882 GETIMPORT                        R15 K210 [Enum.AssetType.ClimbAnimation]
+      884 SETTABLE                         R15 R13 R14
+      885 GETTABLEKS                       R15 R9 K245 ["UGC_AVATAR_ANIMATIONS_PARTS"]
+      887 GETTABLEKS                       R14 R15 K211 ["FallAnimation"]
+      889 GETIMPORT                        R15 K212 [Enum.AssetType.FallAnimation]
+      891 SETTABLE                         R15 R13 R14
+      892 GETTABLEKS                       R15 R9 K245 ["UGC_AVATAR_ANIMATIONS_PARTS"]
+      894 GETTABLEKS                       R14 R15 K213 ["IdleAnimation"]
+      896 GETIMPORT                        R15 K214 [Enum.AssetType.IdleAnimation]
+      898 SETTABLE                         R15 R13 R14
+      899 GETTABLEKS                       R15 R9 K245 ["UGC_AVATAR_ANIMATIONS_PARTS"]
+      901 GETTABLEKS                       R14 R15 K215 ["JumpAnimation"]
+      903 GETIMPORT                        R15 K216 [Enum.AssetType.JumpAnimation]
+      905 SETTABLE                         R15 R13 R14
+      906 GETTABLEKS                       R15 R9 K245 ["UGC_AVATAR_ANIMATIONS_PARTS"]
+      908 GETTABLEKS                       R14 R15 K217 ["RunAnimation"]
+      910 GETIMPORT                        R15 K218 [Enum.AssetType.RunAnimation]
+      912 SETTABLE                         R15 R13 R14
+      913 GETTABLEKS                       R15 R9 K245 ["UGC_AVATAR_ANIMATIONS_PARTS"]
+      915 GETTABLEKS                       R14 R15 K219 ["SwimAnimation"]
+      917 GETIMPORT                        R15 K220 [Enum.AssetType.SwimAnimation]
+      919 SETTABLE                         R15 R13 R14
+      920 GETTABLEKS                       R15 R9 K245 ["UGC_AVATAR_ANIMATIONS_PARTS"]
+      922 GETTABLEKS                       R14 R15 K221 ["WalkAnimation"]
+      924 GETIMPORT                        R15 K222 [Enum.AssetType.WalkAnimation]
+      926 SETTABLE                         R15 R13 R14
+      927 SETTABLEKS                       R13 R9 K246 ["UGC_AVATAR_ANIMATIONS_PART_NAMES_TO_ASSET_TYPE"]
+      929 MOVE                             R13 R3
+      930 CALL                             R13 0 1
+      931 JUMPIFNOT                        R13 ; [+90]
+      932 DUPTABLE                         R13 K250 [{"Classic", "ProportionsNormal", "ProportionsSlender", "Unknown"}]
+      933 LOADK                            R14 K247 ["Classic"]
+      934 SETTABLEKS                       R14 R13 K247 ["Classic"]
+      936 LOADK                            R14 K248 ["ProportionsNormal"]
+      937 SETTABLEKS                       R14 R13 K248 ["ProportionsNormal"]
+      939 LOADK                            R14 K249 ["ProportionsSlender"]
+      940 SETTABLEKS                       R14 R13 K249 ["ProportionsSlender"]
+      942 LOADK                            R14 K91 ["Unknown"]
+      943 SETTABLEKS                       R14 R13 K91 ["Unknown"]
+      945 SETTABLEKS                       R13 R9 K251 ["BodyScaleTypes"]
+      947 DUPTABLE                         R13 K252 [{"Classic", "ProportionsNormal", "ProportionsSlender"}]
+      948 DUPTABLE                         R14 K258 [{"height", "width", "head", "proportion", "bodyType"}]
+      949 LOADN                            R15 1
+      950 SETTABLEKS                       R15 R14 K253 ["height"]
+      952 LOADN                            R15 1
+      953 SETTABLEKS                       R15 R14 K254 ["width"]
+      955 LOADN                            R15 1
+      956 SETTABLEKS                       R15 R14 K255 ["head"]
+      958 LOADN                            R15 0
+      959 SETTABLEKS                       R15 R14 K256 ["proportion"]
+      961 LOADN                            R15 0
+      962 SETTABLEKS                       R15 R14 K257 ["bodyType"]
+      964 SETTABLEKS                       R14 R13 K247 ["Classic"]
+      966 DUPTABLE                         R14 K258 [{"height", "width", "head", "proportion", "bodyType"}]
+      967 LOADN                            R15 1
+      968 SETTABLEKS                       R15 R14 K253 ["height"]
+      970 LOADN                            R15 1
+      971 SETTABLEKS                       R15 R14 K254 ["width"]
+      973 LOADN                            R15 1
+      974 SETTABLEKS                       R15 R14 K255 ["head"]
+      976 LOADN                            R15 0
+      977 SETTABLEKS                       R15 R14 K256 ["proportion"]
+      979 LOADN                            R15 1
+      980 SETTABLEKS                       R15 R14 K257 ["bodyType"]
+      982 SETTABLEKS                       R14 R13 K248 ["ProportionsNormal"]
+      984 DUPTABLE                         R14 K258 [{"height", "width", "head", "proportion", "bodyType"}]
+      985 LOADN                            R15 1
+      986 SETTABLEKS                       R15 R14 K253 ["height"]
+      988 LOADN                            R15 1
+      989 SETTABLEKS                       R15 R14 K254 ["width"]
+      991 LOADN                            R15 1
+      992 SETTABLEKS                       R15 R14 K255 ["head"]
+      994 LOADN                            R15 1
+      995 SETTABLEKS                       R15 R14 K256 ["proportion"]
+      997 LOADN                            R15 1
+      998 SETTABLEKS                       R15 R14 K257 ["bodyType"]
+     1000 SETTABLEKS                       R14 R13 K249 ["ProportionsSlender"]
+     1002 SETTABLEKS                       R13 R9 K259 ["BodyScaleDefaults"]
+     1004 DUPTABLE                         R13 K260 [{"height", "width", "head", "bodyType", "proportion"}]
+     1005 LOADK                            R14 K5 ["Packages"]
+     1006 SETTABLEKS                       R14 R13 K253 ["height"]
+     1008 LOADK                            R14 K6 ["enumerate"]
+     1009 SETTABLEKS                       R14 R13 K254 ["width"]
+     1011 LOADK                            R14 K7 ["Src"]
+     1012 SETTABLEKS                       R14 R13 K255 ["head"]
+     1014 LOADK                            R14 K8 ["Util"]
+     1015 SETTABLEKS                       R14 R13 K257 ["bodyType"]
+     1017 LOADK                            R14 K9 ["SharedFlags"]
+     1018 SETTABLEKS                       R14 R13 K256 ["proportion"]
+     1020 SETTABLEKS                       R13 R9 K266 ["bodyScaleNameToString"]
+     1022 DUPTABLE                         R13 K272 [{"NONE", "BEGIN", "VALIDATING", "SUCCESS", "FAILURE"}]
+     1023 LOADK                            R14 K17 ["WIDTH"]
+     1024 SETTABLEKS                       R14 R13 K267 ["NONE"]
+     1026 LOADK                            R14 K18 ["HEIGHT"]
+     1027 SETTABLEKS                       R14 R13 K268 ["BEGIN"]
+     1029 LOADK                            R14 K19 ["MIN_WIDTH"]
+     1030 SETTABLEKS                       R14 R13 K269 ["VALIDATING"]
+     1032 LOADK                            R14 K159 ["Success"]
+     1033 SETTABLEKS                       R14 R13 K270 ["SUCCESS"]
+     1035 LOADK                            R14 K20 ["MIN_HEIGHT"]
+     1036 SETTABLEKS                       R14 R13 K271 ["FAILURE"]
+     1038 SETTABLEKS                       R13 R9 K277 ["VALIDATION_STATE"]
+     1040 MOVE                             R13 R4
+     1041 CALL                             R13 0 1
+     1042 JUMPIFNOT                        R13 ; [+8]
+     1043 NEWTABLE                         R13 0 2
+     1045 LOADK                            R14 K22 ["TERM_OF_USE_URL"]
+     1046 LOADK                            R15 K23 ["https://www.roblox.com/my/account#!/info"]
+     1047 SETLIST                          R13 R14 2 [1]
+     1049 SETTABLEKS                       R13 R9 K280 ["assetIdStringPatterns"]
+     1051 NEWTABLE                         R13 0 10
+     1053 GETIMPORT                        R14 K187 [Enum.AssetType.DynamicHead]
+     1055 GETIMPORT                        R15 K199 [Enum.AssetType.EyebrowAccessory]
+     1057 GETIMPORT                        R16 K201 [Enum.AssetType.EyelashAccessory]
+     1059 GETIMPORT                        R17 K189 [Enum.AssetType.LeftArm]
+     1061 GETIMPORT                        R18 K191 [Enum.AssetType.LeftLeg]
+     1063 GETIMPORT                        R19 K205 [Enum.AssetType.LeftShoeAccessory]
+     1065 GETIMPORT                        R20 K193 [Enum.AssetType.RightArm]
+     1067 GETIMPORT                        R21 K195 [Enum.AssetType.RightLeg]
+     1069 GETIMPORT                        R22 K207 [Enum.AssetType.RightShoeAccessory]
+     1071 GETIMPORT                        R23 K197 [Enum.AssetType.Torso]
+     1073 SETLIST                          R13 R14 10 [1]
+     1075 SETTABLEKS                       R13 R9 K281 ["BODY_PARTS"]
+     1077 MOVE                             R13 R6
+     1078 CALL                             R13 0 1
+     1079 JUMPIFNOT                        R13 ; [+16]
+     1080 NEWTABLE                         R13 0 5
+     1082 GETIMPORT                        R14 K199 [Enum.AssetType.EyebrowAccessory]
+     1084 GETIMPORT                        R15 K201 [Enum.AssetType.EyelashAccessory]
+     1086 GETIMPORT                        R16 K283 [Enum.AssetType.FaceMakeup]
+     1088 GETIMPORT                        R17 K285 [Enum.AssetType.LipMakeup]
+     1090 GETIMPORT                        R18 K287 [Enum.AssetType.EyeMakeup]
+     1092 SETLIST                          R13 R14 5 [1]
+     1094 SETTABLEKS                       R13 R9 K288 ["MAKEUP_ASSET_TYPES"]
+     1096 RETURN                           R9 1

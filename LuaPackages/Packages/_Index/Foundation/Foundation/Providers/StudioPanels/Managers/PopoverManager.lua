@@ -11,6 +11,10 @@ type PanelHandle = Types.PanelHandle
 -- Limit comes from StudioFoundation, so is probably an engine limitation.
 local MAX_SIZE = 3000
 
+--- This QWidget ZIndex comes from StudioFoundation and is separate from
+--- Foundation's own Elevation layer bands.
+local BASE_ZINDEX = 200
+
 local function bindToClose(panel: PluginGui, onClose: () -> ())
 	-- BindToClose is only available on real PluginGui instances, not test mocks
 	if panel:IsA("PluginGui") then
@@ -23,8 +27,25 @@ type Popover = {
 	uri: StudioUri,
 	panel: PluginGui,
 	open: boolean,
+	depth: number,
+	parentPopoverId: string?, -- nil for root popovers
 	onClose: (() -> ())?,
 }
+
+local function isStrictDescendantOf(active: { [string]: Popover }, ancestor: Popover, descendant: Popover): boolean
+	local pid = descendant.parentPopoverId
+	while pid do
+		if pid == ancestor.id then
+			return true
+		end
+		local parent = active[pid]
+		if not parent then
+			break
+		end
+		pid = parent.parentPopoverId
+	end
+	return false
+end
 
 --[[
 	Manages QWidget popup panels for popovers in Roblox Studio plugins.
@@ -32,7 +53,8 @@ type Popover = {
 	PopoverManager allows an arbitrary number of panels to be open
 	simultaneously. Closed widgets are returned to an internal pool so
 	they can be reused without the latency of creating a new QWidget
-	each time.
+	each time. The pool is keyed by depth so that QWidgets created at a
+	given ZIndex level are only reused by popovers at that same level.
 ]]
 local PopoverManager = {}
 PopoverManager.__index = PopoverManager
@@ -52,7 +74,8 @@ function PopoverManager.new(plugin: Plugin, uriScope: string?)
 	self._pluginUri = StudioUri.wrap(plugin:GetUri())
 
 	self._active = {} :: { [string]: Popover }
-	self._pool = {} :: { Popover }
+	self._pool = {} :: { [number]: { Popover } }
+	self._didPrewarm = false
 
 	return self
 end
@@ -68,14 +91,19 @@ export type PopoverManager = typeof(PopoverManager.new(...))
 
 	@param config -- Attachment positioning and target widget URI.
 	@param onClose -- Optional callback invoked when the popover is closed.
+	@param depth -- Nesting depth for QWidget ZIndex ordering. Defaults to 0.
+	@param parentPopoverId -- Immediate parent panel id for tree-scoped child dismissal.
 	@return PanelHandle for the opened popover.
 ]]
 function PopoverManager.openAtAsync(
 	self: PopoverManager,
 	config: PanelPosition & { targetWidgetUri: StudioUri },
-	onClose: (() -> ())?
+	onClose: (() -> ())?,
+	depth: number?,
+	parentPopoverId: string?
 ): PanelHandle
-	local popover = self:_acquirePanelAsync(onClose)
+	local resolvedDepth = if depth == nil then 0 else depth
+	local popover = self:_acquirePanelAsync(onClose, resolvedDepth, parentPopoverId)
 
 	-- Make sure it's hidden before we attach to avoid visual flash.
 	popover.panel.Enabled = false
@@ -93,6 +121,7 @@ function PopoverManager.openAtAsync(
 
 	local handle: PanelHandle = {
 		container = popover.panel,
+		popoverId = popover.id,
 		setSizeAsync = function(size: Vector2)
 			local width = math.ceil(math.min(MAX_SIZE, size.X))
 			local height = math.ceil(math.min(MAX_SIZE, size.Y))
@@ -111,7 +140,7 @@ function PopoverManager.openAtAsync(
 			})
 		end,
 		close = function()
-			self:_closePopover(popover)
+			self:_closePopover(popover, true)
 		end,
 	}
 
@@ -121,8 +150,9 @@ end
 --[[
 	Creates a new QWidget popup panel. Uses the menu-style Popup configuration
 	rather than Tooltip, since visual styling is handled in Luau.
+	QWidget ZIndex is BASE_ZINDEX + depth so nested popovers stack correctly.
 ]]
-function PopoverManager._createPanelAsync(self: PopoverManager, id: string): (PluginGui, StudioUri)
+function PopoverManager._createPanelAsync(self: PopoverManager, id: string, depth: number): (PluginGui, StudioUri)
 	local panel = self._plugin:CreateQWidgetPluginGui(id, {
 		Id = id,
 		InitialEnabled = true,
@@ -133,7 +163,7 @@ function PopoverManager._createPanelAsync(self: PopoverManager, id: string): (Pl
 		Transparent = true,
 		Resizable = true,
 		Title = id,
-		ZIndex = 200,
+		ZIndex = BASE_ZINDEX + depth,
 	})
 	panel.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -143,46 +173,151 @@ function PopoverManager._createPanelAsync(self: PopoverManager, id: string): (Pl
 	})
 end
 
---[[
-	Acquires a panel for use: pops one from the idle pool if available,
-	otherwise creates a fresh QWidget.
-]]
-function PopoverManager._acquirePanelAsync(self: PopoverManager, onClose: (() -> ())?): Popover
-	local popover = table.remove(self._pool)
-
-	if popover then
-		popover.onClose = onClose
-		popover.open = false
-		self._active[popover.id] = popover
-		return popover
-	end
-
+function PopoverManager._makePopoverId(self: PopoverManager): string
 	local uriScopeSegment = if self._uriScope then `/{self._uriScope}` else ""
-	local id = `Popovers{uriScopeSegment}/{HttpService:GenerateGUID(false)}`
+	return `Popovers{uriScopeSegment}/{HttpService:GenerateGUID(false)}`
+end
 
-	local panel, uri = self:_createPanelAsync(id)
-
+function PopoverManager._createPopoverAsync(self: PopoverManager, id: string, depth: number): Popover
+	local panel, uri = self:_createPanelAsync(id, depth)
 	local newPopover: Popover = {
 		id = id,
 		uri = uri,
 		panel = panel,
 		open = false,
-		onClose = onClose,
+		depth = depth,
+		parentPopoverId = nil,
+		onClose = nil,
 	}
 
 	bindToClose(panel, function()
 		self:_closePopover(newPopover)
 	end)
 
-	self._active[id] = newPopover
+	-- WindowFocused does not fire for QWidgets created with Tooltip = true
+	-- because Qt tooltip windows never gain OS-level window focus. We use
+	-- InputBegan instead to detect when the user clicks on a parent panel,
+	-- which dismisses any child popovers that Qt may have obscured without
+	-- firing BindToClose.
+	panel.InputBegan:Connect(function(input: InputObject)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 and newPopover.open then
+			self:_closeChildPopovers(newPopover)
+		end
+	end)
+
+	return newPopover
+end
+
+function PopoverManager._activatePopover(
+	self: PopoverManager,
+	popover: Popover,
+	onClose: (() -> ())?,
+	parentPopoverId: string?
+)
+	popover.onClose = onClose
+	popover.parentPopoverId = parentPopoverId
+	popover.open = false
+	self._active[popover.id] = popover
+end
+
+--[[
+	Attempts to pop a panel from the idle pool at the given depth.
+	Returns nil if no panel is available.
+]]
+function PopoverManager._tryAcquireFromPool(
+	self: PopoverManager,
+	onClose: (() -> ())?,
+	depth: number,
+	parentPopoverId: string?
+): Popover?
+	local depthPool = self._pool[depth]
+	local popover = if depthPool then table.remove(depthPool) else nil
+	if not popover then
+		return nil
+	end
+
+	self:_activatePopover(popover, onClose, parentPopoverId)
+	return popover
+end
+
+--[[
+	Acquires a panel for use: pops one from the idle pool at the given depth
+	if available, otherwise creates a fresh QWidget at that depth.
+]]
+function PopoverManager._acquirePanelAsync(
+	self: PopoverManager,
+	onClose: (() -> ())?,
+	depth: number,
+	parentPopoverId: string?
+): Popover
+	local pooled = self:_tryAcquireFromPool(onClose, depth, parentPopoverId)
+	if pooled then
+		return pooled
+	end
+
+	local id = self:_makePopoverId()
+	local newPopover = self:_createPopoverAsync(id, depth)
+	self:_activatePopover(newPopover, onClose, parentPopoverId)
 	return newPopover
 end
 
 --[[
-	Closes a single popover: disables the panel, fires the onClose callback,
-	removes it from active tracking, and returns it to the pool for reuse.
+	Prewarms the pool by creating one QWidget per depth up to maxDepth.
+	Uses a guard to avoid creating extra widgets if called multiple times.
 ]]
-function PopoverManager._closePopover(self: PopoverManager, popover: Popover)
+function PopoverManager.prewarmPoolAsync(self: PopoverManager, maxDepth: number)
+	if self._didPrewarm then
+		return
+	end
+
+	local resolvedMaxDepth = math.max(0, maxDepth)
+	for depth = 0, resolvedMaxDepth do
+		if self._pool[depth] == nil then
+			self._pool[depth] = {}
+		end
+
+		local depthPool = self._pool[depth] -- Guarnateed to exist
+		if #depthPool == 0 then
+			local popover = self:_createPopoverAsync(self:_makePopoverId(), depth)
+			popover.panel.Enabled = false
+			table.insert(depthPool, popover)
+		end
+	end
+
+	self._didPrewarm = true
+end
+
+--[[
+	Dismisses descendant popovers of the clicked panel. Uses strict ancestry
+	so sibling trees stay open.
+]]
+function PopoverManager._closeChildPopovers(self: PopoverManager, parentPopover: Popover)
+	local toClose = {}
+	for _, popover in self._active do
+		if popover.open and popover.id ~= parentPopover.id then
+			local shouldClose = isStrictDescendantOf(self._active, parentPopover, popover)
+			if shouldClose then
+				table.insert(toClose, popover)
+			end
+		end
+	end
+	for _, popover in toClose do
+		-- User-driven dismissals should notify consumers to update open state.
+		self:_closePopover(popover)
+	end
+end
+
+--[[
+	Closes a single popover: disables the panel, removes it from active
+	tracking, and returns it to the pool at its depth.
+
+	When silent is false (the default), the onClose callback fires to
+	notify the consumer of an external close (e.g. Qt BindToClose).
+	Consumer-initiated closes (handle.close) pass silent=true because
+	the consumer already knows it is closing and firing onClose would
+	re-enter the menu state machine, cancelling sibling opens.
+]]
+function PopoverManager._closePopover(self: PopoverManager, popover: Popover, silent: boolean?)
 	if not popover.open then
 		return
 	end
@@ -190,31 +325,30 @@ function PopoverManager._closePopover(self: PopoverManager, popover: Popover)
 	popover.open = false
 	popover.panel.Enabled = false
 
-	if popover.onClose then
+	if not silent and popover.onClose then
 		popover.onClose()
 	end
 
 	self._active[popover.id] = nil
-	table.insert(self._pool, popover)
+
+	local depth = popover.depth
+	if not self._pool[depth] then
+		self._pool[depth] = {}
+	end
+	table.insert(self._pool[depth], popover)
 end
 
 --[[
 	Closes every active popover and returns all widgets to the pool.
 ]]
 function PopoverManager.closeAll(self: PopoverManager)
+	local toClose = {}
 	for _, popover in self._active do
-		if popover.open then
-			popover.open = false
-			popover.panel.Enabled = false
-
-			if popover.onClose then
-				popover.onClose()
-			end
-
-			table.insert(self._pool, popover)
-		end
+		table.insert(toClose, popover)
 	end
-	self._active = {}
+	for _, popover in toClose do
+		self:_closePopover(popover)
+	end
 end
 
 --[[
@@ -224,9 +358,11 @@ end
 function PopoverManager.destroy(self: PopoverManager)
 	self:closeAll()
 
-	for _, popover in self._pool do
-		if popover.panel then
-			popover.panel:Destroy()
+	for _, depthPool in self._pool do
+		for _, popover in depthPool do
+			if popover.panel then
+				popover.panel:Destroy()
+			end
 		end
 	end
 	self._pool = {}

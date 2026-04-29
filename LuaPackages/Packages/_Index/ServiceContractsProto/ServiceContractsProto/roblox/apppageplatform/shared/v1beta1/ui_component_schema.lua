@@ -67,6 +67,9 @@ local _roblox_apppageplatform_shared_v1beta1_filter_pills_carousel = require(scr
 local _roblox_apppageplatform_shared_v1beta1_coachmark = require(script.Parent.coachmark)
 local _roblox_apppageplatform_shared_v1beta1_badge = require(script.Parent.badge)
 local _roblox_apppageplatform_shared_v1beta1_song_tile = require(script.Parent.song_tile)
+local _roblox_apppageplatform_shared_v1beta1_event_tile = require(script.Parent.event_tile)
+local _roblox_apppageplatform_shared_v1beta1_sheet_full_bleed = require(script.Parent.sheet_full_bleed)
+local _roblox_apppageplatform_shared_v1beta1_subscription_cell = require(script.Parent.subscription_cell)
 
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
@@ -178,6 +181,15 @@ type _UiComponentSchemaFields = {
 		| { type: "coachmark", value: _roblox_apppageplatform_shared_v1beta1_coachmark.CoachmarkSchema }
 		| { type: "badge", value: _roblox_apppageplatform_shared_v1beta1_badge.BadgeSchema }
 		| { type: "song_tile", value: _roblox_apppageplatform_shared_v1beta1_song_tile.SongTileSchema }
+		| {
+			type: "subscription_cell",
+			value: _roblox_apppageplatform_shared_v1beta1_subscription_cell.SubscriptionCellSchema,
+		}
+		| { type: "event_tile", value: _roblox_apppageplatform_shared_v1beta1_event_tile.EventTileSchema }
+		| {
+			type: "sheet_full_bleed",
+			value: _roblox_apppageplatform_shared_v1beta1_sheet_full_bleed.SheetFullBleedSchema,
+		}
 	)?,
 }
 
@@ -281,6 +293,15 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "coachmark", value: _roblox_apppageplatform_shared_v1beta1_coachmark.CoachmarkSchema }
 		| { type: "badge", value: _roblox_apppageplatform_shared_v1beta1_badge.BadgeSchema }
 		| { type: "song_tile", value: _roblox_apppageplatform_shared_v1beta1_song_tile.SongTileSchema }
+		| {
+			type: "subscription_cell",
+			value: _roblox_apppageplatform_shared_v1beta1_subscription_cell.SubscriptionCellSchema,
+		}
+		| { type: "event_tile", value: _roblox_apppageplatform_shared_v1beta1_event_tile.EventTileSchema }
+		| {
+			type: "sheet_full_bleed",
+			value: _roblox_apppageplatform_shared_v1beta1_sheet_full_bleed.SheetFullBleedSchema,
+		}
 	)?,
 }
 
@@ -513,6 +534,18 @@ do
 			elseif self.kind.type == "song_tile" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 53, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "subscription_cell" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 54, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "event_tile" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 55, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "sheet_full_bleed" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 56, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -984,6 +1017,34 @@ do
 						value = _roblox_apppageplatform_shared_v1beta1_song_tile.SongTileSchema.decode(value),
 					}
 					continue
+				elseif field == 54 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "subscription_cell",
+						value = _roblox_apppageplatform_shared_v1beta1_subscription_cell.SubscriptionCellSchema.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 55 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "event_tile",
+						value = _roblox_apppageplatform_shared_v1beta1_event_tile.EventTileSchema.decode(value),
+					}
+					continue
+				elseif field == 56 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "sheet_full_bleed",
+						value = _roblox_apppageplatform_shared_v1beta1_sheet_full_bleed.SheetFullBleedSchema.decode(
+							value
+						),
+					}
+					continue
 				end
 
 				local length
@@ -1118,6 +1179,12 @@ do
 				output.badge = self.kind.value:jsonEncode()
 			elseif self.kind.type == "song_tile" then
 				output.songTile = self.kind.value:jsonEncode()
+			elseif self.kind.type == "subscription_cell" then
+				output.subscriptionCell = self.kind.value:jsonEncode()
+			elseif self.kind.type == "event_tile" then
+				output.eventTile = self.kind.value:jsonEncode()
+			elseif self.kind.type == "sheet_full_bleed" then
+				output.sheetFullBleed = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -1878,6 +1945,56 @@ do
 			self.kind = {
 				type = "song_tile",
 				value = _roblox_apppageplatform_shared_v1beta1_song_tile.SongTileSchema.jsonDecode(input.songTile),
+			}
+		end
+
+		if input.subscription_cell ~= nil then
+			self.kind = {
+				type = "subscription_cell",
+				value = _roblox_apppageplatform_shared_v1beta1_subscription_cell.SubscriptionCellSchema.jsonDecode(
+					input.subscription_cell
+				),
+			}
+		end
+
+		if input.subscriptionCell ~= nil then
+			self.kind = {
+				type = "subscription_cell",
+				value = _roblox_apppageplatform_shared_v1beta1_subscription_cell.SubscriptionCellSchema.jsonDecode(
+					input.subscriptionCell
+				),
+			}
+		end
+
+		if input.event_tile ~= nil then
+			self.kind = {
+				type = "event_tile",
+				value = _roblox_apppageplatform_shared_v1beta1_event_tile.EventTileSchema.jsonDecode(input.event_tile),
+			}
+		end
+
+		if input.eventTile ~= nil then
+			self.kind = {
+				type = "event_tile",
+				value = _roblox_apppageplatform_shared_v1beta1_event_tile.EventTileSchema.jsonDecode(input.eventTile),
+			}
+		end
+
+		if input.sheet_full_bleed ~= nil then
+			self.kind = {
+				type = "sheet_full_bleed",
+				value = _roblox_apppageplatform_shared_v1beta1_sheet_full_bleed.SheetFullBleedSchema.jsonDecode(
+					input.sheet_full_bleed
+				),
+			}
+		end
+
+		if input.sheetFullBleed ~= nil then
+			self.kind = {
+				type = "sheet_full_bleed",
+				value = _roblox_apppageplatform_shared_v1beta1_sheet_full_bleed.SheetFullBleedSchema.jsonDecode(
+					input.sheetFullBleed
+				),
 			}
 		end
 

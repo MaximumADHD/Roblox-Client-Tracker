@@ -34,7 +34,6 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", false)
-local FFlagVirtualCursorTopbarAlwaysVisible = SharedFlags.FFlagVirtualCursorTopbarAlwaysVisible
 local FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet
 local FFlagRequireSideSheetPackage = SharedFlags.FFlagRequireSideSheetPackage
 local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
@@ -410,7 +409,7 @@ function ChromeService:inFocusNav()
 end
 
 function ChromeService:enableFocusNav()
-	if FFlagVirtualCursorTopbarAlwaysVisible and GamepadService.GamepadCursorEnabled then
+	if GamepadService.GamepadCursorEnabled then
 		return
 	end
 	if not self._inFocusNav:get() then
@@ -423,7 +422,7 @@ function ChromeService:enableFocusNav()
 end
 
 function ChromeService:disableFocusNav()
-	if FFlagVirtualCursorTopbarAlwaysVisible and GamepadService.GamepadCursorEnabled then
+	if GamepadService.GamepadCursorEnabled then
 		return
 	end
 	if self._inFocusNav:get() then
@@ -597,7 +596,7 @@ function ChromeService:register(component: IntegrationRegisterProps): Integratio
 	if FFlagEnableConsoleExpControls and component.selected then
 		conns[#conns + 1] = self:selectedItem():connect(function(id)
 			if populatedComponent.id == id then
-				if FFlagVirtualCursorTopbarAlwaysVisible and GamepadService.GamepadCursorEnabled then
+				if GamepadService.GamepadCursorEnabled then
 					return
 				end
 				component.selected(populatedComponent)

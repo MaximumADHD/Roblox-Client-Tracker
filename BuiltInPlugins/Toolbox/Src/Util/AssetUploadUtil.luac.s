@@ -131,23 +131,56 @@ PROTO_3:
        80 RETURN                           R8 -1
        81 RETURN                           R5 1
 
+PROTO_4:
+        0 JUMPIF                           R0 ; [+2]
+        1 LOADB                            R1 0
+        2 RETURN                           R1 1
+        3 GETIMPORT                        R1 K1 [pairs]
+        5 MOVE                             R2 R0
+        6 CALL                             R1 1 3
+        7 FORGPREP_NEXT                    R1
+        8 FASTCALL1                        TYPE R5 ; [+3]
+        9 MOVE                             R7 R5
+       10 GETIMPORT                        R6 K3 [type]
+       12 CALL                             R6 1 1
+       13 JUMPIFNOTEQKS                    R6 K4 ["table"] ; [+7]
+       15 LENGTH                           R6 R5
+       16 LOADN                            R7 0
+       17 JUMPIFNOTLT                      R7 R6 ; [+3]
+       19 LOADB                            R6 1
+       20 RETURN                           R6 1
+       21 FORGLOOP                         R1 2 ; [-14]
+       23 LOADB                            R1 0
+       24 RETURN                           R1 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R0 K1 [game]
         3 LOADK                            R2 K2 ["HttpService"]
         4 NAMECALL                         R0 R0 K3 ["GetService"]
         6 CALL                             R0 2 1
-        7 NEWTABLE                         R1 1 0
-        9 GETIMPORT                        R2 K1 [game]
-       11 LOADK                            R4 K4 ["ModelPublishFailAssetIdCountLimit"]
-       12 NAMECALL                         R2 R2 K5 ["GetFastInt"]
-       14 CALL                             R2 2 1
-       15 DUPCLOSURE                       R3 K6 [PROTO_0]
-       16 DUPCLOSURE                       R4 K7 [PROTO_1]
-       17 CAPTURE                          VAL R2
-       18 DUPCLOSURE                       R5 K8 [PROTO_3]
-       19 CAPTURE                          VAL R0
-       20 CAPTURE                          VAL R3
-       21 CAPTURE                          VAL R4
-       22 SETTABLEKS                       R5 R1 K9 ["computeTranslatedErrorMessage"]
-       24 RETURN                           R1 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETIMPORT                        R5 K7 [script]
+       11 GETTABLEKS                       R4 R5 K8 ["Parent"]
+       13 GETTABLEKS                       R3 R4 K9 ["SharedFlags"]
+       15 GETTABLEKS                       R2 R3 K10 ["getFFlagToolboxModelCreationWarningWindow"]
+       17 CALL                             R1 1 1
+       18 NEWTABLE                         R2 2 0
+       20 GETIMPORT                        R3 K1 [game]
+       22 LOADK                            R5 K11 ["ModelPublishFailAssetIdCountLimit"]
+       23 NAMECALL                         R3 R3 K12 ["GetFastInt"]
+       25 CALL                             R3 2 1
+       26 DUPCLOSURE                       R4 K13 [PROTO_0]
+       27 DUPCLOSURE                       R5 K14 [PROTO_1]
+       28 CAPTURE                          VAL R3
+       29 DUPCLOSURE                       R6 K15 [PROTO_3]
+       30 CAPTURE                          VAL R0
+       31 CAPTURE                          VAL R4
+       32 CAPTURE                          VAL R5
+       33 SETTABLEKS                       R6 R2 K16 ["computeTranslatedErrorMessage"]
+       35 MOVE                             R6 R1
+       36 CALL                             R6 0 1
+       37 JUMPIFNOT                        R6 ; [+3]
+       38 DUPCLOSURE                       R6 K17 [PROTO_4]
+       39 SETTABLEKS                       R6 R2 K18 ["hasNonEmptyDependencyIssues"]
+       41 RETURN                           R2 1

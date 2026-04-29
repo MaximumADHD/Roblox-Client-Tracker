@@ -11,6 +11,13 @@ local Colors = require(InspectAndBuyFolder.Colors)
 local CharacterModelPool = require(InspectAndBuyFolder.CharacterModelPool)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 local FFlagEnableNewAvatarViewportProps = require(InspectAndBuyFolder.Flags.FFlagEnableNewAvatarViewportProps)
+local isInExperienceUIVREnabled =
+	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local FFlagEnableInExperienceUIPCVRFix =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableInExperienceUIPCVRFix
+local FFlagEnableInspectAndBuyV2RootFlag =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableInspectAndBuyV2RootFlag
+local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
 local CHARACTER_ROTATION_SPEED = 0.0065
 local STICK_ROTATION_MULTIPLIER = 3
@@ -252,6 +259,17 @@ function AvatarViewport:handleSpin()
 end
 
 function AvatarViewport:setUpGamepad()
+	-- In spatial VR mode, BindCoreAction sinks thumbstick input and blocks
+	-- navigation on the InspectAndBuy page. Skip gamepad setup entirely.
+	if
+		isInExperienceUIVREnabled
+		and FFlagEnableInExperienceUIPCVRFix
+		and isSpatial()
+		and FFlagEnableInspectAndBuyV2RootFlag
+	then
+		return
+	end
+
 	if UserInputService.GamepadEnabled then
 		local gamepadInput = Vector2.new(0, 0)
 

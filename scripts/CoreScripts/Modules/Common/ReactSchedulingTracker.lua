@@ -328,7 +328,6 @@ local PeriodSummaryEvent = {
 local PeriodStatConfig = {
 	eventName = "ReactPeriod",
 	backends = { "RobloxTelemetryStat" },
-	throttlingPercentage = game:DefineFastInt("ReactPeriodStatThrottleHunderedthsPercent", 0),
 	lastUpdated = { 2025, 2, 18 },
 	description = "Stats for React performance over a period",
 	links = DOCS_LINK,
@@ -337,7 +336,6 @@ local PeriodStatConfig = {
 local FrameCountConfig = {
 	eventName = "ReactFrameCounter",
 	backends = { "RobloxTelemetryCounter" },
-	throttlingPercentage = game:DefineFastInt("ReactFrameCountThrottleHunderedthsPercent", 0),
 	lastUpdated = { 2025, 2, 18 },
 	description = "Frame counts for React performance over a period",
 	links = DOCS_LINK,
@@ -358,7 +356,6 @@ if not FFlagDisableReactSchedulingTimePctStats then
 		eventName = "ReactRootPeriod",
 		backends = { "RobloxTelemetryStat" },
 		lastUpdated = { 2025, 2, 18 },
-		throttlingPercentage = game:DefineFastInt("ReactRootPeriodStatThrottleHunderedthsPercent2", 0),
 		description = "Stats for React performance for a root over a period",
 		links = DOCS_LINK,
 	}
@@ -368,7 +365,6 @@ local RootTaskCountConfig = {
 	eventName = "ReactRootTaskCount",
 	backends = { "RobloxTelemetryCounter" },
 	lastUpdated = { 2025, 2, 18 },
-	throttlingPercentage = game:DefineFastInt("ReactRootTaskCountThrottleHunderedthsPercent2", 0),
 	description = "Task counts for React performance for a root over a period",
 	links = DOCS_LINK,
 }
@@ -379,7 +375,6 @@ if not FFlagDisableReactSchedulingAvgMaxMsStats then
 		eventName = "ReactRootPeriodTask",
 		backends = { "RobloxTelemetryStat" },
 		lastUpdated = { 2025, 2, 18 },
-		throttlingPercentage = game:DefineFastInt("ReactRootPeriodTaskStatThrottleHunderedthsPercent2", 0),
 		description = "Task stats for React performance for a root over a period",
 		links = DOCS_LINK,
 	}
@@ -390,7 +385,6 @@ local RootUpdateStatConfig = {
 	eventName = "ReactRootUpdate",
 	backends = { "RobloxTelemetryStat" },
 	lastUpdated = { 2025, 2, 18 },
-	throttlingPercentage = game:DefineFastInt("ReactRootUpdateStatThrottleHunderedthsPercent", 0),
 	description = "Task stats for individual React root updates, all in milliseconds",
 	links = DOCS_LINK,
 }

@@ -145,20 +145,22 @@ PROTO_8:
 PROTO_9:
         0 GETUPVAL                         R3 0
         1 LOADK                            R4 K0 ["AutoSetupOptions"]
-        2 DUPTABLE                         R5 K7 [{"clientJobId", "setupType", "decimationOptions", "r15Plus", "alignFrontAngle", "enableAdditionalHeadProcessing"}]
+        2 DUPTABLE                         R5 K8 [{"clientJobId", "setupType", "decimationOptions", "r15Plus", "alignFrontAngle", "enableAdditionalHeadProcessing", "decalToDynamicHead"}]
         3 SETTABLEKS                       R2 R5 K1 ["clientJobId"]
-        5 GETTABLEKS                       R6 R1 K8 ["SetupType"]
+        5 GETTABLEKS                       R6 R1 K9 ["SetupType"]
         7 SETTABLEKS                       R6 R5 K2 ["setupType"]
-        9 GETTABLEKS                       R6 R1 K9 ["DecimationOptions"]
+        9 GETTABLEKS                       R6 R1 K10 ["DecimationOptions"]
        11 SETTABLEKS                       R6 R5 K3 ["decimationOptions"]
-       13 GETTABLEKS                       R6 R1 K10 ["CustomHumanoid"]
+       13 GETTABLEKS                       R6 R1 K11 ["CustomHumanoid"]
        15 SETTABLEKS                       R6 R5 K4 ["r15Plus"]
-       17 GETTABLEKS                       R6 R1 K11 ["AlignFrontAngle"]
+       17 GETTABLEKS                       R6 R1 K12 ["AlignFrontAngle"]
        19 SETTABLEKS                       R6 R5 K5 ["alignFrontAngle"]
-       21 GETTABLEKS                       R6 R1 K12 ["EnableAdditionalHeadProcessing"]
+       21 GETTABLEKS                       R6 R1 K13 ["EnableAdditionalHeadProcessing"]
        23 SETTABLEKS                       R6 R5 K6 ["enableAdditionalHeadProcessing"]
-       25 CALL                             R3 2 0
-       26 RETURN                           R0 0
+       25 GETTABLEKS                       R6 R1 K14 ["DecalToDynamicHead"]
+       27 SETTABLEKS                       R6 R5 K7 ["decalToDynamicHead"]
+       29 CALL                             R3 2 0
+       30 RETURN                           R0 0
 
 PROTO_10:
         0 GETUPVAL                         R5 0
@@ -178,20 +180,22 @@ PROTO_10:
 PROTO_11:
         0 GETUPVAL                         R3 0
         1 LOADK                            R4 K0 ["AutoSetupClothingOnlyFinish"]
-        2 DUPTABLE                         R5 K7 [{"clientJobId", "setupType", "decimationOptions", "r15Plus", "alignFrontAngle", "enableAdditionalHeadProcessing"}]
+        2 DUPTABLE                         R5 K8 [{"clientJobId", "setupType", "decimationOptions", "r15Plus", "alignFrontAngle", "enableAdditionalHeadProcessing", "decalToDynamicHead"}]
         3 SETTABLEKS                       R2 R5 K1 ["clientJobId"]
-        5 GETTABLEKS                       R6 R1 K8 ["SetupType"]
+        5 GETTABLEKS                       R6 R1 K9 ["SetupType"]
         7 SETTABLEKS                       R6 R5 K2 ["setupType"]
-        9 GETTABLEKS                       R6 R1 K9 ["DecimationOptions"]
+        9 GETTABLEKS                       R6 R1 K10 ["DecimationOptions"]
        11 SETTABLEKS                       R6 R5 K3 ["decimationOptions"]
-       13 GETTABLEKS                       R6 R1 K10 ["CustomHumanoid"]
+       13 GETTABLEKS                       R6 R1 K11 ["CustomHumanoid"]
        15 SETTABLEKS                       R6 R5 K4 ["r15Plus"]
-       17 GETTABLEKS                       R6 R1 K11 ["AlignFrontAngle"]
+       17 GETTABLEKS                       R6 R1 K12 ["AlignFrontAngle"]
        19 SETTABLEKS                       R6 R5 K5 ["alignFrontAngle"]
-       21 GETTABLEKS                       R6 R1 K12 ["EnableAdditionalHeadProcessing"]
+       21 GETTABLEKS                       R6 R1 K13 ["EnableAdditionalHeadProcessing"]
        23 SETTABLEKS                       R6 R5 K6 ["enableAdditionalHeadProcessing"]
-       25 CALL                             R3 2 0
-       26 RETURN                           R0 0
+       25 GETTABLEKS                       R6 R1 K14 ["DecalToDynamicHead"]
+       27 SETTABLEKS                       R6 R5 K7 ["decalToDynamicHead"]
+       29 CALL                             R3 2 0
+       30 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R4 0

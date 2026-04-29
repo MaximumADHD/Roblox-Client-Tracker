@@ -10,20 +10,17 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 local DataHydration = require(CorePackages.Workspace.Packages.DataHydration)
 local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
-local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local Localization = require(CorePackages.Workspace.Packages.Localization)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 
 local View = Foundation.View
 local getGameInfoStore = DataHydration.Game.getGameInfoStore
 local Traversal = CoreScriptsRoactCommon.Traversal
-local useLastInputMode = FocusNavigationUtils.useLastInputMode
 local TraversalConstants = Traversal.Constants
 local TeleportLeaveConfirmation = Traversal.TeleportLeaveConfirmation
 local useLocalization = Localization.Hooks.useLocalization
 local GetInputModeStore = Responsive.GetInputModeStore
 local Input = Responsive.Input
-local FFlagTraversalRemoveLastInput = Traversal.Flags.FFlagTraversalRemoveLastInput
 
 export type Props = {
 	universeId: number,
@@ -38,10 +35,6 @@ local EXIT_DIALOG = "EXIT_DIALOG"
 
 local function TraversalLeaveConfirmation(props: Props): React.React_Node
 	local ref = React.useRef(nil)
-	local lastInput
-	if not FFlagTraversalRemoveLastInput then
-		lastInput = useLastInputMode()
-	end
 
 	local localized = useLocalization({
 		previous = "CoreScripts.TopBar.Traversal.BackButtonDefault"
@@ -65,37 +58,16 @@ local function TraversalLeaveConfirmation(props: Props): React.React_Node
 		return Enum.ContextActionResult.Pass
 	end, { props.onCancel })
 
-	if FFlagTraversalRemoveLastInput then
-		React.useEffect(function()
-			local disposeFocus = Signals.createEffect(function(scope)
-				local lastInputType = UserInputService:GetLastInputType()
-				local inputMode = GetInputModeStore(scope).getLastInputType(scope)
-				local isUsingFocus = inputMode == Input.Directional or inputMode == Input.Pointer and lastInputType == Enum.UserInputType.Keyboard
-				if placeId ~= nil and placeId > TraversalConstants.NO_PLACE_ID then
-					if isUsingFocus then
-						ContextActionService:BindCoreAction(FREEZE_CONTROLLER, function() end, false, Enum.UserInputType.Gamepad1)
-						ContextActionService:BindCoreAction(EXIT_DIALOG, onGamepadBack, false, Enum.KeyCode.ButtonB)
-						GuiService.SelectedCoreObject = ref.current
-					end
-				else
-					if isUsingFocus then
-						ContextActionService:UnbindCoreAction(FREEZE_CONTROLLER)
-						ContextActionService:UnbindCoreAction(EXIT_DIALOG)
-					end
-				end
-			end)
-			return function()
-				disposeFocus()
-			end
-		end, { placeId })
-	else
-		React.useEffect(function()
-			local isUsingFocus = lastInput == "Focus"
+	React.useEffect(function()
+		local disposeFocus = Signals.createEffect(function(scope)
+			local lastInputType = UserInputService:GetLastInputType()
+			local inputMode = GetInputModeStore(scope).getLastInputType(scope)
+			local isUsingFocus = inputMode == Input.Directional or inputMode == Input.Pointer and lastInputType == Enum.UserInputType.Keyboard
 			if placeId ~= nil and placeId > TraversalConstants.NO_PLACE_ID then
 				if isUsingFocus then
 					ContextActionService:BindCoreAction(FREEZE_CONTROLLER, function() end, false, Enum.UserInputType.Gamepad1)
 					ContextActionService:BindCoreAction(EXIT_DIALOG, onGamepadBack, false, Enum.KeyCode.ButtonB)
-					GuiService.SelectedCoreObject = if ref.current then ref.current else nil
+					GuiService.SelectedCoreObject = ref.current
 				end
 			else
 				if isUsingFocus then
@@ -103,8 +75,11 @@ local function TraversalLeaveConfirmation(props: Props): React.React_Node
 					ContextActionService:UnbindCoreAction(EXIT_DIALOG)
 				end
 			end
-		end, { placeId, lastInput } :: { unknown })
-	end
+		end)
+		return function()
+			disposeFocus()
+		end
+	end, { placeId })
 
 	return props.isDialogOpen and placeId and React.createElement("ScreenGui", {
 		DisplayOrder = 10,

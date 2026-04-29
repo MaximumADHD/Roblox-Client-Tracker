@@ -3,17 +3,24 @@ local Packages = Foundation.Parent
 local Device = require(Foundation.Enums.Device)
 local React = require(Packages.React)
 local Theme = require(Foundation.Enums.Theme)
+local Tokens = require(Foundation.Providers.Style.Tokens)
 
 local styleSheetRegistry = require(Foundation.StyleSheet.StyleSheetRegistry)
 
 type Theme = Theme.Theme
 type Device = Device.Device
+type TokenOverrides = Tokens.TokenOverrides
 
-local function useRegistryStyleSheet(theme: Theme, device: Device, scale: number): (StyleSheet, ({ string }) -> ())
+local function useRegistryStyleSheet(
+	theme: Theme,
+	device: Device,
+	scale: number,
+	tokenOverrides: TokenOverrides?
+): (StyleSheet, ({ string }) -> ())
 	local requestedRegistryTagsRef = React.useRef({} :: { [string]: boolean })
 	local registryStyleSheet = React.useMemo(function()
-		return styleSheetRegistry.getStyleSheet(theme, device, scale)
-	end, { theme, device, scale } :: { unknown })
+		return styleSheetRegistry.getStyleSheet(theme, device, scale, tokenOverrides)
+	end, { theme, device, scale, tokenOverrides } :: { unknown })
 	local registryStyleSheetRef = React.useRef(registryStyleSheet)
 	registryStyleSheetRef.current = registryStyleSheet
 

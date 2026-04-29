@@ -1,0 +1,18 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R2 K1 [script]
+        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        7 GETIMPORT                        R1 K4 [require]
+        9 GETTABLEKS                       R2 R0 K5 ["ReactReconciler"]
+       11 CALL                             R1 1 1
+       12 GETIMPORT                        R2 K4 [require]
+       14 GETIMPORT                        R6 K1 [script]
+       16 GETTABLEKS                       R5 R6 K2 ["Parent"]
+       18 GETTABLEKS                       R4 R5 K6 ["client"]
+       20 GETTABLEKS                       R3 R4 K7 ["ReactRobloxHostConfig"]
+       22 CALL                             R2 1 1
+       23 MOVE                             R3 R1
+       24 MOVE                             R4 R2
+       25 CALL                             R3 1 -1
+       26 RETURN                           R3 -1

@@ -23,13 +23,23 @@ local FIntBulkPurchaseRequestLimit = require(CorePackages.Workspace.Packages.Sha
 local FIntBulkPurchaseThrottleLimit = require(CorePackages.Workspace.Packages.SharedFlags).FIntBulkPurchaseThrottleLimit
 local FFlagFilterOutShopOnlyItemsOnBulkPurchase =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagFilterOutShopOnlyItemsOnBulkPurchase
+local FFlagAXEnableTimedOptionsServerScript =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXEnableTimedOptionsServerScript
 
+--[[
+    Type for the purchase options for the bulk purchase event. Used for timed options.
+]]
+type PurchaseOption = {
+	Type: Enum.PurchaseOption,
+	Value: number,
+}
 --[[
     Item type each item in the bulk purchase event
 ]]
 type BulkPurchaseEventItem = {
 	id: number,
 	itemType: number,
+	PurchaseOptions: { PurchaseOption }?,
 }
 
 if FFlagAXEnableInspectAndBuyBulkPurchase then
@@ -69,9 +79,23 @@ if FFlagAXEnableInspectAndBuyBulkPurchase then
 			local apiPath = "v1/catalog/items/details"
 			local url = Url.CATALOG_URL .. apiPath
 
-			local requestBody = HttpService:JSONEncode({
-				items = items,
-			})
+			local requestBody = nil
+			if FFlagAXEnableTimedOptionsServerScript then
+				local catalogItems = {}
+				for _, item in items do
+					table.insert(catalogItems, {
+						id = item.id,
+						itemType = item.itemType,
+					})
+				end
+				requestBody = HttpService:JSONEncode({
+					items = catalogItems,
+				})
+			else
+				requestBody = HttpService:JSONEncode({
+					items = items,
+				})
+			end
 
 			local response = HttpRbxApiService:PostAsyncFullUrl(
 				url,
@@ -161,6 +185,7 @@ if FFlagAXEnableInspectAndBuyBulkPurchase then
 			table.insert(validatedItems, {
 				id = item.id,
 				itemType = item.itemType,
+				PurchaseOptions = if FFlagAXEnableTimedOptionsServerScript then item.PurchaseOptions else nil,
 			})
 			validatedItemCount = validatedItemCount + 1
 		end
@@ -205,6 +230,14 @@ if FFlagAXEnableInspectAndBuyBulkPurchase then
             and qualified in-experience items will be allowed.
         ]]
 		local itemDetails = getBatchItemDetailsServerSide(validatedItems)
+		local purchaseOptions = if FFlagAXEnableTimedOptionsServerScript then {} else nil
+		if FFlagAXEnableTimedOptionsServerScript then
+			for _, item in validatedItems do
+				if item.PurchaseOptions and purchaseOptions then
+					purchaseOptions[item.id] = item.PurchaseOptions
+				end
+			end
+		end
 		local bulkPurchaseRequestPayload = {}
 		if itemDetails ~= nil then
 			for _, item in itemDetails.data do
@@ -240,7 +273,7 @@ if FFlagAXEnableInspectAndBuyBulkPurchase then
 					FFlagFilterOutShopOnlyItemsOnBulkPurchase
 					and ShopOnlySalesLocationTypes
 					and item.saleLocationType == ShopOnlySalesLocationTypes.ShopOnly
-					and not (item.unitsAvailableForConsumption == 0 and isLimited(item)) 
+					and not (item.unitsAvailableForConsumption == 0 and isLimited(item))
 				then
 					continue
 				end
@@ -248,6 +281,11 @@ if FFlagAXEnableInspectAndBuyBulkPurchase then
 				table.insert(bulkPurchaseRequestPayload, {
 					Id = tostring(item.id),
 					Type = ItemTypeToMarketplaceProductType[item.itemType],
+					PurchaseOptions = if FFlagAXEnableTimedOptionsServerScript
+							and purchaseOptions
+							and purchaseOptions[item.id]
+						then purchaseOptions[item.id]
+						else nil,
 				})
 			end
 		end

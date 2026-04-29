@@ -596,9 +596,9 @@ PROTO_10:
        58 RETURN                           R0 0
 
 PROTO_11:
-        0 JUMPIFNOT                        R0 ; [+227]
+        0 JUMPIFNOT                        R0 ; [+245]
         1 GETTABLEKS                       R1 R0 K0 ["operationId"]
-        3 JUMPIFNOT                        R1 ; [+224]
+        3 JUMPIFNOT                        R1 ; [+242]
         4 GETTABLEKS                       R1 R0 K0 ["operationId"]
         6 GETUPVAL                         R2 0
         7 CALL                             R2 0 1
@@ -640,199 +640,215 @@ PROTO_11:
        52 LOADB                            R8 1
        53 CALL                             R4 4 1
        54 MOVE                             R3 R4
-       55 JUMP                             ; [+8]
-       56 GETUPVAL                         R5 5
-       57 GETTABLEKS                       R4 R5 K12 ["createUGCShoesPartFolders"]
-       59 GETUPVAL                         R5 6
-       60 GETUPVAL                         R6 9
-       61 GETUPVAL                         R7 7
-       62 CALL                             R4 3 1
-       63 MOVE                             R3 R4
-       64 GETUPVAL                         R4 10
-       65 GETUPVAL                         R6 11
-       66 LOADK                            R7 K13 [0.05]
-       67 GETUPVAL                         R8 12
-       68 LOADK                            R10 K14 ["AssetConfig"]
-       69 LOADK                            R11 K15 ["BundleUploadStepNumber"]
-       70 DUPTABLE                         R12 K18 [{"currentStep", "totalSteps"}]
-       71 LOADN                            R13 2
-       72 SETTABLEKS                       R13 R12 K16 ["currentStep"]
-       74 LOADN                            R13 4
-       75 SETTABLEKS                       R13 R12 K17 ["totalSteps"]
-       77 NAMECALL                         R8 R8 K19 ["getText"]
-       79 CALL                             R8 4 1
-       80 GETUPVAL                         R9 12
-       81 LOADK                            R11 K14 ["AssetConfig"]
-       82 GETUPVAL                         R14 13
-       83 GETTABLEKS                       R13 R14 K20 ["bundleUploadAssetsStep"]
-       85 GETUPVAL                         R14 4
-       86 GETTABLE                         R12 R13 R14
-       87 NAMECALL                         R9 R9 K19 ["getText"]
-       89 CALL                             R9 3 -1
-       90 CALL                             R6 -1 -1
-       91 NAMECALL                         R4 R4 K21 ["dispatch"]
-       93 CALL                             R4 -1 0
-       94 GETUPVAL                         R4 2
-       95 CALL                             R4 0 1
-       96 JUMPIFNOT                        R4 ; [+11]
-       97 GETUPVAL                         R5 3
-       98 GETTABLEKS                       R4 R5 K22 ["UGCUploadAssetsEvent"]
-      100 GETUPVAL                         R7 3
-      101 GETTABLEKS                       R6 R7 K6 ["Status"]
-      103 GETTABLEKS                       R5 R6 K23 ["Start"]
-      105 GETUPVAL                         R6 4
-      106 MOVE                             R7 R1
-      107 CALL                             R4 3 0
-      108 GETIMPORT                        R4 K27 [Enum.AssetCreatorType.User]
-      110 MOVE                             R5 R2
-      111 GETUPVAL                         R6 14
-      112 CALL                             R6 0 1
-      113 JUMPIFNOT                        R6 ; [+13]
-      114 GETUPVAL                         R7 10
-      115 NAMECALL                         R7 R7 K28 ["getState"]
-      117 CALL                             R7 1 1
-      118 GETTABLEKS                       R6 R7 K29 ["groupBundlesUploadEnabledForUser"]
-      120 JUMPIFNOT                        R6 ; [+6]
-      121 GETUPVAL                         R7 15
-      122 JUMPIFEQKNIL                     R7 ; [+4]
-      124 GETIMPORT                        R4 K31 [Enum.AssetCreatorType.Group]
-      126 GETUPVAL                         R5 15
-      127 NEWTABLE                         R6 0 0
-      129 LOADN                            R7 0
-      130 NEWTABLE                         R8 0 0
-      132 GETIMPORT                        R9 K33 [pairs]
-      134 MOVE                             R10 R3
-      135 CALL                             R9 1 3
-      136 FORGPREP_NEXT                    R9
-      137 GETUPVAL                         R15 16
-      138 GETUPVAL                         R16 12
-      139 CALL                             R15 1 1
-      140 GETTABLE                         R14 R15 R12
-      141 JUMPIF                           R14 ; [+2]
-      142 GETTABLEKS                       R14 R12 K34 ["Name"]
-      144 ADDK                             R7 R7 K35 [1]
-      145 LOADK                            R16 K36 ["%* - %*"]
-      146 GETUPVAL                         R18 17
-      147 MOVE                             R19 R14
-      148 NAMECALL                         R16 R16 K37 ["format"]
-      150 CALL                             R16 3 1
-      151 MOVE                             R15 R16
-      152 MOVE                             R17 R8
-      153 GETUPVAL                         R19 18
-      154 GETTABLEKS                       R18 R19 K38 ["new"]
-      156 NEWCLOSURE                       R19 P0
-      157 CAPTURE                          UPVAL U14
-      158 CAPTURE                          UPVAL U19
-      159 CAPTURE                          VAL R13
-      160 CAPTURE                          VAL R1
-      161 CAPTURE                          REF R4
-      162 CAPTURE                          REF R5
-      163 CAPTURE                          VAL R12
-      164 CAPTURE                          VAL R15
-      165 CAPTURE                          UPVAL U20
-      166 CAPTURE                          UPVAL U21
-      167 CAPTURE                          UPVAL U1
-      168 CAPTURE                          UPVAL U22
-      169 CAPTURE                          UPVAL U3
-      170 CAPTURE                          VAL R6
-      171 CAPTURE                          UPVAL U10
-      172 CAPTURE                          UPVAL U11
-      173 CAPTURE                          REF R7
-      174 CAPTURE                          UPVAL U12
-      175 CAPTURE                          UPVAL U13
-      176 CAPTURE                          UPVAL U4
-      177 CALL                             R18 1 -1
-      178 FASTCALL                         TABLE_INSERT ; [+2]
-      179 GETIMPORT                        R16 K41 [table.insert]
-      181 CALL                             R16 -1 0
-      182 FORGLOOP                         R9 2 ; [-46]
-      184 GETUPVAL                         R10 18
-      185 GETTABLEKS                       R9 R10 K42 ["all"]
-      187 MOVE                             R10 R8
-      188 CALL                             R9 1 1
-      189 NEWCLOSURE                       R11 P1
-      190 CAPTURE                          REF R7
-      191 CAPTURE                          VAL R6
-      192 CAPTURE                          UPVAL U2
-      193 CAPTURE                          UPVAL U3
+       55 JUMP                             ; [+26]
+       56 GETUPVAL                         R4 10
+       57 CALL                             R4 0 1
+       58 JUMPIFNOT                        R4 ; [+15]
+       59 GETUPVAL                         R5 5
+       60 GETTABLEKS                       R4 R5 K12 ["isAnimationBundleType"]
+       62 GETUPVAL                         R5 7
+       63 CALL                             R4 1 1
+       64 JUMPIFNOT                        R4 ; [+9]
+       65 GETUPVAL                         R5 5
+       66 GETTABLEKS                       R4 R5 K13 ["createAvatarAnimationsPartFolders"]
+       68 GETUPVAL                         R5 6
+       69 GETUPVAL                         R6 9
+       70 GETUPVAL                         R7 7
+       71 CALL                             R4 3 1
+       72 MOVE                             R3 R4
+       73 JUMP                             ; [+8]
+       74 GETUPVAL                         R5 5
+       75 GETTABLEKS                       R4 R5 K14 ["createUGCShoesPartFolders"]
+       77 GETUPVAL                         R5 6
+       78 GETUPVAL                         R6 9
+       79 GETUPVAL                         R7 7
+       80 CALL                             R4 3 1
+       81 MOVE                             R3 R4
+       82 GETUPVAL                         R4 11
+       83 GETUPVAL                         R6 12
+       84 LOADK                            R7 K15 [0.05]
+       85 GETUPVAL                         R8 13
+       86 LOADK                            R10 K16 ["AssetConfig"]
+       87 LOADK                            R11 K17 ["BundleUploadStepNumber"]
+       88 DUPTABLE                         R12 K20 [{"currentStep", "totalSteps"}]
+       89 LOADN                            R13 2
+       90 SETTABLEKS                       R13 R12 K18 ["currentStep"]
+       92 LOADN                            R13 4
+       93 SETTABLEKS                       R13 R12 K19 ["totalSteps"]
+       95 NAMECALL                         R8 R8 K21 ["getText"]
+       97 CALL                             R8 4 1
+       98 GETUPVAL                         R9 13
+       99 LOADK                            R11 K16 ["AssetConfig"]
+      100 GETUPVAL                         R14 14
+      101 GETTABLEKS                       R13 R14 K22 ["bundleUploadAssetsStep"]
+      103 GETUPVAL                         R14 4
+      104 GETTABLE                         R12 R13 R14
+      105 NAMECALL                         R9 R9 K21 ["getText"]
+      107 CALL                             R9 3 -1
+      108 CALL                             R6 -1 -1
+      109 NAMECALL                         R4 R4 K23 ["dispatch"]
+      111 CALL                             R4 -1 0
+      112 GETUPVAL                         R4 2
+      113 CALL                             R4 0 1
+      114 JUMPIFNOT                        R4 ; [+11]
+      115 GETUPVAL                         R5 3
+      116 GETTABLEKS                       R4 R5 K24 ["UGCUploadAssetsEvent"]
+      118 GETUPVAL                         R7 3
+      119 GETTABLEKS                       R6 R7 K6 ["Status"]
+      121 GETTABLEKS                       R5 R6 K25 ["Start"]
+      123 GETUPVAL                         R6 4
+      124 MOVE                             R7 R1
+      125 CALL                             R4 3 0
+      126 GETIMPORT                        R4 K29 [Enum.AssetCreatorType.User]
+      128 MOVE                             R5 R2
+      129 GETUPVAL                         R6 15
+      130 CALL                             R6 0 1
+      131 JUMPIFNOT                        R6 ; [+13]
+      132 GETUPVAL                         R7 11
+      133 NAMECALL                         R7 R7 K30 ["getState"]
+      135 CALL                             R7 1 1
+      136 GETTABLEKS                       R6 R7 K31 ["groupBundlesUploadEnabledForUser"]
+      138 JUMPIFNOT                        R6 ; [+6]
+      139 GETUPVAL                         R7 16
+      140 JUMPIFEQKNIL                     R7 ; [+4]
+      142 GETIMPORT                        R4 K33 [Enum.AssetCreatorType.Group]
+      144 GETUPVAL                         R5 16
+      145 NEWTABLE                         R6 0 0
+      147 LOADN                            R7 0
+      148 NEWTABLE                         R8 0 0
+      150 GETIMPORT                        R9 K35 [pairs]
+      152 MOVE                             R10 R3
+      153 CALL                             R9 1 3
+      154 FORGPREP_NEXT                    R9
+      155 GETUPVAL                         R15 17
+      156 GETUPVAL                         R16 13
+      157 CALL                             R15 1 1
+      158 GETTABLE                         R14 R15 R12
+      159 JUMPIF                           R14 ; [+2]
+      160 GETTABLEKS                       R14 R12 K36 ["Name"]
+      162 ADDK                             R7 R7 K37 [1]
+      163 LOADK                            R16 K38 ["%* - %*"]
+      164 GETUPVAL                         R18 18
+      165 MOVE                             R19 R14
+      166 NAMECALL                         R16 R16 K39 ["format"]
+      168 CALL                             R16 3 1
+      169 MOVE                             R15 R16
+      170 MOVE                             R17 R8
+      171 GETUPVAL                         R19 19
+      172 GETTABLEKS                       R18 R19 K40 ["new"]
+      174 NEWCLOSURE                       R19 P0
+      175 CAPTURE                          UPVAL U15
+      176 CAPTURE                          UPVAL U20
+      177 CAPTURE                          VAL R13
+      178 CAPTURE                          VAL R1
+      179 CAPTURE                          REF R4
+      180 CAPTURE                          REF R5
+      181 CAPTURE                          VAL R12
+      182 CAPTURE                          VAL R15
+      183 CAPTURE                          UPVAL U21
+      184 CAPTURE                          UPVAL U22
+      185 CAPTURE                          UPVAL U1
+      186 CAPTURE                          UPVAL U23
+      187 CAPTURE                          UPVAL U3
+      188 CAPTURE                          VAL R6
+      189 CAPTURE                          UPVAL U11
+      190 CAPTURE                          UPVAL U12
+      191 CAPTURE                          REF R7
+      192 CAPTURE                          UPVAL U13
+      193 CAPTURE                          UPVAL U14
       194 CAPTURE                          UPVAL U4
-      195 CAPTURE                          VAL R1
-      196 CAPTURE                          UPVAL U10
-      197 CAPTURE                          UPVAL U23
-      198 CAPTURE                          UPVAL U24
-      199 CAPTURE                          UPVAL U7
-      200 CAPTURE                          UPVAL U17
-      201 CAPTURE                          UPVAL U20
-      202 CAPTURE                          UPVAL U12
-      203 CAPTURE                          UPVAL U25
-      204 CAPTURE                          UPVAL U26
-      205 CAPTURE                          UPVAL U1
-      206 CAPTURE                          UPVAL U27
-      207 CAPTURE                          UPVAL U13
-      208 CAPTURE                          UPVAL U28
-      209 CAPTURE                          UPVAL U29
-      210 NEWCLOSURE                       R12 P2
-      211 CAPTURE                          UPVAL U2
-      212 CAPTURE                          UPVAL U3
-      213 CAPTURE                          UPVAL U4
-      214 CAPTURE                          VAL R1
-      215 CAPTURE                          UPVAL U1
-      216 CAPTURE                          UPVAL U10
-      217 CAPTURE                          UPVAL U27
-      218 CAPTURE                          UPVAL U12
-      219 CAPTURE                          UPVAL U13
-      220 CAPTURE                          UPVAL U28
-      221 CAPTURE                          UPVAL U25
-      222 CAPTURE                          UPVAL U29
-      223 NAMECALL                         R9 R9 K43 ["andThen"]
-      225 CALL                             R9 3 0
-      226 CLOSEUPVALS                      R4
-      227 RETURN                           R0 0
-      228 GETUPVAL                         R2 1
-      229 GETTABLEKS                       R1 R2 K1 ["shouldDebugWarnings"]
-      231 CALL                             R1 0 1
-      232 JUMPIFNOT                        R1 ; [+5]
-      233 GETIMPORT                        R1 K3 [warn]
-      235 LOADK                            R2 K44 ["Unexpected UGCBundleUploadRequest response:"]
-      236 MOVE                             R3 R0
-      237 CALL                             R1 2 0
-      238 GETUPVAL                         R1 2
-      239 CALL                             R1 0 1
-      240 JUMPIFNOT                        R1 ; [+14]
-      241 GETUPVAL                         R2 3
-      242 GETTABLEKS                       R1 R2 K5 ["UGCUploadRequestOperationIdEvent"]
-      244 GETUPVAL                         R4 3
-      245 GETTABLEKS                       R3 R4 K6 ["Status"]
-      247 GETTABLEKS                       R2 R3 K45 ["Failure"]
-      249 GETUPVAL                         R3 4
-      250 LOADNIL                          R4
-      251 GETUPVAL                         R5 30
-      252 MOVE                             R6 R0
-      253 CALL                             R5 1 1
-      254 CALL                             R1 4 0
-      255 GETUPVAL                         R1 10
-      256 GETUPVAL                         R3 27
-      257 GETUPVAL                         R7 12
-      258 LOADK                            R9 K14 ["AssetConfig"]
-      259 LOADK                            R10 K46 ["ValidationErrorUnknown"]
-      260 NAMECALL                         R7 R7 K19 ["getText"]
-      262 CALL                             R7 3 1
-      263 MOVE                             R5 R7
-      264 GETUPVAL                         R6 28
-      265 GETUPVAL                         R7 25
-      266 GETUPVAL                         R8 12
-      267 CALL                             R6 2 1
-      268 CONCAT                           R4 R5 R6
-      269 CALL                             R3 1 -1
-      270 NAMECALL                         R1 R1 K21 ["dispatch"]
-      272 CALL                             R1 -1 0
-      273 GETUPVAL                         R1 10
-      274 GETUPVAL                         R3 29
-      275 LOADB                            R4 0
-      276 CALL                             R3 1 -1
-      277 NAMECALL                         R1 R1 K21 ["dispatch"]
-      279 CALL                             R1 -1 0
-      280 RETURN                           R0 0
+      195 CALL                             R18 1 -1
+      196 FASTCALL                         TABLE_INSERT ; [+2]
+      197 GETIMPORT                        R16 K43 [table.insert]
+      199 CALL                             R16 -1 0
+      200 FORGLOOP                         R9 2 ; [-46]
+      202 GETUPVAL                         R10 19
+      203 GETTABLEKS                       R9 R10 K44 ["all"]
+      205 MOVE                             R10 R8
+      206 CALL                             R9 1 1
+      207 NEWCLOSURE                       R11 P1
+      208 CAPTURE                          REF R7
+      209 CAPTURE                          VAL R6
+      210 CAPTURE                          UPVAL U2
+      211 CAPTURE                          UPVAL U3
+      212 CAPTURE                          UPVAL U4
+      213 CAPTURE                          VAL R1
+      214 CAPTURE                          UPVAL U11
+      215 CAPTURE                          UPVAL U24
+      216 CAPTURE                          UPVAL U25
+      217 CAPTURE                          UPVAL U7
+      218 CAPTURE                          UPVAL U18
+      219 CAPTURE                          UPVAL U21
+      220 CAPTURE                          UPVAL U13
+      221 CAPTURE                          UPVAL U26
+      222 CAPTURE                          UPVAL U27
+      223 CAPTURE                          UPVAL U1
+      224 CAPTURE                          UPVAL U28
+      225 CAPTURE                          UPVAL U14
+      226 CAPTURE                          UPVAL U29
+      227 CAPTURE                          UPVAL U30
+      228 NEWCLOSURE                       R12 P2
+      229 CAPTURE                          UPVAL U2
+      230 CAPTURE                          UPVAL U3
+      231 CAPTURE                          UPVAL U4
+      232 CAPTURE                          VAL R1
+      233 CAPTURE                          UPVAL U1
+      234 CAPTURE                          UPVAL U11
+      235 CAPTURE                          UPVAL U28
+      236 CAPTURE                          UPVAL U13
+      237 CAPTURE                          UPVAL U14
+      238 CAPTURE                          UPVAL U29
+      239 CAPTURE                          UPVAL U26
+      240 CAPTURE                          UPVAL U30
+      241 NAMECALL                         R9 R9 K45 ["andThen"]
+      243 CALL                             R9 3 0
+      244 CLOSEUPVALS                      R4
+      245 RETURN                           R0 0
+      246 GETUPVAL                         R2 1
+      247 GETTABLEKS                       R1 R2 K1 ["shouldDebugWarnings"]
+      249 CALL                             R1 0 1
+      250 JUMPIFNOT                        R1 ; [+5]
+      251 GETIMPORT                        R1 K3 [warn]
+      253 LOADK                            R2 K46 ["Unexpected UGCBundleUploadRequest response:"]
+      254 MOVE                             R3 R0
+      255 CALL                             R1 2 0
+      256 GETUPVAL                         R1 2
+      257 CALL                             R1 0 1
+      258 JUMPIFNOT                        R1 ; [+14]
+      259 GETUPVAL                         R2 3
+      260 GETTABLEKS                       R1 R2 K5 ["UGCUploadRequestOperationIdEvent"]
+      262 GETUPVAL                         R4 3
+      263 GETTABLEKS                       R3 R4 K6 ["Status"]
+      265 GETTABLEKS                       R2 R3 K47 ["Failure"]
+      267 GETUPVAL                         R3 4
+      268 LOADNIL                          R4
+      269 GETUPVAL                         R5 31
+      270 MOVE                             R6 R0
+      271 CALL                             R5 1 1
+      272 CALL                             R1 4 0
+      273 GETUPVAL                         R1 11
+      274 GETUPVAL                         R3 28
+      275 GETUPVAL                         R7 13
+      276 LOADK                            R9 K16 ["AssetConfig"]
+      277 LOADK                            R10 K48 ["ValidationErrorUnknown"]
+      278 NAMECALL                         R7 R7 K21 ["getText"]
+      280 CALL                             R7 3 1
+      281 MOVE                             R5 R7
+      282 GETUPVAL                         R6 29
+      283 GETUPVAL                         R7 26
+      284 GETUPVAL                         R8 13
+      285 CALL                             R6 2 1
+      286 CONCAT                           R4 R5 R6
+      287 CALL                             R3 1 -1
+      288 NAMECALL                         R1 R1 K23 ["dispatch"]
+      290 CALL                             R1 -1 0
+      291 GETUPVAL                         R1 11
+      292 GETUPVAL                         R3 30
+      293 LOADB                            R4 0
+      294 CALL                             R3 1 -1
+      295 NAMECALL                         R1 R1 K23 ["dispatch"]
+      297 CALL                             R1 -1 0
+      298 RETURN                           R0 0
 
 PROTO_12:
         0 GETUPVAL                         R1 0
@@ -912,18 +928,18 @@ PROTO_13:
        63 CAPTURE                          UPVAL U1
        64 CAPTURE                          UPVAL U12
        65 CAPTURE                          UPVAL U13
-       66 CAPTURE                          VAL R0
-       67 CAPTURE                          UPVAL U14
+       66 CAPTURE                          UPVAL U14
+       67 CAPTURE                          VAL R0
        68 CAPTURE                          UPVAL U15
        69 CAPTURE                          UPVAL U16
        70 CAPTURE                          UPVAL U17
        71 CAPTURE                          UPVAL U18
        72 CAPTURE                          UPVAL U19
-       73 CAPTURE                          UPVAL U5
-       74 CAPTURE                          UPVAL U20
+       73 CAPTURE                          UPVAL U20
+       74 CAPTURE                          UPVAL U5
        75 CAPTURE                          UPVAL U21
-       76 CAPTURE                          UPVAL U7
-       77 CAPTURE                          UPVAL U22
+       76 CAPTURE                          UPVAL U22
+       77 CAPTURE                          UPVAL U7
        78 CAPTURE                          UPVAL U23
        79 CAPTURE                          UPVAL U24
        80 CAPTURE                          UPVAL U25
@@ -933,93 +949,94 @@ PROTO_13:
        84 CAPTURE                          UPVAL U29
        85 CAPTURE                          UPVAL U30
        86 CAPTURE                          UPVAL U31
-       87 NEWCLOSURE                       R6 P1
-       88 CAPTURE                          UPVAL U10
-       89 CAPTURE                          UPVAL U32
-       90 CAPTURE                          VAL R0
-       91 CAPTURE                          UPVAL U15
-       92 CAPTURE                          VAL R1
-       93 CAPTURE                          UPVAL U26
-       94 GETUPVAL                         R9 14
-       95 LOADN                            R10 0
-       96 GETUPVAL                         R11 15
-       97 LOADK                            R13 K8 ["AssetConfig"]
-       98 LOADK                            R14 K9 ["BundleUploadStepNumber"]
-       99 DUPTABLE                         R15 K12 [{"currentStep", "totalSteps"}]
-      100 LOADN                            R16 1
-      101 SETTABLEKS                       R16 R15 K10 ["currentStep"]
-      103 LOADN                            R16 4
-      104 SETTABLEKS                       R16 R15 K11 ["totalSteps"]
-      106 NAMECALL                         R11 R11 K13 ["getText"]
-      108 CALL                             R11 4 1
-      109 GETUPVAL                         R12 15
-      110 LOADK                            R14 K8 ["AssetConfig"]
-      111 LOADK                            R15 K14 ["BundleUploadPrepareStep"]
-      112 NAMECALL                         R12 R12 K13 ["getText"]
-      114 CALL                             R12 3 -1
-      115 CALL                             R9 -1 -1
-      116 NAMECALL                         R7 R0 K15 ["dispatch"]
-      118 CALL                             R7 -1 0
-      119 GETUPVAL                         R9 33
-      120 GETUPVAL                         R12 6
-      121 GETTABLEKS                       R11 R12 K16 ["SCREENS"]
-      123 GETTABLEKS                       R10 R11 K17 ["UPLOADING_ASSET"]
-      125 CALL                             R9 1 -1
-      126 NAMECALL                         R7 R0 K15 ["dispatch"]
-      128 CALL                             R7 -1 0
-      129 GETUPVAL                         R8 0
-      130 GETTABLEKS                       R7 R8 K18 ["getUGCBundleAssetQuantities"]
-      132 MOVE                             R8 R2
-      133 GETUPVAL                         R9 13
-      134 GETUPVAL                         R10 1
-      135 CALL                             R7 3 1
-      136 JUMPIFNOTEQKNIL                  R7 ; [+25]
-      138 GETUPVAL                         R10 28
-      139 GETUPVAL                         R14 15
-      140 LOADK                            R16 K8 ["AssetConfig"]
-      141 LOADK                            R17 K19 ["ValidationErrorUnknown"]
-      142 NAMECALL                         R14 R14 K13 ["getText"]
-      144 CALL                             R14 3 1
-      145 MOVE                             R12 R14
-      146 GETUPVAL                         R13 29
-      147 GETUPVAL                         R14 26
-      148 GETUPVAL                         R15 15
-      149 CALL                             R13 2 1
-      150 CONCAT                           R11 R12 R13
-      151 CALL                             R10 1 -1
-      152 NAMECALL                         R8 R0 K15 ["dispatch"]
-      154 CALL                             R8 -1 0
-      155 GETUPVAL                         R10 30
-      156 LOADB                            R11 0
-      157 CALL                             R10 1 -1
-      158 NAMECALL                         R8 R0 K15 ["dispatch"]
-      160 CALL                             R8 -1 0
-      161 RETURN                           R0 0
-      162 GETUPVAL                         R8 10
-      163 CALL                             R8 0 1
-      164 JUMPIFNOT                        R8 ; [+10]
-      165 GETUPVAL                         R9 11
-      166 GETTABLEKS                       R8 R9 K20 ["UGCUploadRequestOperationIdEvent"]
-      168 GETUPVAL                         R11 11
-      169 GETTABLEKS                       R10 R11 K21 ["Status"]
-      171 GETTABLEKS                       R9 R10 K22 ["Start"]
-      173 MOVE                             R10 R1
-      174 CALL                             R8 2 0
-      175 GETUPVAL                         R8 25
-      176 GETUPVAL                         R10 1
-      177 MOVE                             R11 R7
-      178 GETUPVAL                         R12 5
-      179 GETUPVAL                         R13 7
-      180 MOVE                             R14 R3
-      181 MOVE                             R15 R4
-      182 GETUPVAL                         R16 18
-      183 NAMECALL                         R8 R8 K23 ["postBundleCreationContext"]
-      185 CALL                             R8 8 1
-      186 MOVE                             R10 R5
-      187 MOVE                             R11 R6
-      188 NAMECALL                         R8 R8 K24 ["andThen"]
-      190 CALL                             R8 3 -1
-      191 RETURN                           R8 -1
+       87 CAPTURE                          UPVAL U32
+       88 NEWCLOSURE                       R6 P1
+       89 CAPTURE                          UPVAL U10
+       90 CAPTURE                          UPVAL U33
+       91 CAPTURE                          VAL R0
+       92 CAPTURE                          UPVAL U16
+       93 CAPTURE                          VAL R1
+       94 CAPTURE                          UPVAL U27
+       95 GETUPVAL                         R9 15
+       96 LOADN                            R10 0
+       97 GETUPVAL                         R11 16
+       98 LOADK                            R13 K8 ["AssetConfig"]
+       99 LOADK                            R14 K9 ["BundleUploadStepNumber"]
+      100 DUPTABLE                         R15 K12 [{"currentStep", "totalSteps"}]
+      101 LOADN                            R16 1
+      102 SETTABLEKS                       R16 R15 K10 ["currentStep"]
+      104 LOADN                            R16 4
+      105 SETTABLEKS                       R16 R15 K11 ["totalSteps"]
+      107 NAMECALL                         R11 R11 K13 ["getText"]
+      109 CALL                             R11 4 1
+      110 GETUPVAL                         R12 16
+      111 LOADK                            R14 K8 ["AssetConfig"]
+      112 LOADK                            R15 K14 ["BundleUploadPrepareStep"]
+      113 NAMECALL                         R12 R12 K13 ["getText"]
+      115 CALL                             R12 3 -1
+      116 CALL                             R9 -1 -1
+      117 NAMECALL                         R7 R0 K15 ["dispatch"]
+      119 CALL                             R7 -1 0
+      120 GETUPVAL                         R9 34
+      121 GETUPVAL                         R12 6
+      122 GETTABLEKS                       R11 R12 K16 ["SCREENS"]
+      124 GETTABLEKS                       R10 R11 K17 ["UPLOADING_ASSET"]
+      126 CALL                             R9 1 -1
+      127 NAMECALL                         R7 R0 K15 ["dispatch"]
+      129 CALL                             R7 -1 0
+      130 GETUPVAL                         R8 0
+      131 GETTABLEKS                       R7 R8 K18 ["getUGCBundleAssetQuantities"]
+      133 MOVE                             R8 R2
+      134 GETUPVAL                         R9 13
+      135 GETUPVAL                         R10 1
+      136 CALL                             R7 3 1
+      137 JUMPIFNOTEQKNIL                  R7 ; [+25]
+      139 GETUPVAL                         R10 29
+      140 GETUPVAL                         R14 16
+      141 LOADK                            R16 K8 ["AssetConfig"]
+      142 LOADK                            R17 K19 ["ValidationErrorUnknown"]
+      143 NAMECALL                         R14 R14 K13 ["getText"]
+      145 CALL                             R14 3 1
+      146 MOVE                             R12 R14
+      147 GETUPVAL                         R13 30
+      148 GETUPVAL                         R14 27
+      149 GETUPVAL                         R15 16
+      150 CALL                             R13 2 1
+      151 CONCAT                           R11 R12 R13
+      152 CALL                             R10 1 -1
+      153 NAMECALL                         R8 R0 K15 ["dispatch"]
+      155 CALL                             R8 -1 0
+      156 GETUPVAL                         R10 31
+      157 LOADB                            R11 0
+      158 CALL                             R10 1 -1
+      159 NAMECALL                         R8 R0 K15 ["dispatch"]
+      161 CALL                             R8 -1 0
+      162 RETURN                           R0 0
+      163 GETUPVAL                         R8 10
+      164 CALL                             R8 0 1
+      165 JUMPIFNOT                        R8 ; [+10]
+      166 GETUPVAL                         R9 11
+      167 GETTABLEKS                       R8 R9 K20 ["UGCUploadRequestOperationIdEvent"]
+      169 GETUPVAL                         R11 11
+      170 GETTABLEKS                       R10 R11 K21 ["Status"]
+      172 GETTABLEKS                       R9 R10 K22 ["Start"]
+      174 MOVE                             R10 R1
+      175 CALL                             R8 2 0
+      176 GETUPVAL                         R8 26
+      177 GETUPVAL                         R10 1
+      178 MOVE                             R11 R7
+      179 GETUPVAL                         R12 5
+      180 GETUPVAL                         R13 7
+      181 MOVE                             R14 R3
+      182 MOVE                             R15 R4
+      183 GETUPVAL                         R16 19
+      184 NAMECALL                         R8 R8 K23 ["postBundleCreationContext"]
+      186 CALL                             R8 8 1
+      187 MOVE                             R10 R5
+      188 MOVE                             R11 R6
+      189 NAMECALL                         R8 R8 K24 ["andThen"]
+      191 CALL                             R8 3 -1
+      192 RETURN                           R8 -1
 
 PROTO_14:
         0 NEWCLOSURE                       R11 P0
@@ -1038,27 +1055,28 @@ PROTO_14:
        13 CAPTURE                          UPVAL U8
        14 CAPTURE                          VAL R5
        15 CAPTURE                          UPVAL U9
-       16 CAPTURE                          VAL R6
-       17 CAPTURE                          UPVAL U10
+       16 CAPTURE                          UPVAL U10
+       17 CAPTURE                          VAL R6
        18 CAPTURE                          UPVAL U11
-       19 CAPTURE                          VAL R10
-       20 CAPTURE                          UPVAL U12
+       19 CAPTURE                          UPVAL U12
+       20 CAPTURE                          VAL R10
        21 CAPTURE                          UPVAL U13
-       22 CAPTURE                          VAL R9
-       23 CAPTURE                          UPVAL U14
+       22 CAPTURE                          UPVAL U14
+       23 CAPTURE                          VAL R9
        24 CAPTURE                          UPVAL U15
        25 CAPTURE                          UPVAL U16
-       26 CAPTURE                          VAL R0
-       27 CAPTURE                          VAL R7
-       28 CAPTURE                          VAL R8
-       29 CAPTURE                          UPVAL U17
+       26 CAPTURE                          UPVAL U17
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          VAL R7
+       29 CAPTURE                          VAL R8
        30 CAPTURE                          UPVAL U18
        31 CAPTURE                          UPVAL U19
        32 CAPTURE                          UPVAL U20
        33 CAPTURE                          UPVAL U21
        34 CAPTURE                          UPVAL U22
-       35 CLOSEUPVALS                      R3
-       36 RETURN                           R11 1
+       35 CAPTURE                          UPVAL U23
+       36 CLOSEUPVALS                      R3
+       37 RETURN                           R11 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -1144,63 +1162,78 @@ MAIN:
       137 GETTABLEKS                       R24 R25 K37 ["getFFlagEnableUploadingGroupBundles"]
       139 CALL                             R23 1 1
       140 GETIMPORT                        R24 K12 [require]
-      142 GETTABLEKS                       R25 R11 K38 ["getRobuxMessageToAppend"]
-      144 CALL                             R24 1 1
-      145 DUPTABLE                         R25 K41 [{"bundlePartsUploadError", "bundleUploadAssetsStep"}]
-      146 DUPTABLE                         R26 K45 [{"Body", "DynamicHead", "Shoes"}]
-      147 LOADK                            R27 K46 ["BundlePartsUploadError"]
-      148 SETTABLEKS                       R27 R26 K42 ["Body"]
-      150 LOADK                            R27 K46 ["BundlePartsUploadError"]
-      151 SETTABLEKS                       R27 R26 K43 ["DynamicHead"]
-      153 LOADK                            R27 K47 ["ShoesBundlePartsUploadError"]
-      154 SETTABLEKS                       R27 R26 K44 ["Shoes"]
-      156 SETTABLEKS                       R26 R25 K39 ["bundlePartsUploadError"]
-      158 DUPTABLE                         R26 K45 [{"Body", "DynamicHead", "Shoes"}]
-      159 LOADK                            R27 K48 ["BundleUploadAssetsStep"]
-      160 SETTABLEKS                       R27 R26 K42 ["Body"]
-      162 LOADK                            R27 K48 ["BundleUploadAssetsStep"]
-      163 SETTABLEKS                       R27 R26 K43 ["DynamicHead"]
-      165 LOADK                            R27 K49 ["ShoesBundleUploadAssetsStep"]
-      166 SETTABLEKS                       R27 R26 K44 ["Shoes"]
-      168 SETTABLEKS                       R26 R25 K40 ["bundleUploadAssetsStep"]
-      170 DUPCLOSURE                       R26 K50 [PROTO_0]
-      171 DUPCLOSURE                       R27 K51 [PROTO_1]
-      172 DUPCLOSURE                       R28 K52 [PROTO_2]
-      173 DUPCLOSURE                       R29 K53 [PROTO_3]
-      174 DUPCLOSURE                       R30 K54 [PROTO_4]
-      175 DUPCLOSURE                       R31 K55 [PROTO_5]
-      176 CAPTURE                          VAL R21
-      177 CAPTURE                          VAL R22
-      178 CAPTURE                          VAL R23
-      179 CAPTURE                          VAL R24
-      180 CAPTURE                          VAL R20
-      181 CAPTURE                          VAL R12
-      182 CAPTURE                          VAL R26
-      183 CAPTURE                          VAL R15
-      184 CAPTURE                          VAL R4
-      185 CAPTURE                          VAL R6
-      186 DUPCLOSURE                       R32 K56 [PROTO_14]
-      187 CAPTURE                          VAL R14
-      188 CAPTURE                          VAL R21
-      189 CAPTURE                          VAL R22
-      190 CAPTURE                          VAL R13
-      191 CAPTURE                          VAL R16
-      192 CAPTURE                          VAL R15
-      193 CAPTURE                          VAL R20
-      194 CAPTURE                          VAL R12
-      195 CAPTURE                          VAL R19
-      196 CAPTURE                          VAL R7
-      197 CAPTURE                          VAL R25
-      198 CAPTURE                          VAL R23
-      199 CAPTURE                          VAL R8
-      200 CAPTURE                          VAL R18
-      201 CAPTURE                          VAL R1
-      202 CAPTURE                          VAL R30
-      203 CAPTURE                          VAL R10
-      204 CAPTURE                          VAL R4
-      205 CAPTURE                          VAL R24
-      206 CAPTURE                          VAL R6
-      207 CAPTURE                          VAL R26
-      208 CAPTURE                          VAL R31
-      209 CAPTURE                          VAL R5
-      210 RETURN                           R32 1
+      142 GETTABLEKS                       R27 R2 K9 ["Src"]
+      144 GETTABLEKS                       R26 R27 K36 ["Flags"]
+      146 GETTABLEKS                       R25 R26 K38 ["getFFlagEnableUploadingAvatarAnimations"]
+      148 CALL                             R24 1 1
+      149 GETIMPORT                        R25 K12 [require]
+      151 GETTABLEKS                       R26 R11 K39 ["getRobuxMessageToAppend"]
+      153 CALL                             R25 1 1
+      154 DUPTABLE                         R26 K42 [{"bundlePartsUploadError", "bundleUploadAssetsStep"}]
+      155 DUPTABLE                         R27 K46 [{"Body", "DynamicHead", "Shoes"}]
+      156 LOADK                            R28 K47 ["BundlePartsUploadError"]
+      157 SETTABLEKS                       R28 R27 K43 ["Body"]
+      159 LOADK                            R28 K47 ["BundlePartsUploadError"]
+      160 SETTABLEKS                       R28 R27 K44 ["DynamicHead"]
+      162 LOADK                            R28 K48 ["ShoesBundlePartsUploadError"]
+      163 SETTABLEKS                       R28 R27 K45 ["Shoes"]
+      165 SETTABLEKS                       R27 R26 K40 ["bundlePartsUploadError"]
+      167 DUPTABLE                         R27 K46 [{"Body", "DynamicHead", "Shoes"}]
+      168 LOADK                            R28 K49 ["BundleUploadAssetsStep"]
+      169 SETTABLEKS                       R28 R27 K43 ["Body"]
+      171 LOADK                            R28 K49 ["BundleUploadAssetsStep"]
+      172 SETTABLEKS                       R28 R27 K44 ["DynamicHead"]
+      174 LOADK                            R28 K50 ["ShoesBundleUploadAssetsStep"]
+      175 SETTABLEKS                       R28 R27 K45 ["Shoes"]
+      177 SETTABLEKS                       R27 R26 K41 ["bundleUploadAssetsStep"]
+      179 MOVE                             R27 R24
+      180 CALL                             R27 0 1
+      181 JUMPIFNOT                        R27 ; [+10]
+      182 GETTABLEKS                       R27 R26 K40 ["bundlePartsUploadError"]
+      184 LOADK                            R28 K47 ["BundlePartsUploadError"]
+      185 SETTABLEKS                       R28 R27 K51 ["AvatarAnimations"]
+      187 GETTABLEKS                       R27 R26 K41 ["bundleUploadAssetsStep"]
+      189 LOADK                            R28 K49 ["BundleUploadAssetsStep"]
+      190 SETTABLEKS                       R28 R27 K51 ["AvatarAnimations"]
+      192 DUPCLOSURE                       R27 K52 [PROTO_0]
+      193 DUPCLOSURE                       R28 K53 [PROTO_1]
+      194 DUPCLOSURE                       R29 K54 [PROTO_2]
+      195 DUPCLOSURE                       R30 K55 [PROTO_3]
+      196 DUPCLOSURE                       R31 K56 [PROTO_4]
+      197 DUPCLOSURE                       R32 K57 [PROTO_5]
+      198 CAPTURE                          VAL R21
+      199 CAPTURE                          VAL R22
+      200 CAPTURE                          VAL R23
+      201 CAPTURE                          VAL R25
+      202 CAPTURE                          VAL R20
+      203 CAPTURE                          VAL R12
+      204 CAPTURE                          VAL R27
+      205 CAPTURE                          VAL R15
+      206 CAPTURE                          VAL R4
+      207 CAPTURE                          VAL R6
+      208 DUPCLOSURE                       R33 K58 [PROTO_14]
+      209 CAPTURE                          VAL R14
+      210 CAPTURE                          VAL R21
+      211 CAPTURE                          VAL R22
+      212 CAPTURE                          VAL R13
+      213 CAPTURE                          VAL R16
+      214 CAPTURE                          VAL R15
+      215 CAPTURE                          VAL R20
+      216 CAPTURE                          VAL R12
+      217 CAPTURE                          VAL R19
+      218 CAPTURE                          VAL R24
+      219 CAPTURE                          VAL R7
+      220 CAPTURE                          VAL R26
+      221 CAPTURE                          VAL R23
+      222 CAPTURE                          VAL R8
+      223 CAPTURE                          VAL R18
+      224 CAPTURE                          VAL R1
+      225 CAPTURE                          VAL R31
+      226 CAPTURE                          VAL R10
+      227 CAPTURE                          VAL R4
+      228 CAPTURE                          VAL R25
+      229 CAPTURE                          VAL R6
+      230 CAPTURE                          VAL R27
+      231 CAPTURE                          VAL R32
+      232 CAPTURE                          VAL R5
+      233 RETURN                           R33 1

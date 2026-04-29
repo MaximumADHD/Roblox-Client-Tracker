@@ -35,7 +35,7 @@ MAIN:
        50 JUMPIFEQ                         R5 R6 ; [+2]
        52 LOADB                            R4 0 +1
        53 LOADB                            R4 1
-       54 JUMPIFNOT                        R4 ; [+159]
+       54 JUMPIFNOT                        R4 ; [+168]
        55 GETIMPORT                        R5 K5 [require]
        57 GETTABLEKS                       R7 R0 K6 ["Packages"]
        59 GETTABLEKS                       R6 R7 K20 ["ReactDeveloperTools"]
@@ -63,77 +63,83 @@ MAIN:
        97 GETTABLEKS                       R12 R6 K13 ["Flags"]
        99 GETTABLEKS                       R11 R12 K26 ["Shared"]
       101 GETTABLEKS                       R10 R11 K30 ["FFlagAssistantTestModeDropdown"]
-      103 MOVE                             R11 R9
-      104 CALL                             R11 0 1
-      105 JUMPIFNOT                        R11 ; [+8]
-      106 GETTABLEKS                       R13 R6 K31 ["Utils"]
-      108 GETTABLEKS                       R12 R13 K32 ["DataModelType"]
-      110 GETTABLEKS                       R11 R12 K33 ["setIsStandalone"]
-      112 LOADB                            R12 1
-      113 CALL                             R11 1 0
-      114 GETIMPORT                        R11 K5 [require]
-      116 GETTABLEKS                       R14 R0 K12 ["Src"]
-      118 GETTABLEKS                       R13 R14 K34 ["Util"]
-      120 GETTABLEKS                       R12 R13 K35 ["StudioNetworking"]
-      122 CALL                             R11 1 1
-      123 LOADNIL                          R12
-      124 MOVE                             R13 R8
-      125 CALL                             R13 0 1
-      126 JUMPIFNOT                        R13 ; [+24]
-      127 GETTABLEKS                       R13 R11 K36 ["create"]
-      129 DUPTABLE                         R14 K41 [{"plugin", "isGuest", "isHost", "identity"}]
-      130 GETIMPORT                        R15 K42 [plugin]
-      132 SETTABLEKS                       R15 R14 K37 ["plugin"]
-      134 SETTABLEKS                       R4 R14 K38 ["isGuest"]
-      136 LOADB                            R15 0
-      137 SETTABLEKS                       R15 R14 K39 ["isHost"]
-      139 GETTABLEKS                       R18 R6 K31 ["Utils"]
-      141 GETTABLEKS                       R17 R18 K32 ["DataModelType"]
-      143 GETTABLEKS                       R16 R17 K43 ["Types"]
-      145 GETTABLEKS                       R15 R16 K19 ["Standalone"]
-      147 SETTABLEKS                       R15 R14 K40 ["identity"]
-      149 CALL                             R13 1 1
-      150 MOVE                             R12 R13
-      151 MOVE                             R13 R10
-      152 CALL                             R13 0 1
-      153 JUMPIF                           R13 ; [+3]
-      154 MOVE                             R13 R7
-      155 CALL                             R13 0 1
-      156 JUMPIFNOT                        R13 ; [+15]
-      157 GETIMPORT                        R13 K5 [require]
-      159 GETTABLEKS                       R16 R0 K12 ["Src"]
-      161 GETTABLEKS                       R15 R16 K34 ["Util"]
-      163 GETTABLEKS                       R14 R15 K44 ["StudioState"]
-      165 CALL                             R13 1 1
-      166 GETTABLEKS                       R14 R13 K45 ["init"]
-      168 GETIMPORT                        R15 K42 [plugin]
-      170 MOVE                             R16 R12
-      171 CALL                             R14 2 0
-      172 GETIMPORT                        R13 K5 [require]
-      174 GETTABLEKS                       R15 R0 K12 ["Src"]
-      176 GETTABLEKS                       R14 R15 K46 ["toolInit"]
-      178 CALL                             R13 1 1
-      179 MOVE                             R14 R13
-      180 GETIMPORT                        R15 K42 [plugin]
-      182 DUPTABLE                         R16 K47 [{"isGuest", "isHost"}]
-      183 SETTABLEKS                       R4 R16 K38 ["isGuest"]
-      185 LOADB                            R17 0
-      186 SETTABLEKS                       R17 R16 K39 ["isHost"]
-      188 MOVE                             R17 R12
-      189 CALL                             R14 3 0
-      190 GETIMPORT                        R14 K5 [require]
-      192 GETTABLEKS                       R17 R0 K15 ["Bin"]
-      194 GETTABLEKS                       R16 R17 K16 ["Common"]
-      196 GETTABLEKS                       R15 R16 K48 ["setup"]
-      198 CALL                             R14 1 1
+      103 GETTABLEKS                       R13 R6 K13 ["Flags"]
+      105 GETTABLEKS                       R12 R13 K26 ["Shared"]
+      107 GETTABLEKS                       R11 R12 K31 ["FFlagPrimGenRetryInPlayTest"]
+      109 MOVE                             R12 R9
+      110 CALL                             R12 0 1
+      111 JUMPIFNOT                        R12 ; [+8]
+      112 GETTABLEKS                       R14 R6 K32 ["Utils"]
+      114 GETTABLEKS                       R13 R14 K33 ["DataModelType"]
+      116 GETTABLEKS                       R12 R13 K34 ["setIsStandalone"]
+      118 LOADB                            R13 1
+      119 CALL                             R12 1 0
+      120 GETIMPORT                        R12 K5 [require]
+      122 GETTABLEKS                       R15 R0 K12 ["Src"]
+      124 GETTABLEKS                       R14 R15 K35 ["Util"]
+      126 GETTABLEKS                       R13 R14 K36 ["StudioNetworking"]
+      128 CALL                             R12 1 1
+      129 LOADNIL                          R13
+      130 MOVE                             R14 R8
+      131 CALL                             R14 0 1
+      132 JUMPIFNOT                        R14 ; [+24]
+      133 GETTABLEKS                       R14 R12 K37 ["create"]
+      135 DUPTABLE                         R15 K42 [{"plugin", "isGuest", "isHost", "identity"}]
+      136 GETIMPORT                        R16 K43 [plugin]
+      138 SETTABLEKS                       R16 R15 K38 ["plugin"]
+      140 SETTABLEKS                       R4 R15 K39 ["isGuest"]
+      142 LOADB                            R16 0
+      143 SETTABLEKS                       R16 R15 K40 ["isHost"]
+      145 GETTABLEKS                       R19 R6 K32 ["Utils"]
+      147 GETTABLEKS                       R18 R19 K33 ["DataModelType"]
+      149 GETTABLEKS                       R17 R18 K44 ["Types"]
+      151 GETTABLEKS                       R16 R17 K19 ["Standalone"]
+      153 SETTABLEKS                       R16 R15 K41 ["identity"]
+      155 CALL                             R14 1 1
+      156 MOVE                             R13 R14
+      157 MOVE                             R14 R10
+      158 CALL                             R14 0 1
+      159 JUMPIF                           R14 ; [+6]
+      160 MOVE                             R14 R7
+      161 CALL                             R14 0 1
+      162 JUMPIF                           R14 ; [+3]
+      163 MOVE                             R14 R11
+      164 CALL                             R14 0 1
+      165 JUMPIFNOT                        R14 ; [+15]
+      166 GETIMPORT                        R14 K5 [require]
+      168 GETTABLEKS                       R17 R0 K12 ["Src"]
+      170 GETTABLEKS                       R16 R17 K35 ["Util"]
+      172 GETTABLEKS                       R15 R16 K45 ["StudioState"]
+      174 CALL                             R14 1 1
+      175 GETTABLEKS                       R15 R14 K46 ["init"]
+      177 GETIMPORT                        R16 K43 [plugin]
+      179 MOVE                             R17 R13
+      180 CALL                             R15 2 0
+      181 GETIMPORT                        R14 K5 [require]
+      183 GETTABLEKS                       R16 R0 K12 ["Src"]
+      185 GETTABLEKS                       R15 R16 K47 ["toolInit"]
+      187 CALL                             R14 1 1
+      188 MOVE                             R15 R14
+      189 GETIMPORT                        R16 K43 [plugin]
+      191 DUPTABLE                         R17 K48 [{"isGuest", "isHost"}]
+      192 SETTABLEKS                       R4 R17 K39 ["isGuest"]
+      194 LOADB                            R18 0
+      195 SETTABLEKS                       R18 R17 K40 ["isHost"]
+      197 MOVE                             R18 R13
+      198 CALL                             R15 3 0
       199 GETIMPORT                        R15 K5 [require]
       201 GETTABLEKS                       R18 R0 K15 ["Bin"]
       203 GETTABLEKS                       R17 R18 K16 ["Common"]
-      205 GETTABLEKS                       R16 R17 K49 ["setupMain"]
+      205 GETTABLEKS                       R16 R17 K49 ["setup"]
       207 CALL                             R15 1 1
-      208 MOVE                             R16 R14
-      209 GETIMPORT                        R17 K42 [plugin]
-      211 MOVE                             R18 R15
-      212 LOADB                            R19 1
-      213 CALL                             R16 3 0
-      214 RETURN                           R0 0
+      208 GETIMPORT                        R16 K5 [require]
+      210 GETTABLEKS                       R19 R0 K15 ["Bin"]
+      212 GETTABLEKS                       R18 R19 K16 ["Common"]
+      214 GETTABLEKS                       R17 R18 K50 ["setupMain"]
+      216 CALL                             R16 1 1
+      217 MOVE                             R17 R15
+      218 GETIMPORT                        R18 K43 [plugin]
+      220 MOVE                             R19 R16
+      221 LOADB                            R20 1
+      222 CALL                             R17 3 0
+      223 RETURN                           R0 0

@@ -28,6 +28,7 @@ type _SubscriptionDataFields = {
 	image_asset_id: number,
 	price_display: string,
 	period_type: string,
+	is_subscribed: boolean,
 }
 
 type _SubscriptionDataPartialFields = {
@@ -37,6 +38,7 @@ type _SubscriptionDataPartialFields = {
 	image_asset_id: number?,
 	price_display: string?,
 	period_type: string?,
+	is_subscribed: boolean?,
 }
 
 export type SubscriptionData = typeof(setmetatable({} :: _SubscriptionDataFields, {} :: _SubscriptionDataImpl))
@@ -54,6 +56,7 @@ do
 			image_asset_id = if data == nil or data.image_asset_id == nil then 0 else data.image_asset_id,
 			price_display = if data == nil or data.price_display == nil then "" else data.price_display,
 			period_type = if data == nil or data.period_type == nil then "" else data.period_type,
+			is_subscribed = if data == nil or data.is_subscribed == nil then false else data.is_subscribed,
 		}, _SubscriptionDataImpl :: _SubscriptionDataImpl)
 	end
 
@@ -91,6 +94,11 @@ do
 			output, cursor = proto.writeString(output, cursor, self.period_type)
 		end
 
+		if self.is_subscribed then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.is_subscribed then 1 else 0)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -114,6 +122,11 @@ do
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.image_asset_id = value
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.is_subscribed = value ~= 0
 					continue
 				end
 
@@ -191,6 +204,10 @@ do
 			output.periodType = self.period_type
 		end
 
+		if self.is_subscribed then
+			output.isSubscribed = self.is_subscribed
+		end
+
 		return output
 	end
 
@@ -231,6 +248,14 @@ do
 
 		if input.periodType ~= nil then
 			self.period_type = input.periodType
+		end
+
+		if input.is_subscribed ~= nil then
+			self.is_subscribed = input.is_subscribed
+		end
+
+		if input.isSubscribed ~= nil then
+			self.is_subscribed = input.isSubscribed
 		end
 
 		return self

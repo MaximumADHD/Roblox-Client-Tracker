@@ -369,114 +369,125 @@ MAIN:
       111 GETTABLEKS                       R19 R1 K20 ["Flags"]
       113 GETTABLEKS                       R18 R19 K23 ["Shared"]
       115 GETTABLEKS                       R17 R18 K30 ["FFlagAssistantDynamicToolDescription"]
-      117 GETTABLEKS                       R20 R1 K14 ["Components"]
-      119 GETTABLEKS                       R19 R20 K15 ["Hooks"]
-      121 GETTABLEKS                       R18 R19 K31 ["useWithClient"]
-      123 GETTABLEKS                       R19 R2 K32 ["ToolRegistry"]
-      125 GETTABLEKS                       R22 R1 K33 ["Resources"]
-      127 GETTABLEKS                       R21 R22 K34 ["Localization"]
-      129 GETTABLEKS                       R20 R21 K35 ["Translator"]
-      131 GETTABLEKS                       R23 R1 K36 ["Tools"]
-      133 GETTABLEKS                       R22 R23 K37 ["ToolTypes"]
-      135 GETTABLEKS                       R21 R22 K38 ["ToolNames"]
-      137 GETTABLEKS                       R22 R3 K39 ["createElement"]
-      139 NEWTABLE                         R23 16 0
-      141 GETTABLEKS                       R24 R21 K40 ["ExecuteLuau"]
-      143 LOADK                            R25 K40 ["ExecuteLuau"]
-      144 SETTABLE                         R25 R23 R24
-      145 GETTABLEKS                       R24 R21 K41 ["MaterialGen"]
-      147 LOADK                            R25 K42 ["GenerateMaterial"]
-      148 SETTABLE                         R25 R23 R24
-      149 GETTABLEKS                       R24 R21 K43 ["InsertFromMarketplace"]
-      151 MOVE                             R26 R14
-      152 CALL                             R26 0 1
-      153 JUMPIFNOT                        R26 ; [+2]
-      154 LOADNIL                          R25
-      155 JUMP                             ; [+1]
-      156 LOADK                            R25 K43 ["InsertFromMarketplace"]
-      157 SETTABLE                         R25 R23 R24
-      158 GETTABLEKS                       R24 R21 K44 ["CreatorStoreSearch"]
-      160 MOVE                             R26 R14
-      161 CALL                             R26 0 1
-      162 JUMPIFNOT                        R26 ; [+2]
-      163 LOADK                            R25 K44 ["CreatorStoreSearch"]
-      164 JUMP                             ; [+1]
-      165 LOADNIL                          R25
-      166 SETTABLE                         R25 R23 R24
-      167 GETTABLEKS                       R24 R21 K45 ["CreatorStoreInsert"]
-      169 MOVE                             R26 R14
-      170 CALL                             R26 0 1
-      171 JUMPIFNOT                        R26 ; [+2]
-      172 LOADK                            R25 K45 ["CreatorStoreInsert"]
-      173 JUMP                             ; [+1]
-      174 LOADNIL                          R25
-      175 SETTABLE                         R25 R23 R24
-      176 GETTABLEKS                       R24 R21 K46 ["MeshGen"]
-      178 MOVE                             R26 R15
-      179 CALL                             R26 0 1
-      180 JUMPIFNOT                        R26 ; [+2]
-      181 LOADK                            R25 K46 ["MeshGen"]
-      182 JUMP                             ; [+1]
-      183 LOADNIL                          R25
-      184 SETTABLE                         R25 R23 R24
-      185 GETTABLEKS                       R24 R21 K47 ["MultiEdit"]
-      187 LOADK                            R25 K48 ["MultiEditUpdated"]
-      188 SETTABLE                         R25 R23 R24
-      189 GETTABLEKS                       R24 R21 K49 ["ScreenCapture"]
-      191 LOADK                            R25 K49 ["ScreenCapture"]
-      192 SETTABLE                         R25 R23 R24
-      193 GETTABLEKS                       R24 R21 K50 ["UploadImage"]
-      195 LOADK                            R25 K50 ["UploadImage"]
-      196 SETTABLE                         R25 R23 R24
-      197 GETTABLEKS                       R24 R21 K51 ["PrimitiveGen"]
-      199 LOADK                            R25 K51 ["PrimitiveGen"]
-      200 SETTABLE                         R25 R23 R24
-      201 MOVE                             R24 R9
-      202 CALL                             R24 0 1
-      203 JUMPIFNOT                        R24 ; [+7]
-      204 MOVE                             R24 R12
-      205 CALL                             R24 0 1
-      206 JUMPIF                           R24 ; [+4]
-      207 GETTABLEKS                       R24 R21 K52 ["TestGame"]
-      209 LOADK                            R25 K52 ["TestGame"]
-      210 SETTABLE                         R25 R23 R24
-      211 MOVE                             R24 R12
-      212 CALL                             R24 0 1
-      213 JUMPIFNOT                        R24 ; [+20]
-      214 GETTABLEKS                       R24 R21 K53 ["StartStopPlay"]
-      216 LOADK                            R25 K53 ["StartStopPlay"]
-      217 SETTABLE                         R25 R23 R24
-      218 GETTABLEKS                       R24 R21 K54 ["GetConsoleOutput"]
-      220 LOADK                            R25 K54 ["GetConsoleOutput"]
-      221 SETTABLE                         R25 R23 R24
-      222 GETTABLEKS                       R24 R21 K55 ["UserKeyboardInput"]
-      224 LOADK                            R25 K55 ["UserKeyboardInput"]
-      225 SETTABLE                         R25 R23 R24
-      226 GETTABLEKS                       R24 R21 K56 ["UserMouseInput"]
-      228 LOADK                            R25 K56 ["UserMouseInput"]
-      229 SETTABLE                         R25 R23 R24
-      230 GETTABLEKS                       R24 R21 K57 ["CharacterNavigation"]
-      232 LOADK                            R25 K57 ["CharacterNavigation"]
-      233 SETTABLE                         R25 R23 R24
-      234 DUPCLOSURE                       R24 K58 [PROTO_2]
-      235 CAPTURE                          VAL R23
-      236 CAPTURE                          VAL R20
-      237 CAPTURE                          VAL R10
-      238 CAPTURE                          VAL R19
-      239 DUPCLOSURE                       R25 K59 [PROTO_10]
-      240 CAPTURE                          VAL R18
-      241 CAPTURE                          VAL R3
-      242 CAPTURE                          VAL R13
-      243 CAPTURE                          VAL R7
-      244 CAPTURE                          VAL R6
-      245 CAPTURE                          VAL R10
-      246 CAPTURE                          VAL R4
-      247 CAPTURE                          VAL R16
-      248 CAPTURE                          VAL R8
-      249 CAPTURE                          VAL R5
-      250 CAPTURE                          VAL R11
-      251 CAPTURE                          VAL R17
-      252 CAPTURE                          VAL R24
-      253 CAPTURE                          VAL R22
-      254 CAPTURE                          VAL R1
-      255 RETURN                           R25 1
+      117 GETTABLEKS                       R20 R1 K20 ["Flags"]
+      119 GETTABLEKS                       R19 R20 K23 ["Shared"]
+      121 GETTABLEKS                       R18 R19 K31 ["FFlagAssistantAnimationGenTool"]
+      123 GETTABLEKS                       R21 R1 K14 ["Components"]
+      125 GETTABLEKS                       R20 R21 K15 ["Hooks"]
+      127 GETTABLEKS                       R19 R20 K32 ["useWithClient"]
+      129 GETTABLEKS                       R20 R2 K33 ["ToolRegistry"]
+      131 GETTABLEKS                       R23 R1 K34 ["Resources"]
+      133 GETTABLEKS                       R22 R23 K35 ["Localization"]
+      135 GETTABLEKS                       R21 R22 K36 ["Translator"]
+      137 GETTABLEKS                       R24 R1 K37 ["Tools"]
+      139 GETTABLEKS                       R23 R24 K38 ["ToolTypes"]
+      141 GETTABLEKS                       R22 R23 K39 ["ToolNames"]
+      143 GETTABLEKS                       R23 R3 K40 ["createElement"]
+      145 NEWTABLE                         R24 16 0
+      147 GETTABLEKS                       R25 R22 K41 ["ExecuteLuau"]
+      149 LOADK                            R26 K41 ["ExecuteLuau"]
+      150 SETTABLE                         R26 R24 R25
+      151 GETTABLEKS                       R25 R22 K42 ["MaterialGen"]
+      153 LOADK                            R26 K43 ["GenerateMaterial"]
+      154 SETTABLE                         R26 R24 R25
+      155 GETTABLEKS                       R25 R22 K44 ["InsertFromMarketplace"]
+      157 MOVE                             R27 R14
+      158 CALL                             R27 0 1
+      159 JUMPIFNOT                        R27 ; [+2]
+      160 LOADNIL                          R26
+      161 JUMP                             ; [+1]
+      162 LOADK                            R26 K44 ["InsertFromMarketplace"]
+      163 SETTABLE                         R26 R24 R25
+      164 GETTABLEKS                       R25 R22 K45 ["CreatorStoreSearch"]
+      166 MOVE                             R27 R14
+      167 CALL                             R27 0 1
+      168 JUMPIFNOT                        R27 ; [+2]
+      169 LOADK                            R26 K45 ["CreatorStoreSearch"]
+      170 JUMP                             ; [+1]
+      171 LOADNIL                          R26
+      172 SETTABLE                         R26 R24 R25
+      173 GETTABLEKS                       R25 R22 K46 ["CreatorStoreInsert"]
+      175 MOVE                             R27 R14
+      176 CALL                             R27 0 1
+      177 JUMPIFNOT                        R27 ; [+2]
+      178 LOADK                            R26 K46 ["CreatorStoreInsert"]
+      179 JUMP                             ; [+1]
+      180 LOADNIL                          R26
+      181 SETTABLE                         R26 R24 R25
+      182 GETTABLEKS                       R25 R22 K47 ["MeshGen"]
+      184 MOVE                             R27 R15
+      185 CALL                             R27 0 1
+      186 JUMPIFNOT                        R27 ; [+2]
+      187 LOADK                            R26 K47 ["MeshGen"]
+      188 JUMP                             ; [+1]
+      189 LOADNIL                          R26
+      190 SETTABLE                         R26 R24 R25
+      191 GETTABLEKS                       R25 R22 K48 ["AnimationGen"]
+      193 MOVE                             R27 R18
+      194 CALL                             R27 0 1
+      195 JUMPIFNOT                        R27 ; [+2]
+      196 LOADK                            R26 K48 ["AnimationGen"]
+      197 JUMP                             ; [+1]
+      198 LOADNIL                          R26
+      199 SETTABLE                         R26 R24 R25
+      200 GETTABLEKS                       R25 R22 K49 ["MultiEdit"]
+      202 LOADK                            R26 K50 ["MultiEditUpdated"]
+      203 SETTABLE                         R26 R24 R25
+      204 GETTABLEKS                       R25 R22 K51 ["ScreenCapture"]
+      206 LOADK                            R26 K51 ["ScreenCapture"]
+      207 SETTABLE                         R26 R24 R25
+      208 GETTABLEKS                       R25 R22 K52 ["UploadImage"]
+      210 LOADK                            R26 K52 ["UploadImage"]
+      211 SETTABLE                         R26 R24 R25
+      212 GETTABLEKS                       R25 R22 K53 ["PrimitiveGen"]
+      214 LOADK                            R26 K53 ["PrimitiveGen"]
+      215 SETTABLE                         R26 R24 R25
+      216 MOVE                             R25 R9
+      217 CALL                             R25 0 1
+      218 JUMPIFNOT                        R25 ; [+7]
+      219 MOVE                             R25 R12
+      220 CALL                             R25 0 1
+      221 JUMPIF                           R25 ; [+4]
+      222 GETTABLEKS                       R25 R22 K54 ["TestGame"]
+      224 LOADK                            R26 K54 ["TestGame"]
+      225 SETTABLE                         R26 R24 R25
+      226 MOVE                             R25 R12
+      227 CALL                             R25 0 1
+      228 JUMPIFNOT                        R25 ; [+20]
+      229 GETTABLEKS                       R25 R22 K55 ["StartStopPlay"]
+      231 LOADK                            R26 K55 ["StartStopPlay"]
+      232 SETTABLE                         R26 R24 R25
+      233 GETTABLEKS                       R25 R22 K56 ["GetConsoleOutput"]
+      235 LOADK                            R26 K56 ["GetConsoleOutput"]
+      236 SETTABLE                         R26 R24 R25
+      237 GETTABLEKS                       R25 R22 K57 ["UserKeyboardInput"]
+      239 LOADK                            R26 K57 ["UserKeyboardInput"]
+      240 SETTABLE                         R26 R24 R25
+      241 GETTABLEKS                       R25 R22 K58 ["UserMouseInput"]
+      243 LOADK                            R26 K58 ["UserMouseInput"]
+      244 SETTABLE                         R26 R24 R25
+      245 GETTABLEKS                       R25 R22 K59 ["CharacterNavigation"]
+      247 LOADK                            R26 K59 ["CharacterNavigation"]
+      248 SETTABLE                         R26 R24 R25
+      249 DUPCLOSURE                       R25 K60 [PROTO_2]
+      250 CAPTURE                          VAL R24
+      251 CAPTURE                          VAL R21
+      252 CAPTURE                          VAL R10
+      253 CAPTURE                          VAL R20
+      254 DUPCLOSURE                       R26 K61 [PROTO_10]
+      255 CAPTURE                          VAL R19
+      256 CAPTURE                          VAL R3
+      257 CAPTURE                          VAL R13
+      258 CAPTURE                          VAL R7
+      259 CAPTURE                          VAL R6
+      260 CAPTURE                          VAL R10
+      261 CAPTURE                          VAL R4
+      262 CAPTURE                          VAL R16
+      263 CAPTURE                          VAL R8
+      264 CAPTURE                          VAL R5
+      265 CAPTURE                          VAL R11
+      266 CAPTURE                          VAL R17
+      267 CAPTURE                          VAL R25
+      268 CAPTURE                          VAL R23
+      269 CAPTURE                          VAL R1
+      270 RETURN                           R26 1

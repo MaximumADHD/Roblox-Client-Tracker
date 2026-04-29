@@ -427,14 +427,11 @@ PROTO_15:
         2 RETURN                           R1 1
 
 PROTO_16:
-        0 GETTABLEKS                       R2 R0 K0 ["_showSidebar"]
-        2 NOT                              R1 R2
-        3 SETTABLEKS                       R1 R0 K0 ["_showSidebar"]
-        5 GETTABLEKS                       R1 R0 K1 ["OnSidebarToggled"]
-        7 GETTABLEKS                       R3 R0 K0 ["_showSidebar"]
-        9 NAMECALL                         R1 R1 K2 ["Fire"]
-       11 CALL                             R1 2 0
-       12 RETURN                           R0 0
+        0 GETTABLEKS                       R4 R0 K0 ["_showSidebar"]
+        2 NOT                              R3 R4
+        3 NAMECALL                         R1 R0 K1 ["_setShowSidebar"]
+        5 CALL                             R1 2 0
+        6 RETURN                           R0 0
 
 PROTO_17:
         0 SETTABLEKS                       R1 R0 K0 ["_showSidebar"]

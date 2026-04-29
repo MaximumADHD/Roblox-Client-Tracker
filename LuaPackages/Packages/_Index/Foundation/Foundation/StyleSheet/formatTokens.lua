@@ -1,14 +1,11 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local KeepPrefix = require(script.Parent.colorScopeKeepPrefix)
 local Tokens = require(Foundation.Providers.Style.Tokens)
 local Types = require(script.Parent.Rules.Types)
 
 type Tokens = Tokens.Tokens
 type FormattedTokens = Types.FormattedTokens
-
-local KeepPrefix = {
-	System = true,
-}
 
 local function pascalToKebab(str: string)
 	-- Replace underscores with hyphens

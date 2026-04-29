@@ -222,37 +222,41 @@ PROTO_10:
        10 LOADNIL                          R5
        11 LOADNIL                          R6
        12 FORGPREP                         R4
-       13 DUPTABLE                         R11 K5 [{"Text", "OnClick", "Enabled"}]
-       14 GETTABLEKS                       R12 R1 K6 ["Localization"]
-       16 LOADK                            R14 K1 ["AssetSource"]
-       17 MOVE                             R15 R8
-       18 NAMECALL                         R12 R12 K7 ["getText"]
-       20 CALL                             R12 3 1
-       21 SETTABLEKS                       R12 R11 K2 ["Text"]
-       23 NEWCLOSURE                       R12 P0
-       24 CAPTURE                          VAL R1
-       25 CAPTURE                          UPVAL U0
-       26 CAPTURE                          VAL R8
-       27 SETTABLEKS                       R12 R11 K3 ["OnClick"]
-       29 GETUPVAL                         R15 0
-       30 GETTABLEKS                       R14 R15 K8 ["AssetInfoField"]
-       32 GETTABLEKS                       R13 R14 K9 ["Source"]
-       34 GETTABLE                         R12 R0 R13
-       35 JUMPIFNOT                        R12 ; [+9]
-       36 LOADB                            R12 1
-       37 JUMPIFEQKNIL                     R8 ; [+7]
-       39 GETTABLE                         R15 R0 R13
-       40 GETTABLE                         R14 R15 R8
-       41 JUMPIFNOTEQKNIL                  R14 ; [+2]
-       43 LOADB                            R12 0 +1
-       44 LOADB                            R12 1
-       45 SETTABLEKS                       R12 R11 K4 ["Enabled"]
-       47 FASTCALL2                        TABLE_INSERT R2 R11 ; [+4]
-       49 MOVE                             R10 R2
-       50 GETIMPORT                        R9 K12 [table.insert]
-       52 CALL                             R9 2 0
-       53 FORGLOOP                         R4 2 ; [-41]
-       55 RETURN                           R2 1
+       13 GETUPVAL                         R11 0
+       14 GETTABLEKS                       R10 R11 K1 ["AssetSource"]
+       16 GETTABLEKS                       R9 R10 K2 ["Unknown"]
+       18 JUMPIFEQ                         R8 R9 ; [+41]
+       20 DUPTABLE                         R11 K6 [{"Text", "OnClick", "Enabled"}]
+       21 GETTABLEKS                       R12 R1 K7 ["Localization"]
+       23 LOADK                            R14 K1 ["AssetSource"]
+       24 MOVE                             R15 R8
+       25 NAMECALL                         R12 R12 K8 ["getText"]
+       27 CALL                             R12 3 1
+       28 SETTABLEKS                       R12 R11 K3 ["Text"]
+       30 NEWCLOSURE                       R12 P0
+       31 CAPTURE                          VAL R1
+       32 CAPTURE                          UPVAL U0
+       33 CAPTURE                          VAL R8
+       34 SETTABLEKS                       R12 R11 K4 ["OnClick"]
+       36 GETUPVAL                         R15 0
+       37 GETTABLEKS                       R14 R15 K9 ["AssetInfoField"]
+       39 GETTABLEKS                       R13 R14 K10 ["Source"]
+       41 GETTABLE                         R12 R0 R13
+       42 JUMPIFNOT                        R12 ; [+9]
+       43 LOADB                            R12 1
+       44 JUMPIFEQKNIL                     R8 ; [+7]
+       46 GETTABLE                         R15 R0 R13
+       47 GETTABLE                         R14 R15 R8
+       48 JUMPIFNOTEQKNIL                  R14 ; [+2]
+       50 LOADB                            R12 0 +1
+       51 LOADB                            R12 1
+       52 SETTABLEKS                       R12 R11 K5 ["Enabled"]
+       54 FASTCALL2                        TABLE_INSERT R2 R11 ; [+4]
+       56 MOVE                             R10 R2
+       57 GETIMPORT                        R9 K13 [table.insert]
+       59 CALL                             R9 2 0
+       60 FORGLOOP                         R4 2 ; [-48]
+       62 RETURN                           R2 1
 
 PROTO_11:
         0 GETUPVAL                         R0 0

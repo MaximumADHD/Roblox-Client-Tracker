@@ -31,20 +31,20 @@ function ActionController.initializeActions(data, playerData)
 		end)
 	)
 
-	if playerData.actions.Move and playerData.actions.Jump then return end
+	if playerData.actions.MoveAction and playerData.actions.JumpAction then return end
 	if not playerData.player then return end
 
 	-- may fail because the player's InputContexts may not be immediately available when the player is added
 	pcall(function()
-		local contextFolder = script.parent.parent.InputContexts
+		local contextFolder = script.Parent.Parent.InputContexts
 		if data.isServerAuthority then
 			contextFolder = playerData.player.InputContexts
 		end
-		local characterContext = contextFolder.Character
+		local characterContext = contextFolder.CharacterContext
 
 		playerData.actions = {
-			Move = characterContext.Move,
-			Jump = characterContext.Jump,
+			MoveAction = characterContext.MoveAction,
+			JumpAction = characterContext.JumpAction,
 		}
 
 		data.eventBus:publish(CONNECTIONS.ACTIONS_RELOADED)
@@ -52,8 +52,8 @@ function ActionController.initializeActions(data, playerData)
 end
 
 function ActionController.update(playerData)
-	playerData.moveVector = playerData.actions.Move:GetState()
-	playerData.isJumping = playerData.actions.Jump:GetState()
+	playerData.moveVector = playerData.actions.MoveAction:GetState()
+	playerData.isJumping = playerData.actions.JumpAction:GetState()
 end
 
 function ActionController:Enable(enable: boolean)

@@ -34,6 +34,7 @@ export type HydrationContentType =
 	| "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE"
 	| "HYDRATION_CONTENT_TYPE_USER"
 	| "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE"
+	| "HYDRATION_CONTENT_TYPE_PLAYABILITY"
 	| number -- Unknown
 
 messages.HydrationContentType = {
@@ -80,6 +81,8 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_USER"
 		elseif value == 20 then
 			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE"
+		elseif value == 21 then
+			return "HYDRATION_CONTENT_TYPE_PLAYABILITY"
 		else
 			return nil
 		end
@@ -128,6 +131,8 @@ messages.HydrationContentType = {
 			return 19
 		elseif self == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE" then
 			return 20
+		elseif self == "HYDRATION_CONTENT_TYPE_PLAYABILITY" then
+			return 21
 		else
 			return self
 		end
@@ -176,6 +181,8 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_USER"
 		elseif name == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE" then
 			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE"
+		elseif name == "HYDRATION_CONTENT_TYPE_PLAYABILITY" then
+			return "HYDRATION_CONTENT_TYPE_PLAYABILITY"
 		else
 			return nil
 		end

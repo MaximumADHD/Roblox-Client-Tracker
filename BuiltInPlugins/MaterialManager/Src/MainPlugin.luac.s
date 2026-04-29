@@ -119,12 +119,6 @@ PROTO_9:
         5 RETURN                           R0 0
 
 PROTO_10:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onClose"]
-        3 CALL                             R0 0 0
-        4 RETURN                           R0 0
-
-PROTO_11:
         0 GETTABLEKS                       R2 R1 K0 ["Plugin"]
         2 GETUPVAL                         R4 0
         3 JUMPIFNOT                        R4 ; [+7]
@@ -252,7 +246,7 @@ PROTO_11:
       174 LOADK                            R7 K40 ["ShowMaterialManagerFromElsewhere"]
       175 NAMECALL                         R5 R5 K41 ["GetFastFlag"]
       177 CALL                             R5 2 1
-      178 JUMPIFNOT                        R5 ; [+21]
+      178 JUMPIFNOT                        R5 ; [+9]
       179 GETUPVAL                         R5 6
       180 GETUPVAL                         R8 7
       181 GETTABLEKS                       R7 R8 K42 ["SHOW_MATERIAL_MANAGER_PLUGIN_EVENT"]
@@ -260,19 +254,9 @@ PROTO_11:
       184 CAPTURE                          VAL R0
       185 NAMECALL                         R5 R5 K43 ["Bind"]
       187 CALL                             R5 3 0
-      188 GETUPVAL                         R5 17
-      189 CALL                             R5 0 1
-      190 JUMPIF                           R5 ; [+9]
-      191 GETUPVAL                         R5 6
-      192 GETUPVAL                         R8 7
-      193 GETTABLEKS                       R7 R8 K44 ["DEPRECATED_HIDE_MATERIAL_MANAGER_PLUGIN_EVENT"]
-      195 NEWCLOSURE                       R8 P7
-      196 CAPTURE                          VAL R0
-      197 NAMECALL                         R5 R5 K43 ["Bind"]
-      199 CALL                             R5 3 0
-      200 RETURN                           R0 0
+      188 RETURN                           R0 0
 
-PROTO_12:
+PROTO_11:
         0 GETTABLEKS                       R1 R0 K0 ["imageLoader"]
         2 JUMPIFNOT                        R1 ; [+5]
         3 GETTABLEKS                       R1 R0 K0 ["imageLoader"]
@@ -295,7 +279,7 @@ PROTO_12:
        31 CALL                             R1 1 0
        32 RETURN                           R0 0
 
-PROTO_13:
+PROTO_12:
         0 GETTABLEKS                       R3 R0 K0 ["state"]
         2 GETTABLEKS                       R2 R3 K1 ["enabled"]
         4 DUPTABLE                         R3 K3 [{"Toggle"}]
@@ -319,14 +303,14 @@ PROTO_13:
        31 SETTABLEKS                       R4 R3 K2 ["Toggle"]
        33 RETURN                           R3 1
 
-PROTO_14:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 MOVE                             R3 R0
         2 NAMECALL                         R1 R1 K0 ["renderButtons"]
         4 CALL                             R1 2 -1
         5 RETURN                           R1 -1
 
-PROTO_15:
+PROTO_14:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
@@ -503,65 +487,59 @@ MAIN:
       145 GETTABLEKS                       R30 R31 K40 ["Flags"]
       147 GETTABLEKS                       R29 R30 K41 ["getFFlagMaterialPickerUIChanges"]
       149 CALL                             R28 1 1
-      150 GETIMPORT                        R29 K4 [require]
-      152 GETTABLEKS                       R32 R0 K22 ["Src"]
-      154 GETTABLEKS                       R31 R32 K40 ["Flags"]
-      156 GETTABLEKS                       R30 R31 K42 ["getFFlagMaterialPickerRemoveToggles"]
-      158 CALL                             R29 1 1
-      159 GETIMPORT                        R30 K19 [game]
-      161 LOADK                            R32 K43 ["MaterialManagerCheckableBugfix"]
-      162 NAMECALL                         R30 R30 K44 ["GetEngineFeature"]
-      164 CALL                             R30 2 1
-      165 DUPTABLE                         R31 K50 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-      166 LOADK                            R32 K51 ["Standalone"]
-      167 SETTABLEKS                       R32 R31 K45 ["DataModel"]
-      169 LOADK                            R32 K52 ["Unknown"]
-      170 SETTABLEKS                       R32 R31 K46 ["PluginType"]
-      172 LOADK                            R32 K53 ["MaterialManager"]
-      173 SETTABLEKS                       R32 R31 K47 ["PluginId"]
-      175 LOADK                            R32 K54 ["Actions"]
-      176 SETTABLEKS                       R32 R31 K48 ["Category"]
-      178 LOADK                            R32 K55 ["Toggle"]
-      179 SETTABLEKS                       R32 R31 K49 ["ItemId"]
-      181 GETTABLEKS                       R32 R1 K56 ["PureComponent"]
-      183 LOADK                            R34 K57 ["MainPlugin"]
-      184 NAMECALL                         R32 R32 K58 ["extend"]
-      186 CALL                             R32 2 1
-      187 DUPCLOSURE                       R33 K59 [PROTO_11]
-      188 CAPTURE                          VAL R30
-      189 CAPTURE                          VAL R31
-      190 CAPTURE                          VAL R23
-      191 CAPTURE                          VAL R24
-      192 CAPTURE                          VAL R25
-      193 CAPTURE                          VAL R28
-      194 CAPTURE                          VAL R13
-      195 CAPTURE                          VAL R12
-      196 CAPTURE                          VAL R2
-      197 CAPTURE                          VAL R14
-      198 CAPTURE                          VAL R8
-      199 CAPTURE                          VAL R17
-      200 CAPTURE                          VAL R18
-      201 CAPTURE                          VAL R16
-      202 CAPTURE                          VAL R26
-      203 CAPTURE                          VAL R22
-      204 CAPTURE                          VAL R27
-      205 CAPTURE                          VAL R29
-      206 SETTABLEKS                       R33 R32 K60 ["init"]
-      208 DUPCLOSURE                       R33 K61 [PROTO_12]
-      209 SETTABLEKS                       R33 R32 K62 ["willUnmount"]
-      211 DUPCLOSURE                       R33 K63 [PROTO_13]
+      150 GETIMPORT                        R29 K19 [game]
+      152 LOADK                            R31 K42 ["MaterialManagerCheckableBugfix"]
+      153 NAMECALL                         R29 R29 K43 ["GetEngineFeature"]
+      155 CALL                             R29 2 1
+      156 DUPTABLE                         R30 K49 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+      157 LOADK                            R31 K50 ["Standalone"]
+      158 SETTABLEKS                       R31 R30 K44 ["DataModel"]
+      160 LOADK                            R31 K51 ["Unknown"]
+      161 SETTABLEKS                       R31 R30 K45 ["PluginType"]
+      163 LOADK                            R31 K52 ["MaterialManager"]
+      164 SETTABLEKS                       R31 R30 K46 ["PluginId"]
+      166 LOADK                            R31 K53 ["Actions"]
+      167 SETTABLEKS                       R31 R30 K47 ["Category"]
+      169 LOADK                            R31 K54 ["Toggle"]
+      170 SETTABLEKS                       R31 R30 K48 ["ItemId"]
+      172 GETTABLEKS                       R31 R1 K55 ["PureComponent"]
+      174 LOADK                            R33 K56 ["MainPlugin"]
+      175 NAMECALL                         R31 R31 K57 ["extend"]
+      177 CALL                             R31 2 1
+      178 DUPCLOSURE                       R32 K58 [PROTO_10]
+      179 CAPTURE                          VAL R29
+      180 CAPTURE                          VAL R30
+      181 CAPTURE                          VAL R23
+      182 CAPTURE                          VAL R24
+      183 CAPTURE                          VAL R25
+      184 CAPTURE                          VAL R28
+      185 CAPTURE                          VAL R13
+      186 CAPTURE                          VAL R12
+      187 CAPTURE                          VAL R2
+      188 CAPTURE                          VAL R14
+      189 CAPTURE                          VAL R8
+      190 CAPTURE                          VAL R17
+      191 CAPTURE                          VAL R18
+      192 CAPTURE                          VAL R16
+      193 CAPTURE                          VAL R26
+      194 CAPTURE                          VAL R22
+      195 CAPTURE                          VAL R27
+      196 SETTABLEKS                       R32 R31 K59 ["init"]
+      198 DUPCLOSURE                       R32 K60 [PROTO_11]
+      199 SETTABLEKS                       R32 R31 K61 ["willUnmount"]
+      201 DUPCLOSURE                       R32 K62 [PROTO_12]
+      202 CAPTURE                          VAL R1
+      203 CAPTURE                          VAL R6
+      204 SETTABLEKS                       R32 R31 K63 ["renderButtons"]
+      206 DUPCLOSURE                       R32 K64 [PROTO_14]
+      207 CAPTURE                          VAL R8
+      208 CAPTURE                          VAL R9
+      209 CAPTURE                          VAL R11
+      210 CAPTURE                          VAL R10
+      211 CAPTURE                          VAL R15
       212 CAPTURE                          VAL R1
-      213 CAPTURE                          VAL R6
-      214 SETTABLEKS                       R33 R32 K64 ["renderButtons"]
-      216 DUPCLOSURE                       R33 K65 [PROTO_15]
-      217 CAPTURE                          VAL R8
-      218 CAPTURE                          VAL R9
-      219 CAPTURE                          VAL R11
-      220 CAPTURE                          VAL R10
-      221 CAPTURE                          VAL R15
-      222 CAPTURE                          VAL R1
-      223 CAPTURE                          VAL R7
-      224 CAPTURE                          VAL R5
-      225 CAPTURE                          VAL R20
-      226 SETTABLEKS                       R33 R32 K66 ["render"]
-      228 RETURN                           R32 1
+      213 CAPTURE                          VAL R7
+      214 CAPTURE                          VAL R5
+      215 CAPTURE                          VAL R20
+      216 SETTABLEKS                       R32 R31 K65 ["render"]
+      218 RETURN                           R31 1

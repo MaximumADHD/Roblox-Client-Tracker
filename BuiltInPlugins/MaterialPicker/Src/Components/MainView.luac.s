@@ -1137,24 +1137,6 @@ PROTO_37:
 
 PROTO_38:
         0 GETUPVAL                         R0 0
-        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
-        3 CALL                             R0 1 0
-        4 GETUPVAL                         R0 1
-        5 GETUPVAL                         R3 2
-        6 GETTABLEKS                       R2 R3 K1 ["SHOW_MATERIAL_GENERATOR_PLUGIN_EVENT"]
-        8 NAMECALL                         R0 R0 K2 ["Fire"]
-       10 CALL                             R0 2 0
-       11 GETUPVAL                         R0 3
-       12 LOADB                            R1 1
-       13 CALL                             R0 1 0
-       14 GETUPVAL                         R0 4
-       15 LOADK                            R2 K3 ["MaterialGeneratorOpened"]
-       16 NAMECALL                         R0 R0 K4 ["report"]
-       18 CALL                             R0 2 0
-       19 RETURN                           R0 0
-
-PROTO_39:
-        0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
         2 JUMPIFNOT                        R0 ; [+43]
         3 GETUPVAL                         R1 1
@@ -1186,75 +1168,41 @@ PROTO_39:
        36 CLOSEUPVALS                      R0
        37 GETUPVAL                         R1 4
        38 GETTABLEKS                       R0 R1 K7 ["onClose"]
-       40 JUMPIFNOT                        R0 ; [+78]
+       40 JUMPIFNOT                        R0 ; [+38]
        41 GETUPVAL                         R1 4
        42 GETTABLEKS                       R0 R1 K7 ["onClose"]
        44 CALL                             R0 0 0
        45 RETURN                           R0 0
        46 GETUPVAL                         R0 5
-       47 CALL                             R0 0 1
-       48 JUMPIFNOT                        R0 ; [+34]
-       49 GETUPVAL                         R0 6
-       50 JUMPIF                           R0 ; [+23]
-       51 LOADNIL                          R0
-       52 GETUPVAL                         R1 1
-       53 GETUPVAL                         R4 2
-       54 GETTABLEKS                       R3 R4 K3 ["MATERIAL_GENERATOR_READY"]
-       56 NEWCLOSURE                       R4 P1
-       57 CAPTURE                          REF R0
-       58 CAPTURE                          UPVAL U1
-       59 CAPTURE                          UPVAL U2
-       60 CAPTURE                          UPVAL U7
-       61 CAPTURE                          UPVAL U3
-       62 NAMECALL                         R1 R1 K4 ["Bind"]
-       64 CALL                             R1 3 1
-       65 MOVE                             R0 R1
-       66 GETUPVAL                         R1 1
-       67 GETUPVAL                         R4 2
-       68 GETTABLEKS                       R3 R4 K5 ["LOAD_MATERIAL_GENERATOR"]
-       70 NAMECALL                         R1 R1 K6 ["Fire"]
-       72 CALL                             R1 2 0
-       73 CLOSEUPVALS                      R0
-       74 GETUPVAL                         R1 4
-       75 GETTABLEKS                       R0 R1 K7 ["onClose"]
-       77 JUMPIFNOT                        R0 ; [+41]
-       78 GETUPVAL                         R1 4
-       79 GETTABLEKS                       R0 R1 K7 ["onClose"]
-       81 CALL                             R0 0 0
-       82 RETURN                           R0 0
-       83 GETUPVAL                         R0 6
-       84 JUMPIFNOT                        R0 ; [+11]
-       85 GETUPVAL                         R0 1
-       86 GETUPVAL                         R3 2
-       87 GETTABLEKS                       R2 R3 K8 ["DEPRECATED_HIDE_MATERIAL_GENERATOR_PLUGIN_EVENT"]
-       89 NAMECALL                         R0 R0 K6 ["Fire"]
-       91 CALL                             R0 2 0
-       92 GETUPVAL                         R0 7
-       93 LOADB                            R1 0
-       94 CALL                             R0 1 0
-       95 RETURN                           R0 0
-       96 LOADNIL                          R0
-       97 GETUPVAL                         R1 1
-       98 GETUPVAL                         R4 2
-       99 GETTABLEKS                       R3 R4 K3 ["MATERIAL_GENERATOR_READY"]
-      101 NEWCLOSURE                       R4 P2
-      102 CAPTURE                          REF R0
-      103 CAPTURE                          UPVAL U1
-      104 CAPTURE                          UPVAL U2
-      105 CAPTURE                          UPVAL U7
-      106 CAPTURE                          UPVAL U3
-      107 NAMECALL                         R1 R1 K4 ["Bind"]
-      109 CALL                             R1 3 1
-      110 MOVE                             R0 R1
-      111 GETUPVAL                         R1 1
-      112 GETUPVAL                         R4 2
-      113 GETTABLEKS                       R3 R4 K5 ["LOAD_MATERIAL_GENERATOR"]
-      115 NAMECALL                         R1 R1 K6 ["Fire"]
-      117 CALL                             R1 2 0
-      118 CLOSEUPVALS                      R0
-      119 RETURN                           R0 0
+       47 JUMPIF                           R0 ; [+23]
+       48 LOADNIL                          R0
+       49 GETUPVAL                         R1 1
+       50 GETUPVAL                         R4 2
+       51 GETTABLEKS                       R3 R4 K3 ["MATERIAL_GENERATOR_READY"]
+       53 NEWCLOSURE                       R4 P1
+       54 CAPTURE                          REF R0
+       55 CAPTURE                          UPVAL U1
+       56 CAPTURE                          UPVAL U2
+       57 CAPTURE                          UPVAL U6
+       58 CAPTURE                          UPVAL U3
+       59 NAMECALL                         R1 R1 K4 ["Bind"]
+       61 CALL                             R1 3 1
+       62 MOVE                             R0 R1
+       63 GETUPVAL                         R1 1
+       64 GETUPVAL                         R4 2
+       65 GETTABLEKS                       R3 R4 K5 ["LOAD_MATERIAL_GENERATOR"]
+       67 NAMECALL                         R1 R1 K6 ["Fire"]
+       69 CALL                             R1 2 0
+       70 CLOSEUPVALS                      R0
+       71 GETUPVAL                         R1 4
+       72 GETTABLEKS                       R0 R1 K7 ["onClose"]
+       74 JUMPIFNOT                        R0 ; [+4]
+       75 GETUPVAL                         R1 4
+       76 GETTABLEKS                       R0 R1 K7 ["onClose"]
+       78 CALL                             R0 0 0
+       79 RETURN                           R0 0
 
-PROTO_40:
+PROTO_39:
         0 GETUPVAL                         R0 0
         1 CALL                             R0 0 1
         2 JUMPIFNOT                        R0 ; [+33]
@@ -1278,61 +1226,34 @@ PROTO_40:
        26 CALL                             R0 2 0
        27 GETUPVAL                         R1 4
        28 GETTABLEKS                       R0 R1 K7 ["onClose"]
-       30 JUMPIFNOT                        R0 ; [+62]
+       30 JUMPIFNOT                        R0 ; [+30]
        31 GETUPVAL                         R1 4
        32 GETTABLEKS                       R0 R1 K7 ["onClose"]
        34 CALL                             R0 0 0
        35 RETURN                           R0 0
        36 GETUPVAL                         R0 5
-       37 CALL                             R0 0 1
-       38 JUMPIFNOT                        R0 ; [+26]
-       39 GETUPVAL                         R0 6
-       40 JUMPIF                           R0 ; [+15]
-       41 GETUPVAL                         R0 1
-       42 GETUPVAL                         R3 2
-       43 GETTABLEKS                       R2 R3 K3 ["SHOW_MATERIAL_MANAGER_PLUGIN_EVENT"]
-       45 NAMECALL                         R0 R0 K4 ["Fire"]
-       47 CALL                             R0 2 0
-       48 GETUPVAL                         R0 7
-       49 LOADB                            R1 1
-       50 CALL                             R0 1 0
-       51 GETUPVAL                         R0 3
-       52 LOADK                            R2 K5 ["MaterialManagerOpened"]
-       53 NAMECALL                         R0 R0 K6 ["report"]
-       55 CALL                             R0 2 0
-       56 GETUPVAL                         R1 4
-       57 GETTABLEKS                       R0 R1 K7 ["onClose"]
-       59 JUMPIFNOT                        R0 ; [+33]
-       60 GETUPVAL                         R1 4
-       61 GETTABLEKS                       R0 R1 K7 ["onClose"]
-       63 CALL                             R0 0 0
-       64 RETURN                           R0 0
-       65 GETUPVAL                         R0 6
-       66 JUMPIFNOT                        R0 ; [+11]
-       67 GETUPVAL                         R0 1
-       68 GETUPVAL                         R3 2
-       69 GETTABLEKS                       R2 R3 K8 ["DEPRECATED_HIDE_MATERIAL_MANAGER_PLUGIN_EVENT"]
-       71 NAMECALL                         R0 R0 K4 ["Fire"]
-       73 CALL                             R0 2 0
-       74 GETUPVAL                         R0 7
-       75 LOADB                            R1 0
-       76 CALL                             R0 1 0
-       77 RETURN                           R0 0
-       78 GETUPVAL                         R0 1
-       79 GETUPVAL                         R3 2
-       80 GETTABLEKS                       R2 R3 K3 ["SHOW_MATERIAL_MANAGER_PLUGIN_EVENT"]
-       82 NAMECALL                         R0 R0 K4 ["Fire"]
-       84 CALL                             R0 2 0
-       85 GETUPVAL                         R0 7
-       86 LOADB                            R1 1
-       87 CALL                             R0 1 0
-       88 GETUPVAL                         R0 3
-       89 LOADK                            R2 K5 ["MaterialManagerOpened"]
-       90 NAMECALL                         R0 R0 K6 ["report"]
-       92 CALL                             R0 2 0
-       93 RETURN                           R0 0
+       37 JUMPIF                           R0 ; [+15]
+       38 GETUPVAL                         R0 1
+       39 GETUPVAL                         R3 2
+       40 GETTABLEKS                       R2 R3 K3 ["SHOW_MATERIAL_MANAGER_PLUGIN_EVENT"]
+       42 NAMECALL                         R0 R0 K4 ["Fire"]
+       44 CALL                             R0 2 0
+       45 GETUPVAL                         R0 6
+       46 LOADB                            R1 1
+       47 CALL                             R0 1 0
+       48 GETUPVAL                         R0 3
+       49 LOADK                            R2 K5 ["MaterialManagerOpened"]
+       50 NAMECALL                         R0 R0 K6 ["report"]
+       52 CALL                             R0 2 0
+       53 GETUPVAL                         R1 4
+       54 GETTABLEKS                       R0 R1 K7 ["onClose"]
+       56 JUMPIFNOT                        R0 ; [+4]
+       57 GETUPVAL                         R1 4
+       58 GETTABLEKS                       R0 R1 K7 ["onClose"]
+       60 CALL                             R0 0 0
+       61 RETURN                           R0 0
 
-PROTO_41:
+PROTO_40:
         0 GETUPVAL                         R1 0
         1 NAMECALL                         R1 R1 K0 ["use"]
         3 CALL                             R1 1 1
@@ -1857,7 +1778,7 @@ PROTO_41:
       713 NEWTABLE                         R45 0 2
       715 GETUPVAL                         R46 33
       716 CALL                             R46 0 1
-      717 JUMPIFNOT                        R46 ; [+99]
+      717 JUMPIFNOT                        R46 ; [+77]
       718 GETUPVAL                         R46 24
       719 GETUPVAL                         R47 28
       720 DUPTABLE                         R48 K134 [{"Text", "Size", "LeftIcon", "IconSize", "TextXAlignment", "Spacing", "Padding", "BackgroundColor", "OnClick"}]
@@ -1890,104 +1811,72 @@ PROTO_41:
       770 GETTABLEKS                       R50 R51 K136 ["IconButton"]
       772 GETTABLEKS                       R49 R50 K36 ["Padding"]
       774 SETTABLEKS                       R49 R48 K36 ["Padding"]
-      776 GETUPVAL                         R50 34
-      777 CALL                             R50 0 1
-      778 JUMPIF                           R50 ; [+3]
-      779 GETUPVAL                         R50 35
-      780 CALL                             R50 0 1
-      781 JUMPIFNOT                        R50 ; [+7]
-      782 GETTABLEKS                       R51 R1 K130 ["Footer"]
-      784 GETTABLEKS                       R50 R51 K136 ["IconButton"]
-      786 GETTABLEKS                       R49 R50 K133 ["BackgroundColor"]
-      788 JUMP                             ; [+14]
-      789 JUMPIFNOT                        R10 ; [+7]
-      790 GETTABLEKS                       R51 R1 K130 ["Footer"]
-      792 GETTABLEKS                       R50 R51 K136 ["IconButton"]
-      794 GETTABLEKS                       R49 R50 K140 ["ActiveBackgroundColor"]
-      796 JUMP                             ; [+6]
-      797 GETTABLEKS                       R51 R1 K130 ["Footer"]
-      799 GETTABLEKS                       R50 R51 K136 ["IconButton"]
-      801 GETTABLEKS                       R49 R50 K133 ["BackgroundColor"]
-      803 SETTABLEKS                       R49 R48 K133 ["BackgroundColor"]
-      805 NEWCLOSURE                       R49 P25
-      806 CAPTURE                          UPVAL U34
-      807 CAPTURE                          VAL R7
-      808 CAPTURE                          UPVAL U5
-      809 CAPTURE                          VAL R4
-      810 CAPTURE                          VAL R0
-      811 CAPTURE                          UPVAL U35
-      812 CAPTURE                          VAL R10
-      813 CAPTURE                          VAL R11
-      814 SETTABLEKS                       R49 R48 K57 ["OnClick"]
-      816 CALL                             R46 2 1
-      817 GETUPVAL                         R47 24
-      818 GETUPVAL                         R48 28
-      819 DUPTABLE                         R49 K134 [{"Text", "Size", "LeftIcon", "IconSize", "TextXAlignment", "Spacing", "Padding", "BackgroundColor", "OnClick"}]
-      820 LOADK                            R52 K75 ["MainView"]
-      821 LOADK                            R53 K141 ["MaterialManagerButton"]
-      822 NAMECALL                         R50 R2 K52 ["getText"]
-      824 CALL                             R50 3 1
-      825 SETTABLEKS                       R50 R49 K84 ["Text"]
-      827 GETTABLEKS                       R53 R1 K130 ["Footer"]
-      829 GETTABLEKS                       R52 R53 K136 ["IconButton"]
-      831 GETTABLEKS                       R51 R52 K141 ["MaterialManagerButton"]
-      833 GETTABLEKS                       R50 R51 K34 ["Size"]
-      835 SETTABLEKS                       R50 R49 K34 ["Size"]
-      837 GETTABLEKS                       R53 R1 K130 ["Footer"]
-      839 GETTABLEKS                       R52 R53 K136 ["IconButton"]
-      841 GETTABLEKS                       R51 R52 K141 ["MaterialManagerButton"]
-      843 GETTABLEKS                       R50 R51 K137 ["Icon"]
-      845 SETTABLEKS                       R50 R49 K55 ["LeftIcon"]
-      847 GETTABLEKS                       R52 R1 K130 ["Footer"]
-      849 GETTABLEKS                       R51 R52 K136 ["IconButton"]
-      851 GETTABLEKS                       R50 R51 K131 ["IconSize"]
-      853 SETTABLEKS                       R50 R49 K131 ["IconSize"]
-      855 GETIMPORT                        R50 K139 [Enum.TextXAlignment.Center]
-      857 SETTABLEKS                       R50 R49 K132 ["TextXAlignment"]
-      859 GETTABLEKS                       R52 R1 K130 ["Footer"]
-      861 GETTABLEKS                       R51 R52 K136 ["IconButton"]
-      863 GETTABLEKS                       R50 R51 K35 ["Spacing"]
-      865 SETTABLEKS                       R50 R49 K35 ["Spacing"]
-      867 GETTABLEKS                       R52 R1 K130 ["Footer"]
-      869 GETTABLEKS                       R51 R52 K136 ["IconButton"]
-      871 GETTABLEKS                       R50 R51 K36 ["Padding"]
-      873 SETTABLEKS                       R50 R49 K36 ["Padding"]
-      875 GETUPVAL                         R51 34
-      876 CALL                             R51 0 1
-      877 JUMPIF                           R51 ; [+3]
-      878 GETUPVAL                         R51 35
-      879 CALL                             R51 0 1
-      880 JUMPIFNOT                        R51 ; [+7]
-      881 GETTABLEKS                       R52 R1 K130 ["Footer"]
-      883 GETTABLEKS                       R51 R52 K136 ["IconButton"]
-      885 GETTABLEKS                       R50 R51 K133 ["BackgroundColor"]
-      887 JUMP                             ; [+14]
-      888 JUMPIFNOT                        R12 ; [+7]
-      889 GETTABLEKS                       R52 R1 K130 ["Footer"]
-      891 GETTABLEKS                       R51 R52 K136 ["IconButton"]
-      893 GETTABLEKS                       R50 R51 K140 ["ActiveBackgroundColor"]
-      895 JUMP                             ; [+6]
-      896 GETTABLEKS                       R52 R1 K130 ["Footer"]
-      898 GETTABLEKS                       R51 R52 K136 ["IconButton"]
-      900 GETTABLEKS                       R50 R51 K133 ["BackgroundColor"]
-      902 SETTABLEKS                       R50 R49 K133 ["BackgroundColor"]
-      904 NEWCLOSURE                       R50 P26
-      905 CAPTURE                          UPVAL U34
-      906 CAPTURE                          VAL R7
-      907 CAPTURE                          UPVAL U5
-      908 CAPTURE                          VAL R4
-      909 CAPTURE                          VAL R0
-      910 CAPTURE                          UPVAL U35
-      911 CAPTURE                          VAL R12
-      912 CAPTURE                          VAL R13
-      913 SETTABLEKS                       R50 R49 K57 ["OnClick"]
-      915 CALL                             R47 2 -1
-      916 SETLIST                          R45 R46 -1 [1]
-      918 CALL                             R42 3 -1
-      919 SETLIST                          R38 R39 -1 [1]
-      921 CALL                             R35 3 -1
-      922 CLOSEUPVALS                      R14
-      923 RETURN                           R35 -1
+      776 GETTABLEKS                       R51 R1 K130 ["Footer"]
+      778 GETTABLEKS                       R50 R51 K136 ["IconButton"]
+      780 GETTABLEKS                       R49 R50 K133 ["BackgroundColor"]
+      782 SETTABLEKS                       R49 R48 K133 ["BackgroundColor"]
+      784 NEWCLOSURE                       R49 P25
+      785 CAPTURE                          UPVAL U34
+      786 CAPTURE                          VAL R7
+      787 CAPTURE                          UPVAL U5
+      788 CAPTURE                          VAL R4
+      789 CAPTURE                          VAL R0
+      790 CAPTURE                          VAL R10
+      791 CAPTURE                          VAL R11
+      792 SETTABLEKS                       R49 R48 K57 ["OnClick"]
+      794 CALL                             R46 2 1
+      795 GETUPVAL                         R47 24
+      796 GETUPVAL                         R48 28
+      797 DUPTABLE                         R49 K134 [{"Text", "Size", "LeftIcon", "IconSize", "TextXAlignment", "Spacing", "Padding", "BackgroundColor", "OnClick"}]
+      798 LOADK                            R52 K75 ["MainView"]
+      799 LOADK                            R53 K140 ["MaterialManagerButton"]
+      800 NAMECALL                         R50 R2 K52 ["getText"]
+      802 CALL                             R50 3 1
+      803 SETTABLEKS                       R50 R49 K84 ["Text"]
+      805 GETTABLEKS                       R53 R1 K130 ["Footer"]
+      807 GETTABLEKS                       R52 R53 K136 ["IconButton"]
+      809 GETTABLEKS                       R51 R52 K140 ["MaterialManagerButton"]
+      811 GETTABLEKS                       R50 R51 K34 ["Size"]
+      813 SETTABLEKS                       R50 R49 K34 ["Size"]
+      815 GETTABLEKS                       R53 R1 K130 ["Footer"]
+      817 GETTABLEKS                       R52 R53 K136 ["IconButton"]
+      819 GETTABLEKS                       R51 R52 K140 ["MaterialManagerButton"]
+      821 GETTABLEKS                       R50 R51 K137 ["Icon"]
+      823 SETTABLEKS                       R50 R49 K55 ["LeftIcon"]
+      825 GETTABLEKS                       R52 R1 K130 ["Footer"]
+      827 GETTABLEKS                       R51 R52 K136 ["IconButton"]
+      829 GETTABLEKS                       R50 R51 K131 ["IconSize"]
+      831 SETTABLEKS                       R50 R49 K131 ["IconSize"]
+      833 GETIMPORT                        R50 K139 [Enum.TextXAlignment.Center]
+      835 SETTABLEKS                       R50 R49 K132 ["TextXAlignment"]
+      837 GETTABLEKS                       R52 R1 K130 ["Footer"]
+      839 GETTABLEKS                       R51 R52 K136 ["IconButton"]
+      841 GETTABLEKS                       R50 R51 K35 ["Spacing"]
+      843 SETTABLEKS                       R50 R49 K35 ["Spacing"]
+      845 GETTABLEKS                       R52 R1 K130 ["Footer"]
+      847 GETTABLEKS                       R51 R52 K136 ["IconButton"]
+      849 GETTABLEKS                       R50 R51 K36 ["Padding"]
+      851 SETTABLEKS                       R50 R49 K36 ["Padding"]
+      853 GETTABLEKS                       R52 R1 K130 ["Footer"]
+      855 GETTABLEKS                       R51 R52 K136 ["IconButton"]
+      857 GETTABLEKS                       R50 R51 K133 ["BackgroundColor"]
+      859 SETTABLEKS                       R50 R49 K133 ["BackgroundColor"]
+      861 NEWCLOSURE                       R50 P26
+      862 CAPTURE                          UPVAL U34
+      863 CAPTURE                          VAL R7
+      864 CAPTURE                          UPVAL U5
+      865 CAPTURE                          VAL R4
+      866 CAPTURE                          VAL R0
+      867 CAPTURE                          VAL R12
+      868 CAPTURE                          VAL R13
+      869 SETTABLEKS                       R50 R49 K57 ["OnClick"]
+      871 CALL                             R47 2 -1
+      872 SETLIST                          R45 R46 -1 [1]
+      874 CALL                             R42 3 -1
+      875 SETLIST                          R38 R39 -1 [1]
+      877 CALL                             R35 3 -1
+      878 CLOSEUPVALS                      R14
+      879 RETURN                           R35 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -2095,72 +1984,66 @@ MAIN:
       186 GETIMPORT                        R38 K5 [require]
       188 GETTABLEKS                       R41 R0 K7 ["Src"]
       190 GETTABLEKS                       R40 R41 K49 ["Flags"]
-      192 GETTABLEKS                       R39 R40 K53 ["getFFlagMaterialPickerRemoveToggles"]
+      192 GETTABLEKS                       R39 R40 K53 ["getFFlagMaterialPickerSearchPreviewer"]
       194 CALL                             R38 1 1
       195 GETIMPORT                        R39 K5 [require]
       197 GETTABLEKS                       R42 R0 K7 ["Src"]
       199 GETTABLEKS                       R41 R42 K49 ["Flags"]
-      201 GETTABLEKS                       R40 R41 K54 ["getFFlagMaterialPickerSearchPreviewer"]
+      201 GETTABLEKS                       R40 R41 K54 ["getFFlagMaterialPickerFilterChipGroup"]
       203 CALL                             R39 1 1
-      204 GETIMPORT                        R40 K5 [require]
-      206 GETTABLEKS                       R43 R0 K7 ["Src"]
-      208 GETTABLEKS                       R42 R43 K49 ["Flags"]
-      210 GETTABLEKS                       R41 R42 K55 ["getFFlagMaterialPickerFilterChipGroup"]
-      212 CALL                             R40 1 1
-      213 GETIMPORT                        R41 K57 [game]
-      215 LOADK                            R43 K58 ["MaterialGeneratorHideTempMaterialVariants"]
-      216 NAMECALL                         R41 R41 K59 ["GetFastFlag"]
-      218 CALL                             R41 2 1
-      219 NEWTABLE                         R42 0 0
-      221 MOVE                             R43 R39
-      222 CALL                             R43 0 1
-      223 JUMPIFNOT                        R43 ; [+13]
-      224 GETIMPORT                        R43 K61 [ipairs]
-      226 MOVE                             R44 R2
-      227 CALL                             R43 1 3
-      228 FORGPREP_INEXT                   R43
-      229 GETIMPORT                        R48 K64 [string.lower]
-      231 GETTABLEKS                       R49 R47 K65 ["Name"]
-      233 CALL                             R48 1 1
-      234 SETTABLE                         R47 R42 R48
-      235 FORGLOOP                         R43 2 [inext] ; [-7]
-      237 DUPCLOSURE                       R43 K66 [PROTO_41]
-      238 CAPTURE                          VAL R15
-      239 CAPTURE                          VAL R18
-      240 CAPTURE                          VAL R19
-      241 CAPTURE                          VAL R17
-      242 CAPTURE                          VAL R27
-      243 CAPTURE                          VAL R1
-      244 CAPTURE                          VAL R13
+      204 GETIMPORT                        R40 K56 [game]
+      206 LOADK                            R42 K57 ["MaterialGeneratorHideTempMaterialVariants"]
+      207 NAMECALL                         R40 R40 K58 ["GetFastFlag"]
+      209 CALL                             R40 2 1
+      210 NEWTABLE                         R41 0 0
+      212 MOVE                             R42 R38
+      213 CALL                             R42 0 1
+      214 JUMPIFNOT                        R42 ; [+13]
+      215 GETIMPORT                        R42 K60 [ipairs]
+      217 MOVE                             R43 R2
+      218 CALL                             R42 1 3
+      219 FORGPREP_INEXT                   R42
+      220 GETIMPORT                        R47 K63 [string.lower]
+      222 GETTABLEKS                       R48 R46 K64 ["Name"]
+      224 CALL                             R47 1 1
+      225 SETTABLE                         R46 R41 R47
+      226 FORGLOOP                         R42 2 [inext] ; [-7]
+      228 DUPCLOSURE                       R42 K65 [PROTO_40]
+      229 CAPTURE                          VAL R15
+      230 CAPTURE                          VAL R18
+      231 CAPTURE                          VAL R19
+      232 CAPTURE                          VAL R17
+      233 CAPTURE                          VAL R27
+      234 CAPTURE                          VAL R1
+      235 CAPTURE                          VAL R13
+      236 CAPTURE                          VAL R40
+      237 CAPTURE                          VAL R22
+      238 CAPTURE                          VAL R14
+      239 CAPTURE                          VAL R11
+      240 CAPTURE                          VAL R12
+      241 CAPTURE                          VAL R2
+      242 CAPTURE                          VAL R21
+      243 CAPTURE                          VAL R25
+      244 CAPTURE                          VAL R39
       245 CAPTURE                          VAL R41
-      246 CAPTURE                          VAL R22
-      247 CAPTURE                          VAL R14
-      248 CAPTURE                          VAL R11
-      249 CAPTURE                          VAL R12
-      250 CAPTURE                          VAL R2
-      251 CAPTURE                          VAL R21
-      252 CAPTURE                          VAL R25
-      253 CAPTURE                          VAL R40
-      254 CAPTURE                          VAL R42
-      255 CAPTURE                          VAL R3
-      256 CAPTURE                          VAL R6
-      257 CAPTURE                          VAL R36
-      258 CAPTURE                          VAL R5
-      259 CAPTURE                          VAL R4
-      260 CAPTURE                          VAL R26
-      261 CAPTURE                          VAL R23
-      262 CAPTURE                          VAL R24
-      263 CAPTURE                          VAL R30
-      264 CAPTURE                          VAL R32
-      265 CAPTURE                          VAL R39
-      266 CAPTURE                          VAL R29
-      267 CAPTURE                          VAL R31
-      268 CAPTURE                          VAL R33
-      269 CAPTURE                          VAL R34
-      270 CAPTURE                          VAL R20
-      271 CAPTURE                          VAL R35
-      272 CAPTURE                          VAL R37
-      273 CAPTURE                          VAL R38
-      274 SETGLOBAL                        R43 K67 ["MainView"]
-      276 GETGLOBAL                        R43 K67 ["MainView"]
-      278 RETURN                           R43 1
+      246 CAPTURE                          VAL R3
+      247 CAPTURE                          VAL R6
+      248 CAPTURE                          VAL R36
+      249 CAPTURE                          VAL R5
+      250 CAPTURE                          VAL R4
+      251 CAPTURE                          VAL R26
+      252 CAPTURE                          VAL R23
+      253 CAPTURE                          VAL R24
+      254 CAPTURE                          VAL R30
+      255 CAPTURE                          VAL R32
+      256 CAPTURE                          VAL R38
+      257 CAPTURE                          VAL R29
+      258 CAPTURE                          VAL R31
+      259 CAPTURE                          VAL R33
+      260 CAPTURE                          VAL R34
+      261 CAPTURE                          VAL R20
+      262 CAPTURE                          VAL R35
+      263 CAPTURE                          VAL R37
+      264 SETGLOBAL                        R42 K66 ["MainView"]
+      266 GETGLOBAL                        R42 K66 ["MainView"]
+      268 RETURN                           R42 1

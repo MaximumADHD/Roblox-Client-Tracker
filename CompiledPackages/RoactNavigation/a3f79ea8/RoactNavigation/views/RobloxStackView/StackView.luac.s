@@ -1,0 +1,289 @@
+PROTO_0:
+        0 PREPVARARGS                      0
+        1 GETUPVAL                         R0 0
+        2 GETVARARGS                       R2 -1
+        3 NAMECALL                         R0 R0 K0 ["_render"]
+        5 CALL                             R0 -1 -1
+        6 RETURN                           R0 -1
+
+PROTO_1:
+        0 PREPVARARGS                      0
+        1 GETUPVAL                         R0 0
+        2 GETVARARGS                       R2 -1
+        3 NAMECALL                         R0 R0 K0 ["_configureTransition"]
+        5 CALL                             R0 -1 -1
+        6 RETURN                           R0 -1
+
+PROTO_2:
+        0 PREPVARARGS                      0
+        1 GETUPVAL                         R0 0
+        2 GETVARARGS                       R2 -1
+        3 NAMECALL                         R0 R0 K0 ["_onTransitionStart"]
+        5 CALL                             R0 -1 -1
+        6 RETURN                           R0 -1
+
+PROTO_3:
+        0 PREPVARARGS                      0
+        1 GETUPVAL                         R0 0
+        2 GETVARARGS                       R2 -1
+        3 NAMECALL                         R0 R0 K0 ["_onTransitionEnd"]
+        5 CALL                             R0 -1 -1
+        6 RETURN                           R0 -1
+
+PROTO_4:
+        0 PREPVARARGS                      0
+        1 GETUPVAL                         R0 0
+        2 GETVARARGS                       R2 -1
+        3 NAMECALL                         R0 R0 K0 ["_onTransitionStep"]
+        5 CALL                             R0 -1 -1
+        6 RETURN                           R0 -1
+
+PROTO_5:
+        0 NEWCLOSURE                       R1 P0
+        1 CAPTURE                          VAL R0
+        2 SETTABLEKS                       R1 R0 K0 ["_doRender"]
+        4 NEWCLOSURE                       R1 P1
+        5 CAPTURE                          VAL R0
+        6 SETTABLEKS                       R1 R0 K1 ["_doConfigureTransition"]
+        8 NEWCLOSURE                       R1 P2
+        9 CAPTURE                          VAL R0
+       10 SETTABLEKS                       R1 R0 K2 ["_doOnTransitionStart"]
+       12 NEWCLOSURE                       R1 P3
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R1 R0 K3 ["_doOnTransitionEnd"]
+       16 NEWCLOSURE                       R1 P4
+       17 CAPTURE                          VAL R0
+       18 SETTABLEKS                       R1 R0 K4 ["_doOnTransitionStep"]
+       20 RETURN                           R0 0
+
+PROTO_6:
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R2 K1 ["screenProps"]
+        4 GETTABLEKS                       R3 R0 K0 ["props"]
+        6 GETTABLEKS                       R2 R3 K2 ["navigation"]
+        8 GETTABLEKS                       R4 R0 K0 ["props"]
+       10 GETTABLEKS                       R3 R4 K3 ["descriptors"]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R4 R5 K4 ["createElement"]
+       15 GETUPVAL                         R5 1
+       16 DUPTABLE                         R6 K10 [{"render", "configureTransition", "screenProps", "navigation", "descriptors", "onTransitionStart", "onTransitionEnd", "onTransitionStep"}]
+       17 GETTABLEKS                       R7 R0 K11 ["_doRender"]
+       19 SETTABLEKS                       R7 R6 K5 ["render"]
+       21 GETTABLEKS                       R7 R0 K12 ["_doConfigureTransition"]
+       23 SETTABLEKS                       R7 R6 K6 ["configureTransition"]
+       25 SETTABLEKS                       R1 R6 K1 ["screenProps"]
+       27 SETTABLEKS                       R2 R6 K2 ["navigation"]
+       29 SETTABLEKS                       R3 R6 K3 ["descriptors"]
+       31 GETTABLEKS                       R7 R0 K13 ["_doOnTransitionStart"]
+       33 SETTABLEKS                       R7 R6 K7 ["onTransitionStart"]
+       35 GETTABLEKS                       R7 R0 K14 ["_doOnTransitionEnd"]
+       37 SETTABLEKS                       R7 R6 K8 ["onTransitionEnd"]
+       39 GETTABLEKS                       R7 R0 K15 ["_doOnTransitionStep"]
+       41 SETTABLEKS                       R7 R6 K9 ["onTransitionStep"]
+       43 CALL                             R4 2 -1
+       44 RETURN                           R4 -1
+
+PROTO_7:
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R2 K1 ["navigation"]
+        4 GETTABLEKS                       R3 R1 K2 ["state"]
+        6 GETTABLEKS                       R2 R3 K3 ["isTransitioning"]
+        8 JUMPIFNOT                        R2 ; [+14]
+        9 GETTABLEKS                       R2 R1 K4 ["dispatch"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R3 R4 K5 ["completeTransition"]
+       14 DUPTABLE                         R4 K7 [{"key"}]
+       15 GETTABLEKS                       R6 R1 K2 ["state"]
+       17 GETTABLEKS                       R5 R6 K6 ["key"]
+       19 SETTABLEKS                       R5 R4 K6 ["key"]
+       21 CALL                             R3 1 -1
+       22 CALL                             R2 -1 0
+       23 RETURN                           R0 0
+
+PROTO_8:
+        0 GETTABLEKS                       R4 R0 K0 ["props"]
+        2 GETTABLEKS                       R3 R4 K1 ["screenProps"]
+        4 GETUPVAL                         R5 0
+        5 GETTABLEKS                       R4 R5 K2 ["assign"]
+        7 GETIMPORT                        R5 K5 [table.clone]
+        9 GETUPVAL                         R6 1
+       10 CALL                             R5 1 1
+       11 GETTABLEKS                       R7 R0 K0 ["props"]
+       13 GETTABLEKS                       R6 R7 K6 ["navigationConfig"]
+       15 CALL                             R4 2 1
+       16 GETTABLEKS                       R6 R0 K0 ["props"]
+       18 GETTABLEKS                       R5 R6 K7 ["descriptors"]
+       20 GETUPVAL                         R7 2
+       21 GETTABLEKS                       R6 R7 K8 ["createElement"]
+       23 GETUPVAL                         R7 3
+       24 GETUPVAL                         R9 0
+       25 GETTABLEKS                       R8 R9 K2 ["assign"]
+       27 MOVE                             R9 R4
+       28 DUPTABLE                         R10 K11 [{"screenProps", "descriptors", "transitionProps", "lastTransitionProps"}]
+       29 SETTABLEKS                       R3 R10 K1 ["screenProps"]
+       31 SETTABLEKS                       R5 R10 K7 ["descriptors"]
+       33 SETTABLEKS                       R1 R10 K9 ["transitionProps"]
+       35 SETTABLEKS                       R2 R10 K10 ["lastTransitionProps"]
+       37 CALL                             R8 2 -1
+       38 CALL                             R6 -1 -1
+       39 RETURN                           R6 -1
+
+PROTO_9:
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R4 R5 K0 ["getTransitionConfig"]
+        3 GETTABLEKS                       R7 R0 K1 ["props"]
+        5 GETTABLEKS                       R6 R7 K2 ["navigationConfig"]
+        7 GETTABLEKS                       R5 R6 K3 ["transitionConfig"]
+        9 MOVE                             R6 R1
+       10 MOVE                             R7 R2
+       11 GETTABLEKS                       R10 R0 K1 ["props"]
+       13 GETTABLEKS                       R9 R10 K2 ["navigationConfig"]
+       15 GETTABLEKS                       R8 R9 K4 ["mode"]
+       17 CALL                             R4 4 1
+       18 GETTABLEKS                       R3 R4 K5 ["transitionSpec"]
+       20 RETURN                           R3 1
+
+PROTO_10:
+        0 GETTABLEKS                       R4 R0 K0 ["props"]
+        2 GETTABLEKS                       R3 R4 K1 ["onTransitionStart"]
+        4 JUMPIF                           R3 ; [+6]
+        5 GETTABLEKS                       R5 R0 K0 ["props"]
+        7 GETTABLEKS                       R4 R5 K2 ["navigationConfig"]
+        9 GETTABLEKS                       R3 R4 K1 ["onTransitionStart"]
+       11 JUMPIFNOT                        R3 ; [+12]
+       12 GETTABLEKS                       R4 R1 K3 ["index"]
+       14 GETTABLEKS                       R5 R2 K3 ["index"]
+       16 JUMPIFEQ                         R4 R5 ; [+7]
+       18 MOVE                             R4 R3
+       19 GETTABLEKS                       R5 R1 K4 ["navigation"]
+       21 GETTABLEKS                       R6 R2 K4 ["navigation"]
+       23 CALL                             R4 2 0
+       24 RETURN                           R0 0
+
+PROTO_11:
+        0 GETTABLEKS                       R4 R0 K0 ["props"]
+        2 GETTABLEKS                       R3 R4 K1 ["navigationConfig"]
+        4 GETTABLEKS                       R5 R0 K0 ["props"]
+        6 GETTABLEKS                       R4 R5 K2 ["navigation"]
+        8 GETTABLEKS                       R6 R0 K0 ["props"]
+       10 GETTABLEKS                       R5 R6 K3 ["onTransitionEnd"]
+       12 JUMPIF                           R5 ; [+2]
+       13 GETTABLEKS                       R5 R3 K3 ["onTransitionEnd"]
+       15 GETTABLEKS                       R8 R1 K4 ["scene"]
+       17 GETTABLEKS                       R7 R8 K5 ["route"]
+       19 GETTABLEKS                       R6 R7 K6 ["key"]
+       21 GETTABLEKS                       R11 R4 K7 ["state"]
+       23 GETTABLEKS                       R10 R11 K8 ["routes"]
+       25 GETTABLEKS                       R12 R4 K7 ["state"]
+       27 GETTABLEKS                       R11 R12 K9 ["index"]
+       29 GETTABLE                         R9 R10 R11
+       30 GETTABLEKS                       R8 R9 K6 ["key"]
+       32 JUMPIFEQ                         R8 R6 ; [+2]
+       34 LOADB                            R7 0 +1
+       35 LOADB                            R7 1
+       36 GETTABLEKS                       R10 R1 K2 ["navigation"]
+       38 GETTABLEKS                       R9 R10 K7 ["state"]
+       40 GETTABLEKS                       R8 R9 K10 ["isTransitioning"]
+       42 JUMPIFNOT                        R8 ; [+17]
+       43 JUMPIFNOT                        R7 ; [+16]
+       44 GETTABLEKS                       R8 R4 K11 ["dispatch"]
+       46 GETUPVAL                         R10 0
+       47 GETTABLEKS                       R9 R10 K12 ["completeTransition"]
+       49 DUPTABLE                         R10 K14 [{"key", "toChildKey"}]
+       50 GETTABLEKS                       R12 R4 K7 ["state"]
+       52 GETTABLEKS                       R11 R12 K6 ["key"]
+       54 SETTABLEKS                       R11 R10 K6 ["key"]
+       56 SETTABLEKS                       R6 R10 K13 ["toChildKey"]
+       58 CALL                             R9 1 -1
+       59 CALL                             R8 -1 0
+       60 JUMPIFNOT                        R5 ; [+12]
+       61 GETTABLEKS                       R8 R1 K9 ["index"]
+       63 GETTABLEKS                       R9 R2 K9 ["index"]
+       65 JUMPIFEQ                         R8 R9 ; [+7]
+       67 MOVE                             R8 R5
+       68 GETTABLEKS                       R9 R1 K2 ["navigation"]
+       70 GETTABLEKS                       R10 R2 K2 ["navigation"]
+       72 CALL                             R8 2 0
+       73 RETURN                           R0 0
+
+PROTO_12:
+        0 GETTABLEKS                       R5 R0 K0 ["props"]
+        2 GETTABLEKS                       R4 R5 K1 ["onTransitionStep"]
+        4 JUMPIF                           R4 ; [+6]
+        5 GETTABLEKS                       R6 R0 K0 ["props"]
+        7 GETTABLEKS                       R5 R6 K2 ["navigationConfig"]
+        9 GETTABLEKS                       R4 R5 K1 ["onTransitionStep"]
+       11 JUMPIFNOT                        R4 ; [+13]
+       12 GETTABLEKS                       R5 R1 K3 ["index"]
+       14 GETTABLEKS                       R6 R2 K3 ["index"]
+       16 JUMPIFEQ                         R5 R6 ; [+8]
+       18 MOVE                             R5 R4
+       19 GETTABLEKS                       R6 R1 K4 ["navigation"]
+       21 GETTABLEKS                       R7 R2 K4 ["navigation"]
+       23 MOVE                             R8 R3
+       24 CALL                             R5 3 0
+       25 RETURN                           R0 0
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R1 K1 [script]
+        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R0 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R2 R1 K2 ["Parent"]
+       11 GETIMPORT                        R3 K4 [require]
+       13 GETTABLEKS                       R4 R2 K5 ["LuauPolyfill"]
+       15 CALL                             R3 1 1
+       16 GETTABLEKS                       R4 R3 K6 ["Object"]
+       18 GETIMPORT                        R5 K4 [require]
+       20 GETTABLEKS                       R6 R2 K7 ["Roact"]
+       22 CALL                             R5 1 1
+       23 GETIMPORT                        R6 K4 [require]
+       25 GETTABLEKS                       R8 R1 K8 ["routers"]
+       27 GETTABLEKS                       R7 R8 K9 ["StackActions"]
+       29 CALL                             R6 1 1
+       30 GETIMPORT                        R7 K4 [require]
+       32 GETTABLEKS                       R8 R0 K10 ["StackViewLayout"]
+       34 CALL                             R7 1 1
+       35 GETIMPORT                        R8 K4 [require]
+       37 GETTABLEKS                       R9 R0 K11 ["Transitioner"]
+       39 CALL                             R8 1 1
+       40 GETIMPORT                        R9 K4 [require]
+       42 GETTABLEKS                       R10 R0 K12 ["StackViewTransitionConfigs"]
+       44 CALL                             R9 1 1
+       45 GETIMPORT                        R10 K4 [require]
+       47 GETTABLEKS                       R11 R0 K13 ["StackPresentationStyle"]
+       49 CALL                             R10 1 1
+       50 DUPTABLE                         R11 K15 [{"mode"}]
+       51 GETTABLEKS                       R12 R10 K16 ["Default"]
+       53 SETTABLEKS                       R12 R11 K14 ["mode"]
+       55 GETTABLEKS                       R12 R5 K17 ["Component"]
+       57 LOADK                            R14 K18 ["StackView"]
+       58 NAMECALL                         R12 R12 K19 ["extend"]
+       60 CALL                             R12 2 1
+       61 DUPCLOSURE                       R13 K20 [PROTO_5]
+       62 SETTABLEKS                       R13 R12 K21 ["init"]
+       64 DUPCLOSURE                       R13 K22 [PROTO_6]
+       65 CAPTURE                          VAL R5
+       66 CAPTURE                          VAL R8
+       67 SETTABLEKS                       R13 R12 K23 ["render"]
+       69 DUPCLOSURE                       R13 K24 [PROTO_7]
+       70 CAPTURE                          VAL R6
+       71 SETTABLEKS                       R13 R12 K25 ["didMount"]
+       73 DUPCLOSURE                       R13 K26 [PROTO_8]
+       74 CAPTURE                          VAL R4
+       75 CAPTURE                          VAL R11
+       76 CAPTURE                          VAL R5
+       77 CAPTURE                          VAL R7
+       78 SETTABLEKS                       R13 R12 K27 ["_render"]
+       80 DUPCLOSURE                       R13 K28 [PROTO_9]
+       81 CAPTURE                          VAL R9
+       82 SETTABLEKS                       R13 R12 K29 ["_configureTransition"]
+       84 DUPCLOSURE                       R13 K30 [PROTO_10]
+       85 SETTABLEKS                       R13 R12 K31 ["_onTransitionStart"]
+       87 DUPCLOSURE                       R13 K32 [PROTO_11]
+       88 CAPTURE                          VAL R6
+       89 SETTABLEKS                       R13 R12 K33 ["_onTransitionEnd"]
+       91 DUPCLOSURE                       R13 K34 [PROTO_12]
+       92 SETTABLEKS                       R13 R12 K35 ["_onTransitionStep"]
+       94 RETURN                           R12 1

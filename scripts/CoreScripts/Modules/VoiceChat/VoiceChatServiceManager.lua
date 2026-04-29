@@ -93,6 +93,25 @@ local GetFFlagShowDevicePermissionsModal =
 local FFlagEnableRetryForLinkingProtocolFetch =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableRetryForLinkingProtocolFetch
 local FFlagSeamlessVoiceBugfixes = game:DefineFastFlag("SeamlessVoiceBugfixesV1", false)
+local FFlagShowJoinVoiceWhenDisconnected = game:DefineFastFlag("ShowJoinVoiceWhenDisconnected", false)
+local FFlagVoiceRewarmTelemetry =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
+
+local JOIN_VOICE_BUTTON_CONTEXT = {
+	FAE_UPSELL = "FaeUpsell",
+	VOICE_FTUX = "VoiceFtux",
+	REWARM = "Rewarm",
+}
+local JOIN_VOICE_BUTTON_CONSEQUENCE = {
+	REJOIN_PREVIOUS_CHANNEL = "RejoinPreviousChannel",
+	EXIT_FTUX = "ExitFtux",
+	MIC_PERMISSION_PROMPT = "MicPermissionPrompt",
+	FIRST_JOIN_SESSION = "FirstJoinSession",
+	CONSENT_MODAL = "ConsentModal",
+	AGE_CHECK_TOAST = "AgeCheckToast",
+	PHONE_UPSELL = "PhoneUpsell",
+	FAE_UPSELL = "FaeUpsell",
+}
 local GetFFlagIntegratePhoneUpsellJoinVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIntegratePhoneUpsellJoinVoice
 local GetFFlagInExperiencePhoneUpsellNewCopy =
@@ -276,6 +295,8 @@ local VoiceChatServiceManager = {
 	hasLeftFTUX = false,
 	deniedMicPermissions = nil,
 	isInitialJoin = false,
+	joinVoiceButtonContext = nil,
+	joinVoiceButtonConsequence = nil,
 	CaptureService = CaptureService,
 }
 
@@ -1115,6 +1136,14 @@ function VoiceChatServiceManager:SetVoiceConnectCookieValue(value: boolean): boo
 	return self.coreVoiceManager:SetVoiceConnectCookieValue(value)
 end
 
+function VoiceChatServiceManager:GetVoiceRewarmCookie(): string
+	return self.coreVoiceManager:GetVoiceRewarmCookie()
+end
+
+function VoiceChatServiceManager:SetVoiceRewarmCookie(value: string)
+	self.coreVoiceManager:SetVoiceRewarmCookie(value)
+end
+
 function VoiceChatServiceManager:SetNewUserFTUXCookieValue(value: boolean): boolean
 	return self.coreVoiceManager:SetNewUserFTUXCookieValue(value)
 end
@@ -1547,14 +1576,24 @@ function VoiceChatServiceManager:reportBanMessage(eventType: string)
 	)
 end
 
-function VoiceChatServiceManager:reportJoinVoiceUpsellEvent(eventType: "Shown" | "Click")
+function VoiceChatServiceManager:reportJoinVoiceUpsellEvent(eventType: "Shown" | "Click", buttonContext: string?, buttonConsequence: string?)
 	if FFlagInExperienceVoiceUpsellAnalytics then
 		local sessionId = AnalyticsService:GetPlaySessionId()
-		self.Analytics:reportJoinVoiceUpsellEvent(
-			eventType,
-			sessionId,
-			self:UserVoiceEnabled()
-		)
+		if FFlagVoiceRewarmTelemetry then
+			self.Analytics:reportJoinVoiceUpsellEvent(
+				eventType,
+				sessionId,
+				self:UserVoiceEnabled(),
+				buttonContext,
+				buttonConsequence
+			)
+		else
+			self.Analytics:reportJoinVoiceUpsellEvent(
+				eventType,
+				sessionId,
+				self:UserVoiceEnabled()
+			)
+		end
 	end
 end
 
@@ -1704,12 +1743,27 @@ function VoiceChatServiceManager:GetIcon(name, folder)
 end
 
 function VoiceChatServiceManager:JoinVoice(hubRef: any?)
+	local buttonContext = nil
+	local buttonConsequence = nil
+	if FFlagVoiceRewarmTelemetry then
+		buttonContext = self.joinVoiceButtonContext
+		self.joinVoiceButtonContext = nil
+	end
+	if FFlagShowJoinVoiceWhenDisconnected then
+		log:debug("Consuming voice re-warm cookie on JoinVoice")
+		self:SetVoiceRewarmCookie("true")
+	end
 	local ageVerificationResponse = self:FetchAgeVerificationOverlay()
 	local voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
 	voiceInExpUpsellVariant = voiceInExpUpsellVariant or VoiceConstants.IN_EXP_UPSELL_VARIANT.VARIANT3
-	self.Analytics:reportJoinVoiceButtonEvent("clicked", self:GetInExpUpsellAnalyticsData())
+	if not FFlagVoiceRewarmTelemetry then
+		self.Analytics:reportJoinVoiceButtonEvent("clicked", self:GetInExpUpsellAnalyticsData())
+	end
 
 	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self.previousGroupId then
+		if FFlagVoiceRewarmTelemetry then
+			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.REJOIN_PREVIOUS_CHANNEL
+		end
 		-- previously joined voice and left in the same session
 		self:RejoinPreviousChannel()
 		if GetFFlagEnableVoiceTrustedConnectionsToasts() then
@@ -1722,9 +1776,15 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		self:ShowVoiceUI()
 		self:SetVoiceConnectCookieValue(true)
 	elseif GetFFlagNonVoiceFTUX() and self.isShowingFTUX then
+		if FFlagVoiceRewarmTelemetry then
+			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.EXIT_FTUX
+		end
 		-- New M3 user that is exiting FTUX
 		self:HideFTUX(AppStorageService)
 	elseif self.deniedMicPermissions then
+		if FFlagVoiceRewarmTelemetry then
+			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.MIC_PERMISSION_PROMPT
+		end
 		-- M3: Mic permissions previously denied
 		if GetFFlagEnableVrVoiceParity() then
 			self:CheckAndShowPermissionPrompt()
@@ -1732,6 +1792,9 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 			self:CheckAndShowPermissionPrompt():finallyReturn(Promise.reject())
 		end
 	elseif GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self:UserVoiceEnabled() then
+		if FFlagVoiceRewarmTelemetry then
+			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.FIRST_JOIN_SESSION
+		end
 		-- First time joining voice this session
 		if FFlagSeamlessVoiceV2JoinVoiceToast then
 			self.isInitialJoin = true
@@ -1745,6 +1808,9 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		(FFlagEnableVerifiedCheckViaOverlay and self:UserOnlyEligibleForVoiceViaOverlay())
 		or self:UserOnlyEligibleForVoice()
 	then
+		if FFlagVoiceRewarmTelemetry then
+			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.CONSENT_MODAL
+		end
 		-- Opted out or control users
 		if GetFFlagDisableConsentModalForExistingUsers() and self:IsSeamlessVoice() then
 			self:EnableVoice()
@@ -1755,6 +1821,9 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 			self:showPrompt(promptToShow)
 		end
 	elseif GetFFlagShowToastWhenAgeGatingVoice() and self:EligibleForAgeCheckToast() then
+		if FFlagVoiceRewarmTelemetry then
+			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.AGE_CHECK_TOAST
+		end
 		self:showPrompt(VoiceChatPromptType.AgeCheckForVoiceToast)
 	elseif
 		GetFFlagIntegratePhoneUpsellJoinVoice()
@@ -1763,6 +1832,9 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		and self:FetchPhoneVerificationUpsell(VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER)
 			== VoiceConstants.PHONE_UPSELL_VALUE_PROP.VoiceChat
 	then
+		if FFlagVoiceRewarmTelemetry then
+			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.PHONE_UPSELL
+		end
 		-- Close menu with no animation before we open the phone upsell modal
 		if hubRef then
 			hubRef:SetVisibility(false, true)
@@ -1772,9 +1844,16 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 			VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER
 		)
 	elseif self:EligibleForFaeUpsell() then
+		if FFlagVoiceRewarmTelemetry then
+			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.FAE_UPSELL
+		end
 		self.coreVoiceManager:OptUserToJoinVoice() -- User has opted in to voice chat, so when FAE finishes, join the voice call
 		local overlayStore = getOverlayStore(false)
-		self:reportJoinVoiceUpsellEvent("Click")
+		if FFlagVoiceRewarmTelemetry then
+			self:reportJoinVoiceUpsellEvent("Click", buttonContext, buttonConsequence)
+		else
+			self:reportJoinVoiceUpsellEvent("Click")
+		end
 		overlayStore.setCurrentOverlay(OverlayTypes.SocialUpsell, {
 			upsellType = SocialUpsellType.FacialAgeEstimation,
 			data = {
@@ -1787,6 +1866,11 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 				upsellPurpose = SocialUpsellEnums.UpsellStage.Fae,
 			},
 		})
+	end
+
+	if FFlagVoiceRewarmTelemetry then
+		local universeId, placeId, playSessionId = self:GetInExpUpsellAnalyticsData()
+		self.Analytics:reportJoinVoiceButtonEvent("clicked", universeId, placeId, playSessionId, buttonContext, buttonConsequence)
 	end
 
 	if FFlagSendUserConnectionStatus and self:IsSeamlessVoice() then
@@ -1811,14 +1895,37 @@ end
 function VoiceChatServiceManager:ShouldShowJoinVoice()
 	-- M3
 	if GetFFlagEnableVoiceUxUpdates() then
-		if
-			self:EligibleForFaeUpsell()
-			or (
+		if FFlagVoiceRewarmTelemetry then
+			if self:EligibleForFaeUpsell() then
+				self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.FAE_UPSELL
+				return true
+			end
+			if
 				self:HasSeamlessVoiceFeature(VoiceChatCore.Constants.SeamlessVoiceFeatures.InitialJoinVoice)
-				and self:GetVoiceConnectCookie() == ""
-			)
-		then
-			return true
+				and (self:GetVoiceConnectCookie() == "")
+			then
+				self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.VOICE_FTUX
+				return true
+			end
+			if
+				FFlagShowJoinVoiceWhenDisconnected
+				and self:GetVoiceRewarmCookie() == ""
+				and self:VoiceChatEnded()
+			then
+				self.joinVoiceButtonContext = JOIN_VOICE_BUTTON_CONTEXT.REWARM
+				return true
+			end
+		else
+			if
+				self:EligibleForFaeUpsell()
+				or (
+					self:HasSeamlessVoiceFeature(VoiceChatCore.Constants.SeamlessVoiceFeatures.InitialJoinVoice)
+					and (self:GetVoiceConnectCookie() == "")
+				)
+				or (FFlagShowJoinVoiceWhenDisconnected and self:GetVoiceRewarmCookie() == "" and self:VoiceChatEnded())
+			then
+				return true
+			end
 		end
 	else
 		if GetFFlagOnlyEnableJoinVoiceInVoiceEnabledUniverses() then

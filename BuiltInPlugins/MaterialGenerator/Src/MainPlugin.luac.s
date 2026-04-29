@@ -103,12 +103,6 @@ PROTO_6:
        13 RETURN                           R0 0
 
 PROTO_7:
-        0 GETUPVAL                         R1 0
-        1 GETTABLEKS                       R0 R1 K0 ["onClose"]
-        3 CALL                             R0 0 0
-        4 RETURN                           R0 0
-
-PROTO_8:
         0 GETUPVAL                         R2 0
         1 CALL                             R2 0 1
         2 JUMPIFNOT                        R2 ; [+11]
@@ -172,7 +166,7 @@ PROTO_8:
        81 SETTABLEKS                       R2 R0 K21 ["studioServices"]
        83 GETUPVAL                         R2 0
        84 CALL                             R2 0 1
-       85 JUMPIFNOT                        R2 ; [+21]
+       85 JUMPIFNOT                        R2 ; [+9]
        86 GETUPVAL                         R2 2
        87 GETUPVAL                         R5 3
        88 GETTABLEKS                       R4 R5 K22 ["SHOW_MATERIAL_GENERATOR_PLUGIN_EVENT"]
@@ -180,19 +174,9 @@ PROTO_8:
        91 CAPTURE                          VAL R0
        92 NAMECALL                         R2 R2 K23 ["Bind"]
        94 CALL                             R2 3 0
-       95 GETUPVAL                         R2 9
-       96 CALL                             R2 0 1
-       97 JUMPIF                           R2 ; [+9]
-       98 GETUPVAL                         R2 2
-       99 GETUPVAL                         R5 3
-      100 GETTABLEKS                       R4 R5 K24 ["DEPRECATED_HIDE_MATERIAL_GENERATOR_PLUGIN_EVENT"]
-      102 NEWCLOSURE                       R5 P7
-      103 CAPTURE                          VAL R0
-      104 NAMECALL                         R2 R2 K23 ["Bind"]
-      106 CALL                             R2 3 0
-      107 RETURN                           R0 0
+       95 RETURN                           R0 0
 
-PROTO_9:
+PROTO_8:
         0 GETTABLEKS                       R1 R0 K0 ["studioServices"]
         2 JUMPIFNOT                        R1 ; [+5]
         3 GETTABLEKS                       R1 R0 K0 ["studioServices"]
@@ -200,7 +184,7 @@ PROTO_9:
         7 CALL                             R1 1 0
         8 RETURN                           R0 0
 
-PROTO_10:
+PROTO_9:
         0 GETTABLEKS                       R3 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R3 K1 ["pluginLoaderContext"]
         4 GETTABLEKS                       R1 R2 K2 ["mainButton"]
@@ -210,7 +194,7 @@ PROTO_10:
        12 CALL                             R1 2 0
        13 RETURN                           R0 0
 
-PROTO_11:
+PROTO_10:
         0 GETTABLEKS                       R1 R0 K0 ["props"]
         2 GETTABLEKS                       R2 R0 K1 ["state"]
         4 GETTABLEKS                       R3 R1 K2 ["Plugin"]
@@ -389,66 +373,60 @@ MAIN:
       115 CALL                             R22 1 1
       116 GETIMPORT                        R23 K4 [require]
       118 GETTABLEKS                       R26 R0 K24 ["Src"]
-      120 GETTABLEKS                       R25 R26 K31 ["Flags"]
-      122 GETTABLEKS                       R24 R25 K34 ["getFFlagMaterialPickerRemoveToggles"]
+      120 GETTABLEKS                       R25 R26 K34 ["Resources"]
+      122 GETTABLEKS                       R24 R25 K35 ["MakeTheme"]
       124 CALL                             R23 1 1
       125 GETIMPORT                        R24 K4 [require]
       127 GETTABLEKS                       R27 R0 K24 ["Src"]
-      129 GETTABLEKS                       R26 R27 K35 ["Resources"]
-      131 GETTABLEKS                       R25 R26 K36 ["MakeTheme"]
+      129 GETTABLEKS                       R26 R27 K34 ["Resources"]
+      131 GETTABLEKS                       R25 R26 K36 ["createAnalyticsHandlers"]
       133 CALL                             R24 1 1
-      134 GETIMPORT                        R25 K4 [require]
-      136 GETTABLEKS                       R28 R0 K24 ["Src"]
-      138 GETTABLEKS                       R27 R28 K35 ["Resources"]
-      140 GETTABLEKS                       R26 R27 K37 ["createAnalyticsHandlers"]
-      142 CALL                             R25 1 1
-      143 GETTABLEKS                       R29 R0 K24 ["Src"]
-      145 GETTABLEKS                       R28 R29 K35 ["Resources"]
-      147 GETTABLEKS                       R27 R28 K38 ["Localization"]
-      149 GETTABLEKS                       R26 R27 K39 ["SourceStrings"]
-      151 GETTABLEKS                       R30 R0 K24 ["Src"]
-      153 GETTABLEKS                       R29 R30 K35 ["Resources"]
-      155 GETTABLEKS                       R28 R29 K38 ["Localization"]
-      157 GETTABLEKS                       R27 R28 K40 ["LocalizedStrings"]
-      159 GETIMPORT                        R28 K4 [require]
-      161 GETTABLEKS                       R31 R0 K24 ["Src"]
-      163 GETTABLEKS                       R30 R31 K41 ["Util"]
-      165 GETTABLEKS                       R29 R30 K42 ["Constants"]
-      167 CALL                             R28 1 1
-      168 GETTABLEKS                       R29 R3 K43 ["PureComponent"]
-      170 LOADK                            R31 K44 ["MainPlugin"]
-      171 NAMECALL                         R29 R29 K45 ["extend"]
-      173 CALL                             R29 2 1
-      174 DUPCLOSURE                       R30 K46 [PROTO_8]
-      175 CAPTURE                          VAL R21
-      176 CAPTURE                          VAL R22
-      177 CAPTURE                          VAL R14
-      178 CAPTURE                          VAL R6
-      179 CAPTURE                          VAL R10
-      180 CAPTURE                          VAL R26
-      181 CAPTURE                          VAL R27
-      182 CAPTURE                          VAL R25
-      183 CAPTURE                          VAL R13
-      184 CAPTURE                          VAL R23
-      185 SETTABLEKS                       R30 R29 K47 ["init"]
-      187 DUPCLOSURE                       R30 K48 [PROTO_9]
-      188 SETTABLEKS                       R30 R29 K49 ["willUnmount"]
-      190 DUPCLOSURE                       R30 K50 [PROTO_10]
-      191 SETTABLEKS                       R30 R29 K51 ["didUpdate"]
-      193 DUPCLOSURE                       R30 K52 [PROTO_11]
-      194 CAPTURE                          VAL R11
-      195 CAPTURE                          VAL R12
-      196 CAPTURE                          VAL R24
-      197 CAPTURE                          VAL R10
-      198 CAPTURE                          VAL R3
-      199 CAPTURE                          VAL R9
-      200 CAPTURE                          VAL R28
-      201 CAPTURE                          VAL R5
-      202 CAPTURE                          VAL R7
-      203 CAPTURE                          VAL R18
-      204 CAPTURE                          VAL R17
-      205 CAPTURE                          VAL R19
-      206 CAPTURE                          VAL R20
-      207 CAPTURE                          VAL R16
-      208 SETTABLEKS                       R30 R29 K53 ["render"]
-      210 RETURN                           R29 1
+      134 GETTABLEKS                       R28 R0 K24 ["Src"]
+      136 GETTABLEKS                       R27 R28 K34 ["Resources"]
+      138 GETTABLEKS                       R26 R27 K37 ["Localization"]
+      140 GETTABLEKS                       R25 R26 K38 ["SourceStrings"]
+      142 GETTABLEKS                       R29 R0 K24 ["Src"]
+      144 GETTABLEKS                       R28 R29 K34 ["Resources"]
+      146 GETTABLEKS                       R27 R28 K37 ["Localization"]
+      148 GETTABLEKS                       R26 R27 K39 ["LocalizedStrings"]
+      150 GETIMPORT                        R27 K4 [require]
+      152 GETTABLEKS                       R30 R0 K24 ["Src"]
+      154 GETTABLEKS                       R29 R30 K40 ["Util"]
+      156 GETTABLEKS                       R28 R29 K41 ["Constants"]
+      158 CALL                             R27 1 1
+      159 GETTABLEKS                       R28 R3 K42 ["PureComponent"]
+      161 LOADK                            R30 K43 ["MainPlugin"]
+      162 NAMECALL                         R28 R28 K44 ["extend"]
+      164 CALL                             R28 2 1
+      165 DUPCLOSURE                       R29 K45 [PROTO_7]
+      166 CAPTURE                          VAL R21
+      167 CAPTURE                          VAL R22
+      168 CAPTURE                          VAL R14
+      169 CAPTURE                          VAL R6
+      170 CAPTURE                          VAL R10
+      171 CAPTURE                          VAL R25
+      172 CAPTURE                          VAL R26
+      173 CAPTURE                          VAL R24
+      174 CAPTURE                          VAL R13
+      175 SETTABLEKS                       R29 R28 K46 ["init"]
+      177 DUPCLOSURE                       R29 K47 [PROTO_8]
+      178 SETTABLEKS                       R29 R28 K48 ["willUnmount"]
+      180 DUPCLOSURE                       R29 K49 [PROTO_9]
+      181 SETTABLEKS                       R29 R28 K50 ["didUpdate"]
+      183 DUPCLOSURE                       R29 K51 [PROTO_10]
+      184 CAPTURE                          VAL R11
+      185 CAPTURE                          VAL R12
+      186 CAPTURE                          VAL R23
+      187 CAPTURE                          VAL R10
+      188 CAPTURE                          VAL R3
+      189 CAPTURE                          VAL R9
+      190 CAPTURE                          VAL R27
+      191 CAPTURE                          VAL R5
+      192 CAPTURE                          VAL R7
+      193 CAPTURE                          VAL R18
+      194 CAPTURE                          VAL R17
+      195 CAPTURE                          VAL R19
+      196 CAPTURE                          VAL R20
+      197 CAPTURE                          VAL R16
+      198 SETTABLEKS                       R29 R28 K52 ["render"]
+      200 RETURN                           R28 1

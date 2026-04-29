@@ -222,7 +222,52 @@ PROTO_0:
       294 NAMECALL                         R3 R0 K6 ["getText"]
       296 CALL                             R3 3 1
       297 SETTABLE                         R3 R1 R2
-      298 RETURN                           R1 1
+      298 GETUPVAL                         R2 0
+      299 CALL                             R2 0 1
+      300 JUMPIFNOT                        R2 ; [+56]
+      301 GETIMPORT                        R2 K115 [Enum.AssetType.ClimbAnimation]
+      303 LOADK                            R5 K4 ["General"]
+      304 LOADK                            R6 K116 ["AssetTypeClimbAnimation"]
+      305 NAMECALL                         R3 R0 K6 ["getText"]
+      307 CALL                             R3 3 1
+      308 SETTABLE                         R3 R1 R2
+      309 GETIMPORT                        R2 K118 [Enum.AssetType.FallAnimation]
+      311 LOADK                            R5 K4 ["General"]
+      312 LOADK                            R6 K119 ["AssetTypeFallAnimation"]
+      313 NAMECALL                         R3 R0 K6 ["getText"]
+      315 CALL                             R3 3 1
+      316 SETTABLE                         R3 R1 R2
+      317 GETIMPORT                        R2 K121 [Enum.AssetType.IdleAnimation]
+      319 LOADK                            R5 K4 ["General"]
+      320 LOADK                            R6 K122 ["AssetTypeIdleAnimation"]
+      321 NAMECALL                         R3 R0 K6 ["getText"]
+      323 CALL                             R3 3 1
+      324 SETTABLE                         R3 R1 R2
+      325 GETIMPORT                        R2 K124 [Enum.AssetType.JumpAnimation]
+      327 LOADK                            R5 K4 ["General"]
+      328 LOADK                            R6 K125 ["AssetTypeJumpAnimation"]
+      329 NAMECALL                         R3 R0 K6 ["getText"]
+      331 CALL                             R3 3 1
+      332 SETTABLE                         R3 R1 R2
+      333 GETIMPORT                        R2 K127 [Enum.AssetType.RunAnimation]
+      335 LOADK                            R5 K4 ["General"]
+      336 LOADK                            R6 K128 ["AssetTypeRunAnimation"]
+      337 NAMECALL                         R3 R0 K6 ["getText"]
+      339 CALL                             R3 3 1
+      340 SETTABLE                         R3 R1 R2
+      341 GETIMPORT                        R2 K130 [Enum.AssetType.SwimAnimation]
+      343 LOADK                            R5 K4 ["General"]
+      344 LOADK                            R6 K131 ["AssetTypeSwimAnimation"]
+      345 NAMECALL                         R3 R0 K6 ["getText"]
+      347 CALL                             R3 3 1
+      348 SETTABLE                         R3 R1 R2
+      349 GETIMPORT                        R2 K133 [Enum.AssetType.WalkAnimation]
+      351 LOADK                            R5 K4 ["General"]
+      352 LOADK                            R6 K134 ["AssetTypeWalkAnimation"]
+      353 NAMECALL                         R3 R0 K6 ["getText"]
+      355 CALL                             R3 3 1
+      356 SETTABLE                         R3 R1 R2
+      357 RETURN                           R1 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -233,7 +278,13 @@ MAIN:
         7 GETIMPORT                        R1 K5 [require]
         9 GETTABLEKS                       R4 R0 K6 ["Src"]
        11 GETTABLEKS                       R3 R4 K7 ["Flags"]
-       13 GETTABLEKS                       R2 R3 K8 ["getFFlagEnableUploadingMakeup"]
+       13 GETTABLEKS                       R2 R3 K8 ["getFFlagEnableUploadingAvatarAnimations"]
        15 CALL                             R1 1 1
-       16 DUPCLOSURE                       R2 K9 [PROTO_0]
-       17 RETURN                           R2 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R5 R0 K6 ["Src"]
+       20 GETTABLEKS                       R4 R5 K7 ["Flags"]
+       22 GETTABLEKS                       R3 R4 K9 ["getFFlagEnableUploadingMakeup"]
+       24 CALL                             R2 1 1
+       25 DUPCLOSURE                       R3 K10 [PROTO_0]
+       26 CAPTURE                          VAL R1
+       27 RETURN                           R3 1

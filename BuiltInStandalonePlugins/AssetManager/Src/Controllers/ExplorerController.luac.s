@@ -764,15 +764,16 @@ PROTO_21:
         4 MOVE                             R6 R2
         5 NAMECALL                         R4 R0 K0 ["getScopeRoot"]
         7 CALL                             R4 2 1
-        8 JUMPIFNOT                        R3 ; [+12]
-        9 JUMPIFNOT                        R4 ; [+11]
+        8 JUMPIFNOT                        R3 ; [+13]
+        9 JUMPIFNOT                        R4 ; [+12]
        10 GETTABLEKS                       R5 R3 K1 ["Uid"]
        12 GETTABLEKS                       R6 R4 K1 ["Uid"]
-       14 JUMPIFEQ                         R5 R6 ; [+6]
+       14 JUMPIFEQ                         R5 R6 ; [+7]
        16 GETTABLEKS                       R5 R0 K2 ["_pluginController"]
-       18 NAMECALL                         R5 R5 K3 ["updateInventoryFolderReady"]
-       20 CALL                             R5 1 0
-       21 RETURN                           R0 0
+       18 MOVE                             R7 R4
+       19 NAMECALL                         R5 R5 K3 ["updateInventoryFolderReady"]
+       21 CALL                             R5 2 0
+       22 RETURN                           R0 0
 
 PROTO_22:
         0 GETTABLEKS                       R2 R1 K0 ["Type"]
@@ -901,19 +902,22 @@ PROTO_29:
 
 PROTO_30:
         0 GETTABLEKS                       R1 R0 K0 ["_stagedFolder"]
-        2 LOADNIL                          R2
-        3 SETTABLEKS                       R2 R0 K0 ["_stagedFolder"]
-        5 GETUPVAL                         R3 0
-        6 GETTABLEKS                       R2 R3 K1 ["NewFolderUid"]
-        8 JUMPIFNOTEQ                      R1 R2 ; [+8]
-       10 GETUPVAL                         R5 0
-       11 GETTABLEKS                       R4 R5 K1 ["NewFolderUid"]
-       13 NAMECALL                         R2 R0 K2 ["_removeScope"]
-       15 CALL                             R2 2 0
-       16 RETURN                           R0 0
-       17 NAMECALL                         R2 R0 K3 ["_updateRenderTree"]
-       19 CALL                             R2 1 0
-       20 RETURN                           R0 0
+        2 JUMPIFNOTEQKNIL                  R1 ; [+2]
+        4 RETURN                           R0 0
+        5 GETTABLEKS                       R1 R0 K0 ["_stagedFolder"]
+        7 LOADNIL                          R2
+        8 SETTABLEKS                       R2 R0 K0 ["_stagedFolder"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R2 R3 K1 ["NewFolderUid"]
+       13 JUMPIFNOTEQ                      R1 R2 ; [+8]
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R4 R5 K1 ["NewFolderUid"]
+       18 NAMECALL                         R2 R0 K2 ["_removeScope"]
+       20 CALL                             R2 2 0
+       21 RETURN                           R0 0
+       22 NAMECALL                         R2 R0 K3 ["_updateRenderTree"]
+       24 CALL                             R2 1 0
+       25 RETURN                           R0 0
 
 PROTO_31:
         0 LOADNIL                          R3
@@ -967,53 +971,44 @@ PROTO_31:
        74 RETURN                           R0 0
 
 PROTO_32:
-        0 GETTABLEKS                       R2 R0 K0 ["_stagedFolder"]
-        2 JUMPIFNOT                        R2 ; [+8]
-        3 GETTABLEKS                       R4 R0 K0 ["_stagedFolder"]
-        5 NAMECALL                         R2 R0 K1 ["_removeScope"]
-        7 CALL                             R2 2 0
-        8 LOADNIL                          R2
-        9 SETTABLEKS                       R2 R0 K0 ["_stagedFolder"]
-       11 GETTABLEKS                       R2 R0 K2 ["_scopes"]
-       13 GETTABLEKS                       R3 R1 K3 ["Uid"]
-       15 SETTABLE                         R1 R2 R3
-       16 GETTABLEKS                       R3 R0 K2 ["_scopes"]
-       18 GETTABLEKS                       R4 R1 K4 ["Parent"]
-       20 GETTABLE                         R2 R3 R4
-       21 JUMPIFNOT                        R2 ; [+6]
-       22 MOVE                             R5 R2
-       23 GETTABLEKS                       R6 R1 K3 ["Uid"]
-       25 NAMECALL                         R3 R0 K5 ["_addScopeToChildren"]
-       27 CALL                             R3 3 0
-       28 NAMECALL                         R3 R0 K6 ["_updateRenderTree"]
-       30 CALL                             R3 1 0
-       31 RETURN                           R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["_scopes"]
+        2 GETTABLEKS                       R3 R1 K1 ["Uid"]
+        4 SETTABLE                         R1 R2 R3
+        5 GETTABLEKS                       R3 R0 K0 ["_scopes"]
+        7 GETTABLEKS                       R4 R1 K2 ["Parent"]
+        9 GETTABLE                         R2 R3 R4
+       10 JUMPIFNOT                        R2 ; [+6]
+       11 MOVE                             R5 R2
+       12 GETTABLEKS                       R6 R1 K1 ["Uid"]
+       14 NAMECALL                         R3 R0 K3 ["_addScopeToChildren"]
+       16 CALL                             R3 3 0
+       17 NAMECALL                         R3 R0 K4 ["_updateRenderTree"]
+       19 CALL                             R3 1 0
+       20 RETURN                           R0 0
 
 PROTO_33:
-        0 LOADNIL                          R2
-        1 SETTABLEKS                       R2 R0 K0 ["_stagedFolder"]
-        3 GETTABLEKS                       R3 R0 K1 ["_scopes"]
-        5 GETTABLEKS                       R4 R1 K2 ["Uid"]
-        7 GETTABLE                         R2 R3 R4
-        8 JUMPIF                           R2 ; [+1]
-        9 RETURN                           R0 0
-       10 GETTABLEKS                       R3 R1 K3 ["Name"]
-       12 SETTABLEKS                       R3 R2 K3 ["Name"]
-       14 GETTABLEKS                       R3 R2 K4 ["Parent"]
-       16 JUMPIFNOT                        R3 ; [+16]
-       17 GETTABLEKS                       R4 R0 K1 ["_scopes"]
-       19 GETTABLEKS                       R5 R2 K4 ["Parent"]
-       21 GETTABLE                         R3 R4 R5
-       22 JUMPIFNOT                        R3 ; [+10]
-       23 GETTABLEKS                       R7 R0 K1 ["_scopes"]
-       25 GETTABLEKS                       R8 R2 K4 ["Parent"]
-       27 GETTABLE                         R6 R7 R8
-       28 GETTABLEKS                       R5 R6 K5 ["Children"]
-       30 NAMECALL                         R3 R0 K6 ["_sortChildrenByName"]
-       32 CALL                             R3 2 0
-       33 NAMECALL                         R3 R0 K7 ["_updateRenderTree"]
-       35 CALL                             R3 1 0
-       36 RETURN                           R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["_scopes"]
+        2 GETTABLEKS                       R4 R1 K1 ["Uid"]
+        4 GETTABLE                         R2 R3 R4
+        5 JUMPIF                           R2 ; [+1]
+        6 RETURN                           R0 0
+        7 GETTABLEKS                       R3 R1 K2 ["Name"]
+        9 SETTABLEKS                       R3 R2 K2 ["Name"]
+       11 GETTABLEKS                       R3 R2 K3 ["Parent"]
+       13 JUMPIFNOT                        R3 ; [+16]
+       14 GETTABLEKS                       R4 R0 K0 ["_scopes"]
+       16 GETTABLEKS                       R5 R2 K3 ["Parent"]
+       18 GETTABLE                         R3 R4 R5
+       19 JUMPIFNOT                        R3 ; [+10]
+       20 GETTABLEKS                       R7 R0 K0 ["_scopes"]
+       22 GETTABLEKS                       R8 R2 K3 ["Parent"]
+       24 GETTABLE                         R6 R7 R8
+       25 GETTABLEKS                       R5 R6 K4 ["Children"]
+       27 NAMECALL                         R3 R0 K5 ["_sortChildrenByName"]
+       29 CALL                             R3 2 0
+       30 NAMECALL                         R3 R0 K6 ["_updateRenderTree"]
+       32 CALL                             R3 1 0
+       33 RETURN                           R0 0
 
 PROTO_34:
         0 GETUPVAL                         R2 0

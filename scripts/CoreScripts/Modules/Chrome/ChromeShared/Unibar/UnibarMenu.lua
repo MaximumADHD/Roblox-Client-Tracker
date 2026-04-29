@@ -136,6 +136,9 @@ if not GetFFlagChromeCentralizedConfiguration() then
 
 		if FFlagEnableSideSheet and FFlagAddIGMToSideSheet then
 			table.insert(nineDot, "people")
+			table.insert(nineDot, "settings")
+			table.insert(nineDot, "gallery")
+			table.insert(nineDot, "help")
 		end
 
 		ChromeService:configureSubMenu("nine_dot", nineDot)

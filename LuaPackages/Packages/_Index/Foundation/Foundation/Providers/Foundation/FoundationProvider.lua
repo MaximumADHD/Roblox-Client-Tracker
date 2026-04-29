@@ -48,6 +48,7 @@ local function FoundationProvider(props: FoundationProviderProps)
 			device = props.device,
 			derives = props.derives,
 			scale = preferences.scale,
+			tokenOverrides = props.tokenOverrides,
 		}),
 		React.createElement(ResponsiveProvider, { config = responsiveConfig }),
 		React.createElement(

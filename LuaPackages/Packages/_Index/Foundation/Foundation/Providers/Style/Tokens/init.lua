@@ -5,8 +5,13 @@ local RbxDesignFoundations = require(Packages.RbxDesignFoundations)
 local Device = require(Foundation.Enums.Device)
 local Flags = require(Foundation.Utility.Flags)
 local Theme = require(Foundation.Enums.Theme)
+local TokenProcessingUtilities = require(script.TokenProcessingUtilities)
+
 type Theme = Theme.Theme
 type Device = Device.Device
+
+export type TokenPath = RbxDesignFoundations.TokenPath
+export type TokenOverrides = { [TokenPath]: TokenPath }
 
 local function getPlatformScale(device: Device, scaleFactor: number?)
 	if Flags.FoundationDisableTokenScaling then
@@ -23,7 +28,22 @@ local function getPlatformScale(device: Device, scaleFactor: number?)
 	return baseScale * scaleFactor :: number
 end
 
-local function getTokens(theme: Theme, deviceInput: Device?, scaleFactor: number?)
+local function applyTokenOverrides(tokens: any, overrides: TokenOverrides): any
+	if not Flags.FoundationTokenOverrides then
+		return tokens
+	end
+
+	for targetPath, sourcePath in overrides do
+		local sourceValue = TokenProcessingUtilities.getTokenValue(tokens, sourcePath)
+		if sourceValue ~= nil then
+			TokenProcessingUtilities.setTokenValue(tokens, targetPath, sourceValue)
+		end
+	end
+
+	return tokens
+end
+
+local function getTokens(theme: Theme, deviceInput: Device?, scaleFactor: number?, tokenOverrides: TokenOverrides?)
 	local generators = RbxDesignFoundations.Tokens
 	local device: Device = deviceInput or Device.Desktop
 	local scale = getPlatformScale(device, scaleFactor)
@@ -53,10 +73,10 @@ local function getTokens(theme: Theme, deviceInput: Device?, scaleFactor: number
 		Typography = tokens.Typography,
 	}
 
-	-- For some reason, this is not exported from Tokens accurately.
-	-- We need an accurate way to reference this for useScaledValue.
-	-- This token should not be used outside of this function.
-	filteredTokens.Config.UI.Scale = scale
+	if tokenOverrides then
+		applyTokenOverrides(filteredTokens, tokenOverrides)
+	end
+
 	return filteredTokens
 end
 

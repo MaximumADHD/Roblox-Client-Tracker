@@ -409,13 +409,13 @@ PROTO_31:
         9 DUPTABLE                         R12 K5 [{"Scope", "Root", "MaxPageSize"}]
        10 SETTABLEKS                       R10 R12 K2 ["Scope"]
        12 SETTABLEKS                       R11 R12 K3 ["Root"]
-       14 GETTABLEKS                       R14 R1 K4 ["MaxPageSize"]
-       16 ORK                              R13 R14 K6 [750]
+       14 GETUPVAL                         R14 0
+       15 GETTABLEKS                       R13 R14 K6 ["FolderBreadthMax"]
        17 SETTABLEKS                       R13 R12 K4 ["MaxPageSize"]
        19 MOVE                             R15 R10
        20 NAMECALL                         R13 R0 K7 ["_addOngoingScopeFetch"]
        22 CALL                             R13 2 0
-       23 GETUPVAL                         R14 0
+       23 GETUPVAL                         R14 1
        24 GETTABLEKS                       R13 R14 K8 ["new"]
        26 NEWCLOSURE                       R14 P0
        27 CAPTURE                          VAL R0
@@ -505,83 +505,89 @@ MAIN:
        58 CALL                             R10 1 1
        59 GETIMPORT                        R11 K5 [require]
        61 GETTABLEKS                       R14 R0 K13 ["Src"]
-       63 GETTABLEKS                       R13 R14 K18 ["Flags"]
-       65 GETTABLEKS                       R12 R13 K19 ["getFFlagDebugAmrMockContent"]
+       63 GETTABLEKS                       R13 R14 K18 ["Resources"]
+       65 GETTABLEKS                       R12 R13 K19 ["Constants"]
        67 CALL                             R11 1 1
        68 GETIMPORT                        R12 K5 [require]
        70 GETTABLEKS                       R15 R0 K13 ["Src"]
-       72 GETTABLEKS                       R14 R15 K18 ["Flags"]
-       74 GETTABLEKS                       R13 R14 K20 ["getFFlagAmrOrganizationFoundation"]
+       72 GETTABLEKS                       R14 R15 K20 ["Flags"]
+       74 GETTABLEKS                       R13 R14 K21 ["getFFlagDebugAmrMockContent"]
        76 CALL                             R12 1 1
-       77 LOADK                            R15 K21 ["Networking"]
-       78 NAMECALL                         R13 R3 K22 ["extend"]
-       80 CALL                             R13 2 1
-       81 DUPCLOSURE                       R14 K23 [PROTO_0]
-       82 CAPTURE                          VAL R11
-       83 CAPTURE                          VAL R9
-       84 CAPTURE                          VAL R8
-       85 CAPTURE                          VAL R6
-       86 CAPTURE                          VAL R13
-       87 CAPTURE                          VAL R12
-       88 SETTABLEKS                       R14 R13 K24 ["new"]
-       90 DUPCLOSURE                       R14 K25 [PROTO_1]
-       91 CAPTURE                          VAL R13
-       92 CAPTURE                          VAL R12
-       93 SETTABLEKS                       R14 R13 K26 ["mock"]
-       95 DUPCLOSURE                       R14 K27 [PROTO_2]
-       96 CAPTURE                          VAL R7
-       97 SETTABLEKS                       R14 R13 K28 ["destroy"]
-       99 DUPCLOSURE                       R14 K29 [PROTO_3]
-      100 SETTABLEKS                       R14 R13 K30 ["makeFetchRequestsStale"]
-      102 DUPCLOSURE                       R14 K31 [PROTO_4]
-      103 SETTABLEKS                       R14 R13 K32 ["getFetchEpochId"]
-      105 DUPCLOSURE                       R14 K33 [PROTO_5]
-      106 SETTABLEKS                       R14 R13 K34 ["fetchUsername"]
-      108 DUPCLOSURE                       R14 K35 [PROTO_6]
-      109 SETTABLEKS                       R14 R13 K36 ["fetchUniverseInfoAsync"]
-      111 DUPCLOSURE                       R14 K37 [PROTO_7]
-      112 SETTABLEKS                       R14 R13 K38 ["fetchGroupsAsync"]
-      114 DUPCLOSURE                       R14 K39 [PROTO_8]
-      115 SETTABLEKS                       R14 R13 K40 ["fetchInventoryFolderReadyAsync"]
-      117 DUPCLOSURE                       R14 K41 [PROTO_13]
-      118 CAPTURE                          VAL R4
-      119 SETTABLEKS                       R14 R13 K42 ["fetchAssetsAsync"]
-      121 DUPCLOSURE                       R14 K43 [PROTO_15]
-      122 CAPTURE                          VAL R4
-      123 SETTABLEKS                       R14 R13 K44 ["searchAssetsAsync"]
-      125 DUPCLOSURE                       R14 K45 [PROTO_16]
-      126 SETTABLEKS                       R14 R13 K46 ["fetchAssetInfoAsync"]
-      128 DUPCLOSURE                       R14 K47 [PROTO_17]
-      129 SETTABLEKS                       R14 R13 K48 ["grantUniverseUseAssetsPermissions"]
-      131 DUPCLOSURE                       R14 K49 [PROTO_18]
-      132 SETTABLEKS                       R14 R13 K50 ["grantAssetsPermissionsAsync"]
-      134 DUPCLOSURE                       R14 K51 [PROTO_19]
-      135 SETTABLEKS                       R14 R13 K52 ["checkAssetsPermissionsAsync"]
-      137 DUPCLOSURE                       R14 K53 [PROTO_20]
-      138 SETTABLEKS                       R14 R13 K54 ["getThumbnailUriForScope"]
-      140 DUPCLOSURE                       R14 K55 [PROTO_21]
-      141 SETTABLEKS                       R14 R13 K56 ["getThumbnailForScopeAsync"]
-      143 DUPCLOSURE                       R14 K57 [PROTO_22]
-      144 SETTABLEKS                       R14 R13 K58 ["getThumbnailForItem"]
-      146 DUPCLOSURE                       R14 K59 [PROTO_23]
-      147 SETTABLEKS                       R14 R13 K60 ["getThumbnailForItemAsync"]
-      149 DUPCLOSURE                       R14 K61 [PROTO_24]
-      150 SETTABLEKS                       R14 R13 K62 ["fetchPluginInfoAsync"]
-      152 DUPCLOSURE                       R14 K63 [PROTO_25]
-      153 SETTABLEKS                       R14 R13 K64 ["_addOngoingScopeFetch"]
-      155 DUPCLOSURE                       R14 K65 [PROTO_26]
-      156 SETTABLEKS                       R14 R13 K66 ["_removeOngoingScopeFetch"]
-      158 DUPCLOSURE                       R14 K67 [PROTO_27]
-      159 SETTABLEKS                       R14 R13 K68 ["getScopesOngoingFetches"]
-      161 DUPCLOSURE                       R14 K69 [PROTO_31]
-      162 CAPTURE                          VAL R4
-      163 SETTABLEKS                       R14 R13 K70 ["fetchFoldersAsync"]
-      165 DUPCLOSURE                       R14 K71 [PROTO_32]
-      166 SETTABLEKS                       R14 R13 K72 ["createFolderAsync"]
-      168 DUPCLOSURE                       R14 K73 [PROTO_33]
-      169 SETTABLEKS                       R14 R13 K74 ["deleteFolderAsync"]
-      171 DUPCLOSURE                       R14 K75 [PROTO_34]
-      172 SETTABLEKS                       R14 R13 K76 ["updateFolderMetadataAsync"]
-      174 DUPCLOSURE                       R14 K77 [PROTO_35]
-      175 SETTABLEKS                       R14 R13 K78 ["moveItemsAsync"]
-      177 RETURN                           R13 1
+       77 GETIMPORT                        R13 K5 [require]
+       79 GETTABLEKS                       R16 R0 K13 ["Src"]
+       81 GETTABLEKS                       R15 R16 K20 ["Flags"]
+       83 GETTABLEKS                       R14 R15 K22 ["getFFlagAmrOrganizationFoundation"]
+       85 CALL                             R13 1 1
+       86 LOADK                            R16 K23 ["Networking"]
+       87 NAMECALL                         R14 R3 K24 ["extend"]
+       89 CALL                             R14 2 1
+       90 DUPCLOSURE                       R15 K25 [PROTO_0]
+       91 CAPTURE                          VAL R12
+       92 CAPTURE                          VAL R9
+       93 CAPTURE                          VAL R8
+       94 CAPTURE                          VAL R6
+       95 CAPTURE                          VAL R14
+       96 CAPTURE                          VAL R13
+       97 SETTABLEKS                       R15 R14 K26 ["new"]
+       99 DUPCLOSURE                       R15 K27 [PROTO_1]
+      100 CAPTURE                          VAL R14
+      101 CAPTURE                          VAL R13
+      102 SETTABLEKS                       R15 R14 K28 ["mock"]
+      104 DUPCLOSURE                       R15 K29 [PROTO_2]
+      105 CAPTURE                          VAL R7
+      106 SETTABLEKS                       R15 R14 K30 ["destroy"]
+      108 DUPCLOSURE                       R15 K31 [PROTO_3]
+      109 SETTABLEKS                       R15 R14 K32 ["makeFetchRequestsStale"]
+      111 DUPCLOSURE                       R15 K33 [PROTO_4]
+      112 SETTABLEKS                       R15 R14 K34 ["getFetchEpochId"]
+      114 DUPCLOSURE                       R15 K35 [PROTO_5]
+      115 SETTABLEKS                       R15 R14 K36 ["fetchUsername"]
+      117 DUPCLOSURE                       R15 K37 [PROTO_6]
+      118 SETTABLEKS                       R15 R14 K38 ["fetchUniverseInfoAsync"]
+      120 DUPCLOSURE                       R15 K39 [PROTO_7]
+      121 SETTABLEKS                       R15 R14 K40 ["fetchGroupsAsync"]
+      123 DUPCLOSURE                       R15 K41 [PROTO_8]
+      124 SETTABLEKS                       R15 R14 K42 ["fetchInventoryFolderReadyAsync"]
+      126 DUPCLOSURE                       R15 K43 [PROTO_13]
+      127 CAPTURE                          VAL R4
+      128 SETTABLEKS                       R15 R14 K44 ["fetchAssetsAsync"]
+      130 DUPCLOSURE                       R15 K45 [PROTO_15]
+      131 CAPTURE                          VAL R4
+      132 SETTABLEKS                       R15 R14 K46 ["searchAssetsAsync"]
+      134 DUPCLOSURE                       R15 K47 [PROTO_16]
+      135 SETTABLEKS                       R15 R14 K48 ["fetchAssetInfoAsync"]
+      137 DUPCLOSURE                       R15 K49 [PROTO_17]
+      138 SETTABLEKS                       R15 R14 K50 ["grantUniverseUseAssetsPermissions"]
+      140 DUPCLOSURE                       R15 K51 [PROTO_18]
+      141 SETTABLEKS                       R15 R14 K52 ["grantAssetsPermissionsAsync"]
+      143 DUPCLOSURE                       R15 K53 [PROTO_19]
+      144 SETTABLEKS                       R15 R14 K54 ["checkAssetsPermissionsAsync"]
+      146 DUPCLOSURE                       R15 K55 [PROTO_20]
+      147 SETTABLEKS                       R15 R14 K56 ["getThumbnailUriForScope"]
+      149 DUPCLOSURE                       R15 K57 [PROTO_21]
+      150 SETTABLEKS                       R15 R14 K58 ["getThumbnailForScopeAsync"]
+      152 DUPCLOSURE                       R15 K59 [PROTO_22]
+      153 SETTABLEKS                       R15 R14 K60 ["getThumbnailForItem"]
+      155 DUPCLOSURE                       R15 K61 [PROTO_23]
+      156 SETTABLEKS                       R15 R14 K62 ["getThumbnailForItemAsync"]
+      158 DUPCLOSURE                       R15 K63 [PROTO_24]
+      159 SETTABLEKS                       R15 R14 K64 ["fetchPluginInfoAsync"]
+      161 DUPCLOSURE                       R15 K65 [PROTO_25]
+      162 SETTABLEKS                       R15 R14 K66 ["_addOngoingScopeFetch"]
+      164 DUPCLOSURE                       R15 K67 [PROTO_26]
+      165 SETTABLEKS                       R15 R14 K68 ["_removeOngoingScopeFetch"]
+      167 DUPCLOSURE                       R15 K69 [PROTO_27]
+      168 SETTABLEKS                       R15 R14 K70 ["getScopesOngoingFetches"]
+      170 DUPCLOSURE                       R15 K71 [PROTO_31]
+      171 CAPTURE                          VAL R11
+      172 CAPTURE                          VAL R4
+      173 SETTABLEKS                       R15 R14 K72 ["fetchFoldersAsync"]
+      175 DUPCLOSURE                       R15 K73 [PROTO_32]
+      176 SETTABLEKS                       R15 R14 K74 ["createFolderAsync"]
+      178 DUPCLOSURE                       R15 K75 [PROTO_33]
+      179 SETTABLEKS                       R15 R14 K76 ["deleteFolderAsync"]
+      181 DUPCLOSURE                       R15 K77 [PROTO_34]
+      182 SETTABLEKS                       R15 R14 K78 ["updateFolderMetadataAsync"]
+      184 DUPCLOSURE                       R15 K79 [PROTO_35]
+      185 SETTABLEKS                       R15 R14 K80 ["moveItemsAsync"]
+      187 RETURN                           R14 1

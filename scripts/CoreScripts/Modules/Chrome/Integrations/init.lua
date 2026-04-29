@@ -26,4 +26,7 @@ return {
 	VRToggleButton = if isInExperienceUIVREnabled and isSpatial() then require(script.VRToggleButton) else nil :: never,
 	VRSafeBubble = if isInExperienceUIVREnabled and isSpatial() then require(script.VRSafeBubble) else nil :: never,
 	People = if FFlagAddIGMToSideSheet then require(script.Pages.People) else nil,
+	Settings = if FFlagAddIGMToSideSheet then require(script.Pages.Settings) else nil,
+	Gallery = if FFlagAddIGMToSideSheet then require(script.Pages.Gallery) else nil,
+	Help = if FFlagAddIGMToSideSheet then require(script.Pages.Help) else nil,
 }

@@ -271,6 +271,20 @@ PROTO_9:
         4 RETURN                           R0 0
 
 PROTO_10:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["_mouseTrackerInstance"]
+        3 LOADK                            R2 K1 ["RBX_LeftMouseButtonDown"]
+        4 NAMECALL                         R0 R0 K2 ["GetAttribute"]
+        6 CALL                             R0 2 1
+        7 JUMPIF                           R0 ; [+7]
+        8 GETUPVAL                         R1 0
+        9 GETTABLEKS                       R0 R1 K3 ["_pressedKeys"]
+       11 GETIMPORT                        R1 K7 [Enum.KeyCode.MouseLeftButton]
+       13 LOADNIL                          R2
+       14 SETTABLE                         R2 R0 R1
+       15 RETURN                           R0 0
+
+PROTO_11:
         0 GETUPVAL                         R0 0
         1 GETUPVAL                         R2 0
         2 GETTABLEKS                       R1 R2 K0 ["_pluginController"]
@@ -302,9 +316,18 @@ PROTO_10:
        40 CAPTURE                          UPVAL U0
        41 NAMECALL                         R0 R0 K12 ["Connect"]
        43 CALL                             R0 2 0
-       44 RETURN                           R0 0
+       44 GETUPVAL                         R1 0
+       45 GETTABLEKS                       R0 R1 K6 ["_mouseTrackerInstance"]
+       47 LOADK                            R2 K13 ["RBX_LeftMouseButtonDown"]
+       48 NAMECALL                         R0 R0 K11 ["GetAttributeChangedSignal"]
+       50 CALL                             R0 2 1
+       51 NEWCLOSURE                       R2 P1
+       52 CAPTURE                          UPVAL U0
+       53 NAMECALL                         R0 R0 K12 ["Connect"]
+       55 CALL                             R0 2 0
+       56 RETURN                           R0 0
 
-PROTO_11:
+PROTO_12:
         0 GETIMPORT                        R1 K2 [task.spawn]
         2 NEWCLOSURE                       R2 P0
         3 CAPTURE                          VAL R0
@@ -317,7 +340,7 @@ PROTO_11:
        13 CALL                             R2 2 0
        14 RETURN                           R0 0
 
-PROTO_12:
+PROTO_13:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["_layoutController"]
         3 NAMECALL                         R0 R0 K1 ["getPluginGui"]
@@ -342,7 +365,7 @@ PROTO_12:
        33 CALL                             R1 2 0
        34 RETURN                           R0 0
 
-PROTO_13:
+PROTO_14:
         0 LOADB                            R2 1
         1 SETTABLEKS                       R2 R0 K0 ["_widgetRegistered"]
         3 GETIMPORT                        R2 K3 [task.spawn]
@@ -358,7 +381,7 @@ PROTO_13:
        17 CALL                             R3 2 0
        18 RETURN                           R0 0
 
-PROTO_14:
+PROTO_15:
         0 GETUPVAL                         R1 0
         1 GETTABLEKS                       R0 R1 K0 ["_pluginController"]
         3 NAMECALL                         R0 R0 K1 ["getPlugin"]
@@ -374,7 +397,7 @@ PROTO_14:
        19 CALL                             R0 2 0
        20 RETURN                           R0 0
 
-PROTO_15:
+PROTO_16:
         0 GETIMPORT                        R1 K2 [task.spawn]
         2 NEWCLOSURE                       R2 P0
         3 CAPTURE                          VAL R0
@@ -382,7 +405,7 @@ PROTO_15:
         5 CALL                             R1 1 0
         6 RETURN                           R0 0
 
-PROTO_16:
+PROTO_17:
         0 GETTABLEKS                       R2 R0 K0 ["_pressedKeys"]
         2 GETIMPORT                        R3 K4 [Enum.KeyCode.LeftShift]
         4 GETTABLE                         R1 R2 R3
@@ -409,7 +432,7 @@ PROTO_16:
        36 SETTABLEKS                       R1 R0 K16 ["_heldCtrl"]
        38 RETURN                           R0 0
 
-PROTO_17:
+PROTO_18:
         0 GETTABLEKS                       R1 R0 K0 ["_mouseTrackerInstance"]
         2 JUMPIFNOT                        R1 ; [+7]
         3 GETTABLEKS                       R1 R0 K0 ["_mouseTrackerInstance"]
@@ -420,7 +443,7 @@ PROTO_17:
        10 LOADNIL                          R1
        11 RETURN                           R1 1
 
-PROTO_18:
+PROTO_19:
         0 LOADB                            R2 1
         1 GETIMPORT                        R3 K3 [Enum.KeyCode.Up]
         3 JUMPIFEQ                         R1 R3 ; [+17]
@@ -436,7 +459,7 @@ PROTO_18:
        20 LOADB                            R2 1
        21 RETURN                           R2 1
 
-PROTO_19:
+PROTO_20:
         0 GETTABLEKS                       R4 R0 K0 ["_layoutController"]
         2 NAMECALL                         R4 R4 K1 ["getBrowserLayout"]
         4 CALL                             R4 1 1
@@ -487,7 +510,7 @@ PROTO_19:
        73 CALL                             R4 3 0
        74 RETURN                           R0 0
 
-PROTO_20:
+PROTO_21:
         0 GETTABLEKS                       R2 R0 K0 ["_pressedKeys"]
         2 LOADB                            R3 1
         3 SETTABLE                         R3 R2 R1
@@ -517,7 +540,7 @@ PROTO_20:
        40 CALL                             R2 2 0
        41 RETURN                           R0 0
 
-PROTO_21:
+PROTO_22:
         0 GETTABLEKS                       R2 R0 K0 ["_pressedKeys"]
         2 LOADNIL                          R3
         3 SETTABLE                         R3 R2 R1
@@ -529,7 +552,7 @@ PROTO_21:
        12 CALL                             R2 2 0
        13 RETURN                           R0 0
 
-PROTO_22:
+PROTO_23:
         0 GETTABLEKS                       R3 R0 K0 ["_itemsController"]
         2 NAMECALL                         R3 R3 K1 ["getRenderItems"]
         4 CALL                             R3 1 1
@@ -546,7 +569,7 @@ PROTO_22:
        19 RETURN                           R0 0
        20 RETURN                           R0 0
 
-PROTO_23:
+PROTO_24:
         0 LOADB                            R2 1
         1 SETTABLEKS                       R2 R0 K0 ["_resolvingDoubleClick"]
         3 GETTABLEKS                       R2 R0 K1 ["_itemsController"]
@@ -562,7 +585,7 @@ PROTO_23:
        18 SETTABLEKS                       R2 R0 K7 ["_doubleClickQueued"]
        20 RETURN                           R0 0
 
-PROTO_24:
+PROTO_25:
         0 GETTABLEKS                       R3 R0 K0 ["_itemsController"]
         2 NAMECALL                         R3 R3 K1 ["getRenderItems"]
         4 CALL                             R3 1 1
@@ -577,7 +600,7 @@ PROTO_24:
        17 CALL                             R3 1 0
        18 RETURN                           R0 0
 
-PROTO_25:
+PROTO_26:
         0 GETTABLEKS                       R1 R0 K0 ["_layoutController"]
         2 NAMECALL                         R1 R1 K1 ["getIsCompact"]
         4 CALL                             R1 1 1
@@ -587,7 +610,7 @@ PROTO_25:
        10 CALL                             R1 1 0
        11 RETURN                           R0 0
 
-PROTO_26:
+PROTO_27:
         0 PREPVARARGS                      2
         1 SETTABLEKS                       R1 R0 K0 ["_lastZone"]
         3 GETUPVAL                         R4 0
@@ -608,7 +631,7 @@ PROTO_26:
        27 CALL                             R2 -1 0
        28 RETURN                           R0 0
 
-PROTO_27:
+PROTO_28:
         0 PREPVARARGS                      2
         1 GETTABLEKS                       R2 R0 K0 ["_resolvingDoubleClick"]
         3 JUMPIFNOT                        R2 ; [+1]
@@ -652,7 +675,7 @@ PROTO_27:
        63 CALL                             R2 -1 0
        64 RETURN                           R0 0
 
-PROTO_28:
+PROTO_29:
         0 PREPVARARGS                      2
         1 GETTABLEKS                       R2 R0 K0 ["_resolvingDoubleClick"]
         3 JUMPIFNOT                        R2 ; [+1]
@@ -689,7 +712,7 @@ PROTO_28:
        50 CALL                             R2 -1 0
        51 RETURN                           R0 0
 
-PROTO_29:
+PROTO_30:
         0 PREPVARARGS                      2
         1 SETTABLEKS                       R1 R0 K0 ["_lastZone"]
         3 GETUPVAL                         R4 0
@@ -702,7 +725,7 @@ PROTO_29:
        15 CALL                             R2 -1 0
        16 RETURN                           R0 0
 
-PROTO_30:
+PROTO_31:
         0 GETTABLEKS                       R3 R0 K0 ["_pressedKeys"]
         2 GETIMPORT                        R4 K4 [Enum.KeyCode.MouseLeftButton]
         4 GETTABLE                         R2 R3 R4
@@ -711,15 +734,15 @@ PROTO_30:
         8 LOADB                            R1 1
         9 RETURN                           R1 1
 
-PROTO_31:
+PROTO_32:
         0 GETTABLEKS                       R1 R0 K0 ["_lastZone"]
         2 RETURN                           R1 1
 
-PROTO_32:
+PROTO_33:
         0 GETTABLEKS                       R1 R0 K0 ["_dragInfo"]
         2 RETURN                           R1 1
 
-PROTO_33:
+PROTO_34:
         0 GETTABLEKS                       R3 R0 K0 ["_explorerController"]
         2 MOVE                             R5 R1
         3 NAMECALL                         R3 R3 K1 ["getScopeRoot"]
@@ -745,7 +768,7 @@ PROTO_33:
        33 LOADB                            R5 1
        34 RETURN                           R5 1
 
-PROTO_34:
+PROTO_35:
         0 GETTABLEKS                       R3 R0 K0 ["_explorerController"]
         2 MOVE                             R5 R1
         3 NAMECALL                         R3 R3 K1 ["getScopeRoot"]
@@ -796,7 +819,7 @@ PROTO_34:
        69 LOADB                            R6 1
        70 RETURN                           R6 1
 
-PROTO_35:
+PROTO_36:
         0 GETTABLEKS                       R3 R0 K0 ["_dragging"]
         2 JUMPIF                           R3 ; [+2]
         3 LOADB                            R3 0
@@ -851,7 +874,7 @@ PROTO_35:
        69 LOADB                            R4 0
        70 RETURN                           R4 1
 
-PROTO_36:
+PROTO_37:
         0 NAMECALL                         R1 R0 K0 ["getMousePosition"]
         2 CALL                             R1 1 1
         3 GETTABLEKS                       R2 R0 K1 ["_dragging"]
@@ -1032,67 +1055,67 @@ MAIN:
       134 SETTABLEKS                       R17 R16 K33 ["destroy"]
       136 DUPCLOSURE                       R17 K34 [PROTO_8]
       137 SETTABLEKS                       R17 R16 K35 ["getPlugin"]
-      139 DUPCLOSURE                       R17 K36 [PROTO_11]
+      139 DUPCLOSURE                       R17 K36 [PROTO_12]
       140 CAPTURE                          VAL R7
       141 SETTABLEKS                       R17 R16 K37 ["_registerMouseTrackerAsync"]
-      143 DUPCLOSURE                       R17 K38 [PROTO_13]
+      143 DUPCLOSURE                       R17 K38 [PROTO_14]
       144 CAPTURE                          VAL R7
       145 SETTABLEKS                       R17 R16 K39 ["_registerWidgetAsync"]
-      147 DUPCLOSURE                       R17 K40 [PROTO_15]
+      147 DUPCLOSURE                       R17 K40 [PROTO_16]
       148 CAPTURE                          VAL R7
       149 SETTABLEKS                       R17 R16 K41 ["_deregisterWidgetAsync"]
-      151 DUPCLOSURE                       R17 K42 [PROTO_16]
+      151 DUPCLOSURE                       R17 K42 [PROTO_17]
       152 SETTABLEKS                       R17 R16 K43 ["_registerMod"]
-      154 DUPCLOSURE                       R17 K44 [PROTO_17]
+      154 DUPCLOSURE                       R17 K44 [PROTO_18]
       155 SETTABLEKS                       R17 R16 K45 ["getMousePosition"]
-      157 DUPCLOSURE                       R17 K46 [PROTO_18]
+      157 DUPCLOSURE                       R17 K46 [PROTO_19]
       158 SETTABLEKS                       R17 R16 K47 ["_isArrowKey"]
-      160 DUPCLOSURE                       R17 K48 [PROTO_19]
+      160 DUPCLOSURE                       R17 K48 [PROTO_20]
       161 CAPTURE                          VAL R13
       162 SETTABLEKS                       R17 R16 K49 ["_handleBrowserArrowInput"]
-      164 DUPCLOSURE                       R17 K50 [PROTO_20]
+      164 DUPCLOSURE                       R17 K50 [PROTO_21]
       165 CAPTURE                          VAL R13
       166 SETTABLEKS                       R17 R16 K51 ["handleKeyDown"]
-      168 DUPCLOSURE                       R17 K52 [PROTO_21]
+      168 DUPCLOSURE                       R17 K52 [PROTO_22]
       169 SETTABLEKS                       R17 R16 K53 ["handleKeyUp"]
-      171 DUPCLOSURE                       R17 K54 [PROTO_22]
+      171 DUPCLOSURE                       R17 K54 [PROTO_23]
       172 SETTABLEKS                       R17 R16 K55 ["_checkBrowserDoubleClick"]
-      174 DUPCLOSURE                       R17 K56 [PROTO_23]
+      174 DUPCLOSURE                       R17 K56 [PROTO_24]
       175 SETTABLEKS                       R17 R16 K57 ["_handleBrowserDoubleClick"]
-      177 DUPCLOSURE                       R17 K58 [PROTO_24]
+      177 DUPCLOSURE                       R17 K58 [PROTO_25]
       178 SETTABLEKS                       R17 R16 K59 ["_waitForSelectionDoubleClick"]
-      180 DUPCLOSURE                       R17 K60 [PROTO_25]
+      180 DUPCLOSURE                       R17 K60 [PROTO_26]
       181 SETTABLEKS                       R17 R16 K61 ["_handleSidebarClick"]
-      183 DUPCLOSURE                       R17 K62 [PROTO_26]
+      183 DUPCLOSURE                       R17 K62 [PROTO_27]
       184 CAPTURE                          VAL R13
       185 SETTABLEKS                       R17 R16 K63 ["handleMouse1Click"]
-      187 DUPCLOSURE                       R17 K64 [PROTO_27]
+      187 DUPCLOSURE                       R17 K64 [PROTO_28]
       188 CAPTURE                          VAL R13
       189 SETTABLEKS                       R17 R16 K65 ["handleMouse1Down"]
-      191 DUPCLOSURE                       R17 K66 [PROTO_28]
+      191 DUPCLOSURE                       R17 K66 [PROTO_29]
       192 CAPTURE                          VAL R13
       193 SETTABLEKS                       R17 R16 K67 ["handleMouse1Up"]
-      195 DUPCLOSURE                       R17 K68 [PROTO_29]
+      195 DUPCLOSURE                       R17 K68 [PROTO_30]
       196 CAPTURE                          VAL R13
       197 SETTABLEKS                       R17 R16 K69 ["handleMouse2Click"]
-      199 DUPCLOSURE                       R17 K70 [PROTO_30]
+      199 DUPCLOSURE                       R17 K70 [PROTO_31]
       200 SETTABLEKS                       R17 R16 K71 ["isMouse1Down"]
-      202 DUPCLOSURE                       R17 K72 [PROTO_31]
+      202 DUPCLOSURE                       R17 K72 [PROTO_32]
       203 SETTABLEKS                       R17 R16 K73 ["getLastZoneClicked"]
-      205 DUPCLOSURE                       R17 K74 [PROTO_32]
+      205 DUPCLOSURE                       R17 K74 [PROTO_33]
       206 SETTABLEKS                       R17 R16 K75 ["getDragInfo"]
-      208 DUPCLOSURE                       R17 K76 [PROTO_33]
+      208 DUPCLOSURE                       R17 K76 [PROTO_34]
       209 SETTABLEKS                       R17 R16 K77 ["_isValidSidebarDrag"]
-      211 DUPCLOSURE                       R17 K78 [PROTO_34]
+      211 DUPCLOSURE                       R17 K78 [PROTO_35]
       212 CAPTURE                          VAL R13
       213 CAPTURE                          VAL R8
       214 SETTABLEKS                       R17 R16 K79 ["_isValidBrowserDrag"]
-      216 DUPCLOSURE                       R17 K80 [PROTO_35]
+      216 DUPCLOSURE                       R17 K80 [PROTO_36]
       217 CAPTURE                          VAL R8
       218 CAPTURE                          VAL R13
       219 CAPTURE                          VAL R11
       220 SETTABLEKS                       R17 R16 K81 ["isValidDragForTarget"]
-      222 DUPCLOSURE                       R17 K82 [PROTO_36]
+      222 DUPCLOSURE                       R17 K82 [PROTO_37]
       223 CAPTURE                          VAL R13
       224 CAPTURE                          VAL R11
       225 CAPTURE                          VAL R9

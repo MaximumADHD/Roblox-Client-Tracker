@@ -8,7 +8,6 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 local CoreScriptsCommon = require(CorePackages.Workspace.Packages.CoreScriptsCommon)
 local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
-local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 
 local TraversalLeaveConfirmation = require(script.Parent.TraversalLeaveConfirmation)
@@ -25,7 +24,6 @@ local getRbxThumb = Foundation.Utility.getRbxThumb
 local SettingsShowSignal = CoreScriptsCommon.SettingsShowSignal
 local Traversal = CoreScriptsRoactCommon.Traversal
 local LocalTraversalHistory = Traversal.LocalTraversalHistory.default
-local useLastInputMode = FocusNavigationUtils.useLastInputMode
 local GetInputModeStore = Responsive.GetInputModeStore
 local Input = Responsive.Input
 local TraveralConstants = Traversal.Constants
@@ -34,9 +32,7 @@ local useHistoryItems = Traversal.useHistoryItems
 local useTokens = Foundation.Hooks.useTokens
 local FFlagAddTraversalHistoryReactMenuButtons = require(Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
 local FFlagTraversalHistoryMenuFocusNavFix = Traversal.Flags.FFlagTraversalHistoryMenuFocusNavFix
-local FFlagTraversalRemoveLastInput = Traversal.Flags.FFlagTraversalRemoveLastInput
 local FFlagTraversalPerfFixes = Traversal.Flags.FFlagTraversalPerfFixes
-local FFlagAsyncLoadingHistoryItems = game:DefineFastFlag("AsyncLoadingHistoryItems", false)
 
 export type TraversalHistoryMenuProps = {
 	anchorParent: GuiObject?,
@@ -75,10 +71,6 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 	end
 	
 	local idleButtonStateIsDown = if props.idleButtonStateIsDown ~= nil then props.idleButtonStateIsDown else TraveralConstants.DEFAULT_CHEVRON_BUTTON_STATE
-	local lastInput
-	if not FFlagTraversalRemoveLastInput then
-		lastInput = useLastInputMode()
-	end
 	local selectionBehaviorToMenu, setSelectionBehaviorToMenu = React.useBinding(Enum.SelectionBehavior.Stop)
 	local selectionGroup: { [string]: Enum.SelectionBehavior | Foundation.Bindable<Enum.SelectionBehavior> }
 	if FFlagTraversalPerfFixes then
@@ -152,18 +144,13 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 
 	local closeDialog = React.useCallback(function()
 		setSelectedUniverseId(TraveralConstants.NO_UNIVERSE_ID)
-		local isUsingFocus
-		if FFlagTraversalRemoveLastInput then
-			local lastInputType = UserInputService:GetLastInputType()
-			local inputMode = GetInputModeStore().getLastInputType()
-			isUsingFocus = inputMode == Input.Directional or inputMode == Input.Pointer and lastInputType == Enum.UserInputType.Keyboard
-		else
-			isUsingFocus = lastInput == "Focus"
-		end
+		local lastInputType = UserInputService:GetLastInputType()
+		local inputMode = GetInputModeStore().getLastInputType()
+		local isUsingFocus = inputMode == Input.Directional or inputMode == Input.Pointer and lastInputType == Enum.UserInputType.Keyboard
 		if isUsingFocus and anchorRef.current then
 			GuiService.SelectedCoreObject = anchorRef.current
 		end
-	end, if FFlagTraversalRemoveLastInput then {} else { setSelectedUniverseId, lastInput } :: { unknown })
+	end, {} )
 
 	local onMenuToggled = React.useCallback(function(isOpen: boolean)
 		if isOpen then
@@ -206,14 +193,9 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 		end, { reactPageSignal })
 	end
 
-	local shouldMount
-	if FFlagAsyncLoadingHistoryItems then
-		shouldMount = React.useMemo(function()
-			return #LocalTraversalHistory:getUniverseHistory() > 0
-		end, {})
-	else
-		shouldMount = next(items) ~= nil
-	end
+	local shouldMount = React.useMemo(function()
+		return #LocalTraversalHistory:getUniverseHistory() > 0
+	end, {})
 
 	-- only render when there are previous places
 	return shouldMount and React.createElement(View, {

@@ -1,8 +1,8 @@
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
-local FFlagUserPlayerScriptsCanUseLCC = FlagUtil.getUserFlag("UserPlayerScriptsCanUseLCC")
+local FFlagUserAllowAbilityControls = FlagUtil.getUserFlag("UserAllowAbilityControls")
 
-if FFlagUserPlayerScriptsCanUseLCC then
+if FFlagUserAllowAbilityControls then
 
     local Players = game:GetService("Players")
 
@@ -11,36 +11,53 @@ if FFlagUserPlayerScriptsCanUseLCC then
     local humanoid = nil
     local enabledChangedEvent = Instance.new("BindableEvent")
     local evaluateStateMachineChangedConnection = nil
+    local initialized = false
 
     local function characterAdded(character)
-        AbilityManagerActor = character:FindFirstChild("AbilityManagerActor")
-        humanoid = character:FindFirstChildOfClass("Humanoid")
-        while not humanoid do
-            character.ChildAdded:wait()
-            humanoid = character:FindFirstChildOfClass("Humanoid")
-        end
-        enabledChangedEvent:Fire()
-        
+        AbilityManagerActor = nil
+        humanoid = nil
         if evaluateStateMachineChangedConnection then
             evaluateStateMachineChangedConnection:Disconnect()
             evaluateStateMachineChangedConnection = nil
         end
-        evaluateStateMachineChangedConnection = humanoid:GetPropertyChangedSignal("EvaluateStateMachine"):Connect(function()
+
+        if character then
+            AbilityManagerActor = character:FindFirstChild("AbilityManagerActor")
+            humanoid = character:FindFirstChildOfClass("Humanoid")
+            while not humanoid do
+                character.ChildAdded:wait()
+                humanoid = character:FindFirstChildOfClass("Humanoid")
+            end
             enabledChangedEvent:Fire()
-        end)
+            
+            evaluateStateMachineChangedConnection = humanoid:GetPropertyChangedSignal("EvaluateStateMachine"):Connect(function()
+                enabledChangedEvent:Fire()
+            end)
+        end
     end
 
-    local player = Players.LocalPlayer
-    player.CharacterAdded:Connect(characterAdded)
-    if player.Character then
-        characterAdded(player.Character)
+    local function lazyInit()
+        if initialized then
+            return
+        end
+        initialized = true
+
+        local player = Players.LocalPlayer
+        if player then
+            player.characterAdded:Connect(characterAdded)
+            if player.Character then
+                characterAdded(player.Character)
+            end
+        end
     end
 
-    function AvatarAbilitiesInterface:isEnabled()
+    function AvatarAbilitiesInterface.isEnabled()
+        lazyInit()
         return AbilityManagerActor ~= nil and humanoid and not humanoid.EvaluateStateMachine
     end
 
-    function AvatarAbilitiesInterface:GetEnabledChangedSignal()
+    function AvatarAbilitiesInterface.GetEnabledChangedSignal()
+        lazyInit()
         return enabledChangedEvent.Event
     end
 

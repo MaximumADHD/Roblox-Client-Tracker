@@ -3,8 +3,10 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Flags = require(Foundation.Utility.Flags)
 local React = require(Packages.React)
+local Tokens = require(Foundation.Providers.Style.Tokens)
 local Types = require(StyleSheetRoot.Rules.Types)
 local createStyleSheetRules = require(StyleSheetRoot.createStyleSheetRules)
+local getOverrideAttributes = require(StyleSheetRoot.getOverrideAttributes)
 local useGeneratedRules = require(Foundation.Utility.useGeneratedRules)
 
 local Device = require(Foundation.Enums.Device)
@@ -12,6 +14,7 @@ local Theme = require(Foundation.Enums.Theme)
 
 type Theme = Theme.Theme
 type Device = Device.Device
+type TokenOverrides = Tokens.TokenOverrides
 type StyleRule = Types.StyleRule
 type StyleAttribute<T> = Types.StyleAttribute<T>
 type AttributesCache = createStyleSheetRules.AttributesCache
@@ -23,6 +26,7 @@ type StyleSheetProps = {
 	tags: { [string]: boolean },
 	derives: { StyleSheet }?,
 	setStyleSheetRef: { current: ((StyleSheet?) -> ()) | nil }?,
+	tokenOverrides: TokenOverrides?,
 }
 
 local function StyleSheet(props: StyleSheetProps)
@@ -46,13 +50,24 @@ local function StyleSheet(props: StyleSheetProps)
 		-- There is no removeDerives, a new call overwrites the old one.
 	end, { sheet, props.derives } :: { unknown })
 
+	local overrideAttributes = React.useMemo(function()
+		return getOverrideAttributes(props.theme, props.device, props.tokenOverrides)
+	end, { props.theme, props.device, props.tokenOverrides } :: { unknown })
+
 	local styleRules = React.useMemo(function()
 		if sheet then
-			return createStyleSheetRules(rules, props.tags, sheet :: any, attributesCache.current, props.scale)
+			return createStyleSheetRules(
+				rules,
+				props.tags,
+				sheet :: any,
+				attributesCache.current,
+				props.scale,
+				overrideAttributes
+			)
 		else
 			return nil
 		end
-	end, { sheet, rules, props.tags, props.scale } :: { unknown })
+	end, { sheet, rules, props.tags, props.scale, overrideAttributes } :: { unknown })
 
 	return React.createElement(React.Fragment, nil, {
 		FoundationStyleSheet = React.createElement("StyleSheet", {

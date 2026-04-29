@@ -34,8 +34,12 @@ PROTO_1:
        27 LOADB                            R0 0 +1
        28 LOADB                            R0 1
        29 RETURN                           R0 1
-       30 LOADB                            R0 0
-       31 RETURN                           R0 1
+       30 GETUPVAL                         R0 1
+       31 JUMPIFNOTEQKS                    R0 K4 ["InputBinding"] ; [+3]
+       33 LOADB                            R0 1
+       34 RETURN                           R0 1
+       35 LOADB                            R0 0
+       36 RETURN                           R0 1
 
 PROTO_2:
         0 GETUPVAL                         R0 0

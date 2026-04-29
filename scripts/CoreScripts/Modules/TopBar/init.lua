@@ -23,6 +23,10 @@ local Rodux = require(CorePackages.Packages.Rodux)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
+local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
+local RoactAppPolicy = UniversalAppPolicy.RoactAppPolicy
+local AppFeaturePolicies = UniversalAppPolicy.AppFeaturePolicies
+
 local StyleConstants = UIBlox.App.Style.Constants
 local Display = require(CorePackages.Workspace.Packages.Display)
 local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
@@ -54,6 +58,8 @@ local FFlagTopBarDeprecateGamepadNavigationDialogRodux = require(script.Flags.FF
 local FFlagTopBarDeprecateChatRodux = require(script.Flags.FFlagTopBarDeprecateChatRodux)
 local FFlagTopBarDeprecateDisplayOptionsRodux = require(script.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
 local FFlagTopBarRefactor = require(CorePackages.Workspace.Packages.InExperienceTopBar).Flags.FFlagTopBarRefactor
+
+local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
 
 if ChromeEnabled then
 	local function SetGlobalGuiInset()
@@ -210,9 +216,13 @@ function TopBar.new()
 		store = self.store,
 	}, {
 		PolicyProvider = Roact.createElement(
-			TopBarAppPolicy.Provider,
+			if FFlagTopBarRefactor and FFlagAddTopBarPoliciesToUniversalPolicies
+				then RoactAppPolicy.Provider
+				else TopBarAppPolicy.Provider,
 			{
-				policy = { TopBarAppPolicy.Mapper },
+				policy = if FFlagTopBarRefactor and FFlagAddTopBarPoliciesToUniversalPolicies
+					then { AppFeaturePolicies }
+					else { TopBarAppPolicy.Mapper },
 			},
 			wrapWithUiModeStyleProvider({
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {

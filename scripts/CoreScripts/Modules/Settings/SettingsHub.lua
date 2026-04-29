@@ -90,7 +90,6 @@ local SETTINGS_HUB_MOUSE_OVERRIDE_KEY = Symbol.named("SettingsHubCursorOverride"
 
 local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScreen() and 24 or 26)
 
-local BOTTOM_BUTTON_BAR_HEIGHT = 80
 local BOTTOM_BUTTON_10FT_SIZE = 72
 
 local CHECK_LEAVE_GAME_UPSELL_COOLDOWN = game:DefineFastInt("CheckLeaveGameUpsellCooldown", 300)
@@ -112,8 +111,7 @@ local Flags = {
 	GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification),
 	FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)(),
 	isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled),
-	GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage),
-	GetFFlagMuteButtonRaceConditionFix = require(RobloxGui.Modules.Flags.GetFFlagMuteButtonRaceConditionFix),
+
 	GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint),
 	GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions),
 
@@ -156,15 +154,15 @@ local Flags = {
 	FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix,
 	FFlagEnableSettingsHubUIDelegateRollout = SharedFlags.FFlagEnableSettingsHubUIDelegateRollout,
 	FFlagAddIEMProfilePage = SharedFlags.FFlagAddIEMProfilePage,
+	FFlagFixSpatialUICaptures = SharedFlags.FFlagFixSpatialUICaptures,
+	FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry,
 	FFlagSetUnibarShortcutOnTopBarFocus = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagSetUnibarShortcutOnTopBarFocus,
 
 	FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton,
 	FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory,
-	FFlagTraversalLeaveArrowDown = Traversal.Flags.FFlagTraversalLeaveArrowDown,
 	FFlagTraversalPerfFixes = Traversal.Flags.FFlagTraversalPerfFixes,
 
 	FFlagCreateInExperienceMenuReact = SettingsFlags.FFlagCreateInExperienceMenuReact,
-	FFlagFixFocusNavToButtonsWithIEMReact = game:DefineFastFlag("FixFocusNavToButtonsWithIEMReact", false),
 	FFlagEnableSystemScrimInSettingsHub = game:DefineFastFlag("EnableSystemScrimInSettingsHub", false),
 
 	FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure,
@@ -172,7 +170,6 @@ local Flags = {
 
 	FFlagMenuButtonsCheckVisibilityBeforeMount = true ,
 
-	FFlagFixSpatialUICaptures = game:DefineFastFlag("FixSpatialUICaptures", false),
 	FFlagMenuButtonsSkipAnimation = game:DefineFastFlag("MenuButtonsSkipAnimation", false),
 	FFlagAddAbilityToDisableIGMScroll = SharedFlags.FFlagAddAbilityToDisableIGMScroll,
 }
@@ -371,7 +368,7 @@ local function createReactPage(parent: GuiObject?): GuiObject
 		Name = 'InExperienceMenuPage',
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(0, 0),
-		Visible = if Flags.FFlagFixFocusNavToButtonsWithIEMReact then false else nil,
+		Visible = false ,
 		Parent = parent,
 	}
 end
@@ -799,18 +796,16 @@ local function CreateSettingsHub()
 					this.hasMicPermissions = response.hasMicPermissions
 				end
 				getCamMicPermissions(callback, nil, true, "PermissionsButtons.getPermissions")
-				if Flags.GetFFlagMuteButtonRaceConditionFix() then
-					muteChangedEvent = VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
-						this.isMuted = muted
-						this.lastVoiceRecordingIndicatorTextUpdated = tick()
-						this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
-						if this.isMuted then
-							this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOff", "Mic Off")
-						else
-							this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
-						end
-					end)
-				end
+				muteChangedEvent = VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
+					this.isMuted = muted
+					this.lastVoiceRecordingIndicatorTextUpdated = tick()
+					this.voiceRecordingIndicatorTextMotor:setGoal(Otter.instant(0))
+					if this.isMuted then
+						this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOff", "Mic Off")
+					else
+						this.VoiceRecordingText.Text = tryTranslate("InGame.CommonUI.Label.MicOnRecording", "Mic On (recording audio)")
+					end
+				end)
 			end
 			local function hideUI()
 				this.VoiceRecordingText.Visible = false
@@ -1025,6 +1020,9 @@ local function CreateSettingsHub()
 			currentPageChangeSignal = if SettingsFlags.FFlagAddTraversalHistoryReactMenuButtons then this.CurrentPageSignal else nil,
 			setResumeMenuButton = if Flags.FFlagIEMFocusNavSupportNewButtons then function(button: GuiObject?)
 				this.ResumeMenuButton = button
+				if Flags.FFlagIEMFocusNavSupportNewButtons and (not GuiService.SelectedCoreObject or not GuiService.SelectedCoreObject:IsDescendantOf(this.Shield)) then
+					GuiService.SelectedCoreObject = button
+				end
 			end else nil,
 		}))
 		end
@@ -1424,32 +1422,30 @@ local function CreateSettingsHub()
 			Selectable = false
 		}
 
-		if Theme.EnableDarkenBackground then
-			if Flags.FFlagSettingsHubIndependentBackgroundVisibility then
-				this.DarkenBackground = Create("ImageButton")
-				{
-					Name = 'DarkenBackground',
-					ZIndex = this.Shield.ZIndex-1,
-					BackgroundTransparency = 1,
-					BackgroundColor3 = if Flags.isInExperienceUIVREnabled
-						then this.SettingsUIDelegate:getDarkBackgroundTheme().Color
-						else Theme.color("DarkenBackground"),
-					Size = UDim2.new(1,0,1,0),
-					Parent = this.ClippingShield,
-					AutoButtonColor = false,
-					Visible = false,
-				}
-			else
-				this.DarkenBackground = Create("Frame")
-				{
-					Name = 'DarkenBackground',
-					ZIndex = this.Shield.ZIndex-1,
-					BackgroundTransparency = 1,
-					BackgroundColor3 = Theme.color("DarkenBackground"),
-					Size = UDim2.new(1,0,1,0),
-					Parent = this.ClippingShield,
-				}
-			end
+		if Flags.FFlagSettingsHubIndependentBackgroundVisibility then
+			this.DarkenBackground = Create("ImageButton")
+			{
+				Name = 'DarkenBackground',
+				ZIndex = this.Shield.ZIndex-1,
+				BackgroundTransparency = 1,
+				BackgroundColor3 = if Flags.isInExperienceUIVREnabled
+					then this.SettingsUIDelegate:getDarkBackgroundTheme().Color
+					else Theme.color("DarkenBackground"),
+				Size = UDim2.new(1,0,1,0),
+				Parent = this.ClippingShield,
+				AutoButtonColor = false,
+				Visible = false,
+			}
+		else
+			this.DarkenBackground = Create("Frame")
+			{
+				Name = 'DarkenBackground',
+				ZIndex = this.Shield.ZIndex-1,
+				BackgroundTransparency = 1,
+				BackgroundColor3 = Theme.color("DarkenBackground"),
+				Size = UDim2.new(1,0,1,0),
+				Parent = this.ClippingShield,
+			}
 		end
 
 		local menuPos = Theme.MenuContainerPosition(this.SettingsUIDelegate)
@@ -1509,55 +1505,6 @@ local function CreateSettingsHub()
 				Parent = this.MenuContainer,
 			}
 
-			if Theme.EnableVerticalBottomBar then
-				this.MainColumn = Create'Frame'
-				{
-					Name = 'MainColumn',
-					BackgroundTransparency =1,
-					Position = menuPos.Position,
-					Size = menuPos.Size,
-					AutomaticSize =Enum.AutomaticSize.XY,
-					Parent = this.MenuContainer
-				}
-
-				menuParent = this.MainColumn
-
-				this.VerticalMenuDivider = Create'Frame'
-				{
-					Name = 'VerticalMenuDivider',
-					BackgroundTransparency = Theme.transparency("Divider"),
-					BackgroundColor3 = Theme.color("Divider"),
-					Size = UDim2.new(0,1, 1, -100),
-					Visible = true,
-					Parent = this.MenuContainer
-				}
-				this.VerticalMenu = Create'Frame'
-				{
-					Name = 'VerticalMenu',
-					BackgroundTransparency =1,
-					Size = UDim2.new(0, Theme.VerticalMenuWidth, 0, 100),
-					Visible = false,
-					Parent = this.MenuContainer
-				}
-				Create'UIListLayout'
-				{
-					Name = "MenuListLayout",
-					Padding = UDim.new(0, 10),
-					FillDirection = Enum.FillDirection.Vertical,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					Parent = this.VerticalMenu
-				}
-
-				this.MenuListLayout = Create'UIListLayout'
-				{
-					Name = "MenuListLayout",
-					FillDirection = Enum.FillDirection.Horizontal,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Parent = this.MenuContainer
-				}
-			end
 		end
 
 		local setMicPermissionsCallback = function(response)
@@ -1569,7 +1516,14 @@ local function CreateSettingsHub()
 		this.SettingsShowSignal:connect(function(isOpen)
 			if isOpen then
 					if VoiceChatServiceManager:IsSeamlessVoice() and not VoiceChatServiceManager.voiceUIVisible then
-						VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId("shown", VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true))
+						if Flags.FFlagVoiceRewarmTelemetry then
+							local universeId, placeId, playSessionId, voiceSessionId = VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true)
+							VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
+								"shown", universeId, placeId, playSessionId, voiceSessionId, VoiceChatServiceManager.joinVoiceButtonContext
+							)
+						else
+							VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEventWithVoiceSessionId("shown", VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true))
+						end
 					elseif VoiceChatServiceManager:IsSeamlessVoice() and VoiceChatServiceManager.voiceUIVisible then
 						VoiceChatServiceManager.Analytics:reportLeaveVoiceButtonEvent("shown", VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true))
 					end
@@ -1822,33 +1776,6 @@ local function CreateSettingsHub()
 		};
 		this.PageView.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
 
-		this.lastPageViewCanvasPosition = this.PageView.CanvasPosition
-		this.handelPageViewScroll = function()
-			local lastPosY = math.clamp(this.lastPageViewCanvasPosition.Y, 0, this.PageView.MaxCanvasPosition.Y)
-			local newPosY = math.clamp(this.PageView.CanvasPosition.Y, 0, this.PageView.MaxCanvasPosition.Y)
-			local diffY = lastPosY - newPosY
-			if math.abs(diffY) > 5 then
-				if diffY < 0 then
-					-- User is scrolling down
-					this:animateOutBottomBar()
-				else
-					-- User is scrolling up
-					this:animateInBottomBar()
-				end
-				this.lastPageViewCanvasPosition = Vector2.new(this.PageView.CanvasPosition.x, newPosY)
-			end
-		end
-
-		this.pageViewScrollChangeCon = nil
-		if Theme.UseStickyBar() then
-			this.PageView.AutomaticCanvasSize = Enum.AutomaticSize.Y
-			if utility:IsPortrait() == false then
-				this.defaultPageViewClipperSize = nil
-				this.showStickyBottomBar = true
-				this.pageViewScrollChangeCon = this.PageView:GetPropertyChangedSignal("CanvasPosition"):connect(this.handelPageViewScroll)
-			end
-		end
-
 		this.PageViewInnerFrame = Create'Frame'
 		{
 			Name = "PageViewInnerFrame",
@@ -1887,20 +1814,6 @@ local function CreateSettingsHub()
 			Visible = false,
 			Parent = this.PageViewInnerFrame
 		}
-
-		if Theme.UseStickyBar() then
-			this.PageView.AutomaticCanvasSize = Enum.AutomaticSize.Y
-			Create'UIListLayout'
-			{
-				FillDirection = Enum.FillDirection.Vertical,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Parent = this.PageView,
-			}
-			this.PageViewInnerFrame.AutomaticSize = Enum.AutomaticSize.Y
-			this.PageViewInnerFrame.ClipsDescendants = false
-		end
 
 		if UserInputService.MouseEnabled then
 			this.PageViewClipper.Size = UDim2.new(this.HubBar.Size.X.Scale,this.HubBar.Size.X.Offset,
@@ -2127,84 +2040,26 @@ local function CreateSettingsHub()
 		end
 
 		do
-		this.HubBarContainer = Create'ImageLabel'
-		{
-			Name = "HubBarContainer",
-			ZIndex = this.Shield.ZIndex + 2,
-			BorderSizePixel = 0,
-			BackgroundColor3 = Theme.color("HubBarContainer"),
-			BackgroundTransparency = Theme.transparency("HubBarContainerTransparency"),
-			Size = if Theme.ShowHomeButton then UDim2.new(1, -70, 1, 0) else UDim2.new(1, 0, 1, 0),
-			Position = if Theme.ShowHomeButton then UDim2.new(0, 70, 0, 0) else UDim2.new(0, 0, 0, 0),
-			Parent = if Flags.FFlagAddSwitchTabHintsToIEM then this.TabHeaderContainer else this.HubBar,
-			Selectable = if Flags.FFlagIEMTabFocusNav then false else nil,
-			SelectionGroup = if Flags.FFlagIEMTabFocusNav then true else nil,
-			SelectionBehaviorUp = if Flags.FFlagIEMTabFocusNav then Enum.SelectionBehavior.Stop else nil,
-			SelectionBehaviorLeft = if Flags.FFlagIEMTabFocusNav then Enum.SelectionBehavior.Stop else nil,
-			SelectionBehaviorRight = if Flags.FFlagIEMTabFocusNav then Enum.SelectionBehavior.Stop else nil,
-		}
+			this.HubBarContainer = Create'ImageLabel'
+			{
+				Name = "HubBarContainer",
+				ZIndex = this.Shield.ZIndex + 2,
+				BorderSizePixel = 0,
+				BackgroundColor3 = Theme.color("HubBarContainer"),
+				BackgroundTransparency = Theme.transparency("HubBarContainerTransparency"),
+				Size = UDim2.new(1, 0, 1, 0),
+				Position = UDim2.new(0, 0, 0, 0),
+				Parent = if Flags.FFlagAddSwitchTabHintsToIEM then this.TabHeaderContainer else this.HubBar,
+				Selectable = if Flags.FFlagIEMTabFocusNav then false else nil,
+				SelectionGroup = if Flags.FFlagIEMTabFocusNav then true else nil,
+				SelectionBehaviorUp = if Flags.FFlagIEMTabFocusNav then Enum.SelectionBehavior.Stop else nil,
+				SelectionBehaviorLeft = if Flags.FFlagIEMTabFocusNav then Enum.SelectionBehavior.Stop else nil,
+				SelectionBehaviorRight = if Flags.FFlagIEMTabFocusNav then Enum.SelectionBehavior.Stop else nil,
+			}
 
 			this.HubBar.ImageTransparency = 1
 			this.HubBarListLayout.Parent = this.HubBarContainer
 
-			if Theme.ShowHomeButton then
-				this.HubBarHomeButton = Create'ImageButton'
-				{
-					Name = "HubBarHomeButton",
-					ZIndex = this.Shield.ZIndex + 2,
-					BorderSizePixel = 0,
-					AutoButtonColor = false,
-					BackgroundColor3 = Theme.color("HubBarHomeButton"),
-					BackgroundTransparency = Theme.transparency("HubBarHomeButtonTransparency"),
-					Size = UDim2.new(1, 0, 1, 0),
-					Position = UDim2.new(0, 0, 0, 0),
-					Parent = this.HubBar
-				}
-				Create'UICorner'
-				{
-					CornerRadius = Theme.DefaultCornerRadius,
-					Parent = this.HubBarHomeButton,
-				}
-				this.HubBarHomeButtonAspectRatio = Create'UIAspectRatioConstraint'
-				{
-					AspectRatio = 1,
-					DominantAxis = Enum.DominantAxis.Height,
-					Parent = this.HubBarHomeButton
-				}
-				this.HubBarHomeButtonIcon = Create'ImageLabel'
-				{
-					Name = "HubBarHomeButtonIcon",
-					ZIndex = this.Shield.ZIndex + 3,
-					BorderSizePixel = 0,
-					BackgroundTransparency = 1,
-					Image = "rbxasset://textures/ui/Settings/MenuBarIcons/HomeTab.png",
-					Size = UDim2.new(0.7,0,0.7,0),
-					Position = UDim2.new(0.16,0,0.18,0),
-					Parent = this.HubBarHomeButton
-				}
-				this.HubBarHomeButton:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
-					local newWidth = this.HubBarHomeButton.AbsoluteSize.X + 10
-					this.HubBarContainer.Size = UDim2.new(1, -newWidth, 1, 0)
-					this.HubBarContainer.Position = UDim2.new(0, newWidth, 0, 0)
-				end)
-				this.HubBarHomeButton.MouseEnter:Connect(function()
-					this.HubBarHomeButton.BackgroundColor3 = Theme.color("HubBarHomeButtonHover")
-					this.HubBarHomeButton.BackgroundTransparency = Theme.transparency("HubBarHomeButtonTransparencyHover")
-				end)
-				this.HubBarHomeButton.MouseLeave:Connect(function()
-					this.HubBarHomeButton.BackgroundColor3 = Theme.color("HubBarHomeButton")
-					this.HubBarHomeButton.BackgroundTransparency = Theme.transparency("HubBarHomeButtonTransparency")
-				end)
-
-				local leaveToHomeFunc = function()
-					this:AddToMenuStack(this.Pages.CurrentPage)
-					this.HubBar.Visible = false
-					removeBottomBarBindings()
-					this:SwitchToPage(this.LeaveGameToHomePage, nil, 1, true)
-				end
-
-				this.HubBarHomeButton.Activated:Connect(leaveToHomeFunc)
-			end
 		end
 
 		if isSubjectToDesktopPolicies() then
@@ -2333,15 +2188,6 @@ local function CreateSettingsHub()
 			end
 		end
 
-		if Theme.EnableVerticalBottomBar then
-			this.VerticalMenu.Visible = false
-			this.VerticalMenuDivider.Visible = false
-			for i = 1, #this.BottomBarButtonsComponents do
-				local button = this.BottomBarButtonsComponents[i]
-				button.Parent = this.BottomButtonFrame
-			end
-		end
-
 		if isPortrait then
 			this.HubBar.Position = UDim2.new(0.5, 0, 0, 10)
 			this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-40, 0, 54)
@@ -2349,17 +2195,7 @@ local function CreateSettingsHub()
 			if isTenFootInterface then
 				this.HubBar.Size = UDim2.new(0, 1200, 0, 100)
 			elseif utility:IsSmallTouchScreen() then
-				if Theme.EnableVerticalBottomBar then
-					this.VerticalMenu.Visible = true
-					this.VerticalMenuDivider.Visible = true
-					for i = 1, #this.BottomBarButtonsComponents do
-						local button = this.BottomBarButtonsComponents[i]
-						button.Parent = this.VerticalMenu
-					end
-					this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-60-Theme.VerticalMenuWidth, 0, 52)
-				else
-					this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-60, 0, 52)
-				end
+				this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-60, 0, 52)
 			else
 				if Flags.isInExperienceUIVREnabled then
 					this.HubBar.Size = UDim2.new(0, this.SettingsUIDelegate:getHubBarSize(), 0, 60)
@@ -2530,7 +2366,6 @@ local function CreateSettingsHub()
 		this.ReactPage.Size = UDim2.new(0, this.HubBar.AbsoluteSize.X + paddingX, 0, usePageSize + barSize + paddingY)
 
 		this.PageViewClipper.Size = newPageViewClipperSize
-		this.defaultPageViewClipperSize = newPageViewClipperSize
 		if not isPortrait then
 			this.PageViewClipper.Position = UDim2.new(
 				this.PageViewClipper.Position.X.Scale,
@@ -2542,24 +2377,6 @@ local function CreateSettingsHub()
 			this.PageViewClipper.Position = UDim2.new(0.5, 0, 0, this.HubBar.Position.Y.Offset + this.HubBar.AbsoluteSize.Y)
 		end
 
-		if this.VerticalMenu then
-			this.VerticalMenuDivider.Size = UDim2.new(0, 1, 0, usePageSize + this.HubBar.Size.Y.Offset)
-			this.VerticalMenu.Size = UDim2.new(0, Theme.VerticalMenuWidth, 0, usePageSize + this.HubBar.Size.Y.Offset)
-		end
-
-		if Theme.UseStickyBar() then
-			this.resetPageViewClipperSize = true
-			this.showStickyBottomBar = true
-			if this.pageViewScrollChangeCon then
-				this.pageViewScrollChangeCon:disconnect()
-				this.pageViewScrollChangeCon = nil
-			end
-			if not isPortrait then
-				this.pageViewScrollChangeCon = this.PageView:GetPropertyChangedSignal("CanvasPosition"):connect(this.handelPageViewScroll)
-			end
-
-			resizeBottomBarButtons()
-		end
 	end
 
 	local function onPreferredTransparencyChanged()
@@ -2797,98 +2614,6 @@ local function CreateSettingsHub()
 		end
 	end
 
-	this.bottomBarAnimating = false
-	this.defaultPageViewClipperSize = this.PageViewClipper.Size
-	this.showStickyBottomBar = true
-	this.resetPageViewClipperSize = false
-
-	function animateBottomBarComplete()
-		-- If a resize happened in between a tween, reset the PageViewClipperSize
-		if this.resetPageViewClipperSize then
-			this.PageViewClipper.Size = this.defaultPageViewClipperSize
-			this.resetPageViewClipperSize = false
-		end
-		this.bottomBarAnimating = false
-	end
-
-	function this:animateInBottomBar()
-		if this.bottomBarAnimating or this.showStickyBottomBar == true then
-			return
-		end
-
-		this.bottomBarAnimating = true
-		this.showStickyBottomBar = true
-		this.resetPageViewClipperSize = false
-
-		local targetSize = UDim2.new(
-			this.defaultPageViewClipperSize.X.Scale,
-			this.defaultPageViewClipperSize.X.Offset,
-			this.defaultPageViewClipperSize.Y.Scale,
-			this.defaultPageViewClipperSize.Y.Offset
-		)
-
-		local movementTime = 0.3
-		if featureDeprecateOldGuiObjectProperties then
-			this.PageViewClipper:TweenSizeInternal(
-				targetSize,
-				Enum.EasingDirection.InOut,
-				Enum.EasingStyle.Quart,
-				movementTime,
-				true,
-				animateBottomBarComplete
-			)
-		else
-			this.PageViewClipper:TweenSize(
-				targetSize,
-				Enum.EasingDirection.InOut,
-				Enum.EasingStyle.Quart,
-				movementTime,
-				true,
-				animateBottomBarComplete
-			)
-		end
-		return
-	end
-
-	function this:animateOutBottomBar()
-		if this.bottomBarAnimating or this.showStickyBottomBar == false then
-			return
-		end
-
-		this.bottomBarAnimating = true
-		this.showStickyBottomBar = false
-		this.resetPageViewClipperSize = false
-
-		local targetSize = UDim2.new(
-			this.defaultPageViewClipperSize.X.Scale,
-			this.defaultPageViewClipperSize.X.Offset,
-			this.defaultPageViewClipperSize.Y.Scale,
-			this.defaultPageViewClipperSize.Y.Offset + BOTTOM_BUTTON_BAR_HEIGHT
-		)
-
-		local movementTime = 0.3
-		if featureDeprecateOldGuiObjectProperties then
-			this.PageViewClipper:TweenSizeInternal(
-				targetSize,
-				Enum.EasingDirection.InOut,
-				Enum.EasingStyle.Quart,
-				movementTime,
-				true,
-				animateBottomBarComplete
-			)
-		else
-			this.PageViewClipper:TweenSize(
-				targetSize,
-				Enum.EasingDirection.InOut,
-				Enum.EasingStyle.Quart,
-				movementTime,
-				true,
-				animateBottomBarComplete
-			)
-		end
-		return
-	end
-
 	function this:HideBar()
 		this.HubBar.Visible = false
 		this.PageViewClipper.Visible = false
@@ -2980,25 +2705,21 @@ local function CreateSettingsHub()
 		this.PageViewClipper.ClipsDescendants = isClipped
 		this.PageView.ClipsDescendants = isClipped
 
-		if Theme.UseStickyBar() == false then
-			this.PageViewInnerFrame.ClipsDescendants = isClipped
-		end
+		this.PageViewInnerFrame.ClipsDescendants = isClipped
 
 		this.Pages.CurrentPage = pageToSwitchTo
 		this.Pages.CurrentPage.Active = true
 		this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
 
-		if Theme.UseStickyBar() == false then
-			local pageSize = this.Pages.CurrentPage:GetSize()
-			this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+		local pageSize = this.Pages.CurrentPage:GetSize()
+		this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 
-			pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
-				if prop == "AbsoluteSize" then
-					local pageSize = this.Pages.CurrentPage:GetSize()
-					this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
-				end
-			end)
-		end
+		pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
+			if prop == "AbsoluteSize" then
+				local pageSize = this.Pages.CurrentPage:GetSize()
+				this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+			end
+		end)
 	end
 
 	function this:SwitchToPage(pageToSwitchTo, ignoreStack, direction, skipAnimation, invisibly, eventData)
@@ -3042,18 +2763,7 @@ local function CreateSettingsHub()
 		this.MenuContainer.Size = menuPos.Size
 		this.MenuContainer.AnchorPoint = menuPos.AnchorPoint
 
-		if this.VerticalMenu and not utility:IsPortrait() and utility:IsSmallTouchScreen() then
-			local visible = shouldShowHubBar(pageToSwitchTo)
-			this.VerticalMenu.Visible = visible
-			this.VerticalMenuDivider.Visible = visible
-			if visible then
-				this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-60-Theme.VerticalMenuWidth, 0, 52)
-			else
-				this.HubBar.Size = UDim2.new(0, RobloxGui.AbsoluteSize.X-60, 0, 52)
-			end
-			local cs = this.PageViewClipper.Size
-			this.PageViewClipper.Size = UDim2.new(cs.X.Scale, this.HubBar.Size.X.Offset, cs.Y.Scale, cs.Y.Offset)
-		elseif Flags.FFlagAddNextUpContainer and pageToSwitchTo.ShrinkwrapPageViewClipper then
+		if Flags.FFlagAddNextUpContainer and pageToSwitchTo.ShrinkwrapPageViewClipper then
 			local cs = this.PageViewClipper.Size
 			local pageSize = pageToSwitchTo:GetSize()
 			this.PageViewClipper.Size = UDim2.new(cs.X.Scale, this.HubBar.Size.X.Offset, cs.Y.Scale, pageSize.Y)
@@ -3125,33 +2835,31 @@ local function CreateSettingsHub()
 			end
 		end
 
-		if Theme.UseStickyBar() == false then
-			if Flags.FFlagAddAbilityToDisableIGMScroll then
-				if not shouldDisableDefaultScroll() then
-					local pageSize = this.Pages.CurrentPage:GetSize()
-					this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
-				end
-			else
+		if Flags.FFlagAddAbilityToDisableIGMScroll then
+			if not shouldDisableDefaultScroll() then
 				local pageSize = this.Pages.CurrentPage:GetSize()
 				this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 			end
+		else
+			local pageSize = this.Pages.CurrentPage:GetSize()
+			this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+		end
 
-			pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
-				if prop == "AbsoluteSize" and (not Flags.FFlagAddAbilityToDisableIGMScroll or not shouldDisableDefaultScroll()) then
-					local pageSize = this.Pages.CurrentPage:GetSize()
-					this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
+		pageChangeCon = this.Pages.CurrentPage.Page.Changed:connect(function(prop)
+			if prop == "AbsoluteSize" and (not Flags.FFlagAddAbilityToDisableIGMScroll or not shouldDisableDefaultScroll()) then
+				local pageSize = this.Pages.CurrentPage:GetSize()
+				this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 
-					if Flags.FFlagAddNextUpContainer then
-						if this.Pages.CurrentPage.ShrinkwrapPageViewClipper then
-							onScreenSizeChanged()
-						end
+				if Flags.FFlagAddNextUpContainer then
+					if this.Pages.CurrentPage.ShrinkwrapPageViewClipper then
+						onScreenSizeChanged()
 					end
 				end
-			end)
-
-			if this.MenuStack[#this.MenuStack] ~= this.Pages.CurrentPage and not ignoreStack then
-				this.MenuStack[#this.MenuStack + 1] = this.Pages.CurrentPage
 			end
+		end)
+
+		if this.MenuStack[#this.MenuStack] ~= this.Pages.CurrentPage and not ignoreStack then
+			this.MenuStack[#this.MenuStack + 1] = this.Pages.CurrentPage
 		end
 
 		if Flags.FFlagAddNextUpContainer then
@@ -3768,13 +3476,6 @@ local function CreateSettingsHub()
 				lastInputChangedCon:disconnect()
 			end
 
-			if Theme.UseStickyBar() then
-				if this.pageViewScrollChangeCon then
-					this.pageViewScrollChangeCon:disconnect()
-					this.pageViewScrollChangeCon = nil
-				end
-			end
-
 			if Flags.isInExperienceUIVREnabled then
 				if not Flags.InExperienceUIVRIXP:isMovePanelToCenter() and not VRService.VREnabled then
 					playerList:HideTemp('SettingsMenu', false)
@@ -3945,14 +3646,11 @@ local function CreateSettingsHub()
 		if this.reactPage then
 			this.reactPageAnalytics:closePage(this.reactPage.name)
 		end
-		local reactPageVisible
-		if Flags.FFlagFixFocusNavToButtonsWithIEMReact then
-			reactPageVisible = this.ReactPage.Visible
-		end
+		local reactPageVisible = this.ReactPage.Visible
 		this.ReactPage.Visible = false
 		this.Page.Visible = true
 		if Flags.FFlagCreateInExperienceMenuReact and Flags.FFlagIEMFocusNavToButtons and this.Pages.CurrentPage then
-			if not Flags.FFlagFixFocusNavToButtonsWithIEMReact or (reactPageVisible and this.Visible) then
+			if reactPageVisible and this.Visible then
 				this.Pages.CurrentPage:SelectARow(true)
 			end
 		end
@@ -4096,10 +3794,8 @@ local function CreateSettingsHub()
 	this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
 	this.ReportAbusePage:SetHub(this)
 
-	if Flags.GetFFlagAbuseReportEnableReportSentPage() then
-		this.ReportSentPage = require(RobloxGui.Modules.Settings.Pages.ReportSentPage)
-		this.ReportSentPage:SetHub(this)
-	end
+	this.ReportSentPage = require(RobloxGui.Modules.Settings.Pages.ReportSentPage)
+	this.ReportSentPage:SetHub(this)
 
 	this.ReportSentPageV2 = require(RobloxGui.Modules.Settings.Pages.ReportSentPageV2)
 	this.ReportSentPageV2:SetHub(this)
@@ -4435,7 +4131,7 @@ local function CreateSettingsHub()
 			}, {
 				TraversalHistoryMenu = React.createElement(TraversalHistoryMenu, {
 					anchorParent = leaveButtonMobile,
-					idleButtonStateIsDown = if Flags.FFlagTraversalLeaveArrowDown then true else false,
+					idleButtonStateIsDown = true ,
 					currentPageChangeSignal = this.CurrentPageSignal,
 				}),
 			}),

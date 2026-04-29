@@ -5,7 +5,6 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local getFIntUGCValidationDynamicHeadMinimumQualityPercent =
 	require(root.flags.getFIntUGCValidationDynamicHeadMinimumQualityPercent)
 
-local getFFlagUGCValidationUpdateHeadIsDynamic = require(root.flags.getFFlagUGCValidationUpdateHeadIsDynamic)
 local getFFlagUGCValidationAddGeometryToExports = require(root.flags.getFFlagUGCValidationAddGeometryToExports)
 
 local HeadIsDynamic = {}
@@ -17,18 +16,11 @@ HeadIsDynamic.expectedAqsData = {
 	Measure_Dynamic_Head = {},
 }
 
-HeadIsDynamic.knownAqsUserErrors = {}
-if getFFlagUGCValidationUpdateHeadIsDynamic() then
-	HeadIsDynamic.knownAqsUserErrors = {
-		INVALID_LANDMARKS = ErrorSourceStrings.Keys.DynamicHeadCageMisaligned,
-		NO_FACS = ErrorSourceStrings.Keys.DynamicHeadNOFACS,
-		MISSING_CAGE_INFO = ErrorSourceStrings.Keys.DynamicHeadMISSINGCAGE,
-	}
-else
-	HeadIsDynamic.knownAqsUserErrors = {
-		INVALID_LANDMARKS = ErrorSourceStrings.Keys.DynamicHeadCageMisaligned,
-	}
-end
+HeadIsDynamic.knownAqsUserErrors = {
+	INVALID_LANDMARKS = ErrorSourceStrings.Keys.DynamicHeadCageMisaligned,
+	NO_FACS = ErrorSourceStrings.Keys.DynamicHeadNOFACS,
+	MISSING_CAGE_INFO = ErrorSourceStrings.Keys.DynamicHeadMISSINGCAGE,
+}
 
 local head_metric: { [string]: string } = {
 	left_eye_close = ErrorSourceStrings.Keys.DynamicHeadLeftEyeNotClose,
@@ -47,25 +39,16 @@ HeadIsDynamic.run = function(reporter: Types.ValidationReporter, data: Types.Sha
 		dynamicHeadScores = data.aqsSummaryData.Measure_Dynamic_Head.Head
 	end
 
-	if getFFlagUGCValidationUpdateHeadIsDynamic() then
-		if dynamicHeadScores == nil then
-			reporter:fail(ErrorSourceStrings.Keys.AQSInputDataError)
-		else
-			for metric, error_enum in head_metric do
-				if
-					dynamicHeadScores[metric] ~= nil
-					and tonumber(dynamicHeadScores[metric])
-						<= getFIntUGCValidationDynamicHeadMinimumQualityPercent() / 100
-				then
-					reporter:fail(error_enum)
-				end
-			end
-		end
+	if dynamicHeadScores == nil then
+		reporter:fail(ErrorSourceStrings.Keys.AQSInputDataError)
 	else
-		for _metric, score in dynamicHeadScores do
-			if tonumber(score) < getFIntUGCValidationDynamicHeadMinimumQualityPercent() / 100 then
-				reporter:fail(ErrorSourceStrings.Keys.HeadNotDynamic)
-				break
+		for metric, error_enum in head_metric do
+			if
+				dynamicHeadScores[metric] ~= nil
+				and tonumber(dynamicHeadScores[metric])
+					<= getFIntUGCValidationDynamicHeadMinimumQualityPercent() / 100
+			then
+				reporter:fail(error_enum)
 			end
 		end
 	end

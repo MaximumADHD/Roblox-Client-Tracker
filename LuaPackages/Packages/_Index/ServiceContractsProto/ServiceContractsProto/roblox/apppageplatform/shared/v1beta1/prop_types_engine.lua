@@ -37,6 +37,9 @@ type _Messages = {
 	SelectionBehaviorProp: _SelectionBehaviorPropMessage,
 	SelectionBehaviorProp_ConditionalOption: _SelectionBehaviorProp_ConditionalOptionMessage,
 	SelectionBehaviorProp_ConditionalOptions: _SelectionBehaviorProp_ConditionalOptionsMessage,
+	KeyCodeProp: _KeyCodePropMessage,
+	KeyCodeProp_ConditionalOption: _KeyCodeProp_ConditionalOptionMessage,
+	KeyCodeProp_ConditionalOptions: _KeyCodeProp_ConditionalOptionsMessage,
 	VerticalAlignmentProp: _VerticalAlignmentPropMessage,
 	VerticalAlignmentProp_ConditionalOption: _VerticalAlignmentProp_ConditionalOptionMessage,
 	VerticalAlignmentProp_ConditionalOptions: _VerticalAlignmentProp_ConditionalOptionsMessage,
@@ -51,6 +54,7 @@ type _Messages = {
 	HorizontalAlignment: _HorizontalAlignmentMessage,
 	VerticalAlignment: _VerticalAlignmentMessage,
 	SelectionBehavior: _SelectionBehaviorMessage,
+	KeyCode: _KeyCodeMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -916,6 +920,91 @@ type _SelectionBehaviorProp_ConditionalOptionsMessage = proto.Message<
 	_SelectionBehaviorProp_ConditionalOptionsPartialFields
 >
 
+type _KeyCodePropImpl = {
+	__index: _KeyCodePropImpl,
+	new: (fields: _KeyCodePropPartialFields?) -> KeyCodeProp,
+	encode: (self: KeyCodeProp) -> buffer,
+	decode: (input: buffer) -> KeyCodeProp,
+	jsonEncode: (self: KeyCodeProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> KeyCodeProp,
+	descriptor: proto.Descriptor,
+}
+
+type _KeyCodePropFields = {
+	kind: (
+		{ type: "literal", value: KeyCode }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: KeyCodeProp_ConditionalOptions }
+	)?,
+}
+
+type _KeyCodePropPartialFields = {
+	kind: (
+		{ type: "literal", value: KeyCode }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: KeyCodeProp_ConditionalOptions }
+	)?,
+}
+
+export type KeyCodeProp = typeof(setmetatable({} :: _KeyCodePropFields, {} :: _KeyCodePropImpl))
+type _KeyCodePropMessage = proto.Message<KeyCodeProp, _KeyCodePropPartialFields>
+
+type _KeyCodeProp_ConditionalOptionImpl = {
+	__index: _KeyCodeProp_ConditionalOptionImpl,
+	new: (fields: _KeyCodeProp_ConditionalOptionPartialFields?) -> KeyCodeProp_ConditionalOption,
+	encode: (self: KeyCodeProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> KeyCodeProp_ConditionalOption,
+	jsonEncode: (self: KeyCodeProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> KeyCodeProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _KeyCodeProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: KeyCode } | { type: "binding_path", value: string })?,
+}
+
+type _KeyCodeProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: KeyCode } | { type: "binding_path", value: string })?,
+}
+
+export type KeyCodeProp_ConditionalOption = typeof(setmetatable(
+	{} :: _KeyCodeProp_ConditionalOptionFields,
+	{} :: _KeyCodeProp_ConditionalOptionImpl
+))
+type _KeyCodeProp_ConditionalOptionMessage = proto.Message<
+	KeyCodeProp_ConditionalOption,
+	_KeyCodeProp_ConditionalOptionPartialFields
+>
+
+type _KeyCodeProp_ConditionalOptionsImpl = {
+	__index: _KeyCodeProp_ConditionalOptionsImpl,
+	new: (fields: _KeyCodeProp_ConditionalOptionsPartialFields?) -> KeyCodeProp_ConditionalOptions,
+	encode: (self: KeyCodeProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> KeyCodeProp_ConditionalOptions,
+	jsonEncode: (self: KeyCodeProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> KeyCodeProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _KeyCodeProp_ConditionalOptionsFields = {
+	options: { KeyCodeProp_ConditionalOption },
+}
+
+type _KeyCodeProp_ConditionalOptionsPartialFields = {
+	options: { KeyCodeProp_ConditionalOption }?,
+}
+
+export type KeyCodeProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _KeyCodeProp_ConditionalOptionsFields,
+	{} :: _KeyCodeProp_ConditionalOptionsImpl
+))
+type _KeyCodeProp_ConditionalOptionsMessage = proto.Message<
+	KeyCodeProp_ConditionalOptions,
+	_KeyCodeProp_ConditionalOptionsPartialFields
+>
+
 type _VerticalAlignmentPropImpl = {
 	__index: _VerticalAlignmentPropImpl,
 	new: (fields: _VerticalAlignmentPropPartialFields?) -> VerticalAlignmentProp,
@@ -1089,6 +1178,21 @@ export type SelectionBehavior =
 	"SELECTION_BEHAVIOR_INVALID"
 	| "SELECTION_BEHAVIOR_ESCAPE"
 	| "SELECTION_BEHAVIOR_STOP"
+	| number -- Unknown
+
+type _KeyCodeMessage = proto.Enum<KeyCode>
+export type KeyCode =
+	"KEY_CODE_INVALID"
+	| "KEY_CODE_BUTTON_A"
+	| "KEY_CODE_BUTTON_B"
+	| "KEY_CODE_BUTTON_X"
+	| "KEY_CODE_BUTTON_Y"
+	| "KEY_CODE_BUTTON_L1"
+	| "KEY_CODE_BUTTON_R1"
+	| "KEY_CODE_BUTTON_L2"
+	| "KEY_CODE_BUTTON_R2"
+	| "KEY_CODE_BUTTON_L3"
+	| "KEY_CODE_BUTTON_R3"
 	| number -- Unknown
 
 do
@@ -5278,6 +5382,414 @@ do
 end
 
 do
+	local _KeyCodePropImpl = {}
+	_KeyCodePropImpl.__index = _KeyCodePropImpl
+
+	function _KeyCodePropImpl.new(data: _KeyCodePropPartialFields?): KeyCodeProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _KeyCodePropImpl :: _KeyCodePropImpl)
+	end
+
+	function _KeyCodePropImpl.encode(self: KeyCodeProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+				output, cursor = proto.writeVarInt(output, cursor, messages.KeyCode.toNumber(self.kind.value :: any))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _KeyCodePropImpl.decode(input: buffer): KeyCodeProp
+		local self = _KeyCodePropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = (messages.KeyCode.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]],
+					}
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "conditional", value = messages.KeyCodeProp_ConditionalOptions.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _KeyCodePropImpl.jsonEncode(self: KeyCodeProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = if typeof(self.kind.value) == "number"
+					then self.kind.value
+					else messages.KeyCode.toNumber(self.kind.value :: any)
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _KeyCodePropImpl.jsonDecode(input: { [string]: any }): KeyCodeProp
+		local self = _KeyCodePropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = if typeof(input.literal) == "number"
+					then (messages.KeyCode.fromNumber(input.literal) or input.literal)
+					else (messages.KeyCode.fromName(input.literal) or input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind =
+				{ type = "conditional", value = messages.KeyCodeProp_ConditionalOptions.jsonDecode(input.conditional) }
+		end
+
+		return self
+	end
+
+	_KeyCodePropImpl.descriptor = {
+		name = "KeyCodeProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.KeyCodeProp",
+	}
+
+	messages.KeyCodeProp = _KeyCodePropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.KeyCodeProp)
+end
+
+do
+	local _KeyCodeProp_ConditionalOptionImpl = {}
+	_KeyCodeProp_ConditionalOptionImpl.__index = _KeyCodeProp_ConditionalOptionImpl
+
+	function _KeyCodeProp_ConditionalOptionImpl.new(
+		data: _KeyCodeProp_ConditionalOptionPartialFields?
+	): KeyCodeProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _KeyCodeProp_ConditionalOptionImpl :: _KeyCodeProp_ConditionalOptionImpl)
+	end
+
+	function _KeyCodeProp_ConditionalOptionImpl.encode(self: KeyCodeProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+				output, cursor = proto.writeVarInt(output, cursor, messages.KeyCode.toNumber(self.kind.value :: any))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _KeyCodeProp_ConditionalOptionImpl.decode(input: buffer): KeyCodeProp_ConditionalOption
+		local self = _KeyCodeProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = (messages.KeyCode.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]],
+					}
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _KeyCodeProp_ConditionalOptionImpl.jsonEncode(self: KeyCodeProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = if typeof(self.kind.value) == "number"
+					then self.kind.value
+					else messages.KeyCode.toNumber(self.kind.value :: any)
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _KeyCodeProp_ConditionalOptionImpl.jsonDecode(input: { [string]: any }): KeyCodeProp_ConditionalOption
+		local self = _KeyCodeProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = if typeof(input.literal) == "number"
+					then (messages.KeyCode.fromNumber(input.literal) or input.literal)
+					else (messages.KeyCode.fromName(input.literal) or input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_KeyCodeProp_ConditionalOptionImpl.descriptor = {
+		name = "KeyCodeProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.KeyCodeProp_ConditionalOption = _KeyCodeProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.KeyCodeProp_ConditionalOption)
+end
+
+do
+	local _KeyCodeProp_ConditionalOptionsImpl = {}
+	_KeyCodeProp_ConditionalOptionsImpl.__index = _KeyCodeProp_ConditionalOptionsImpl
+
+	function _KeyCodeProp_ConditionalOptionsImpl.new(
+		data: _KeyCodeProp_ConditionalOptionsPartialFields?
+	): KeyCodeProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _KeyCodeProp_ConditionalOptionsImpl :: _KeyCodeProp_ConditionalOptionsImpl)
+	end
+
+	function _KeyCodeProp_ConditionalOptionsImpl.encode(self: KeyCodeProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _KeyCodeProp_ConditionalOptionsImpl.decode(input: buffer): KeyCodeProp_ConditionalOptions
+		local self = _KeyCodeProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.KeyCodeProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _KeyCodeProp_ConditionalOptionsImpl.jsonEncode(self: KeyCodeProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _KeyCodeProp_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): KeyCodeProp_ConditionalOptions
+		local self = _KeyCodeProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { KeyCodeProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.KeyCodeProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_KeyCodeProp_ConditionalOptionsImpl.descriptor = {
+		name = "KeyCodeProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.KeyCodeProp_ConditionalOptions = _KeyCodeProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.KeyCodeProp_ConditionalOptions)
+end
+
+do
 	local _VerticalAlignmentPropImpl = {}
 	_VerticalAlignmentPropImpl.__index = _VerticalAlignmentPropImpl
 
@@ -6204,6 +6716,92 @@ messages.SelectionBehavior = {
 	end,
 }
 
+messages.KeyCode = {
+	fromNumber = function(value: number): KeyCode?
+		if value == 0 then
+			return "KEY_CODE_INVALID"
+		elseif value == 1 then
+			return "KEY_CODE_BUTTON_A"
+		elseif value == 2 then
+			return "KEY_CODE_BUTTON_B"
+		elseif value == 3 then
+			return "KEY_CODE_BUTTON_X"
+		elseif value == 4 then
+			return "KEY_CODE_BUTTON_Y"
+		elseif value == 5 then
+			return "KEY_CODE_BUTTON_L1"
+		elseif value == 6 then
+			return "KEY_CODE_BUTTON_R1"
+		elseif value == 7 then
+			return "KEY_CODE_BUTTON_L2"
+		elseif value == 8 then
+			return "KEY_CODE_BUTTON_R2"
+		elseif value == 9 then
+			return "KEY_CODE_BUTTON_L3"
+		elseif value == 10 then
+			return "KEY_CODE_BUTTON_R3"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: KeyCode): number
+		if self == "KEY_CODE_INVALID" then
+			return 0
+		elseif self == "KEY_CODE_BUTTON_A" then
+			return 1
+		elseif self == "KEY_CODE_BUTTON_B" then
+			return 2
+		elseif self == "KEY_CODE_BUTTON_X" then
+			return 3
+		elseif self == "KEY_CODE_BUTTON_Y" then
+			return 4
+		elseif self == "KEY_CODE_BUTTON_L1" then
+			return 5
+		elseif self == "KEY_CODE_BUTTON_R1" then
+			return 6
+		elseif self == "KEY_CODE_BUTTON_L2" then
+			return 7
+		elseif self == "KEY_CODE_BUTTON_R2" then
+			return 8
+		elseif self == "KEY_CODE_BUTTON_L3" then
+			return 9
+		elseif self == "KEY_CODE_BUTTON_R3" then
+			return 10
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): KeyCode?
+		if name == "KEY_CODE_INVALID" then
+			return "KEY_CODE_INVALID"
+		elseif name == "KEY_CODE_BUTTON_A" then
+			return "KEY_CODE_BUTTON_A"
+		elseif name == "KEY_CODE_BUTTON_B" then
+			return "KEY_CODE_BUTTON_B"
+		elseif name == "KEY_CODE_BUTTON_X" then
+			return "KEY_CODE_BUTTON_X"
+		elseif name == "KEY_CODE_BUTTON_Y" then
+			return "KEY_CODE_BUTTON_Y"
+		elseif name == "KEY_CODE_BUTTON_L1" then
+			return "KEY_CODE_BUTTON_L1"
+		elseif name == "KEY_CODE_BUTTON_R1" then
+			return "KEY_CODE_BUTTON_R1"
+		elseif name == "KEY_CODE_BUTTON_L2" then
+			return "KEY_CODE_BUTTON_L2"
+		elseif name == "KEY_CODE_BUTTON_R2" then
+			return "KEY_CODE_BUTTON_R2"
+		elseif name == "KEY_CODE_BUTTON_L3" then
+			return "KEY_CODE_BUTTON_L3"
+		elseif name == "KEY_CODE_BUTTON_R3" then
+			return "KEY_CODE_BUTTON_R3"
+		else
+			return nil
+		end
+	end,
+}
+
 return {
 	AutomaticSizeProp = messages.AutomaticSizeProp,
 	AutomaticSizeProp_ConditionalOption = messages.AutomaticSizeProp_ConditionalOption,
@@ -6235,6 +6833,9 @@ return {
 	SelectionBehaviorProp = messages.SelectionBehaviorProp,
 	SelectionBehaviorProp_ConditionalOption = messages.SelectionBehaviorProp_ConditionalOption,
 	SelectionBehaviorProp_ConditionalOptions = messages.SelectionBehaviorProp_ConditionalOptions,
+	KeyCodeProp = messages.KeyCodeProp,
+	KeyCodeProp_ConditionalOption = messages.KeyCodeProp_ConditionalOption,
+	KeyCodeProp_ConditionalOptions = messages.KeyCodeProp_ConditionalOptions,
 	VerticalAlignmentProp = messages.VerticalAlignmentProp,
 	VerticalAlignmentProp_ConditionalOption = messages.VerticalAlignmentProp_ConditionalOption,
 	VerticalAlignmentProp_ConditionalOptions = messages.VerticalAlignmentProp_ConditionalOptions,
@@ -6249,4 +6850,5 @@ return {
 	HorizontalAlignment = messages.HorizontalAlignment,
 	VerticalAlignment = messages.VerticalAlignment,
 	SelectionBehavior = messages.SelectionBehavior,
+	KeyCode = messages.KeyCode,
 }

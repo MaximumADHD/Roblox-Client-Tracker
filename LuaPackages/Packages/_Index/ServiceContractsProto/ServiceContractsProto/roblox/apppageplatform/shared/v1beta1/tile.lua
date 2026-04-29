@@ -9,10 +9,12 @@ local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typ
 type _Messages = {
 	TileSchema: _TileSchemaMessage,
 	TileSchema_Props: _TileSchema_PropsMessage,
+	HoldActionConfig: _HoldActionConfigMessage,
 }
 local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
+local _roblox_apppageplatform_shared_v1beta1_prop_types_engine = require(script.Parent.prop_types_engine)
 local _roblox_apppageplatform_shared_v1beta1_actions = require(script.Parent.actions)
 local _roblox_apppageplatform_shared_v1beta1_component_shared = require(script.Parent.component_shared)
 
@@ -69,6 +71,7 @@ type _TileSchema_PropsFields = {
 	thumbnail_background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
 	title_font: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
 	enable_legacy_hover_state: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	hold_action_config: HoldActionConfig?,
 }
 
 type _TileSchema_PropsPartialFields = {
@@ -91,10 +94,36 @@ type _TileSchema_PropsPartialFields = {
 	thumbnail_background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
 	title_font: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
 	enable_legacy_hover_state: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	hold_action_config: HoldActionConfig?,
 }
 
 export type TileSchema_Props = typeof(setmetatable({} :: _TileSchema_PropsFields, {} :: _TileSchema_PropsImpl))
 type _TileSchema_PropsMessage = proto.Message<TileSchema_Props, _TileSchema_PropsPartialFields>
+
+type _HoldActionConfigImpl = {
+	__index: _HoldActionConfigImpl,
+	new: (fields: _HoldActionConfigPartialFields?) -> HoldActionConfig,
+	encode: (self: HoldActionConfig) -> buffer,
+	decode: (input: buffer) -> HoldActionConfig,
+	jsonEncode: (self: HoldActionConfig) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HoldActionConfig,
+	descriptor: proto.Descriptor,
+}
+
+type _HoldActionConfigFields = {
+	on_hold_completed: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	focus_navigation_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	key_code: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.KeyCodeProp?,
+}
+
+type _HoldActionConfigPartialFields = {
+	on_hold_completed: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	focus_navigation_event_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	key_code: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.KeyCodeProp?,
+}
+
+export type HoldActionConfig = typeof(setmetatable({} :: _HoldActionConfigFields, {} :: _HoldActionConfigImpl))
+type _HoldActionConfigMessage = proto.Message<HoldActionConfig, _HoldActionConfigPartialFields>
 
 do
 	local _TileSchemaImpl = {}
@@ -255,6 +284,7 @@ do
 			enable_legacy_hover_state = if data == nil or data.enable_legacy_hover_state == nil
 				then nil
 				else data.enable_legacy_hover_state,
+			hold_action_config = if data == nil or data.hold_action_config == nil then nil else data.hold_action_config,
 		}, _TileSchema_PropsImpl :: _TileSchema_PropsImpl)
 	end
 
@@ -373,6 +403,12 @@ do
 		if self.enable_legacy_hover_state ~= nil then
 			local encoded = self.enable_legacy_hover_state:encode()
 			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.hold_action_config ~= nil then
+			local encoded = self.hold_action_config:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -499,6 +535,11 @@ do
 					self.enable_legacy_hover_state =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.hold_action_config = messages.HoldActionConfig.decode(value)
+					continue
 				end
 
 				local length
@@ -600,6 +641,10 @@ do
 
 		if self.enable_legacy_hover_state ~= nil then
 			output.enableLegacyHoverState = self.enable_legacy_hover_state:jsonEncode()
+		end
+
+		if self.hold_action_config ~= nil then
+			output.holdActionConfig = self.hold_action_config:jsonEncode()
 		end
 
 		return output
@@ -801,6 +846,14 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enableLegacyHoverState)
 		end
 
+		if input.hold_action_config ~= nil then
+			self.hold_action_config = messages.HoldActionConfig.jsonDecode(input.hold_action_config)
+		end
+
+		if input.holdActionConfig ~= nil then
+			self.hold_action_config = messages.HoldActionConfig.jsonDecode(input.holdActionConfig)
+		end
+
 		return self
 	end
 
@@ -814,7 +867,168 @@ do
 	typeRegistry.default:register(messages.TileSchema_Props)
 end
 
+do
+	local _HoldActionConfigImpl = {}
+	_HoldActionConfigImpl.__index = _HoldActionConfigImpl
+
+	function _HoldActionConfigImpl.new(data: _HoldActionConfigPartialFields?): HoldActionConfig
+		return setmetatable({
+			on_hold_completed = if data == nil or data.on_hold_completed == nil then nil else data.on_hold_completed,
+			focus_navigation_event_name = if data == nil or data.focus_navigation_event_name == nil
+				then nil
+				else data.focus_navigation_event_name,
+			key_code = if data == nil or data.key_code == nil then nil else data.key_code,
+		}, _HoldActionConfigImpl :: _HoldActionConfigImpl)
+	end
+
+	function _HoldActionConfigImpl.encode(self: HoldActionConfig): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.on_hold_completed ~= nil then
+			local encoded = self.on_hold_completed:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.focus_navigation_event_name ~= nil then
+			local encoded = self.focus_navigation_event_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.key_code ~= nil then
+			local encoded = self.key_code:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HoldActionConfigImpl.decode(input: buffer): HoldActionConfig
+		local self = _HoldActionConfigImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_hold_completed = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.focus_navigation_event_name =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key_code = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.KeyCodeProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HoldActionConfigImpl.jsonEncode(self: HoldActionConfig): any
+		local output = {}
+
+		if self.on_hold_completed ~= nil then
+			output.onHoldCompleted = self.on_hold_completed:jsonEncode()
+		end
+
+		if self.focus_navigation_event_name ~= nil then
+			output.focusNavigationEventName = self.focus_navigation_event_name:jsonEncode()
+		end
+
+		if self.key_code ~= nil then
+			output.keyCode = self.key_code:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HoldActionConfigImpl.jsonDecode(input: { [string]: any }): HoldActionConfig
+		local self = _HoldActionConfigImpl.new()
+
+		if input.on_hold_completed ~= nil then
+			self.on_hold_completed =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_hold_completed)
+		end
+
+		if input.onHoldCompleted ~= nil then
+			self.on_hold_completed =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onHoldCompleted)
+		end
+
+		if input.focus_navigation_event_name ~= nil then
+			self.focus_navigation_event_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(
+				input.focus_navigation_event_name
+			)
+		end
+
+		if input.focusNavigationEventName ~= nil then
+			self.focus_navigation_event_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.focusNavigationEventName)
+		end
+
+		if input.key_code ~= nil then
+			self.key_code =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.KeyCodeProp.jsonDecode(input.key_code)
+		end
+
+		if input.keyCode ~= nil then
+			self.key_code =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.KeyCodeProp.jsonDecode(input.keyCode)
+		end
+
+		return self
+	end
+
+	_HoldActionConfigImpl.descriptor = {
+		name = "HoldActionConfig",
+		fullName = "roblox.apppageplatform.shared.v1beta1.HoldActionConfig",
+	}
+
+	messages.HoldActionConfig = _HoldActionConfigImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HoldActionConfig)
+end
+
 return {
 	TileSchema = messages.TileSchema,
 	TileSchema_Props = messages.TileSchema_Props,
+	HoldActionConfig = messages.HoldActionConfig,
 }

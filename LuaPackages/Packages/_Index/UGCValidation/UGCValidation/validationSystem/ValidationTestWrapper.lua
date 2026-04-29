@@ -22,7 +22,6 @@ local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.Fetch
 local ValidationReporter = require(root.validationSystem.ValidationReporter)
 local getFFlagDebugUGCValidationPrintNewStructureResults =
 	require(root.flags.getFFlagDebugUGCValidationPrintNewStructureResults)
-local getFFlagUGCValidationUpdateHeadIsDynamic = require(root.flags.getFFlagUGCValidationUpdateHeadIsDynamic)
 local ValidateConstants = require(root.validationSystem.ValidationConstants)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local TelemetryService = game:GetService("TelemetryService")
@@ -127,18 +126,13 @@ local function ValidationTestWrapper(
 						reporter:fail(validationModule.knownAqsUserErrors[errorEnum])
 						recievedKnownErrors = true
 					else
-						if getFFlagUGCValidationUpdateHeadIsDynamic() then
-							if
-								table.find(ValidateConstants.AQSInternalErrorEnum, errorEnum) ~= nil
-								and recievedAQSInternalError == false
-							then
-								reporter:fail(ErrorSourceStrings.Keys.AQSInternalError)
-								recievedKnownErrors = true
-								recievedAQSInternalError = true
-							else
-								reporter:err(`Unexpected error enum {errorEnum}`)
-								return complete(testEnum, sharedData, reporter)
-							end
+						if
+							table.find(ValidateConstants.AQSInternalErrorEnum, errorEnum) ~= nil
+							and recievedAQSInternalError == false
+						then
+							reporter:fail(ErrorSourceStrings.Keys.AQSInternalError)
+							recievedKnownErrors = true
+							recievedAQSInternalError = true
 						else
 							reporter:err(`Unexpected error enum {errorEnum}`)
 							return complete(testEnum, sharedData, reporter)

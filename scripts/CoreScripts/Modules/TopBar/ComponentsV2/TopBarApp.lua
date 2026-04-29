@@ -40,6 +40,7 @@ local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local FFlagDisableGamepadConnectorInVR = require(CorePackages.Workspace.Packages.Chrome).Flags.FFlagDisableGamepadConnectorInVR
+local FFlagAddTopBarPoliciesToUniversalPolicies = SharedFlags.FFlagAddTopBarPoliciesToUniversalPolicies
 
 -- Components 
 local View = Foundation.View
@@ -74,7 +75,11 @@ type TopBarProps = {}
 local function TopBarApp(props: TopBarProps)
 	local useFoundationTokens = Foundation.Hooks.useTokens
 	local showBadgeOver12 = UniversalAppPolicy.useAppPolicy(function(appPolicy)
-		return appPolicy.ShowBadgeOver12 or false
+		if FFlagAddTopBarPoliciesToUniversalPolicies then
+			return appPolicy.getShowBadgeOver12()
+		else
+			return appPolicy.ShowBadgeOver12 or false
+		end
 	end)
 
 	local keepOutAreasStore = SignalsReact.useSignalState(function(scope) 

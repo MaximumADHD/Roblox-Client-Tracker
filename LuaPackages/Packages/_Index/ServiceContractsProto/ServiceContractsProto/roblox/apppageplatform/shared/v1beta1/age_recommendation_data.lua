@@ -7,9 +7,41 @@ local proto = require(script.Parent.Parent.Parent.Parent.Parent.proto)
 local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 
 type _Messages = {
+	AgeRecommendationDescriptor: _AgeRecommendationDescriptorMessage,
 	AgeRecommendationData: _AgeRecommendationDataMessage,
 }
 local messages: _Messages = {} :: _Messages
+
+type _AgeRecommendationDescriptorImpl = {
+	__index: _AgeRecommendationDescriptorImpl,
+	new: (fields: _AgeRecommendationDescriptorPartialFields?) -> AgeRecommendationDescriptor,
+	encode: (self: AgeRecommendationDescriptor) -> buffer,
+	decode: (input: buffer) -> AgeRecommendationDescriptor,
+	jsonEncode: (self: AgeRecommendationDescriptor) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AgeRecommendationDescriptor,
+	descriptor: proto.Descriptor,
+}
+
+type _AgeRecommendationDescriptorFields = {
+	name: string,
+	display_name: string,
+	contains: boolean,
+}
+
+type _AgeRecommendationDescriptorPartialFields = {
+	name: string?,
+	display_name: string?,
+	contains: boolean?,
+}
+
+export type AgeRecommendationDescriptor = typeof(setmetatable(
+	{} :: _AgeRecommendationDescriptorFields,
+	{} :: _AgeRecommendationDescriptorImpl
+))
+type _AgeRecommendationDescriptorMessage = proto.Message<
+	AgeRecommendationDescriptor,
+	_AgeRecommendationDescriptorPartialFields
+>
 
 type _AgeRecommendationDataImpl = {
 	__index: _AgeRecommendationDataImpl,
@@ -26,6 +58,7 @@ type _AgeRecommendationDataFields = {
 	display_name_with_header_short: string,
 	igrs_rating: string,
 	igrs_rating_display_message: string,
+	descriptors: { AgeRecommendationDescriptor },
 }
 
 type _AgeRecommendationDataPartialFields = {
@@ -33,6 +66,7 @@ type _AgeRecommendationDataPartialFields = {
 	display_name_with_header_short: string?,
 	igrs_rating: string?,
 	igrs_rating_display_message: string?,
+	descriptors: { AgeRecommendationDescriptor }?,
 }
 
 export type AgeRecommendationData = typeof(setmetatable(
@@ -40,6 +74,147 @@ export type AgeRecommendationData = typeof(setmetatable(
 	{} :: _AgeRecommendationDataImpl
 ))
 type _AgeRecommendationDataMessage = proto.Message<AgeRecommendationData, _AgeRecommendationDataPartialFields>
+
+do
+	local _AgeRecommendationDescriptorImpl = {}
+	_AgeRecommendationDescriptorImpl.__index = _AgeRecommendationDescriptorImpl
+
+	function _AgeRecommendationDescriptorImpl.new(
+		data: _AgeRecommendationDescriptorPartialFields?
+	): AgeRecommendationDescriptor
+		return setmetatable({
+			name = if data == nil or data.name == nil then "" else data.name,
+			display_name = if data == nil or data.display_name == nil then "" else data.display_name,
+			contains = if data == nil or data.contains == nil then false else data.contains,
+		}, _AgeRecommendationDescriptorImpl :: _AgeRecommendationDescriptorImpl)
+	end
+
+	function _AgeRecommendationDescriptorImpl.encode(self: AgeRecommendationDescriptor): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.name ~= nil and self.name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.name)
+		end
+
+		if self.display_name ~= nil and self.display_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.display_name)
+		end
+
+		if self.contains then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.contains then 1 else 0)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AgeRecommendationDescriptorImpl.decode(input: buffer): AgeRecommendationDescriptor
+		local self = _AgeRecommendationDescriptorImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 3 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.contains = value ~= 0
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.name = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.display_name = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AgeRecommendationDescriptorImpl.jsonEncode(self: AgeRecommendationDescriptor): any
+		local output = {}
+
+		if self.name ~= nil and self.name ~= "" then
+			output.name = self.name
+		end
+
+		if self.display_name ~= nil and self.display_name ~= "" then
+			output.displayName = self.display_name
+		end
+
+		if self.contains then
+			output.contains = self.contains
+		end
+
+		return output
+	end
+
+	function _AgeRecommendationDescriptorImpl.jsonDecode(input: { [string]: any }): AgeRecommendationDescriptor
+		local self = _AgeRecommendationDescriptorImpl.new()
+
+		if input.name ~= nil then
+			self.name = input.name
+		end
+
+		if input.display_name ~= nil then
+			self.display_name = input.display_name
+		end
+
+		if input.displayName ~= nil then
+			self.display_name = input.displayName
+		end
+
+		if input.contains ~= nil then
+			self.contains = input.contains
+		end
+
+		return self
+	end
+
+	_AgeRecommendationDescriptorImpl.descriptor = {
+		name = "AgeRecommendationDescriptor",
+		fullName = "roblox.apppageplatform.shared.v1beta1.AgeRecommendationDescriptor",
+	}
+
+	messages.AgeRecommendationDescriptor = _AgeRecommendationDescriptorImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AgeRecommendationDescriptor)
+end
 
 do
 	local _AgeRecommendationDataImpl = {}
@@ -55,6 +230,7 @@ do
 			igrs_rating_display_message = if data == nil or data.igrs_rating_display_message == nil
 				then ""
 				else data.igrs_rating_display_message,
+			descriptors = if data == nil or data.descriptors == nil then {} else data.descriptors,
 		}, _AgeRecommendationDataImpl :: _AgeRecommendationDataImpl)
 	end
 
@@ -80,6 +256,14 @@ do
 		if self.igrs_rating_display_message ~= nil and self.igrs_rating_display_message ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.igrs_rating_display_message)
+		end
+
+		if self.descriptors ~= nil and #self.descriptors > 0 then
+			for _, value in self.descriptors do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -120,6 +304,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.igrs_rating_display_message = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.descriptors, messages.AgeRecommendationDescriptor.decode(value))
 					continue
 				end
 
@@ -164,6 +353,14 @@ do
 			output.igrsRatingDisplayMessage = self.igrs_rating_display_message
 		end
 
+		if self.descriptors ~= nil and #self.descriptors > 0 then
+			local newOutput = {}
+			for _, value in self.descriptors do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.descriptors = newOutput
+		end
+
 		return output
 	end
 
@@ -202,6 +399,15 @@ do
 			self.igrs_rating_display_message = input.igrsRatingDisplayMessage
 		end
 
+		if input.descriptors ~= nil then
+			local newOutput: { AgeRecommendationDescriptor } = {}
+			for _, value in input.descriptors do
+				table.insert(newOutput, messages.AgeRecommendationDescriptor.jsonDecode(value))
+			end
+
+			self.descriptors = newOutput
+		end
+
 		return self
 	end
 
@@ -216,5 +422,6 @@ do
 end
 
 return {
+	AgeRecommendationDescriptor = messages.AgeRecommendationDescriptor,
 	AgeRecommendationData = messages.AgeRecommendationData,
 }

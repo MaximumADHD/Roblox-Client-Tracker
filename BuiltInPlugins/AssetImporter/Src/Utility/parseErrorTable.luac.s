@@ -99,28 +99,21 @@ PROTO_1:
       122 MOVE                             R10 R5
       123 CALL                             R6 4 1
       124 MOVE                             R4 R6
-      125 GETUPVAL                         R5 3
-      126 CALL                             R5 0 1
-      127 JUMPIFNOT                        R5 ; [+19]
-      128 JUMPIFNOT                        R4 ; [+2]
-      129 MOVE                             R5 R4
-      130 JUMP                             ; [+2]
-      131 GETTABLEKS                       R5 R3 K18 ["simpleErrorMessage"]
-      133 MOVE                             R7 R5
-      134 LOADK                            R8 K35 ["\n"]
-      135 LOADK                            R11 K36 ["Upload"]
-      136 LOADK                            R12 K37 ["OperationId"]
-      137 DUPTABLE                         R13 K39 [{"operationId"}]
-      138 GETTABLEKS                       R14 R3 K38 ["operationId"]
-      140 SETTABLEKS                       R14 R13 K38 ["operationId"]
-      142 NAMECALL                         R9 R1 K8 ["getText"]
-      144 CALL                             R9 4 1
-      145 CONCAT                           R6 R7 R9
-      146 RETURN                           R6 1
-      147 JUMPIFNOT                        R4 ; [+1]
-      148 RETURN                           R4 1
-      149 GETTABLEKS                       R5 R3 K18 ["simpleErrorMessage"]
-      151 RETURN                           R5 1
+      125 JUMPIFNOT                        R4 ; [+2]
+      126 MOVE                             R5 R4
+      127 JUMP                             ; [+2]
+      128 GETTABLEKS                       R5 R3 K18 ["simpleErrorMessage"]
+      130 MOVE                             R7 R5
+      131 LOADK                            R8 K35 ["\n"]
+      132 LOADK                            R11 K36 ["Upload"]
+      133 LOADK                            R12 K37 ["OperationId"]
+      134 DUPTABLE                         R13 K39 [{"operationId"}]
+      135 GETTABLEKS                       R14 R3 K38 ["operationId"]
+      137 SETTABLEKS                       R14 R13 K38 ["operationId"]
+      139 NAMECALL                         R9 R1 K8 ["getText"]
+      141 CALL                             R9 4 1
+      142 CONCAT                           R6 R7 R9
+      143 RETURN                           R6 1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -145,16 +138,10 @@ MAIN:
        31 GETTABLEKS                       R6 R7 K7 ["Utility"]
        33 GETTABLEKS                       R5 R6 K12 ["GetLocalizedString"]
        35 CALL                             R4 1 1
-       36 GETIMPORT                        R5 K5 [require]
-       38 GETTABLEKS                       R8 R0 K6 ["Src"]
-       40 GETTABLEKS                       R7 R8 K13 ["Flags"]
-       42 GETTABLEKS                       R6 R7 K14 ["getEFCinOperationIdInErrorEF"]
-       44 CALL                             R5 1 1
-       45 DUPCLOSURE                       R6 K15 [PROTO_1]
-       46 CAPTURE                          VAL R2
-       47 CAPTURE                          VAL R4
-       48 CAPTURE                          VAL R3
-       49 CAPTURE                          VAL R5
-       50 SETGLOBAL                        R6 K16 ["parseErrorMessage"]
-       52 GETGLOBAL                        R6 K16 ["parseErrorMessage"]
-       54 RETURN                           R6 1
+       36 DUPCLOSURE                       R5 K13 [PROTO_1]
+       37 CAPTURE                          VAL R2
+       38 CAPTURE                          VAL R4
+       39 CAPTURE                          VAL R3
+       40 SETGLOBAL                        R5 K14 ["parseErrorMessage"]
+       42 GETGLOBAL                        R5 K14 ["parseErrorMessage"]
+       44 RETURN                           R5 1

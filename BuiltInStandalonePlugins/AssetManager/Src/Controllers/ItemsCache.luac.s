@@ -778,36 +778,37 @@ PROTO_29:
        11 GETIMPORT                        R7 K3 [next]
        13 MOVE                             R8 R2
        14 CALL                             R7 1 1
-       15 JUMPIFEQKNIL                     R7 ; [+21]
+       15 JUMPIFEQKNIL                     R7 ; [+23]
        17 MOVE                             R7 R6
        18 LOADNIL                          R8
        19 LOADNIL                          R9
        20 FORGPREP                         R7
-       21 MOVE                             R14 R11
-       22 MOVE                             R15 R2
-       23 NAMECALL                         R12 R0 K4 ["_passesFilters"]
-       25 CALL                             R12 3 1
-       26 JUMPIFNOT                        R12 ; [+7]
-       27 FASTCALL2                        TABLE_INSERT R5 R10 ; [+5]
-       29 MOVE                             R13 R5
-       30 MOVE                             R14 R10
-       31 GETIMPORT                        R12 K7 [table.insert]
-       33 CALL                             R12 2 0
-       34 FORGLOOP                         R7 2 ; [-14]
-       36 JUMP                             ; [+6]
-       37 GETUPVAL                         R8 0
-       38 GETTABLEKS                       R7 R8 K8 ["keys"]
-       40 MOVE                             R8 R6
-       41 CALL                             R7 1 1
-       42 MOVE                             R5 R7
-       43 GETIMPORT                        R7 K10 [table.sort]
-       45 MOVE                             R8 R5
-       46 NEWCLOSURE                       R9 P0
-       47 CAPTURE                          VAL R0
-       48 CAPTURE                          VAL R1
-       49 CAPTURE                          VAL R3
-       50 CALL                             R7 2 0
-       51 RETURN                           R5 1
+       21 JUMPIFEQKS                       R10 K4 [""] ; [+7]
+       23 MOVE                             R14 R11
+       24 MOVE                             R15 R2
+       25 NAMECALL                         R12 R0 K5 ["_passesFilters"]
+       27 CALL                             R12 3 1
+       28 JUMPIFNOT                        R12 ; [+7]
+       29 FASTCALL2                        TABLE_INSERT R5 R10 ; [+5]
+       31 MOVE                             R13 R5
+       32 MOVE                             R14 R10
+       33 GETIMPORT                        R12 K8 [table.insert]
+       35 CALL                             R12 2 0
+       36 FORGLOOP                         R7 2 ; [-16]
+       38 JUMP                             ; [+6]
+       39 GETUPVAL                         R8 0
+       40 GETTABLEKS                       R7 R8 K9 ["keys"]
+       42 MOVE                             R8 R6
+       43 CALL                             R7 1 1
+       44 MOVE                             R5 R7
+       45 GETIMPORT                        R7 K11 [table.sort]
+       47 MOVE                             R8 R5
+       48 NEWCLOSURE                       R9 P0
+       49 CAPTURE                          VAL R0
+       50 CAPTURE                          VAL R1
+       51 CAPTURE                          VAL R3
+       52 CALL                             R7 2 0
+       53 RETURN                           R5 1
 
 PROTO_30:
         0 GETUPVAL                         R2 0

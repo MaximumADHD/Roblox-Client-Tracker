@@ -1115,7 +1115,7 @@ PROTO_38:
        23 GETTABLEKS                       R3 R4 K5 ["inputContextInstances"]
        25 GETTABLEKS                       R4 R1 K1 ["uuid"]
        27 GETTABLE                         R2 R3 R4
-       28 JUMPIFNOT                        R2 ; [+31]
+       28 JUMPIFNOT                        R2 ; [+32]
        29 GETUPVAL                         R4 2
        30 GETTABLEKS                       R3 R4 K6 ["deserializeContext"]
        32 GETTABLEKS                       R4 R1 K0 ["context"]
@@ -1131,12 +1131,14 @@ PROTO_38:
        47 GETIMPORT                        R2 K11 [Instance.new]
        49 LOADK                            R3 K12 ["InputContext"]
        50 CALL                             R2 1 1
-       51 GETTABLEKS                       R4 R1 K0 ["context"]
-       53 GETTABLEKS                       R3 R4 K7 ["name"]
-       55 SETTABLEKS                       R3 R2 K13 ["Name"]
-       57 GETUPVAL                         R3 3
-       58 SETTABLEKS                       R3 R2 K14 ["Parent"]
-       60 RETURN                           R0 0
+       51 GETUPVAL                         R3 3
+       52 SETTABLEKS                       R3 R2 K13 ["Parent"]
+       54 GETUPVAL                         R4 2
+       55 GETTABLEKS                       R3 R4 K6 ["deserializeContext"]
+       57 GETTABLEKS                       R4 R1 K0 ["context"]
+       59 MOVE                             R5 R2
+       60 CALL                             R3 2 0
+       61 RETURN                           R0 0
 
 PROTO_39:
         0 GETTABLEKS                       R2 R1 K0 ["action"]
@@ -1158,7 +1160,7 @@ PROTO_39:
        23 GETTABLEKS                       R3 R4 K5 ["inputActionInstances"]
        25 GETTABLEKS                       R4 R1 K1 ["uuid"]
        27 GETTABLE                         R2 R3 R4
-       28 JUMPIFNOT                        R2 ; [+50]
+       28 JUMPIFNOT                        R2 ; [+51]
        29 GETUPVAL                         R4 2
        30 GETTABLEKS                       R3 R4 K6 ["deserializeAction"]
        32 GETTABLEKS                       R4 R1 K0 ["action"]
@@ -1187,11 +1189,13 @@ PROTO_39:
        67 GETIMPORT                        R4 K14 [Instance.new]
        69 LOADK                            R5 K15 ["InputAction"]
        70 CALL                             R4 1 1
-       71 GETTABLEKS                       R6 R1 K0 ["action"]
-       73 GETTABLEKS                       R5 R6 K7 ["name"]
-       75 SETTABLEKS                       R5 R4 K16 ["Name"]
-       77 SETTABLEKS                       R3 R4 K17 ["Parent"]
-       79 RETURN                           R0 0
+       71 SETTABLEKS                       R3 R4 K16 ["Parent"]
+       73 GETUPVAL                         R6 2
+       74 GETTABLEKS                       R5 R6 K6 ["deserializeAction"]
+       76 GETTABLEKS                       R6 R1 K0 ["action"]
+       78 MOVE                             R7 R4
+       79 CALL                             R5 2 0
+       80 RETURN                           R0 0
 
 PROTO_40:
         0 GETTABLEKS                       R2 R1 K0 ["binding"]
@@ -1247,7 +1251,7 @@ PROTO_40:
        65 GETTABLEKS                       R3 R4 K5 ["inputBindingInstances"]
        67 GETTABLEKS                       R4 R1 K1 ["uuid"]
        69 GETTABLE                         R2 R3 R4
-       70 JUMPIFNOT                        R2 ; [+50]
+       70 JUMPIFNOT                        R2 ; [+51]
        71 GETUPVAL                         R4 2
        72 GETTABLEKS                       R3 R4 K12 ["deserializeBinding"]
        74 GETTABLEKS                       R4 R1 K0 ["binding"]
@@ -1276,11 +1280,13 @@ PROTO_40:
       109 GETIMPORT                        R4 K20 [Instance.new]
       111 LOADK                            R5 K21 ["InputBinding"]
       112 CALL                             R4 1 1
-      113 GETTABLEKS                       R6 R1 K0 ["binding"]
-      115 GETTABLEKS                       R5 R6 K13 ["name"]
-      117 SETTABLEKS                       R5 R4 K22 ["Name"]
-      119 SETTABLEKS                       R3 R4 K23 ["Parent"]
-      121 RETURN                           R0 0
+      113 SETTABLEKS                       R3 R4 K22 ["Parent"]
+      115 GETUPVAL                         R6 2
+      116 GETTABLEKS                       R5 R6 K12 ["deserializeBinding"]
+      118 GETTABLEKS                       R6 R1 K0 ["binding"]
+      120 MOVE                             R7 R4
+      121 CALL                             R5 2 0
+      122 RETURN                           R0 0
 
 PROTO_41:
         0 GETUPVAL                         R3 0

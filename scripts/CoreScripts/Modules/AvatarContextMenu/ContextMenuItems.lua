@@ -33,8 +33,6 @@ local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 -- FLAGS
 local FFlagAvatarContextMenuItemsChatButtonRefactor =
 	require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)
-local FFlagWaveEmoteOnAvatarContextMenuWithExpChat =
-	require(CoreGuiModules.Common.Flags.FFlagWaveEmoteOnAvatarContextMenuWithExpChat)
 local FFlagWhisperEmoteOnAvatarContextMenuWithExpChat =
 	require(CoreGuiModules.Common.Flags.FFlagWhisperEmoteOnAvatarContextMenuWithExpChat)
 -- VARIABLES
@@ -332,11 +330,9 @@ function ContextMenuItems:CreateEmoteButton()
 		PlayersService:Chat("/e wave")
 
 		if isExperienceChatOn(self.TextChatService) then
-			if FFlagWaveEmoteOnAvatarContextMenuWithExpChat then
-				local textChannel: TextChannel? = findFirstTextChannel()
-				if textChannel then
-					textChannel:SendAsync("/e wave")
-				end
+			local textChannel: TextChannel? = findFirstTextChannel()
+			if textChannel then
+				textChannel:SendAsync("/e wave")
 			end
 		end
 	end

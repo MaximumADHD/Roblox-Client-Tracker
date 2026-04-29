@@ -905,10 +905,7 @@ local function Initialize()
 	utility:OnResized(buttonsContainer, function(newSize, isPortrait)
 		if (isPortrait or utility:IsSmallTouchScreen()) and (not Theme.AlwaysShowBottomBar()) then
 			local buttonsFontSize = isPortrait and Theme.textSize(18) or Theme.textSize(24)
-			if Theme.UseBiggerText then
-				buttonsFontSize = Theme.textSize(20)
-			end
-			buttonsContainer.Visible = not Theme.EnableVerticalBottomBar
+			buttonsContainer.Visible = true
 			buttonsContainer.Size = UDim2.new(1, 0, 0, Theme.ButtonHeight)
 			if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
 				resetLabel.TextSize = buttonsFontSize
@@ -1962,6 +1959,18 @@ local function Initialize()
 		then
 			addJoinVoiceButton()
 			updateButtonsLayout()
+		end
+
+		if FFlagIEMTabFocusNav then
+			if showMuteAllButton then 
+				table.insert(this.FirstSelectableObjects, muteAllButton)
+			end
+			if showShareGameButton then
+				table.insert(this.FirstSelectableObjects, shareGameButton)
+			end
+			if showMuteAllButton or showShareGameButton then
+				this.FirstSelectableObjectsUpdated:fire()
+			end
 		end
 
 		local inspectMenuEnabled = GuiService:GetInspectMenuEnabled()

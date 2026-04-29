@@ -6,11 +6,18 @@
 local proto = require(script.Parent.Parent.Parent.Parent.Parent.proto)
 local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 
-type _Messages = {
-	GenericShareLinkData: _GenericShareLinkDataMessage,
-	GenericShareLinkData_GenericShareLinkLiteralData: _GenericShareLinkData_GenericShareLinkLiteralDataMessage,
-	ShareLinkFetchData: _ShareLinkFetchDataMessage,
-}
+type _Messages =
+	{
+		GenericShareLinkData: _GenericShareLinkDataMessage,
+		GenericShareLinkData_GenericShareLinkLiteralData: _GenericShareLinkData_GenericShareLinkLiteralDataMessage,
+		ShareLinkFetchData: _ShareLinkFetchDataMessage,
+		ShareLinkFetchData_ShareLinkFetchLiteralData: _ShareLinkFetchData_ShareLinkFetchLiteralDataMessage,
+		ShareLinkPayload: _ShareLinkPayloadMessage,
+		ExperienceShareLinkPayload: _ExperienceShareLinkPayloadMessage,
+		ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload: _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadMessage,
+		EventShareLinkPayload: _EventShareLinkPayloadMessage,
+		EventShareLinkPayload_EventShareLinkLiteralPayload: _EventShareLinkPayload_EventShareLinkLiteralPayloadMessage,
+	}
 local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
@@ -81,19 +88,184 @@ type _ShareLinkFetchDataImpl = {
 }
 
 type _ShareLinkFetchDataFields = {
-	share_url_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	link_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	kind: { type: "literal", value: ShareLinkFetchData_ShareLinkFetchLiteralData }?,
 }
 
 type _ShareLinkFetchDataPartialFields = {
-	share_url_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	link_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	kind: { type: "literal", value: ShareLinkFetchData_ShareLinkFetchLiteralData }?,
 }
 
 export type ShareLinkFetchData = typeof(setmetatable({} :: _ShareLinkFetchDataFields, {} :: _ShareLinkFetchDataImpl))
 type _ShareLinkFetchDataMessage = proto.Message<ShareLinkFetchData, _ShareLinkFetchDataPartialFields>
+
+type _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl = {
+	__index: _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl,
+	new: (
+		fields: _ShareLinkFetchData_ShareLinkFetchLiteralDataPartialFields?
+	) -> ShareLinkFetchData_ShareLinkFetchLiteralData,
+	encode: (self: ShareLinkFetchData_ShareLinkFetchLiteralData) -> buffer,
+	decode: (input: buffer) -> ShareLinkFetchData_ShareLinkFetchLiteralData,
+	jsonEncode: (self: ShareLinkFetchData_ShareLinkFetchLiteralData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ShareLinkFetchData_ShareLinkFetchLiteralData,
+	descriptor: proto.Descriptor,
+}
+
+type _ShareLinkFetchData_ShareLinkFetchLiteralDataFields = {
+	share_url_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	link_data: ShareLinkPayload?,
+}
+
+type _ShareLinkFetchData_ShareLinkFetchLiteralDataPartialFields = {
+	share_url_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	link_data: ShareLinkPayload?,
+}
+
+export type ShareLinkFetchData_ShareLinkFetchLiteralData = typeof(setmetatable(
+	{} :: _ShareLinkFetchData_ShareLinkFetchLiteralDataFields,
+	{} :: _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl
+))
+type _ShareLinkFetchData_ShareLinkFetchLiteralDataMessage = proto.Message<
+	ShareLinkFetchData_ShareLinkFetchLiteralData,
+	_ShareLinkFetchData_ShareLinkFetchLiteralDataPartialFields
+>
+
+type _ShareLinkPayloadImpl = {
+	__index: _ShareLinkPayloadImpl,
+	new: (fields: _ShareLinkPayloadPartialFields?) -> ShareLinkPayload,
+	encode: (self: ShareLinkPayload) -> buffer,
+	decode: (input: buffer) -> ShareLinkPayload,
+	jsonEncode: (self: ShareLinkPayload) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ShareLinkPayload,
+	descriptor: proto.Descriptor,
+}
+
+type _ShareLinkPayloadFields = {
+	oneof_prop: (
+		{ type: "experience_share_link_payload", value: ExperienceShareLinkPayload }
+		| { type: "event_share_link_payload", value: EventShareLinkPayload }
+	)?,
+}
+
+type _ShareLinkPayloadPartialFields = {
+	oneof_prop: (
+		{ type: "experience_share_link_payload", value: ExperienceShareLinkPayload }
+		| { type: "event_share_link_payload", value: EventShareLinkPayload }
+	)?,
+}
+
+export type ShareLinkPayload = typeof(setmetatable({} :: _ShareLinkPayloadFields, {} :: _ShareLinkPayloadImpl))
+type _ShareLinkPayloadMessage = proto.Message<ShareLinkPayload, _ShareLinkPayloadPartialFields>
+
+type _ExperienceShareLinkPayloadImpl = {
+	__index: _ExperienceShareLinkPayloadImpl,
+	new: (fields: _ExperienceShareLinkPayloadPartialFields?) -> ExperienceShareLinkPayload,
+	encode: (self: ExperienceShareLinkPayload) -> buffer,
+	decode: (input: buffer) -> ExperienceShareLinkPayload,
+	jsonEncode: (self: ExperienceShareLinkPayload) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceShareLinkPayload,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceShareLinkPayloadFields = {
+	kind: { type: "literal", value: ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload }?,
+}
+
+type _ExperienceShareLinkPayloadPartialFields = {
+	kind: { type: "literal", value: ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload }?,
+}
+
+export type ExperienceShareLinkPayload = typeof(setmetatable(
+	{} :: _ExperienceShareLinkPayloadFields,
+	{} :: _ExperienceShareLinkPayloadImpl
+))
+type _ExperienceShareLinkPayloadMessage = proto.Message<
+	ExperienceShareLinkPayload,
+	_ExperienceShareLinkPayloadPartialFields
+>
+
+type _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl = {
+	__index: _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl,
+	new: (
+		fields: _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadPartialFields?
+	) -> ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload,
+	encode: (self: ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload) -> buffer,
+	decode: (input: buffer) -> ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload,
+	jsonEncode: (self: ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadPartialFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload = typeof(setmetatable(
+	{} :: _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadFields,
+	{} :: _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl
+))
+type _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadMessage = proto.Message<
+	ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload,
+	_ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadPartialFields
+>
+
+type _EventShareLinkPayloadImpl = {
+	__index: _EventShareLinkPayloadImpl,
+	new: (fields: _EventShareLinkPayloadPartialFields?) -> EventShareLinkPayload,
+	encode: (self: EventShareLinkPayload) -> buffer,
+	decode: (input: buffer) -> EventShareLinkPayload,
+	jsonEncode: (self: EventShareLinkPayload) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> EventShareLinkPayload,
+	descriptor: proto.Descriptor,
+}
+
+type _EventShareLinkPayloadFields = {
+	kind: { type: "literal", value: EventShareLinkPayload_EventShareLinkLiteralPayload }?,
+}
+
+type _EventShareLinkPayloadPartialFields = {
+	kind: { type: "literal", value: EventShareLinkPayload_EventShareLinkLiteralPayload }?,
+}
+
+export type EventShareLinkPayload = typeof(setmetatable(
+	{} :: _EventShareLinkPayloadFields,
+	{} :: _EventShareLinkPayloadImpl
+))
+type _EventShareLinkPayloadMessage = proto.Message<EventShareLinkPayload, _EventShareLinkPayloadPartialFields>
+
+type _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl = {
+	__index: _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl,
+	new: (
+		fields: _EventShareLinkPayload_EventShareLinkLiteralPayloadPartialFields?
+	) -> EventShareLinkPayload_EventShareLinkLiteralPayload,
+	encode: (self: EventShareLinkPayload_EventShareLinkLiteralPayload) -> buffer,
+	decode: (input: buffer) -> EventShareLinkPayload_EventShareLinkLiteralPayload,
+	jsonEncode: (self: EventShareLinkPayload_EventShareLinkLiteralPayload) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> EventShareLinkPayload_EventShareLinkLiteralPayload,
+	descriptor: proto.Descriptor,
+}
+
+type _EventShareLinkPayload_EventShareLinkLiteralPayloadFields = {
+	event_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _EventShareLinkPayload_EventShareLinkLiteralPayloadPartialFields = {
+	event_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type EventShareLinkPayload_EventShareLinkLiteralPayload = typeof(setmetatable(
+	{} :: _EventShareLinkPayload_EventShareLinkLiteralPayloadFields,
+	{} :: _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl
+))
+type _EventShareLinkPayload_EventShareLinkLiteralPayloadMessage = proto.Message<
+	EventShareLinkPayload_EventShareLinkLiteralPayload,
+	_EventShareLinkPayload_EventShareLinkLiteralPayloadPartialFields
+>
 
 do
 	local _GenericShareLinkDataImpl = {}
@@ -350,9 +522,7 @@ do
 
 	function _ShareLinkFetchDataImpl.new(data: _ShareLinkFetchDataPartialFields?): ShareLinkFetchData
 		return setmetatable({
-			share_url_context = if data == nil or data.share_url_context == nil then nil else data.share_url_context,
-			link_type = if data == nil or data.link_type == nil then nil else data.link_type,
-			link_data = if data == nil or data.link_data == nil then nil else data.link_data,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
 		}, _ShareLinkFetchDataImpl :: _ShareLinkFetchDataImpl)
 	end
 
@@ -360,22 +530,12 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.share_url_context ~= nil then
-			local encoded = self.share_url_context:encode()
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.link_type ~= nil then
-			local encoded = self.link_type:encode()
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.link_data ~= nil then
-			local encoded = self.link_data:encode()
-			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -400,17 +560,10 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.share_url_context = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.link_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.link_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					self.kind = {
+						type = "literal",
+						value = messages.ShareLinkFetchData_ShareLinkFetchLiteralData.decode(value),
+					}
 					continue
 				end
 
@@ -439,6 +592,141 @@ do
 	function _ShareLinkFetchDataImpl.jsonEncode(self: ShareLinkFetchData): any
 		local output = {}
 
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _ShareLinkFetchDataImpl.jsonDecode(input: { [string]: any }): ShareLinkFetchData
+		local self = _ShareLinkFetchDataImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.ShareLinkFetchData_ShareLinkFetchLiteralData.jsonDecode(input.literal),
+			}
+		end
+
+		return self
+	end
+
+	_ShareLinkFetchDataImpl.descriptor = {
+		name = "ShareLinkFetchData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ShareLinkFetchData",
+	}
+
+	messages.ShareLinkFetchData = _ShareLinkFetchDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ShareLinkFetchData)
+end
+
+do
+	local _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl = {}
+	_ShareLinkFetchData_ShareLinkFetchLiteralDataImpl.__index = _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl
+
+	function _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl.new(
+		data: _ShareLinkFetchData_ShareLinkFetchLiteralDataPartialFields?
+	): ShareLinkFetchData_ShareLinkFetchLiteralData
+		return setmetatable({
+			share_url_context = if data == nil or data.share_url_context == nil then nil else data.share_url_context,
+			link_type = if data == nil or data.link_type == nil then nil else data.link_type,
+			link_data = if data == nil or data.link_data == nil then nil else data.link_data,
+		}, _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl :: _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl)
+	end
+
+	function _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl.encode(
+		self: ShareLinkFetchData_ShareLinkFetchLiteralData
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.share_url_context ~= nil then
+			local encoded = self.share_url_context:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.link_type ~= nil then
+			local encoded = self.link_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.link_data ~= nil then
+			local encoded = self.link_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl.decode(
+		input: buffer
+	): ShareLinkFetchData_ShareLinkFetchLiteralData
+		local self = _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.share_url_context = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.link_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.link_data = messages.ShareLinkPayload.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl.jsonEncode(
+		self: ShareLinkFetchData_ShareLinkFetchLiteralData
+	): any
+		local output = {}
+
 		if self.share_url_context ~= nil then
 			output.shareUrlContext = self.share_url_context:jsonEncode()
 		end
@@ -454,8 +742,10 @@ do
 		return output
 	end
 
-	function _ShareLinkFetchDataImpl.jsonDecode(input: { [string]: any }): ShareLinkFetchData
-		local self = _ShareLinkFetchDataImpl.new()
+	function _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl.jsonDecode(
+		input: { [string]: any }
+	): ShareLinkFetchData_ShareLinkFetchLiteralData
+		local self = _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl.new()
 
 		if input.share_url_context ~= nil then
 			self.share_url_context =
@@ -476,28 +766,628 @@ do
 		end
 
 		if input.link_data ~= nil then
-			self.link_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.link_data)
+			self.link_data = messages.ShareLinkPayload.jsonDecode(input.link_data)
 		end
 
 		if input.linkData ~= nil then
-			self.link_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.linkData)
+			self.link_data = messages.ShareLinkPayload.jsonDecode(input.linkData)
 		end
 
 		return self
 	end
 
-	_ShareLinkFetchDataImpl.descriptor = {
-		name = "ShareLinkFetchData",
-		fullName = "roblox.apppageplatform.shared.v1beta1.ShareLinkFetchData",
+	_ShareLinkFetchData_ShareLinkFetchLiteralDataImpl.descriptor = {
+		name = "ShareLinkFetchData_ShareLinkFetchLiteralData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ShareLinkFetchLiteralData",
 	}
 
-	messages.ShareLinkFetchData = _ShareLinkFetchDataImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.ShareLinkFetchData_ShareLinkFetchLiteralData = _ShareLinkFetchData_ShareLinkFetchLiteralDataImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.ShareLinkFetchData)
+	typeRegistry.default:register(messages.ShareLinkFetchData_ShareLinkFetchLiteralData)
+end
+
+do
+	local _ShareLinkPayloadImpl = {}
+	_ShareLinkPayloadImpl.__index = _ShareLinkPayloadImpl
+
+	function _ShareLinkPayloadImpl.new(data: _ShareLinkPayloadPartialFields?): ShareLinkPayload
+		return setmetatable({
+			oneof_prop = if data == nil or data.oneof_prop == nil then nil else data.oneof_prop,
+		}, _ShareLinkPayloadImpl :: _ShareLinkPayloadImpl)
+	end
+
+	function _ShareLinkPayloadImpl.encode(self: ShareLinkPayload): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.oneof_prop ~= nil then
+			if self.oneof_prop.type == "experience_share_link_payload" then
+				local encoded = self.oneof_prop.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.oneof_prop.type == "event_share_link_payload" then
+				local encoded = self.oneof_prop.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ShareLinkPayloadImpl.decode(input: buffer): ShareLinkPayload
+		local self = _ShareLinkPayloadImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.oneof_prop = {
+						type = "experience_share_link_payload",
+						value = messages.ExperienceShareLinkPayload.decode(value),
+					}
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.oneof_prop =
+						{ type = "event_share_link_payload", value = messages.EventShareLinkPayload.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ShareLinkPayloadImpl.jsonEncode(self: ShareLinkPayload): any
+		local output = {}
+
+		if self.oneof_prop ~= nil then
+			if self.oneof_prop.type == "experience_share_link_payload" then
+				output.experienceShareLinkPayload = self.oneof_prop.value:jsonEncode()
+			elseif self.oneof_prop.type == "event_share_link_payload" then
+				output.eventShareLinkPayload = self.oneof_prop.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _ShareLinkPayloadImpl.jsonDecode(input: { [string]: any }): ShareLinkPayload
+		local self = _ShareLinkPayloadImpl.new()
+
+		if input.experience_share_link_payload ~= nil then
+			self.oneof_prop = {
+				type = "experience_share_link_payload",
+				value = messages.ExperienceShareLinkPayload.jsonDecode(input.experience_share_link_payload),
+			}
+		end
+
+		if input.experienceShareLinkPayload ~= nil then
+			self.oneof_prop = {
+				type = "experience_share_link_payload",
+				value = messages.ExperienceShareLinkPayload.jsonDecode(input.experienceShareLinkPayload),
+			}
+		end
+
+		if input.event_share_link_payload ~= nil then
+			self.oneof_prop = {
+				type = "event_share_link_payload",
+				value = messages.EventShareLinkPayload.jsonDecode(input.event_share_link_payload),
+			}
+		end
+
+		if input.eventShareLinkPayload ~= nil then
+			self.oneof_prop = {
+				type = "event_share_link_payload",
+				value = messages.EventShareLinkPayload.jsonDecode(input.eventShareLinkPayload),
+			}
+		end
+
+		return self
+	end
+
+	_ShareLinkPayloadImpl.descriptor = {
+		name = "ShareLinkPayload",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ShareLinkPayload",
+	}
+
+	messages.ShareLinkPayload = _ShareLinkPayloadImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ShareLinkPayload)
+end
+
+do
+	local _ExperienceShareLinkPayloadImpl = {}
+	_ExperienceShareLinkPayloadImpl.__index = _ExperienceShareLinkPayloadImpl
+
+	function _ExperienceShareLinkPayloadImpl.new(
+		data: _ExperienceShareLinkPayloadPartialFields?
+	): ExperienceShareLinkPayload
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ExperienceShareLinkPayloadImpl :: _ExperienceShareLinkPayloadImpl)
+	end
+
+	function _ExperienceShareLinkPayloadImpl.encode(self: ExperienceShareLinkPayload): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceShareLinkPayloadImpl.decode(input: buffer): ExperienceShareLinkPayload
+		local self = _ExperienceShareLinkPayloadImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceShareLinkPayloadImpl.jsonEncode(self: ExperienceShareLinkPayload): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _ExperienceShareLinkPayloadImpl.jsonDecode(input: { [string]: any }): ExperienceShareLinkPayload
+		local self = _ExperienceShareLinkPayloadImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload.jsonDecode(input.literal),
+			}
+		end
+
+		return self
+	end
+
+	_ExperienceShareLinkPayloadImpl.descriptor = {
+		name = "ExperienceShareLinkPayload",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceShareLinkPayload",
+	}
+
+	messages.ExperienceShareLinkPayload = _ExperienceShareLinkPayloadImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceShareLinkPayload)
+end
+
+do
+	local _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl = {}
+	_ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl.__index =
+		_ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl
+
+	function _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl.new(
+		data: _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadPartialFields?
+	): ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload
+		return setmetatable(
+			{
+				universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			},
+			_ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl :: _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl
+		)
+	end
+
+	function _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl.encode(
+		self: ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl.decode(
+		input: buffer
+	): ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload
+		local self = _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl.jsonEncode(
+		self: ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload
+	): any
+		local output = {}
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload
+		local self = _ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		return self
+	end
+
+	_ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl.descriptor = {
+		name = "ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceShareLinkLiteralPayload",
+	}
+
+	messages.ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload =
+		_ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayloadImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload)
+end
+
+do
+	local _EventShareLinkPayloadImpl = {}
+	_EventShareLinkPayloadImpl.__index = _EventShareLinkPayloadImpl
+
+	function _EventShareLinkPayloadImpl.new(data: _EventShareLinkPayloadPartialFields?): EventShareLinkPayload
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _EventShareLinkPayloadImpl :: _EventShareLinkPayloadImpl)
+	end
+
+	function _EventShareLinkPayloadImpl.encode(self: EventShareLinkPayload): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _EventShareLinkPayloadImpl.decode(input: buffer): EventShareLinkPayload
+		local self = _EventShareLinkPayloadImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.EventShareLinkPayload_EventShareLinkLiteralPayload.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _EventShareLinkPayloadImpl.jsonEncode(self: EventShareLinkPayload): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _EventShareLinkPayloadImpl.jsonDecode(input: { [string]: any }): EventShareLinkPayload
+		local self = _EventShareLinkPayloadImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.EventShareLinkPayload_EventShareLinkLiteralPayload.jsonDecode(input.literal),
+			}
+		end
+
+		return self
+	end
+
+	_EventShareLinkPayloadImpl.descriptor = {
+		name = "EventShareLinkPayload",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EventShareLinkPayload",
+	}
+
+	messages.EventShareLinkPayload = _EventShareLinkPayloadImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.EventShareLinkPayload)
+end
+
+do
+	local _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl = {}
+	_EventShareLinkPayload_EventShareLinkLiteralPayloadImpl.__index =
+		_EventShareLinkPayload_EventShareLinkLiteralPayloadImpl
+
+	function _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl.new(
+		data: _EventShareLinkPayload_EventShareLinkLiteralPayloadPartialFields?
+	): EventShareLinkPayload_EventShareLinkLiteralPayload
+		return setmetatable(
+			{
+				event_id = if data == nil or data.event_id == nil then nil else data.event_id,
+			},
+			_EventShareLinkPayload_EventShareLinkLiteralPayloadImpl :: _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl
+		)
+	end
+
+	function _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl.encode(
+		self: EventShareLinkPayload_EventShareLinkLiteralPayload
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.event_id ~= nil then
+			local encoded = self.event_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl.decode(
+		input: buffer
+	): EventShareLinkPayload_EventShareLinkLiteralPayload
+		local self = _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl.jsonEncode(
+		self: EventShareLinkPayload_EventShareLinkLiteralPayload
+	): any
+		local output = {}
+
+		if self.event_id ~= nil then
+			output.eventId = self.event_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl.jsonDecode(
+		input: { [string]: any }
+	): EventShareLinkPayload_EventShareLinkLiteralPayload
+		local self = _EventShareLinkPayload_EventShareLinkLiteralPayloadImpl.new()
+
+		if input.event_id ~= nil then
+			self.event_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.event_id)
+		end
+
+		if input.eventId ~= nil then
+			self.event_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.eventId)
+		end
+
+		return self
+	end
+
+	_EventShareLinkPayload_EventShareLinkLiteralPayloadImpl.descriptor = {
+		name = "EventShareLinkPayload_EventShareLinkLiteralPayload",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EventShareLinkLiteralPayload",
+	}
+
+	messages.EventShareLinkPayload_EventShareLinkLiteralPayload =
+		_EventShareLinkPayload_EventShareLinkLiteralPayloadImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.EventShareLinkPayload_EventShareLinkLiteralPayload)
 end
 
 return {
 	GenericShareLinkData = messages.GenericShareLinkData,
 	GenericShareLinkData_GenericShareLinkLiteralData = messages.GenericShareLinkData_GenericShareLinkLiteralData,
 	ShareLinkFetchData = messages.ShareLinkFetchData,
+	ShareLinkFetchData_ShareLinkFetchLiteralData = messages.ShareLinkFetchData_ShareLinkFetchLiteralData,
+	ShareLinkPayload = messages.ShareLinkPayload,
+	ExperienceShareLinkPayload = messages.ExperienceShareLinkPayload,
+	ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload = messages.ExperienceShareLinkPayload_ExperienceShareLinkLiteralPayload,
+	EventShareLinkPayload = messages.EventShareLinkPayload,
+	EventShareLinkPayload_EventShareLinkLiteralPayload = messages.EventShareLinkPayload_EventShareLinkLiteralPayload,
 }

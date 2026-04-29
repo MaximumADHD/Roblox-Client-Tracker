@@ -23,6 +23,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_SEE_ALL_TILE"
 	| "UI_COMPONENT_TYPE_BADGE_TILE"
 	| "UI_COMPONENT_TYPE_SONG_TILE"
+	| "UI_COMPONENT_TYPE_EVENT_TILE"
 	| "UI_COMPONENT_TYPE_BUTTON"
 	| "UI_COMPONENT_TYPE_IMAGE"
 	| "UI_COMPONENT_TYPE_TEXT"
@@ -60,6 +61,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_LINK_TEXT"
 	| "UI_COMPONENT_TYPE_COACHMARK"
 	| "UI_COMPONENT_TYPE_BADGE"
+	| "UI_COMPONENT_TYPE_SUBSCRIPTION_CELL"
+	| "UI_COMPONENT_TYPE_SHEET_FULL_BLEED"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -93,6 +96,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_BADGE_TILE"
 		elseif value == 104 then
 			return "UI_COMPONENT_TYPE_SONG_TILE"
+		elseif value == 105 then
+			return "UI_COMPONENT_TYPE_EVENT_TILE"
 		elseif value == 200 then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif value == 201 then
@@ -167,6 +172,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_COACHMARK"
 		elseif value == 236 then
 			return "UI_COMPONENT_TYPE_BADGE"
+		elseif value == 237 then
+			return "UI_COMPONENT_TYPE_SUBSCRIPTION_CELL"
+		elseif value == 238 then
+			return "UI_COMPONENT_TYPE_SHEET_FULL_BLEED"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -211,6 +220,8 @@ messages.UiComponentType = {
 			return 103
 		elseif self == "UI_COMPONENT_TYPE_SONG_TILE" then
 			return 104
+		elseif self == "UI_COMPONENT_TYPE_EVENT_TILE" then
+			return 105
 		elseif self == "UI_COMPONENT_TYPE_BUTTON" then
 			return 200
 		elseif self == "UI_COMPONENT_TYPE_IMAGE" then
@@ -285,6 +296,10 @@ messages.UiComponentType = {
 			return 235
 		elseif self == "UI_COMPONENT_TYPE_BADGE" then
 			return 236
+		elseif self == "UI_COMPONENT_TYPE_SUBSCRIPTION_CELL" then
+			return 237
+		elseif self == "UI_COMPONENT_TYPE_SHEET_FULL_BLEED" then
+			return 238
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -329,6 +344,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_BADGE_TILE"
 		elseif name == "UI_COMPONENT_TYPE_SONG_TILE" then
 			return "UI_COMPONENT_TYPE_SONG_TILE"
+		elseif name == "UI_COMPONENT_TYPE_EVENT_TILE" then
+			return "UI_COMPONENT_TYPE_EVENT_TILE"
 		elseif name == "UI_COMPONENT_TYPE_BUTTON" then
 			return "UI_COMPONENT_TYPE_BUTTON"
 		elseif name == "UI_COMPONENT_TYPE_IMAGE" then
@@ -403,6 +420,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_COACHMARK"
 		elseif name == "UI_COMPONENT_TYPE_BADGE" then
 			return "UI_COMPONENT_TYPE_BADGE"
+		elseif name == "UI_COMPONENT_TYPE_SUBSCRIPTION_CELL" then
+			return "UI_COMPONENT_TYPE_SUBSCRIPTION_CELL"
+		elseif name == "UI_COMPONENT_TYPE_SHEET_FULL_BLEED" then
+			return "UI_COMPONENT_TYPE_SHEET_FULL_BLEED"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

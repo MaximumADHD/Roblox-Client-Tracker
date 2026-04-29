@@ -38,6 +38,7 @@ export type ColorStyle = Types.ColorStyle
 export type ColorStyleValue = Types.ColorStyleValue
 export type FontStyle = Types.FontStyle
 export type Tokens = Tokens.Tokens
+export type TokenOverrides = Tokens.TokenOverrides
 
 -- Enums and their types
 local AccessoryType = require(script.Enums.AccessoryType)
@@ -263,6 +264,7 @@ local Sheet = require(script.Components.Sheet)
 export type SheetProps = Sheet.SheetProps
 export type SheetActionsProps = Sheet.SheetActionsProps
 export type SheetContentProps = Sheet.SheetContentProps
+export type SheetFullBleedProps = Sheet.SheetFullBleedProps
 export type SheetHeaderProps = Sheet.SheetHeaderProps
 export type SheetRef = Sheet.SheetRef
 

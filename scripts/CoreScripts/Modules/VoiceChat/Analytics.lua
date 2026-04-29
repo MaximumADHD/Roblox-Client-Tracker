@@ -82,8 +82,8 @@ type AnalyticsWrapperMeta = {
 	reportVoiceMuteIndividual: (AnalyticsWrapper, VoiceMuteIndividualArgs) -> (),
 	reportVoiceMuteGroup: (AnalyticsWrapper, VoiceMuteGroupArgs) -> (),
 	reportVoiceMuteSelf: (AnalyticsWrapper, VoiceMuteSelfArgs) -> (),
-	reportJoinVoiceButtonEvent: (AnalyticsWrapper, string, number, number, string) -> (),
-	reportJoinVoiceButtonEventWithVoiceSessionId: (AnalyticsWrapper, string, number, number, string, string) -> (),
+	reportJoinVoiceButtonEvent: (AnalyticsWrapper, string, number, number, string, string?, string?) -> (),
+	reportJoinVoiceButtonEventWithVoiceSessionId: (AnalyticsWrapper, string, number, number, string, string, string?, string?) -> (),
 	reportLeaveVoiceButtonEvent: (AnalyticsWrapper, string, number, number, string, string) -> (),
 	reportInExpConsent: (AnalyticsWrapper, string, string, number, number, string) -> (),
 	reportDevicePermissionsModalEvent: (AnalyticsWrapper, string, string, number, number, string) -> (),
@@ -259,13 +259,17 @@ function Analytics:reportJoinVoiceButtonEvent(
 	eventType: string,
 	universe_id: number,
 	place_id: number,
-	play_session_id: string
+	play_session_id: string,
+	button_context: string?,
+	button_consequence: string?
 )
 	self._impl:SendEventDeferred("client", "voice", "joinVoiceButtonEvent", {
 		eventType = eventType,
 		universeId = universe_id,
 		placeId = place_id,
 		playSessionId = play_session_id,
+		buttonContext = button_context,
+		buttonConsequence = button_consequence,
 	})
 end
 
@@ -274,14 +278,18 @@ function Analytics:reportJoinVoiceButtonEventWithVoiceSessionId(
 	universe_id: number,
 	place_id: number,
 	play_session_id: string,
-	voice_session_id: string
+	voice_session_id: string,
+	button_context: string?,
+	button_consequence: string?
 )
 	self._impl:SendEventDeferred("client", "voice", "joinVoiceButtonEvent", {
 		eventType = eventType,
 		universeId = universe_id,
 		placeId = place_id,
 		playSessionId = play_session_id,
-		voiceSessionId = voice_session_id
+		voiceSessionId = voice_session_id,
+		buttonContext = button_context,
+		buttonConsequence = button_consequence,
 	})
 end
 

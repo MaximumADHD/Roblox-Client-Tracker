@@ -12,7 +12,7 @@ MAIN:
        16 GETTABLEKS                       R2 R3 K9 ["createStyleRule"]
        18 GETTABLEKS                       R4 R1 K8 ["Styling"]
        20 GETTABLEKS                       R3 R4 K10 ["createStyleSheet"]
-       22 NEWTABLE                         R4 0 5
+       22 NEWTABLE                         R4 0 6
        24 MOVE                             R5 R2
        25 LOADK                            R6 K11 [".columns-tree"]
        26 DUPTABLE                         R7 K13 [{"Size"}]
@@ -81,45 +81,56 @@ MAIN:
       110 SETTABLEKS                       R18 R17 K12 ["Size"]
       112 CALL                             R15 2 -1
       113 SETLIST                          R12 R13 -1 [1]
-      115 CALL                             R9 3 -1
-      116 SETLIST                          R4 R5 -1 [1]
-      118 DUPTABLE                         R5 K54 [{"IconSize", "RowSize", "SpacerSize", "TreeSize", "TableSize"}]
-      119 GETIMPORT                        R6 K57 [UDim2.fromOffset]
-      121 LOADN                            R7 16
-      122 LOADN                            R8 16
-      123 CALL                             R6 2 1
-      124 SETTABLEKS                       R6 R5 K49 ["IconSize"]
-      126 GETIMPORT                        R6 K58 [UDim2.new]
-      128 LOADN                            R7 1
-      129 LOADN                            R8 0
-      130 LOADN                            R9 0
-      131 LOADN                            R10 40
-      132 CALL                             R6 4 1
-      133 SETTABLEKS                       R6 R5 K50 ["RowSize"]
-      135 GETIMPORT                        R6 K58 [UDim2.new]
-      137 LOADN                            R7 0
-      138 LOADN                            R8 32
-      139 LOADN                            R9 1
-      140 LOADN                            R10 0
-      141 CALL                             R6 4 1
-      142 SETTABLEKS                       R6 R5 K51 ["SpacerSize"]
-      144 GETIMPORT                        R6 K58 [UDim2.new]
-      146 LOADN                            R7 0
-      147 LOADN                            R8 200
-      148 LOADN                            R9 1
-      149 LOADN                            R10 0
-      150 CALL                             R6 4 1
-      151 SETTABLEKS                       R6 R5 K52 ["TreeSize"]
-      153 GETIMPORT                        R6 K58 [UDim2.new]
-      155 LOADN                            R7 1
-      156 LOADN                            R8 56
-      157 LOADN                            R9 1
-      158 LOADN                            R10 0
-      159 CALL                             R6 4 1
-      160 SETTABLEKS                       R6 R5 K53 ["TableSize"]
-      162 MOVE                             R6 R3
-      163 LOADK                            R7 K2 ["InputActionManager"]
-      164 MOVE                             R8 R4
-      165 MOVE                             R9 R5
-      166 CALL                             R6 3 -1
-      167 RETURN                           R6 -1
+      115 CALL                             R9 3 1
+      116 MOVE                             R10 R2
+      117 LOADK                            R11 K49 [".size-full-divider"]
+      118 DUPTABLE                         R12 K13 [{"Size"}]
+      119 GETIMPORT                        R13 K51 [UDim2.new]
+      121 LOADN                            R14 1
+      122 LOADN                            R15 0
+      123 LOADN                            R16 1
+      124 LOADN                            R17 255
+      125 CALL                             R13 4 1
+      126 SETTABLEKS                       R13 R12 K12 ["Size"]
+      128 CALL                             R10 2 -1
+      129 SETLIST                          R4 R5 -1 [1]
+      131 DUPTABLE                         R5 K57 [{"IconSize", "RowSize", "SpacerSize", "TreeSize", "TableSize"}]
+      132 GETIMPORT                        R6 K59 [UDim2.fromOffset]
+      134 LOADN                            R7 16
+      135 LOADN                            R8 16
+      136 CALL                             R6 2 1
+      137 SETTABLEKS                       R6 R5 K52 ["IconSize"]
+      139 GETIMPORT                        R6 K51 [UDim2.new]
+      141 LOADN                            R7 1
+      142 LOADN                            R8 0
+      143 LOADN                            R9 0
+      144 LOADN                            R10 40
+      145 CALL                             R6 4 1
+      146 SETTABLEKS                       R6 R5 K53 ["RowSize"]
+      148 GETIMPORT                        R6 K51 [UDim2.new]
+      150 LOADN                            R7 0
+      151 LOADN                            R8 32
+      152 LOADN                            R9 1
+      153 LOADN                            R10 0
+      154 CALL                             R6 4 1
+      155 SETTABLEKS                       R6 R5 K54 ["SpacerSize"]
+      157 GETIMPORT                        R6 K51 [UDim2.new]
+      159 LOADN                            R7 0
+      160 LOADN                            R8 240
+      161 LOADN                            R9 1
+      162 LOADN                            R10 0
+      163 CALL                             R6 4 1
+      164 SETTABLEKS                       R6 R5 K55 ["TreeSize"]
+      166 GETIMPORT                        R6 K51 [UDim2.new]
+      168 LOADN                            R7 1
+      169 LOADN                            R8 16
+      170 LOADN                            R9 1
+      171 LOADN                            R10 0
+      172 CALL                             R6 4 1
+      173 SETTABLEKS                       R6 R5 K56 ["TableSize"]
+      175 MOVE                             R6 R3
+      176 LOADK                            R7 K2 ["InputActionManager"]
+      177 MOVE                             R8 R4
+      178 MOVE                             R9 R5
+      179 CALL                             R6 3 -1
+      180 RETURN                           R6 -1

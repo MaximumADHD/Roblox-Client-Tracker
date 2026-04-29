@@ -12,7 +12,6 @@ local Roact = require(Packages.Roact)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
 local GetEngineFeatureSafe = require(UIBlox.Core.Utility.GetEngineFeatureSafe)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 -- Storybooks
 local DEFAULT_VR_PANEL_SIZE_X = 10
@@ -69,12 +68,6 @@ local function Panel3D(providedProps: Props)
 			return function() end
 		end
 	end, { surfaceGui, props.anchoring, props.connectPanelManagerFunction })
-
-	if UIBloxConfig.enablePanel3DSurfaceGuiRef and props.surfaceGuiRef then
-		React.useImperativeHandle(props.surfaceGuiRef, function()
-			return surfaceGui.current
-		end, { surfaceGui })
-	end
 
 	return React.createElement("Folder", {
 		ref = folder,

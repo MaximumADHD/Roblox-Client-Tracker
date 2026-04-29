@@ -29,7 +29,6 @@ local FFlagUseTeleportTraversalHistory = Traversal.Flags.FFlagUseTeleportTravers
 local FFlagUseLocalTraversalHistory = Traversal.Flags.FFlagUseLocalTraversalHistory
 local FFlagAddTraversalBackButtonAnimation = Traversal.Flags.FFlagAddTraversalBackButtonAnimation
 local FFlagFixTraversalBackButtonAnimation = game:DefineFastFlag("FixTraversalBackButtonAnimation", false)
-local FFlagFixTraversalBackPlaceName = game:DefineFastFlag("FixTraversalBackPlaceName", false)
 
 local ANIMATION_START_VALUE = 0
 local ANIMATION_FINAL_VALUE = 1
@@ -67,28 +66,16 @@ local function TraversalBackButton(props: {}): React.React_Node
 		defaultBackButtonText = "CoreScripts.TopBar.Traversal.BackButtonDefault",
 	})
 
-	local placeName
-	if FFlagFixTraversalBackPlaceName then
-		local getPlaceName = React.useCallback(function(scope)
-			local gameInfo = getGameInfoStore(scope).getAndFetchGameInfo(tostring(prevUniverseId))
-			local gameInfoData = gameInfo.data(scope)
-			local gameInfoStatus = gameInfo.status(scope)
-			if not gameInfoData or gameInfoStatus ~= DataHydrationTypes.DataStatus.Ready then
-				return localized.defaultBackButtonText
-			end
-			return gameInfoData.name
-		end, { prevUniverseId, getGameInfoStore })
-		placeName = SignalsReact.useSignalState(getPlaceName)
-	else
-		local historyItems = useHistoryItems(2)
-		if FFlagUseLocalTraversalHistory and typeof(historyItems[2]) == "table" and historyItems[2].name then
-			placeName = historyItems[2].name
-		elseif FFlagUseTeleportTraversalHistory and typeof(historyItems[1]) == "table" and historyItems[1].name then
-			placeName = historyItems[1].name
-		else
-			placeName = localized.defaultBackButtonText
+	local getPlaceName = React.useCallback(function(scope)
+		local gameInfo = getGameInfoStore(scope).getAndFetchGameInfo(tostring(prevUniverseId))
+		local gameInfoData = gameInfo.data(scope)
+		local gameInfoStatus = gameInfo.status(scope)
+		if not gameInfoData or gameInfoStatus ~= DataHydrationTypes.DataStatus.Ready then
+			return localized.defaultBackButtonText
 		end
-	end
+		return gameInfoData.name
+	end, { prevUniverseId, getGameInfoStore })
+	local placeName = SignalsReact.useSignalState(getPlaceName)
 
 	local prevPlaceName
 	if FFlagFixTraversalBackButtonAnimation then

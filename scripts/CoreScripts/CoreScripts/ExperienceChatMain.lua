@@ -37,7 +37,6 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local ApolloClient = require(RobloxGui.Modules.ApolloClient)
 local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
-local FFlagEnableSetCoreGuiEnabledExpChat = game:DefineFastFlag("FFlagEnableSetCoreGuiEnabledExpChat", false)
 local getFFlagAddApolloClientToExperienceChat = require(RobloxGui.Modules.Flags.getFFlagAddApolloClientToExperienceChat)
 local GetFFlagShowLikelySpeakingBubbles =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowLikelySpeakingBubbles
@@ -102,13 +101,11 @@ local function findTextChannel(name: string): TextChannel
 	return textChannel
 end
 
-if FFlagEnableSetCoreGuiEnabledExpChat then
-	StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, enabled)
-		if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.Chat then
-			ExperienceChat.Events.SetCoreGuiEnabledChanged(enabled)
-		end
-	end)
-end
+StarterGui.CoreGuiChangedSignal:Connect(function(coreGuiType, enabled)
+	if coreGuiType == Enum.CoreGuiType.All or coreGuiType == Enum.CoreGuiType.Chat then
+		ExperienceChat.Events.SetCoreGuiEnabledChanged(enabled)
+	end
+end)
 
 local createdDefaultChannels
 local validateLegacyBubbleChatSettings = require(RobloxGui.Modules.InGameChat.BubbleChat.Types).IChatSettings

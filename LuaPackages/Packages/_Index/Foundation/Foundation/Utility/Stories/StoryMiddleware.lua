@@ -9,12 +9,32 @@ local Flags = require(Foundation.Utility.Flags)
 local FoundationProvider = require(Foundation.Providers.Foundation)
 local Theme = require(Foundation.Enums.Theme)
 local Types = require(Foundation.Utility.Stories.Types)
+local getTokenOverridesStore = require(script.Parent.TokenOverridesStore)
+local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 
 type FlipbookStoryProps = Types.FlipbookStoryProps
 type DeveloperStorybookStoryProps = Types.DeveloperStorybookStoryProps
 type StoryProps = Types.StoryProps
 
 local useStyleSheet = require(Foundation.Providers.Style.StyleSheetContext).useStyleSheet
+
+local function useTokenOverrides()
+	local store = getTokenOverridesStore()
+	local overrides, setOverrides = React.useState(function()
+		return store.getTokenOverrides()
+	end)
+
+	React.useEffect(function()
+		local unsubscribe = store.subscribe(function(newOverrides)
+			setOverrides(newOverrides)
+		end)
+		return function()
+			unsubscribe()
+		end
+	end, { store })
+
+	return overrides
+end
 
 --[[
   We want to use the a space behind the story as the overlay to better test popover interaction with borders.
@@ -74,6 +94,7 @@ local function StoryMiddleware(story)
 	return function(storyProps: StoryProps)
 		local overlay = useCreateOverlay(storyProps)
 		local theme = Theme[storyProps.theme]
+		local tokenOverrides = useTokenOverrides()
 
 		local devStorybookStoryProps = Types.toDeveloperStorybookStoryProps(storyProps)
 
@@ -81,6 +102,11 @@ local function StoryMiddleware(story)
 		if devStorybookStoryProps then
 			device = Device[devStorybookStoryProps.platform]
 			preferences = devStorybookStoryProps.settings
+		end
+
+		local shouldUsePlugin = Flags.FoundationPopoverPluginSupport
+		if Flags.FoundationPopoverPluginSecurityGate then
+			shouldUsePlugin = shouldUsePlugin and isPluginSecurity()
 		end
 
 		return React.createElement("Frame", {
@@ -101,7 +127,8 @@ local function StoryMiddleware(story)
 				preferences = preferences,
 				scale = preferences and preferences.scale,
 				overlayGui = overlay,
-				plugin = if Flags.FoundationPopoverPluginSupport then storyProps.plugin else nil,
+				plugin = if shouldUsePlugin then storyProps.plugin else nil,
+				tokenOverrides = tokenOverrides,
 			}, {
 				Child = React.createElement(story, storyProps),
 				StyleLink = React.createElement(StyleLinkPortal, if overlay then { overlay = overlay } else nil),

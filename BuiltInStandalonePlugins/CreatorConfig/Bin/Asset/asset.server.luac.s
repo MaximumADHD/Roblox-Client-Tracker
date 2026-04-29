@@ -68,87 +68,83 @@ MAIN:
        33 GETTABLEKS                       R4 R5 K14 ["Common"]
        35 GETTABLEKS                       R3 R4 K15 ["defineLuaFlags"]
        37 CALL                             R2 1 1
-       38 GETTABLEKS                       R3 R2 K16 ["getFFlagEnableCreatorConfig"]
+       38 GETTABLEKS                       R3 R2 K16 ["getFFlagCreatorConfigDmChangedListener"]
        40 CALL                             R3 0 1
-       41 JUMPIF                           R3 ; [+1]
-       42 RETURN                           R0 0
-       43 GETTABLEKS                       R3 R2 K17 ["getFFlagCreatorConfigDmChangedListener"]
-       45 CALL                             R3 0 1
-       46 JUMPIFNOT                        R3 ; [+20]
-       47 GETIMPORT                        R5 K1 [plugin]
-       49 GETTABLEKS                       R4 R5 K18 ["MultipleDocumentInterfaceInstance"]
-       51 GETTABLEKS                       R5 R4 K19 ["FocusedDataModelSession"]
-       53 GETTABLEKS                       R6 R5 K20 ["CurrentDataModelTypeChanged"]
-       55 DUPCLOSURE                       R8 K21 [PROTO_0]
-       56 CAPTURE                          VAL R5
-       57 NAMECALL                         R6 R6 K22 ["Connect"]
-       59 CALL                             R6 2 0
-       60 GETTABLEKS                       R6 R4 K23 ["DataModelSessionStarted"]
-       62 DUPCLOSURE                       R8 K24 [PROTO_1]
-       63 CAPTURE                          VAL R5
-       64 NAMECALL                         R6 R6 K22 ["Connect"]
-       66 CALL                             R6 2 0
-       67 GETIMPORT                        R4 K26 [game]
-       69 LOADK                            R6 K27 ["RunService"]
-       70 NAMECALL                         R4 R4 K28 ["GetService"]
-       72 CALL                             R4 2 1
-       73 NAMECALL                         R4 R4 K29 ["IsEdit"]
-       75 CALL                             R4 1 1
-       76 JUMPIFNOT                        R4 ; [+48]
-       77 GETIMPORT                        R5 K26 [game]
-       79 GETTABLEKS                       R4 R5 K30 ["PlaceId"]
-       81 GETIMPORT                        R6 K26 [game]
-       83 GETTABLEKS                       R5 R6 K31 ["GameId"]
-       85 GETIMPORT                        R6 K1 [plugin]
-       87 LOADK                            R8 K32 ["placeid"]
-       88 MOVE                             R9 R4
-       89 NAMECALL                         R6 R6 K33 ["SetItem"]
-       91 CALL                             R6 3 0
-       92 GETIMPORT                        R6 K1 [plugin]
-       94 LOADK                            R8 K34 ["universeid"]
-       95 MOVE                             R9 R5
-       96 NAMECALL                         R6 R6 K33 ["SetItem"]
-       98 CALL                             R6 3 0
-       99 GETIMPORT                        R6 K1 [plugin]
-      101 LOADK                            R8 K35 ["idsupdated"]
-      102 NAMECALL                         R6 R6 K36 ["Invoke"]
-      104 CALL                             R6 2 0
-      105 GETIMPORT                        R6 K26 [game]
-      107 LOADK                            R8 K30 ["PlaceId"]
-      108 NAMECALL                         R6 R6 K37 ["GetPropertyChangedSignal"]
-      110 CALL                             R6 2 1
-      111 DUPCLOSURE                       R8 K38 [PROTO_2]
-      112 NAMECALL                         R6 R6 K22 ["Connect"]
-      114 CALL                             R6 2 0
-      115 GETIMPORT                        R6 K26 [game]
-      117 LOADK                            R8 K31 ["GameId"]
-      118 NAMECALL                         R6 R6 K37 ["GetPropertyChangedSignal"]
-      120 CALL                             R6 2 1
-      121 DUPCLOSURE                       R8 K39 [PROTO_3]
-      122 NAMECALL                         R6 R6 K22 ["Connect"]
-      124 CALL                             R6 2 0
-      125 GETIMPORT                        R4 K7 [require]
-      127 GETTABLEKS                       R7 R0 K13 ["Bin"]
-      129 GETTABLEKS                       R6 R7 K14 ["Common"]
-      131 GETTABLEKS                       R5 R6 K40 ["pluginType"]
-      133 CALL                             R4 1 1
-      134 GETTABLEKS                       R5 R4 K41 ["get"]
-      136 CALL                             R5 0 1
-      137 GETTABLEKS                       R6 R4 K42 ["Asset"]
-      139 JUMPIFEQ                         R5 R6 ; [+2]
-      141 RETURN                           R0 0
-      142 GETIMPORT                        R5 K7 [require]
-      144 GETTABLEKS                       R8 R0 K13 ["Bin"]
-      146 GETTABLEKS                       R7 R8 K14 ["Common"]
-      148 GETTABLEKS                       R6 R7 K43 ["setup"]
-      150 CALL                             R5 1 1
-      151 GETIMPORT                        R6 K7 [require]
-      153 GETTABLEKS                       R9 R0 K13 ["Bin"]
-      155 GETTABLEKS                       R8 R9 K14 ["Common"]
-      157 GETTABLEKS                       R7 R8 K44 ["setupMain"]
-      159 CALL                             R6 1 1
-      160 MOVE                             R7 R5
-      161 GETIMPORT                        R8 K1 [plugin]
-      163 MOVE                             R9 R6
-      164 CALL                             R7 2 0
-      165 RETURN                           R0 0
+       41 JUMPIFNOT                        R3 ; [+20]
+       42 GETIMPORT                        R5 K1 [plugin]
+       44 GETTABLEKS                       R4 R5 K17 ["MultipleDocumentInterfaceInstance"]
+       46 GETTABLEKS                       R5 R4 K18 ["FocusedDataModelSession"]
+       48 GETTABLEKS                       R6 R5 K19 ["CurrentDataModelTypeChanged"]
+       50 DUPCLOSURE                       R8 K20 [PROTO_0]
+       51 CAPTURE                          VAL R5
+       52 NAMECALL                         R6 R6 K21 ["Connect"]
+       54 CALL                             R6 2 0
+       55 GETTABLEKS                       R6 R4 K22 ["DataModelSessionStarted"]
+       57 DUPCLOSURE                       R8 K23 [PROTO_1]
+       58 CAPTURE                          VAL R5
+       59 NAMECALL                         R6 R6 K21 ["Connect"]
+       61 CALL                             R6 2 0
+       62 GETIMPORT                        R4 K25 [game]
+       64 LOADK                            R6 K26 ["RunService"]
+       65 NAMECALL                         R4 R4 K27 ["GetService"]
+       67 CALL                             R4 2 1
+       68 NAMECALL                         R4 R4 K28 ["IsEdit"]
+       70 CALL                             R4 1 1
+       71 JUMPIFNOT                        R4 ; [+48]
+       72 GETIMPORT                        R5 K25 [game]
+       74 GETTABLEKS                       R4 R5 K29 ["PlaceId"]
+       76 GETIMPORT                        R6 K25 [game]
+       78 GETTABLEKS                       R5 R6 K30 ["GameId"]
+       80 GETIMPORT                        R6 K1 [plugin]
+       82 LOADK                            R8 K31 ["placeid"]
+       83 MOVE                             R9 R4
+       84 NAMECALL                         R6 R6 K32 ["SetItem"]
+       86 CALL                             R6 3 0
+       87 GETIMPORT                        R6 K1 [plugin]
+       89 LOADK                            R8 K33 ["universeid"]
+       90 MOVE                             R9 R5
+       91 NAMECALL                         R6 R6 K32 ["SetItem"]
+       93 CALL                             R6 3 0
+       94 GETIMPORT                        R6 K1 [plugin]
+       96 LOADK                            R8 K34 ["idsupdated"]
+       97 NAMECALL                         R6 R6 K35 ["Invoke"]
+       99 CALL                             R6 2 0
+      100 GETIMPORT                        R6 K25 [game]
+      102 LOADK                            R8 K29 ["PlaceId"]
+      103 NAMECALL                         R6 R6 K36 ["GetPropertyChangedSignal"]
+      105 CALL                             R6 2 1
+      106 DUPCLOSURE                       R8 K37 [PROTO_2]
+      107 NAMECALL                         R6 R6 K21 ["Connect"]
+      109 CALL                             R6 2 0
+      110 GETIMPORT                        R6 K25 [game]
+      112 LOADK                            R8 K30 ["GameId"]
+      113 NAMECALL                         R6 R6 K36 ["GetPropertyChangedSignal"]
+      115 CALL                             R6 2 1
+      116 DUPCLOSURE                       R8 K38 [PROTO_3]
+      117 NAMECALL                         R6 R6 K21 ["Connect"]
+      119 CALL                             R6 2 0
+      120 GETIMPORT                        R4 K7 [require]
+      122 GETTABLEKS                       R7 R0 K13 ["Bin"]
+      124 GETTABLEKS                       R6 R7 K14 ["Common"]
+      126 GETTABLEKS                       R5 R6 K39 ["pluginType"]
+      128 CALL                             R4 1 1
+      129 GETTABLEKS                       R5 R4 K40 ["get"]
+      131 CALL                             R5 0 1
+      132 GETTABLEKS                       R6 R4 K41 ["Asset"]
+      134 JUMPIFEQ                         R5 R6 ; [+2]
+      136 RETURN                           R0 0
+      137 GETIMPORT                        R5 K7 [require]
+      139 GETTABLEKS                       R8 R0 K13 ["Bin"]
+      141 GETTABLEKS                       R7 R8 K14 ["Common"]
+      143 GETTABLEKS                       R6 R7 K42 ["setup"]
+      145 CALL                             R5 1 1
+      146 GETIMPORT                        R6 K7 [require]
+      148 GETTABLEKS                       R9 R0 K13 ["Bin"]
+      150 GETTABLEKS                       R8 R9 K14 ["Common"]
+      152 GETTABLEKS                       R7 R8 K43 ["setupMain"]
+      154 CALL                             R6 1 1
+      155 MOVE                             R7 R5
+      156 GETIMPORT                        R8 K1 [plugin]
+      158 MOVE                             R9 R6
+      159 CALL                             R7 2 0
+      160 RETURN                           R0 0

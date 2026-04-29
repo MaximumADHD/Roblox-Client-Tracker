@@ -90,7 +90,7 @@ MAIN:
        47 CALL                             R4 2 0
        48 MOVE                             R4 R1
        49 CALL                             R4 0 1
-       50 JUMPIFNOT                        R4 ; [+14]
+       50 JUMPIFNOT                        R4 ; [+28]
        51 FASTCALL2K                       TABLE_INSERT R3 K23 ; [+5]
        53 MOVE                             R5 R3
        54 LOADK                            R6 K23 ["HumanoidRigDescription"]
@@ -101,7 +101,17 @@ MAIN:
        61 LOADK                            R6 K24 ["DigitsRigDescription"]
        62 GETIMPORT                        R4 K22 [table.insert]
        64 CALL                             R4 2 0
-       65 DUPCLOSURE                       R4 K25 [PROTO_0]
-       66 CAPTURE                          VAL R3
-       67 CAPTURE                          VAL R4
-       68 RETURN                           R4 1
+       65 FASTCALL2K                       TABLE_INSERT R3 K25 ; [+5]
+       67 MOVE                             R5 R3
+       68 LOADK                            R6 K25 ["AnimationConstraint"]
+       69 GETIMPORT                        R4 K22 [table.insert]
+       71 CALL                             R4 2 0
+       72 FASTCALL2K                       TABLE_INSERT R3 K26 ; [+5]
+       74 MOVE                             R5 R3
+       75 LOADK                            R6 K26 ["JointInstance"]
+       76 GETIMPORT                        R4 K22 [table.insert]
+       78 CALL                             R4 2 0
+       79 DUPCLOSURE                       R4 K27 [PROTO_0]
+       80 CAPTURE                          VAL R3
+       81 CAPTURE                          VAL R4
+       82 RETURN                           R4 1

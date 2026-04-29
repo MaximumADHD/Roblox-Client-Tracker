@@ -28,12 +28,17 @@ export type StyleProviderProps = {
 	-- **Deprecated**. Use useStyleSheet hook insteads to derive the Foundation styles.
 	-- Ignored when FoundationDisableStyleProviderDerives is enabled.
 	derives: { StyleSheet }?,
+	-- Partial token overrides to apply on top of the base tokens.
+	-- Allows remapping token values (e.g., Color.Surface.Surface_0 to a different color).
+	-- Only available when FoundationTokenOverrides flag is enabled.
+	tokenOverrides: Tokens.TokenOverrides?,
 	children: React.ReactNode,
 }
 
 type Theme = Theme.Theme
 type Device = Device.Device
 type Tokens = Tokens.Tokens
+type TokenOverrides = Tokens.TokenOverrides
 
 local useRegistryStyleSheet = if Flags.FoundationUseStyleSheetRegistry
 	then require(Style.useRegistryStyleSheet)
@@ -78,8 +83,8 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 	local useVariants = VariantsContext.useVariantsState()
 
 	local tokens: Tokens = React.useMemo(function()
-		return getTokens(props.theme, props.device, props.scale)
-	end, { props.device, props.theme, props.scale } :: { unknown })
+		return getTokens(props.theme, props.device, props.scale, styleProviderProps.tokenOverrides)
+	end, { props.device, props.theme, props.scale, styleProviderProps.tokenOverrides } :: { unknown })
 
 	local preferences = usePreferences()
 	local preferredTextSize = preferences.preferredTextSize
@@ -90,7 +95,8 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 
 	local registryStyleSheet, addStyleTags
 	if Flags.FoundationUseStyleSheetRegistry then
-		registryStyleSheet, addStyleTags = useRegistryStyleSheet(props.theme, props.device, props.scale)
+		registryStyleSheet, addStyleTags =
+			useRegistryStyleSheet(props.theme, props.device, props.scale, styleProviderProps.tokenOverrides)
 	end
 
 	return React.createElement(TokensContext.Provider, {
@@ -126,6 +132,7 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 						tags = tags,
 						derives = styleProviderProps.derives,
 						setStyleSheetRef = setStyleSheetRef,
+						tokenOverrides = styleProviderProps.tokenOverrides,
 					}),
 			}),
 		}),

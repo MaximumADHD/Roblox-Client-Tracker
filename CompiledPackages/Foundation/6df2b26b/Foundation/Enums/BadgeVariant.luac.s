@@ -1,0 +1,20 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 DUPTABLE                         R0 K8 [{"Neutral", "Contrast", "Alert", "Success", "Warning", "OverMedia", "Primary", "Secondary"}]
+        2 LOADK                            R1 K0 ["Neutral"]
+        3 SETTABLEKS                       R1 R0 K0 ["Neutral"]
+        5 LOADK                            R1 K1 ["Contrast"]
+        6 SETTABLEKS                       R1 R0 K1 ["Contrast"]
+        8 LOADK                            R1 K2 ["Alert"]
+        9 SETTABLEKS                       R1 R0 K2 ["Alert"]
+       11 LOADK                            R1 K3 ["Success"]
+       12 SETTABLEKS                       R1 R0 K3 ["Success"]
+       14 LOADK                            R1 K4 ["Warning"]
+       15 SETTABLEKS                       R1 R0 K4 ["Warning"]
+       17 LOADK                            R1 K5 ["OverMedia"]
+       18 SETTABLEKS                       R1 R0 K5 ["OverMedia"]
+       20 LOADK                            R1 K6 ["Primary"]
+       21 SETTABLEKS                       R1 R0 K6 ["Primary"]
+       23 LOADK                            R1 K7 ["Secondary"]
+       24 SETTABLEKS                       R1 R0 K7 ["Secondary"]
+       26 RETURN                           R0 1

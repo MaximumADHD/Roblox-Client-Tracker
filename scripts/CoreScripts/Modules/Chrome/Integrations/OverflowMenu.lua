@@ -49,9 +49,6 @@ local FFlagFixInventoryFilledIcon = game:DefineFastFlag("FixInventoryFilledIcon"
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagAppChatRebrandStringUpdates = SharedFlags.GetFFlagAppChatRebrandStringUpdates
-
 local FFlagAppChatEnabledChromeDropdownFtuxTooltip =
 	game:DefineFastFlag("AppChatEnabledChromeDropdownFtuxTooltip", false)
 local FFlagAvatarSwitcherFtuxTooltip = game:DefineFastFlag("AvatarSwitcherFtuxTooltip", false)
@@ -274,10 +271,10 @@ function HamburgerButton(props)
 			priority = FIntUnibarConnectIconTooltipPriority,
 			isIconVisible = props.visible,
 
-			headerKey = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()
+			headerKey = if GetFFlagIsSquadEnabled()
 				then "CoreScripts.FTUX.Heading.CheckOutRobloxParty"
 				else "CoreScripts.FTUX.Heading.CheckOutRobloxConnect",
-			bodyKey = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()
+			bodyKey = if GetFFlagIsSquadEnabled()
 				then "CoreScripts.FTUX.Label.PartyWithYourFriendsAnytime"
 				else "CoreScripts.FTUX.Label.ChatWithYourFriendsAnytime",
 

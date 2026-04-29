@@ -4,6 +4,7 @@ local Dash = require(Packages.Dash)
 local Tokens = require(Foundation.Providers.Style.Tokens)
 local Types = require(script.Parent.Types)
 local staticRules = require(script.Parent.staticRules)
+local tokenAttributePascalName = require(script.Parent.Parent.tokenAttributePascalName)
 
 type Tokens = Tokens.Tokens
 type StyleRule = Types.StyleRule
@@ -196,11 +197,15 @@ local function TypographyRules(typography: Typography, nominalScale: number): { 
 		table.insert(rules, {
 			tag = `text-{name}`,
 			properties = {
-				Font = type.Font,
+				Font = `$Font{pascalName}`,
 				TextSize = `$TextSize{pascalName}`,
 				LineHeight = type.LineHeight,
 			},
 			attributes = {
+				{
+					name = `Font{pascalName}`,
+					value = type.Font :: unknown,
+				},
 				{
 					name = `TextSize{pascalName}`,
 					value = type.TextSize,
@@ -324,10 +329,362 @@ local function PaddingRules(paddings: Paddings, margins: Margins): { StyleRule }
 	return rules
 end
 
+local BACKGROUND = "bg"
+local CONTENT = "content"
+local STROKE = "stroke"
+
+local ColorPurpose = {
+	Content = { CONTENT },
+	Stroke = { STROKE },
+	Shift = { BACKGROUND },
+	Surface = { BACKGROUND },
+	OverMedia = { BACKGROUND },
+	System = { BACKGROUND, CONTENT, STROKE },
+	Extended = {},
+	Common = {},
+	Selection = {},
+	State = {},
+	None = {},
+}
+
+local function DefaultRules(tokens: Tokens): { StyleRule }
+	local fontValue = tokens.Typography.BodyLarge.Font
+	return {
+		{
+			tag = "gui-object-defaults",
+			priority = -1,
+			properties = {
+				BackgroundTransparency = 1,
+			},
+		},
+		{
+			tag = "text-defaults",
+			priority = -1,
+			properties = {
+				Font = "$FontBodyLarge",
+			},
+			attributes = {
+				{
+					name = "FontBodyLarge",
+					value = fontValue,
+				},
+			},
+		},
+	}
+end
+
+local function DefaultColorRules(tokens: Tokens): { StyleRule }
+	local color3Value = tokens.Color.Content.Default.Color3
+	local transparencyValue = tokens.Color.Content.Default.Transparency
+	return {
+		{
+			tag = "text-color-defaults",
+			priority = -1,
+			properties = {
+				TextColor3 = "$ColorContentDefaultColor3",
+				TextTransparency = "$ColorContentDefaultTransparency",
+			},
+			attributes = {
+				{
+					name = "ColorContentDefaultColor3",
+					value = color3Value,
+				} :: any,
+				{
+					name = "ColorContentDefaultTransparency",
+					value = transparencyValue,
+				},
+			},
+		},
+	}
+end
+
+local function BackgroundRules(colors: ColorScopes, variants: Variants): { StyleRule }
+	local rules: { StyleRule } = {}
+
+	for scopeName, scope in colors do
+		if table.find(ColorPurpose[scopeName], BACKGROUND) then
+			for shortName, color in scope do
+				local attrName = tokenAttributePascalName(scopeName, shortName)
+				table.insert(rules, {
+					tag = `bg-{shortName}`,
+					properties = {
+						BackgroundColor3 = `$Color{scopeName}{attrName}Color3`,
+						BackgroundTransparency = `$Color{scopeName}{attrName}Transparency`,
+					},
+					attributes = {
+						{
+							name = `Color{scopeName}{attrName}Color3`,
+							value = color.Color3,
+						} :: any,
+						{
+							name = `Color{scopeName}{attrName}Transparency`,
+							value = color.Transparency,
+						},
+					},
+				})
+			end
+		end
+	end
+
+	for name, scope in variants do
+		local pascalName = kebabToPascal(name)
+		table.insert(rules, {
+			tag = `bg-{name}`,
+			properties = {
+				BackgroundColor3 = `$Color{pascalName}BackgroundColor3`,
+				BackgroundTransparency = `$Color{pascalName}BackgroundTransparency`,
+			},
+			attributes = {
+				{
+					name = `Color{pascalName}BackgroundColor3`,
+					value = scope.Background.Color3,
+				} :: any,
+				{
+					name = `Color{pascalName}BackgroundTransparency`,
+					value = scope.Background.Transparency,
+				},
+			},
+		})
+	end
+
+	return rules
+end
+
+local function StrokeSizeRules(strokes: Strokes): { StyleRule }
+	local rules: { StyleRule } = {}
+
+	for _, stroke in strokes do
+		if stroke.name == "none" then
+			continue
+		end
+
+		local pascalName = kebabToPascal(stroke.name)
+		table.insert(rules, {
+			tag = `stroke-{stroke.name}`,
+			pseudo = "UIStroke",
+			properties = {
+				Thickness = `$StrokeThickness{pascalName}`,
+			},
+			attributes = {
+				{
+					name = `StrokeThickness{pascalName}`,
+					value = stroke.size,
+				},
+			},
+		})
+	end
+
+	return rules
+end
+
+local function StrokeRules(colors: ColorScopes, variants: Variants): { StyleRule }
+	local rules: { StyleRule } = {}
+
+	for scopeName, scope in colors do
+		if table.find(ColorPurpose[scopeName], STROKE) then
+			for shortName, color in scope do
+				local attrName = tokenAttributePascalName(scopeName, shortName)
+				table.insert(rules, {
+					tag = `stroke-{shortName}`,
+					pseudo = "UIStroke",
+					properties = {
+						Color = `$Color{scopeName}{attrName}Color3`,
+						Transparency = `$Color{scopeName}{attrName}Transparency`,
+					},
+					attributes = {
+						{
+							name = `Color{scopeName}{attrName}Color3`,
+							value = color.Color3,
+						} :: any,
+						{
+							name = `Color{scopeName}{attrName}Transparency`,
+							value = color.Transparency,
+						},
+					},
+				})
+			end
+		end
+	end
+
+	for name, scope in variants do
+		local pascalName = kebabToPascal(name)
+		table.insert(rules, {
+			tag = `stroke-{name}`,
+			pseudo = "UIStroke",
+			properties = {
+				Color = `$Color{pascalName}BorderColor3`,
+				Transparency = `$Color{pascalName}BorderTransparency`,
+			},
+			attributes = {
+				{
+					name = `Color{pascalName}BorderColor3`,
+					value = scope.Border.Color3,
+				} :: any,
+				{
+					name = `Color{pascalName}BorderTransparency`,
+					value = scope.Border.Transparency,
+				},
+			},
+		})
+	end
+
+	local strokePositions = {
+		["center"] = Enum.BorderStrokePosition.Center,
+		["inner"] = Enum.BorderStrokePosition.Inner,
+		["outer"] = Enum.BorderStrokePosition.Outer,
+	}
+
+	for posName, strokePosition in strokePositions do
+		table.insert(rules, {
+			tag = `stroke-position-{posName}`,
+			pseudo = "UIStroke",
+			properties = {
+				BorderStrokePosition = strokePosition,
+			},
+		})
+	end
+
+	return rules
+end
+
+local function ContentRules(colors: ColorScopes, variants: Variants): { StyleRule }
+	local rules: { StyleRule } = {}
+
+	for scopeName, scope in colors do
+		if table.find(ColorPurpose[scopeName], CONTENT) then
+			for shortName, color in scope do
+				local attrName = tokenAttributePascalName(scopeName, shortName)
+				table.insert(rules, {
+					tag = `content-{shortName}`,
+					properties = {
+						ImageColor3 = `$Color{scopeName}{attrName}Color3`,
+						ImageTransparency = `$Color{scopeName}{attrName}Transparency`,
+						TextColor3 = `$Color{scopeName}{attrName}Color3`,
+						TextTransparency = `$Color{scopeName}{attrName}Transparency`,
+					},
+					attributes = {
+						{
+							name = `Color{scopeName}{attrName}Color3`,
+							value = color.Color3,
+						} :: any,
+						{
+							name = `Color{scopeName}{attrName}Transparency`,
+							value = color.Transparency,
+						},
+					},
+				})
+			end
+		end
+	end
+
+	for name, scope in variants do
+		local pascalName = kebabToPascal(name)
+		table.insert(rules, {
+			tag = `content-{name}`,
+			properties = {
+				ImageColor3 = `$Color{pascalName}ForegroundColor3`,
+				ImageTransparency = `$Color{pascalName}ForegroundTransparency`,
+				TextColor3 = `$Color{pascalName}ForegroundColor3`,
+				TextTransparency = `$Color{pascalName}ForegroundTransparency`,
+			},
+			attributes = {
+				{
+					name = `Color{pascalName}ForegroundColor3`,
+					value = scope.Foreground.Color3,
+				} :: any,
+				{
+					name = `Color{pascalName}ForegroundTransparency`,
+					value = scope.Foreground.Transparency,
+				},
+			},
+		})
+	end
+
+	return rules
+end
+
+local function DeprecatedColorRules(colors: ColorScopes): { StyleRule }
+	local rules: { StyleRule } = {}
+
+	local scopeName = "System"
+	local scope = colors[scopeName]
+
+	for name, color in scope do
+		local oldName = name:sub(8)
+		local attrName = tokenAttributePascalName(scopeName, name)
+
+		table.insert(rules, {
+			tag = `bg-{oldName}`,
+			properties = {
+				BackgroundColor3 = `$Color{scopeName}{attrName}Color3`,
+				BackgroundTransparency = `$Color{scopeName}{attrName}Transparency`,
+			},
+			attributes = {
+				{
+					name = `Color{scopeName}{attrName}Color3`,
+					value = color.Color3,
+				} :: any,
+				{
+					name = `Color{scopeName}{attrName}Transparency`,
+					value = color.Transparency,
+				},
+			},
+			deprecatedFor = `bg-{name}`,
+		})
+
+		if oldName ~= "emphasis" then
+			table.insert(rules, {
+				tag = `content-{oldName}`,
+				properties = {
+					ImageColor3 = `$Color{scopeName}{attrName}Color3`,
+					ImageTransparency = `$Color{scopeName}{attrName}Transparency`,
+					TextColor3 = `$Color{scopeName}{attrName}Color3`,
+					TextTransparency = `$Color{scopeName}{attrName}Transparency`,
+				},
+				attributes = {
+					{
+						name = `Color{scopeName}{attrName}Color3`,
+						value = color.Color3,
+					} :: any,
+					{
+						name = `Color{scopeName}{attrName}Transparency`,
+						value = color.Transparency,
+					},
+				},
+				deprecatedFor = `content-{name}`,
+			})
+
+			table.insert(rules, {
+				tag = `stroke-{oldName}`,
+				pseudo = "UIStroke",
+				properties = {
+					Color = `$Color{scopeName}{attrName}Color3`,
+					Transparency = `$Color{scopeName}{attrName}Transparency`,
+				},
+				attributes = {
+					{
+						name = `Color{scopeName}{attrName}Color3`,
+						value = color.Color3,
+					} :: any,
+					{
+						name = `Color{scopeName}{attrName}Transparency`,
+						value = color.Transparency,
+					},
+				},
+				deprecatedFor = `stroke-{name}`,
+			})
+		end
+	end
+
+	return rules
+end
+
 local function rulesGenerator(
 	tokens: Tokens,
 	formattedTokens: FormattedTokens
 ): ({ StyleRule }, { StyleRule }, { StyleRule })
+	local colors = formattedTokens.colors
+	local variants = formattedTokens.variants
 	local gaps = formattedTokens.gaps
 	local gutters = formattedTokens.gutters
 	local radii = formattedTokens.radii
@@ -337,17 +694,35 @@ local function rulesGenerator(
 	local paddings = formattedTokens.paddings
 	local margins = formattedTokens.margins
 
-	local common, _, theme = staticRules.rulesGenerator(tokens, formattedTokens)
+	local common: { StyleRule } = Dash.joinArrays(
+		DefaultRules(tokens),
+		staticRules.rules.EngineDefaultBypassRules(),
+		staticRules.rules.FlexItemRules(),
+		staticRules.rules.TextRules(),
+		staticRules.rules.AutomaticSizeRules(),
+		staticRules.rules.PositionRules(),
+		staticRules.rules.AnchorPointRules(),
+		staticRules.rules.ClipsDescendantRules(),
+		staticRules.rules.AspectRatioRules()
+	)
 
 	local size: { StyleRule } = Dash.joinArrays(
 		DefaultSizeRules(typography["body-large"], tokens.Config.Text.NominalScale),
 		staticRules.rules.ListLayoutRules(),
-		staticRules.rules.ListLayoutSpacingRules(gaps, gutters),
+		ListLayoutSpacingRules(gaps, gutters),
 		CornerRules(radii),
 		SizeRules(sizes),
-		staticRules.rules.StrokeSizeRules(strokes),
+		StrokeSizeRules(strokes),
 		TypographyRules(typography, tokens.Config.Text.NominalScale),
 		PaddingRules(paddings, margins)
+	)
+
+	local theme: { StyleRule } = Dash.joinArrays(
+		DefaultColorRules(tokens),
+		DeprecatedColorRules(colors),
+		BackgroundRules(colors, variants),
+		StrokeRules(colors, variants),
+		ContentRules(colors, variants)
 	)
 
 	return common, size, theme
@@ -356,11 +731,18 @@ end
 return {
 	rulesGenerator = rulesGenerator,
 	rules = {
+		DefaultRules = DefaultRules,
 		DefaultSizeRules = DefaultSizeRules,
+		DefaultColorRules = DefaultColorRules,
 		ListLayoutSpacingRules = ListLayoutSpacingRules,
 		CornerRules = CornerRules,
 		SizeRules = SizeRules,
+		StrokeSizeRules = StrokeSizeRules,
 		TypographyRules = TypographyRules,
 		PaddingRules = PaddingRules,
+		BackgroundRules = BackgroundRules,
+		StrokeRules = StrokeRules,
+		ContentRules = ContentRules,
+		DeprecatedColorRules = DeprecatedColorRules,
 	},
 }

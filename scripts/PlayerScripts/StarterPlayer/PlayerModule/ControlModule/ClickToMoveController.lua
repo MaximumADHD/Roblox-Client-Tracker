@@ -28,21 +28,13 @@ local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 
 local FFlagUserRaycastUpdateAPI = FlagUtil.getUserFlag("UserRaycastUpdateAPI2")
-local FFlagUserPlayerScriptsClickToMoveUsesIAS = FlagUtil.getUserFlag("UserPlayerScriptsClickToMoveUsesIAS")
+local FFlagUserPlayerScriptsCTMDirectPlayerData = FlagUtil.getUserFlag("UserPlayerScriptsCTMDirectPlayerData")
 
 --[[ Input Actions ]]--
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
-local character = inputContexts:WaitForChild("Character")
-local clickToMoveAction = character:WaitForChild("ClickToMoveAction")
-local clickToMovePositionAction = nil
-local moveAction = nil -- Remove with FFlagUserPlayerScriptsClickToMoveUsesIAS
-local jumpAction = nil -- Remove with FFlagUserPlayerScriptsClickToMoveUsesIAS
-if FFlagUserPlayerScriptsClickToMoveUsesIAS then 
-	clickToMovePositionAction = character:WaitForChild("ClickToMovePosition")
-else
-	moveAction = character:WaitForChild("Move")
-	jumpAction = character:WaitForChild("Jump")
-end
+local characterContext = inputContexts:WaitForChild("CharacterContext")
+local clickToMoveAction = characterContext:WaitForChild("ClickToMoveAction")
+local clickToMovePositionAction = characterContext:WaitForChild("ClickToMovePositionAction")
 
 --[[ Configuration ]]
 local ShowPath = true
@@ -688,18 +680,14 @@ local function DisconnectEvent(event)
 end
 
 local function calculateLocalMoveVector(worldMoveVector: Vector3): Vector2
-	if FFlagUserPlayerScriptsClickToMoveUsesIAS then 
-		local camera = Workspace.CurrentCamera
-		if not camera then
-			return Vector2.new(worldMoveVector.X, -worldMoveVector.Z)
-		end
-		local _, yaw, _ = camera.CFrame:ToEulerAnglesYXZ()
-		local cameraVec = CFrame.Angles(0, yaw, 0)
-		local localVec = cameraVec:VectorToObjectSpace(worldMoveVector)
-		return Vector2.new(localVec.X, -localVec.Z)
-	else
-		return Vector2.zero
+	local camera = Workspace.CurrentCamera
+	if not camera then
+		return Vector2.new(worldMoveVector.X, -worldMoveVector.Z)
 	end
+	local _, yaw, _ = camera.CFrame:ToEulerAnglesYXZ()
+	local cameraVec = CFrame.Angles(0, yaw, 0)
+	local localVec = cameraVec:VectorToObjectSpace(worldMoveVector)
+	return Vector2.new(localVec.X, -localVec.Z)
 end
 
 --[[ The ClickToMove Controller Class ]]--
@@ -715,8 +703,6 @@ function ClickToMove.new(playerData)
 	self.mouse2UpTime = tick()
 
 	self.tapConn = nil
-	self.inputBeganConn = nil
-	self.inputEndedConn = nil
 	self.humanoidDiedConn = nil
 	self.characterChildAddedConn = nil
 	self.onCharacterAddedConn = nil
@@ -724,18 +710,15 @@ function ClickToMove.new(playerData)
 	self.renderSteppedConn = nil
 	self.menuOpenedConnection = nil
 	self.preferredInputChangedConnection = nil
-	if FFlagUserPlayerScriptsClickToMoveUsesIAS then
-		self.jumpEnabled = true
-		self.clickPressedConn = nil
-		self.clickReleasedConn = nil
-		self.shouldCleanupPath = false
+	self.jumpEnabled = true
+	self.clickPressedConn = nil
+	self.clickReleasedConn = nil
+	self.shouldCleanupPath = false
+	if not FFlagUserPlayerScriptsCTMDirectPlayerData then
 		self.lastPatherMoveVector = Vector2.new(0, 0)
-		self.lastPatherJumped = false
-		self.playerData = nil -- TODO: remove, controllers should not store playerData
-	else
-		self.moveVectorIsCameraRelative = true
-		self.wasdEnabled = false
 	end
+	self.lastPatherJumped = false
+	self.playerData = nil -- TODO: remove, controllers should not store playerData
 
 	self.running = false
 
@@ -764,16 +747,12 @@ function ClickToMove:CleanupPath()
 	if ExistingIndicator then
 		ExistingIndicator:Destroy()
 	end
-	if FFlagUserPlayerScriptsClickToMoveUsesIAS then
-		self.shouldCleanupPath = true
-	end
+	self.shouldCleanupPath = true
 end
 
 function ClickToMove:HandleMoveTo(thisPather, hitPt, hitChar, character, overrideShowPath)
 	-- Start new path
-	if FFlagUserPlayerScriptsClickToMoveUsesIAS then 
-		self.shouldCleanupPath = false
-	end
+	self.shouldCleanupPath = false
 	if ExistingPather then
 		self:CleanupPath()
 	end
@@ -923,8 +902,6 @@ end
 
 function ClickToMove:DisconnectEvents()
 	DisconnectEvent(self.tapConn)
-	DisconnectEvent(self.inputBeganConn)
-	DisconnectEvent(self.inputEndedConn)
 	DisconnectEvent(self.humanoidDiedConn)
 	DisconnectEvent(self.characterChildAddedConn)
 	DisconnectEvent(self.onCharacterAddedConn)
@@ -932,10 +909,8 @@ function ClickToMove:DisconnectEvents()
 	DisconnectEvent(self.characterChildRemovedConn)
 	DisconnectEvent(self.menuOpenedConnection)
 	DisconnectEvent(self.preferredInputChangedConnection)
-	if FFlagUserPlayerScriptsClickToMoveUsesIAS then 
-		DisconnectEvent(self.clickPressedConn)
-		DisconnectEvent(self.clickReleasedConn)
-	end
+	DisconnectEvent(self.clickPressedConn)
+	DisconnectEvent(self.clickReleasedConn)
 end
 
 function ClickToMove:OnPreferredInputChanged()
@@ -953,61 +928,34 @@ end
 function ClickToMove:OnCharacterAdded(character)
 	self:DisconnectEvents()
 
-	if FFlagUserPlayerScriptsClickToMoveUsesIAS then
-		self.clickPressedConn = clickToMoveAction.Pressed:Connect(function()
-			self.mouse2DownTime = tick()
-			local topLeftInset, _ = GuiService:GetGuiInset()
-			local currPos: Vector3 = clickToMovePositionAction:GetState()
-			if currPos.X == -1 and currPos.Y == -1 then 
-				currPos = UserInputService:GetMouseLocation()
-			end
-			currPos = Vector2.new(currPos.X - topLeftInset.X, currPos.Y - topLeftInset.Y)
-			self.mouse2DownPos = currPos
-		end)
-
-		self.clickReleasedConn = clickToMoveAction.Released:Connect(function()
-			self.mouse2UpTime = tick()
-			local topLeftInset, _ = GuiService:GetGuiInset()
-			local currPos: Vector3 = clickToMovePositionAction:GetState()
-			if currPos.X == -1 and currPos.Y == -1 then 
-				currPos = UserInputService:GetMouseLocation()
-			end
-			currPos = Vector2.new(currPos.X - topLeftInset.X, currPos.Y - topLeftInset.Y)
-			
-			if not self.playerData or not self.playerData.actions.Move then 
-				return
-			end
-
-			local allowed = ExistingPather or self.playerData.actions.Move:GetState().Magnitude <= 0
-			if self.mouse2UpTime - self.mouse2DownTime < 0.25 and (currPos - self.mouse2DownPos).Magnitude < 5 and allowed then
-				local positions = {currPos}
-				self:OnTap(positions)
-			end
-		end)
-	end
-
-
-	self.inputBeganConn = UserInputService.InputBegan:Connect(function(input, processed)
-		if not FFlagUserPlayerScriptsClickToMoveUsesIAS then
-			if input.UserInputType == Enum.UserInputType.MouseButton2 then
-				self.mouse2DownTime = tick()
-				self.mouse2DownPos = input.Position
-			end
+	self.clickPressedConn = clickToMoveAction.Pressed:Connect(function()
+		self.mouse2DownTime = tick()
+		local topLeftInset, _ = GuiService:GetGuiInset()
+		local currPos: Vector3 = clickToMovePositionAction:GetState()
+		if currPos.X == -1 and currPos.Y == -1 then 
+			currPos = UserInputService:GetMouseLocation()
 		end
+		currPos = Vector2.new(currPos.X - topLeftInset.X, currPos.Y - topLeftInset.Y)
+		self.mouse2DownPos = currPos
 	end)
 
-	self.inputEndedConn = UserInputService.InputEnded:Connect(function(input, processed)
-		if not FFlagUserPlayerScriptsClickToMoveUsesIAS then
-			if input.UserInputType == Enum.UserInputType.MouseButton2 then
-				self.mouse2UpTime = tick()
-				local currPos: Vector3 = input.Position
-				-- We allow click to move during path following or if there is no keyboard movement
-				local allowed = ExistingPather or moveAction:GetState().Magnitude <= 0
-				if self.mouse2UpTime - self.mouse2DownTime < 0.25 and (currPos - self.mouse2DownPos).magnitude < 5 and allowed then
-					local positions = {currPos}
-					self:OnTap(positions)
-				end
-			end
+	self.clickReleasedConn = clickToMoveAction.Released:Connect(function()
+		self.mouse2UpTime = tick()
+		local topLeftInset, _ = GuiService:GetGuiInset()
+		local currPos: Vector3 = clickToMovePositionAction:GetState()
+		if currPos.X == -1 and currPos.Y == -1 then 
+			currPos = UserInputService:GetMouseLocation()
+		end
+		currPos = Vector2.new(currPos.X - topLeftInset.X, currPos.Y - topLeftInset.Y)
+		
+		if not self.playerData or not self.playerData.actions.MoveAction then 
+			return
+		end
+
+		local allowed = ExistingPather or self.playerData.actions.MoveAction:GetState().Magnitude <= 0
+		if self.mouse2UpTime - self.mouse2DownTime < 0.25 and (currPos - self.mouse2DownPos).Magnitude < 5 and allowed then
+			local positions = {currPos}
+			self:OnTap(positions)
 		end
 	end)
 
@@ -1102,35 +1050,52 @@ function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpContr
 		self.touchJumpController = nil
 	end
 
-	if FFlagUserPlayerScriptsClickToMoveUsesIAS then 
-		clickToMoveAction.Enabled = enable
-		clickToMovePositionAction.Enabled = enable
-	end
+	clickToMoveAction.Enabled = enable
+	clickToMovePositionAction.Enabled = enable
 
 	self.wasdEnabled = enable and enableWASD or false
 	self.enabled = enable
 end
 
 function ClickToMove:Update(playerData, dt)
-	if FFlagUserPlayerScriptsClickToMoveUsesIAS then
-		assert(playerData.actions.Move)
-		assert(playerData.actions.Jump)
+	assert(playerData.actions.MoveAction)
+	assert(playerData.actions.JumpAction)
 
-		if not self.playerData then 
-			self.playerData = playerData
-		end
+	if not self.playerData then 
+		self.playerData = playerData
+	end
 
-		local currentPather = ExistingPather
-		-- Handle Pather
-		if currentPather then
-			-- Let the Pather update
-			currentPather:OnRenderStepped(dt)
+	local currentPather = ExistingPather
+	-- Handle Pather
+	if currentPather then
+		-- Let the Pather update
+		currentPather:OnRenderStepped(dt)
 
-			-- Pather:OnRenderStepped can create a new pather, in which case we can't compare to lastPatherMoveVector
-			-- If we still have the current Pather, fire move / jump actions. Else, reset actions
-			if ExistingPather and ExistingPather == currentPather then
+		-- Pather:OnRenderStepped can create a new pather
+		-- If we still have the current Pather, fire move / jump actions. Else, reset actions
+		if ExistingPather and ExistingPather == currentPather then
+			if FFlagUserPlayerScriptsCTMDirectPlayerData then
+				local expectedState = calculateLocalMoveVector(currentPather.NextActionMoveDirection)
+				playerData.actions.MoveAction:Fire(expectedState)
+				playerData.moveVector = expectedState
+
+				-- Handle jump request from Pather
+				if currentPather.NextActionJump then
+					if playerData.actions.JumpAction:GetState() ~= true then
+						playerData.actions.JumpAction:Fire(true)
+					end
+					self.lastPatherJumped = true
+					playerData.isJumping = true
+				elseif self.lastPatherJumped then
+					if playerData.actions.JumpAction:GetState() == true then
+						playerData.actions.JumpAction:Fire(false)
+					end
+					self.lastPatherJumped = false
+					playerData.isJumping = false
+				end
+			else
 				-- Setup camera relative move action
-				local currentState = playerData.actions.Move:GetState()
+				local currentState = playerData.actions.MoveAction:GetState()
 				local expectedState = calculateLocalMoveVector(currentPather.NextActionMoveDirection)
 				-- If the current camera relative move action deviates from the expected move state from Pather,
 				-- let user-initiated input take priority and stop the Pather
@@ -1139,69 +1104,49 @@ function ClickToMove:Update(playerData, dt)
 					ClickToMoveDisplay.CancelFailureAnimation()
 				else
 					self.lastPatherMoveVector = expectedState
-					playerData.actions.Move:Fire(expectedState)
+					playerData.actions.MoveAction:Fire(expectedState)
 
 					-- Handle jump request from Pather
 					if currentPather.NextActionJump then
-						if playerData.actions.Jump:GetState() ~= true then
-							playerData.actions.Jump:Fire(true)
+						if playerData.actions.JumpAction:GetState() ~= true then
+							playerData.actions.JumpAction:Fire(true)
 							self.lastPatherJumped = true
 						end
 					elseif self.lastPatherJumped then
-						if playerData.actions.Jump:GetState() == true then
-							playerData.actions.Jump:Fire(false)
+						if playerData.actions.JumpAction:GetState() == true then
+							playerData.actions.JumpAction:Fire(false)
 						end
 						self.lastPatherJumped = false
 					end
 				end
-			else
+			end
+		else
+			if not FFlagUserPlayerScriptsCTMDirectPlayerData then
 				self.lastPatherMoveVector = Vector2.zero
+			end
 
-				if self.lastPatherJumped then
-					if playerData.actions.Jump:GetState() == true then
-						playerData.actions.Jump:Fire(false)
-					end
-					self.lastPatherJumped = false
+			if self.lastPatherJumped then
+				if playerData.actions.JumpAction:GetState() == true then
+					playerData.actions.JumpAction:Fire(false)
 				end
+				self.lastPatherJumped = false
 			end
 		end
+	end
 
-		if self.shouldCleanupPath then
-			self.shouldCleanupPath = false
-			self.lastPatherMoveVector = Vector2.zero
-			playerData.actions.Move:Fire(Vector2.zero)
+	if self.shouldCleanupPath then
+		self.shouldCleanupPath = false
+		if FFlagUserPlayerScriptsCTMDirectPlayerData then
+			playerData.actions.MoveAction:Fire(Vector2.zero)
+			playerData.moveVector = Vector2.zero
 			self.lastPatherJumped = false
-			playerData.actions.Jump:Fire(false)
-		end
-	else
-		-- Handle Pather
-		if ExistingPather then
-			-- Let the Pather update
-			ExistingPather:OnRenderStepped(dt)
-
-			-- If we still have a Pather, set the resulting actions
-			if ExistingPather and moveAction:GetState() == Vector2.zero then
-				-- Setup move (NOT relative to camera)
-				self.moveVector = ExistingPather.NextActionMoveDirection
-				self.moveVectorIsCameraRelative = false
-
-				-- Setup jump (but do NOT prevent the base Keayboard class from requesting jumps as well)
-				if ExistingPather.NextActionJump then
-					self.isJumping = true
-				else
-					self.isJumping = false
-				end
-			elseif moveAction:GetState() == Vector2.zero then
-				self.moveVector = ZERO_VECTOR3
-				self.moveVectorIsCameraRelative = true
-			end
-		elseif moveAction:GetState() == Vector2.zero then
-			self.moveVector = ZERO_VECTOR3
-			self.moveVectorIsCameraRelative = true
-		end
-
-		if jumpAction:GetState() then
-			self.isJumping = true
+			playerData.actions.JumpAction:Fire(false)
+			playerData.isJumping = false
+		else
+			self.lastPatherMoveVector = Vector2.zero
+			playerData.actions.MoveAction:Fire(Vector2.zero)
+			self.lastPatherJumped = false
+			playerData.actions.JumpAction:Fire(false)
 		end
 	end
 end
@@ -1296,11 +1241,6 @@ end
 
 function ClickToMove:GetUserJumpEnabled()
 	return self.jumpEnabled
-end
-
-function ClickToMove:IsMoveVectorCameraRelative() -- Remove with FFlagUserPlayerScriptsClickToMoveUsesIAS
-	assert(not FFlagUserPlayerScriptsClickToMoveUsesIAS)
-	return self.moveVectorIsCameraRelative
 end
 
 function ClickToMove:MoveTo(position, showPath, useDirectPath)

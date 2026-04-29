@@ -12,8 +12,8 @@ local DEFAULT_MOUSE_LOCK_CURSOR = "rbxasset://textures/MouseLockedCursor.png"
 local CAMERA_OFFSET_DEFAULT = Vector3.new(1.75,0,0)  
 
 local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
-local character = inputContexts:WaitForChild("Character")
-local mouseLockSwitchAction = character:WaitForChild("MouseLockSwitchAction") :: InputAction
+local cameraContext = inputContexts:WaitForChild("CameraContext")
+local mouseLockSwitchAction = cameraContext:WaitForChild("MouseLockSwitchAction") :: InputAction
 
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")

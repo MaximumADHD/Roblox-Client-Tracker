@@ -24,8 +24,6 @@ local UserLocalStore = require(InGameMenu.Utility.UserLocalStore)
 
 local GetFIntFullscreenTitleBarTriggerDelayMillis =
 	require(InGameMenu.Flags.GetFIntFullscreenTitleBarTriggerDelayMillis)
-local GetFFlagCleanUpFullscreenTitleBarPromiseOnUnmount =
-	require(InGameMenu.Flags.GetFFlagCleanUpFullscreenTitleBarPromiseOnUnmount)
 local GetFFlagFullscreenTitleBarInjectGameServices =
 	require(InGameMenu.Flags.GetFFlagFullscreenTitleBarInjectGameServices)
 local GetFFlagFixFullscreenTitleBarPromiseCancel = require(InGameMenu.Flags.GetFFlagFixFullscreenTitleBarPromiseCancel)
@@ -190,14 +188,12 @@ function FullscreenTitleBar:didUpdate(prevProps)
 end
 
 function FullscreenTitleBar:willUnmount()
-	if GetFFlagCleanUpFullscreenTitleBarPromiseOnUnmount() then
-		if self.hideTitleBarPromise then
-			self.hideTitleBarPromise:cancel()
-		end
+	if self.hideTitleBarPromise then
+		self.hideTitleBarPromise:cancel()
+	end
 
-		if self.triggerTitleBarPromise then
-			self.triggerTitleBarPromise:cancel()
-		end
+	if self.triggerTitleBarPromise then
+		self.triggerTitleBarPromise:cancel()
 	end
 end
 

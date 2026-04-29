@@ -33,6 +33,7 @@ type _Messages =
 		ExperienceInfoTableInputData: _ExperienceInfoTableInputDataMessage,
 		ExperienceContentRatingLabelInputData: _ExperienceContentRatingLabelInputDataMessage,
 		ExperienceRefundPolicyInputData: _ExperienceRefundPolicyInputDataMessage,
+		ExperiencePlayWithRewardInputData: _ExperiencePlayWithRewardInputDataMessage,
 		SocialLinkRowInputData: _SocialLinkRowInputDataMessage,
 		SocialLinkRowInputData_SocialLinkItem: _SocialLinkRowInputData_SocialLinkItemMessage,
 		ExperienceCarouselInputData: _ExperienceCarouselInputDataMessage,
@@ -62,6 +63,7 @@ type _Messages =
 		EventDescriptionInputData: _EventDescriptionInputDataMessage,
 		EventAttributionRowInputData: _EventAttributionRowInputDataMessage,
 		EventInfoTableInputData: _EventInfoTableInputDataMessage,
+		EventDetailsSheetFullBleedInputData: _EventDetailsSheetFullBleedInputDataMessage,
 		ChartsFeedInputData: _ChartsFeedInputDataMessage,
 		ChartsFeedInputData_EntryMapEntry: _ChartsFeedInputData_EntryMapEntryMessage,
 		FilterPillsInputData: _FilterPillsInputDataMessage,
@@ -172,6 +174,7 @@ type _PageEntryInputDataFields = {
 		| { type: "user_list", value: UserListInputData }
 		| { type: "experience_content_rating_label", value: ExperienceContentRatingLabelInputData }
 		| { type: "experience_refund_policy", value: ExperienceRefundPolicyInputData }
+		| { type: "experience_play_with_reward", value: ExperiencePlayWithRewardInputData }
 		| { type: "experience_details_feed", value: ExperienceDetailsFeedInputData }
 		| { type: "experience_details_action_bar", value: ExperienceDetailsActionBarInputData }
 		| { type: "experience_details_banner_image", value: ExperienceDetailsBannerImageInputData }
@@ -181,6 +184,7 @@ type _PageEntryInputDataFields = {
 		| { type: "event_attribution_row", value: EventAttributionRowInputData }
 		| { type: "event_description", value: EventDescriptionInputData }
 		| { type: "event_info_table", value: EventInfoTableInputData }
+		| { type: "event_details_sheet_full_bleed", value: EventDetailsSheetFullBleedInputData }
 		| { type: "dev_store_feed", value: DevStoreFeedInputData }
 		| { type: "charts_feed", value: ChartsFeedInputData }
 		| { type: "filter_pills", value: FilterPillsInputData }
@@ -221,6 +225,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "user_list", value: UserListInputData }
 		| { type: "experience_content_rating_label", value: ExperienceContentRatingLabelInputData }
 		| { type: "experience_refund_policy", value: ExperienceRefundPolicyInputData }
+		| { type: "experience_play_with_reward", value: ExperiencePlayWithRewardInputData }
 		| { type: "experience_details_feed", value: ExperienceDetailsFeedInputData }
 		| { type: "experience_details_action_bar", value: ExperienceDetailsActionBarInputData }
 		| { type: "experience_details_banner_image", value: ExperienceDetailsBannerImageInputData }
@@ -230,6 +235,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "event_attribution_row", value: EventAttributionRowInputData }
 		| { type: "event_description", value: EventDescriptionInputData }
 		| { type: "event_info_table", value: EventInfoTableInputData }
+		| { type: "event_details_sheet_full_bleed", value: EventDetailsSheetFullBleedInputData }
 		| { type: "dev_store_feed", value: DevStoreFeedInputData }
 		| { type: "charts_feed", value: ChartsFeedInputData }
 		| { type: "filter_pills", value: FilterPillsInputData }
@@ -882,6 +888,35 @@ type _ExperienceRefundPolicyInputDataMessage = proto.Message<
 	_ExperienceRefundPolicyInputDataPartialFields
 >
 
+type _ExperiencePlayWithRewardInputDataImpl = {
+	__index: _ExperiencePlayWithRewardInputDataImpl,
+	new: (fields: _ExperiencePlayWithRewardInputDataPartialFields?) -> ExperiencePlayWithRewardInputData,
+	encode: (self: ExperiencePlayWithRewardInputData) -> buffer,
+	decode: (input: buffer) -> ExperiencePlayWithRewardInputData,
+	jsonEncode: (self: ExperiencePlayWithRewardInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperiencePlayWithRewardInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperiencePlayWithRewardInputDataFields = {
+	universe_id: string,
+	place_id: string,
+}
+
+type _ExperiencePlayWithRewardInputDataPartialFields = {
+	universe_id: string?,
+	place_id: string?,
+}
+
+export type ExperiencePlayWithRewardInputData = typeof(setmetatable(
+	{} :: _ExperiencePlayWithRewardInputDataFields,
+	{} :: _ExperiencePlayWithRewardInputDataImpl
+))
+type _ExperiencePlayWithRewardInputDataMessage = proto.Message<
+	ExperiencePlayWithRewardInputData,
+	_ExperiencePlayWithRewardInputDataPartialFields
+>
+
 type _SocialLinkRowInputDataImpl = {
 	__index: _SocialLinkRowInputDataImpl,
 	new: (fields: _SocialLinkRowInputDataPartialFields?) -> SocialLinkRowInputData,
@@ -1089,11 +1124,19 @@ type _EventsCarouselInputDataImpl = {
 type _EventsCarouselInputDataFields = {
 	title: string,
 	event_items: { EventsCarouselInputData_EventItem },
+	universe_id: string,
+	sort_id: string,
+	subtitle: string,
+	info_text: string,
 }
 
 type _EventsCarouselInputDataPartialFields = {
 	title: string?,
 	event_items: { EventsCarouselInputData_EventItem }?,
+	universe_id: string?,
+	sort_id: string?,
+	subtitle: string?,
+	info_text: string?,
 }
 
 export type EventsCarouselInputData = typeof(setmetatable(
@@ -1730,6 +1773,33 @@ export type EventInfoTableInputData = typeof(setmetatable(
 	{} :: _EventInfoTableInputDataImpl
 ))
 type _EventInfoTableInputDataMessage = proto.Message<EventInfoTableInputData, _EventInfoTableInputDataPartialFields>
+
+type _EventDetailsSheetFullBleedInputDataImpl = {
+	__index: _EventDetailsSheetFullBleedInputDataImpl,
+	new: (fields: _EventDetailsSheetFullBleedInputDataPartialFields?) -> EventDetailsSheetFullBleedInputData,
+	encode: (self: EventDetailsSheetFullBleedInputData) -> buffer,
+	decode: (input: buffer) -> EventDetailsSheetFullBleedInputData,
+	jsonEncode: (self: EventDetailsSheetFullBleedInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> EventDetailsSheetFullBleedInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _EventDetailsSheetFullBleedInputDataFields = {
+	event_id: string,
+}
+
+type _EventDetailsSheetFullBleedInputDataPartialFields = {
+	event_id: string?,
+}
+
+export type EventDetailsSheetFullBleedInputData = typeof(setmetatable(
+	{} :: _EventDetailsSheetFullBleedInputDataFields,
+	{} :: _EventDetailsSheetFullBleedInputDataImpl
+))
+type _EventDetailsSheetFullBleedInputDataMessage = proto.Message<
+	EventDetailsSheetFullBleedInputData,
+	_EventDetailsSheetFullBleedInputDataPartialFields
+>
 
 type _ChartsFeedInputDataImpl = {
 	__index: _ChartsFeedInputDataImpl,
@@ -2699,6 +2769,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 31, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experience_play_with_reward" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 32, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "experience_details_feed" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 500, proto.wireTypes.lengthDelimited)
@@ -2734,6 +2808,10 @@ do
 			elseif self.kind.type == "event_info_table" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 604, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "event_details_sheet_full_bleed" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 605, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "dev_store_feed" then
 				local encoded = self.kind.value:encode()
@@ -2951,6 +3029,14 @@ do
 						value = messages.ExperienceRefundPolicyInputData.decode(value),
 					}
 					continue
+				elseif field == 32 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "experience_play_with_reward",
+						value = messages.ExperiencePlayWithRewardInputData.decode(value),
+					}
+					continue
 				elseif field == 500 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -3012,6 +3098,14 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "event_info_table", value = messages.EventInfoTableInputData.decode(value) }
+					continue
+				elseif field == 605 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "event_details_sheet_full_bleed",
+						value = messages.EventDetailsSheetFullBleedInputData.decode(value),
+					}
 					continue
 				elseif field == 700 then
 					local value
@@ -3151,6 +3245,8 @@ do
 				output.experienceContentRatingLabel = self.kind.value:jsonEncode()
 			elseif self.kind.type == "experience_refund_policy" then
 				output.experienceRefundPolicy = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_play_with_reward" then
+				output.experiencePlayWithReward = self.kind.value:jsonEncode()
 			elseif self.kind.type == "experience_details_feed" then
 				output.experienceDetailsFeed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "experience_details_action_bar" then
@@ -3169,6 +3265,8 @@ do
 				output.eventDescription = self.kind.value:jsonEncode()
 			elseif self.kind.type == "event_info_table" then
 				output.eventInfoTable = self.kind.value:jsonEncode()
+			elseif self.kind.type == "event_details_sheet_full_bleed" then
+				output.eventDetailsSheetFullBleed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "dev_store_feed" then
 				output.devStoreFeed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "charts_feed" then
@@ -3474,6 +3572,20 @@ do
 			}
 		end
 
+		if input.experience_play_with_reward ~= nil then
+			self.kind = {
+				type = "experience_play_with_reward",
+				value = messages.ExperiencePlayWithRewardInputData.jsonDecode(input.experience_play_with_reward),
+			}
+		end
+
+		if input.experiencePlayWithReward ~= nil then
+			self.kind = {
+				type = "experience_play_with_reward",
+				value = messages.ExperiencePlayWithRewardInputData.jsonDecode(input.experiencePlayWithReward),
+			}
+		end
+
 		if input.experience_details_feed ~= nil then
 			self.kind = {
 				type = "experience_details_feed",
@@ -3600,6 +3712,20 @@ do
 		if input.eventInfoTable ~= nil then
 			self.kind =
 				{ type = "event_info_table", value = messages.EventInfoTableInputData.jsonDecode(input.eventInfoTable) }
+		end
+
+		if input.event_details_sheet_full_bleed ~= nil then
+			self.kind = {
+				type = "event_details_sheet_full_bleed",
+				value = messages.EventDetailsSheetFullBleedInputData.jsonDecode(input.event_details_sheet_full_bleed),
+			}
+		end
+
+		if input.eventDetailsSheetFullBleed ~= nil then
+			self.kind = {
+				type = "event_details_sheet_full_bleed",
+				value = messages.EventDetailsSheetFullBleedInputData.jsonDecode(input.eventDetailsSheetFullBleed),
+			}
 		end
 
 		if input.dev_store_feed ~= nil then
@@ -6701,6 +6827,134 @@ do
 end
 
 do
+	local _ExperiencePlayWithRewardInputDataImpl = {}
+	_ExperiencePlayWithRewardInputDataImpl.__index = _ExperiencePlayWithRewardInputDataImpl
+
+	function _ExperiencePlayWithRewardInputDataImpl.new(
+		data: _ExperiencePlayWithRewardInputDataPartialFields?
+	): ExperiencePlayWithRewardInputData
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+			place_id = if data == nil or data.place_id == nil then "" else data.place_id,
+		}, _ExperiencePlayWithRewardInputDataImpl :: _ExperiencePlayWithRewardInputDataImpl)
+	end
+
+	function _ExperiencePlayWithRewardInputDataImpl.encode(self: ExperiencePlayWithRewardInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.place_id ~= nil and self.place_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.place_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperiencePlayWithRewardInputDataImpl.decode(input: buffer): ExperiencePlayWithRewardInputData
+		local self = _ExperiencePlayWithRewardInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperiencePlayWithRewardInputDataImpl.jsonEncode(self: ExperiencePlayWithRewardInputData): any
+		local output = {}
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		if self.place_id ~= nil and self.place_id ~= "" then
+			output.placeId = self.place_id
+		end
+
+		return output
+	end
+
+	function _ExperiencePlayWithRewardInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperiencePlayWithRewardInputData
+		local self = _ExperiencePlayWithRewardInputDataImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		if input.place_id ~= nil then
+			self.place_id = input.place_id
+		end
+
+		if input.placeId ~= nil then
+			self.place_id = input.placeId
+		end
+
+		return self
+	end
+
+	_ExperiencePlayWithRewardInputDataImpl.descriptor = {
+		name = "ExperiencePlayWithRewardInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperiencePlayWithRewardInputData",
+	}
+
+	messages.ExperiencePlayWithRewardInputData = _ExperiencePlayWithRewardInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperiencePlayWithRewardInputData)
+end
+
+do
 	local _SocialLinkRowInputDataImpl = {}
 	_SocialLinkRowInputDataImpl.__index = _SocialLinkRowInputDataImpl
 
@@ -7804,6 +8058,10 @@ do
 		return setmetatable({
 			title = if data == nil or data.title == nil then "" else data.title,
 			event_items = if data == nil or data.event_items == nil then {} else data.event_items,
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+			sort_id = if data == nil or data.sort_id == nil then "" else data.sort_id,
+			subtitle = if data == nil or data.subtitle == nil then "" else data.subtitle,
+			info_text = if data == nil or data.info_text == nil then "" else data.info_text,
 		}, _EventsCarouselInputDataImpl :: _EventsCarouselInputDataImpl)
 	end
 
@@ -7822,6 +8080,26 @@ do
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
+		end
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.sort_id)
+		end
+
+		if self.subtitle ~= nil and self.subtitle ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.subtitle)
+		end
+
+		if self.info_text ~= nil and self.info_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.info_text)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -7852,6 +8130,26 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					table.insert(self.event_items, messages.EventsCarouselInputData_EventItem.decode(value))
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_id = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.info_text = buffer.tostring(value)
 					continue
 				end
 
@@ -7892,6 +8190,22 @@ do
 			output.eventItems = newOutput
 		end
 
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		if self.sort_id ~= nil and self.sort_id ~= "" then
+			output.sortId = self.sort_id
+		end
+
+		if self.subtitle ~= nil and self.subtitle ~= "" then
+			output.subtitle = self.subtitle
+		end
+
+		if self.info_text ~= nil and self.info_text ~= "" then
+			output.infoText = self.info_text
+		end
+
 		return output
 	end
 
@@ -7918,6 +8232,34 @@ do
 			end
 
 			self.event_items = newOutput
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		if input.sort_id ~= nil then
+			self.sort_id = input.sort_id
+		end
+
+		if input.sortId ~= nil then
+			self.sort_id = input.sortId
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = input.subtitle
+		end
+
+		if input.info_text ~= nil then
+			self.info_text = input.info_text
+		end
+
+		if input.infoText ~= nil then
+			self.info_text = input.infoText
 		end
 
 		return self
@@ -11139,6 +11481,111 @@ do
 end
 
 do
+	local _EventDetailsSheetFullBleedInputDataImpl = {}
+	_EventDetailsSheetFullBleedInputDataImpl.__index = _EventDetailsSheetFullBleedInputDataImpl
+
+	function _EventDetailsSheetFullBleedInputDataImpl.new(
+		data: _EventDetailsSheetFullBleedInputDataPartialFields?
+	): EventDetailsSheetFullBleedInputData
+		return setmetatable({
+			event_id = if data == nil or data.event_id == nil then "" else data.event_id,
+		}, _EventDetailsSheetFullBleedInputDataImpl :: _EventDetailsSheetFullBleedInputDataImpl)
+	end
+
+	function _EventDetailsSheetFullBleedInputDataImpl.encode(self: EventDetailsSheetFullBleedInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.event_id ~= nil and self.event_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.event_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _EventDetailsSheetFullBleedInputDataImpl.decode(input: buffer): EventDetailsSheetFullBleedInputData
+		local self = _EventDetailsSheetFullBleedInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _EventDetailsSheetFullBleedInputDataImpl.jsonEncode(self: EventDetailsSheetFullBleedInputData): any
+		local output = {}
+
+		if self.event_id ~= nil and self.event_id ~= "" then
+			output.eventId = self.event_id
+		end
+
+		return output
+	end
+
+	function _EventDetailsSheetFullBleedInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): EventDetailsSheetFullBleedInputData
+		local self = _EventDetailsSheetFullBleedInputDataImpl.new()
+
+		if input.event_id ~= nil then
+			self.event_id = input.event_id
+		end
+
+		if input.eventId ~= nil then
+			self.event_id = input.eventId
+		end
+
+		return self
+	end
+
+	_EventDetailsSheetFullBleedInputDataImpl.descriptor = {
+		name = "EventDetailsSheetFullBleedInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EventDetailsSheetFullBleedInputData",
+	}
+
+	messages.EventDetailsSheetFullBleedInputData = _EventDetailsSheetFullBleedInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.EventDetailsSheetFullBleedInputData)
+end
+
+do
 	local _ChartsFeedInputDataImpl = {}
 	_ChartsFeedInputDataImpl.__index = _ChartsFeedInputDataImpl
 
@@ -14314,6 +14761,7 @@ return {
 	ExperienceInfoTableInputData = messages.ExperienceInfoTableInputData,
 	ExperienceContentRatingLabelInputData = messages.ExperienceContentRatingLabelInputData,
 	ExperienceRefundPolicyInputData = messages.ExperienceRefundPolicyInputData,
+	ExperiencePlayWithRewardInputData = messages.ExperiencePlayWithRewardInputData,
 	SocialLinkRowInputData = messages.SocialLinkRowInputData,
 	SocialLinkRowInputData_SocialLinkItem = messages.SocialLinkRowInputData_SocialLinkItem,
 	ExperienceCarouselInputData = messages.ExperienceCarouselInputData,
@@ -14341,6 +14789,7 @@ return {
 	EventDescriptionInputData = messages.EventDescriptionInputData,
 	EventAttributionRowInputData = messages.EventAttributionRowInputData,
 	EventInfoTableInputData = messages.EventInfoTableInputData,
+	EventDetailsSheetFullBleedInputData = messages.EventDetailsSheetFullBleedInputData,
 	ChartsFeedInputData = messages.ChartsFeedInputData,
 	FilterPillsInputData = messages.FilterPillsInputData,
 	FilterPillsInputData_FilterGroup = messages.FilterPillsInputData_FilterGroup,

@@ -130,6 +130,7 @@ export type SegmentedControlProps = Package.SegmentedControlProps
 export type SheetProps = Package.SheetProps
 export type SheetActionsProps = Package.SheetActionsProps
 export type SheetContentProps = Package.SheetContentProps
+export type SheetFullBleedProps = Package.SheetFullBleedProps
 export type SheetHeaderProps = Package.SheetHeaderProps
 export type SheetRef = Package.SheetRef
 export type SkeletonProps = Package.SkeletonProps

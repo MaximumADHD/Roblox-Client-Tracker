@@ -496,29 +496,22 @@ PROTO_27:
        20 RETURN                           R1 -1
 
 PROTO_28:
-        0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["StudioDialogManager"]
-        3 NAMECALL                         R0 R0 K3 ["GetEngineFeature"]
-        5 CALL                             R0 2 1
-        6 JUMPIF                           R0 ; [+2]
-        7 LOADNIL                          R0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["isCli"]
+        3 CALL                             R0 0 1
+        4 JUMPIFNOT                        R0 ; [+4]
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R0 R1 K1 ["DialogManager"]
         8 RETURN                           R0 1
-        9 GETUPVAL                         R1 0
-       10 GETTABLEKS                       R0 R1 K4 ["isCli"]
-       12 CALL                             R0 0 1
-       13 JUMPIFNOT                        R0 ; [+4]
-       14 GETUPVAL                         R1 1
-       15 GETTABLEKS                       R0 R1 K5 ["DialogManager"]
-       17 RETURN                           R0 1
-       18 GETUPVAL                         R0 2
-       19 NAMECALL                         R0 R0 K6 ["use"]
-       21 CALL                             R0 1 1
-       22 NAMECALL                         R0 R0 K7 ["get"]
-       24 CALL                             R0 1 1
-       25 LOADK                            R3 K5 ["DialogManager"]
-       26 NAMECALL                         R1 R0 K8 ["GetPluginComponent"]
-       28 CALL                             R1 2 -1
-       29 RETURN                           R1 -1
+        9 GETUPVAL                         R0 2
+       10 NAMECALL                         R0 R0 K2 ["use"]
+       12 CALL                             R0 1 1
+       13 NAMECALL                         R0 R0 K3 ["get"]
+       15 CALL                             R0 1 1
+       16 LOADK                            R3 K1 ["DialogManager"]
+       17 NAMECALL                         R1 R0 K4 ["GetPluginComponent"]
+       19 CALL                             R1 2 -1
+       20 RETURN                           R1 -1
 
 PROTO_29:
         0 GETUPVAL                         R1 0

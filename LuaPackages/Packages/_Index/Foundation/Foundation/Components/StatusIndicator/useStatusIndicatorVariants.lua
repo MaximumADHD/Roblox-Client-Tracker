@@ -56,14 +56,23 @@ function variantsFactory(tokens: Tokens)
 				style = tokens.LightMode.Content.Emphasis,
 			},
 		},
-		[StatusIndicatorVariant.Emphasis] = {
-			container = {
-				tag = "bg-system-emphasis",
+		[StatusIndicatorVariant.Emphasis] = if Flags.FoundationActionEmphasisStatusIndicator
+			then {
+				container = {
+					tag = "bg-action-emphasis",
+				},
+				content = {
+					style = tokens.Color.ActionEmphasis.Foreground,
+				},
+			}
+			else {
+				container = {
+					tag = "bg-system-emphasis",
+				},
+				content = {
+					style = tokens.DarkMode.Content.Emphasis,
+				},
 			},
-			content = {
-				style = tokens.DarkMode.Content.Emphasis,
-			},
-		},
 		[StatusIndicatorVariant.Neutral] = {
 			container = {
 				tag = "bg-system-neutral",

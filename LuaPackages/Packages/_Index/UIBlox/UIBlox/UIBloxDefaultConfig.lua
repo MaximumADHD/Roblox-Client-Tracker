@@ -41,9 +41,6 @@ return {
 	-- Enable icon scaling for some icons used by experience details
 	enableScalingForSomeEdpIcons = false,
 
-	-- Enable SurfaceGui ref exposure through Panel3D
-	enablePanel3DSurfaceGuiRef = false,
-
 	-- Enable rich text support for TooltipV2 header and body text
 	enableTooltipRichText = false,
 

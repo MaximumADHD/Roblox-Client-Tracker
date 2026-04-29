@@ -23,8 +23,6 @@ local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-
-local FFlagFoundationDateTimePickerScreenSize = Flags.FoundationDateTimePickerScreenSize
 local FFlagFoundationDateTimePickerDefaultDateFix = Flags.FoundationDateTimePickerDefaultDateFix
 
 local DateTimePickerVariant = require(Foundation.Enums.DateTimePickerVariant)
@@ -123,13 +121,11 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 		setIsOpen(true)
 	end, {})
 
-	local onFocusGained = if FFlagFoundationDateTimePickerScreenSize
-		then React.useCallback(function()
-			if GuiService.ViewportDisplaySize ~= Enum.DisplaySize.Small then
-				showDateTimePicker()
-			end
-		end, { showDateTimePicker, GuiService.ViewportDisplaySize } :: { unknown })
-		else nil
+	local onFocusGained = React.useCallback(function()
+		if GuiService.ViewportDisplaySize ~= Enum.DisplaySize.Small then
+			showDateTimePicker()
+		end
+	end, { showDateTimePicker, GuiService.ViewportDisplaySize } :: { unknown })
 
 	-- Since we allow user input we need to parse the text to a DateTime object before calling onChanged
 	local updateInputText = React.useCallback(function(txt: string)
@@ -214,7 +210,7 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 				key = "date-input",
 				label = props.label,
 				onChanged = updateInputText,
-				onFocusGained = if FFlagFoundationDateTimePickerScreenSize then onFocusGained else showDateTimePicker,
+				onFocusGained = onFocusGained,
 				placeholder = Translator:FormatByKey("CommonUI.Controls.Label.SelectDate"),
 				ref = textInputRef,
 				selectableDateRange = props.selectableDateRange,

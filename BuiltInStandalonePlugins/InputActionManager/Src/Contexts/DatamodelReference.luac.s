@@ -279,10 +279,10 @@ PROTO_17:
         2 GETTABLEKS                       R4 R5 K0 ["current"]
         4 GETTABLE                         R3 R4 R1
         5 JUMPIFNOT                        R3 ; [+14]
-        6 GETUPVAL                         R4 1
+        6 GETUPVAL                         R4 0
         7 GETTABLEKS                       R3 R4 K0 ["current"]
         9 SETTABLE                         R2 R3 R1
-       10 GETUPVAL                         R5 2
+       10 GETUPVAL                         R5 1
        11 GETTABLEKS                       R4 R5 K0 ["current"]
        13 GETTABLE                         R3 R4 R1
        14 JUMPIFNOT                        R3 ; [+54]
@@ -290,14 +290,14 @@ PROTO_17:
        16 NAMECALL                         R4 R3 K1 ["Fire"]
        18 CALL                             R4 2 0
        19 RETURN                           R0 0
-       20 GETUPVAL                         R4 1
+       20 GETUPVAL                         R4 0
        21 GETTABLEKS                       R3 R4 K0 ["current"]
        23 SETTABLE                         R2 R3 R1
        24 GETTABLEKS                       R3 R2 K2 ["parentUuid"]
-       26 GETUPVAL                         R6 1
+       26 GETUPVAL                         R6 0
        27 GETTABLEKS                       R5 R6 K0 ["current"]
        29 GETTABLE                         R4 R5 R3
-       30 GETUPVAL                         R7 2
+       30 GETUPVAL                         R7 1
        31 GETTABLEKS                       R6 R7 K0 ["current"]
        33 GETTABLE                         R5 R6 R3
        34 JUMPIFNOT                        R5 ; [+34]
@@ -309,14 +309,14 @@ PROTO_17:
        41 GETTABLEKS                       R4 R5 K0 ["current"]
        43 GETTABLE                         R3 R4 R1
        44 JUMPIFNOT                        R3 ; [+24]
-       45 GETUPVAL                         R6 1
+       45 GETUPVAL                         R6 0
        46 GETTABLEKS                       R5 R6 K0 ["current"]
        48 GETTABLE                         R4 R5 R1
        49 GETTABLEKS                       R3 R4 K2 ["parentUuid"]
-       51 GETUPVAL                         R6 1
+       51 GETUPVAL                         R6 0
        52 GETTABLEKS                       R5 R6 K0 ["current"]
        54 GETTABLE                         R4 R5 R3
-       55 GETUPVAL                         R7 2
+       55 GETUPVAL                         R7 1
        56 GETTABLEKS                       R6 R7 K0 ["current"]
        58 GETTABLE                         R5 R6 R3
        59 JUMPIFNOT                        R5 ; [+4]
@@ -380,20 +380,19 @@ PROTO_19:
        31 GETUPVAL                         R6 0
        32 LOADK                            R8 K4 ["BindingUpdated"]
        33 NEWCLOSURE                       R9 P3
-       34 CAPTURE                          UPVAL U2
-       35 CAPTURE                          UPVAL U3
-       36 CAPTURE                          UPVAL U6
-       37 NAMECALL                         R6 R6 K1 ["OnGuestEvent"]
-       39 CALL                             R6 3 2
-       40 GETUPVAL                         R9 7
-       41 GETTABLEKS                       R8 R9 K5 ["Request"]
-       43 CALL                             R8 0 0
-       44 NEWCLOSURE                       R8 P4
-       45 CAPTURE                          VAL R1
-       46 CAPTURE                          VAL R3
-       47 CAPTURE                          VAL R5
-       48 CAPTURE                          VAL R7
-       49 RETURN                           R8 1
+       34 CAPTURE                          UPVAL U3
+       35 CAPTURE                          UPVAL U6
+       36 NAMECALL                         R6 R6 K1 ["OnGuestEvent"]
+       38 CALL                             R6 3 2
+       39 GETUPVAL                         R9 7
+       40 GETTABLEKS                       R8 R9 K5 ["Request"]
+       42 CALL                             R8 0 0
+       43 NEWCLOSURE                       R8 P4
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          VAL R3
+       46 CAPTURE                          VAL R5
+       47 CAPTURE                          VAL R7
+       48 RETURN                           R8 1
 
 PROTO_20:
         0 GETUPVAL                         R2 0

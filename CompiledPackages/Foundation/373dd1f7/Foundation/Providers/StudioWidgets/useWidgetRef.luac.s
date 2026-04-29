@@ -1,0 +1,87 @@
+PROTO_0:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["deregister"]
+        3 GETUPVAL                         R1 1
+        4 GETUPVAL                         R2 2
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
+
+PROTO_1:
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        3 JUMPIF                           R0 ; [+1]
+        4 RETURN                           R0 0
+        5 GETUPVAL                         R1 1
+        6 JUMPIFNOT                        R1 ; [+18]
+        7 FASTCALL1                        TYPEOF R0 ; [+3]
+        8 MOVE                             R2 R0
+        9 GETIMPORT                        R1 K2 [typeof]
+       11 CALL                             R1 1 1
+       12 JUMPIFNOTEQKS                    R1 K3 ["Instance"] ; [+12]
+       14 GETUPVAL                         R2 2
+       15 GETTABLEKS                       R1 R2 K4 ["register"]
+       17 GETUPVAL                         R2 1
+       18 MOVE                             R3 R0
+       19 CALL                             R1 2 0
+       20 NEWCLOSURE                       R1 P0
+       21 CAPTURE                          UPVAL U2
+       22 CAPTURE                          UPVAL U1
+       23 CAPTURE                          VAL R0
+       24 RETURN                           R1 1
+       25 LOADNIL                          R1
+       26 RETURN                           R1 1
+
+PROTO_2:
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 GETUPVAL                         R3 1
+        3 LOADNIL                          R4
+        4 CALL                             R3 1 1
+        5 OR                               R4 R1 R3
+        6 GETUPVAL                         R6 2
+        7 GETTABLEKS                       R5 R6 K0 ["toString"]
+        9 MOVE                             R6 R0
+       10 CALL                             R5 1 1
+       11 GETUPVAL                         R6 3
+       12 NEWCLOSURE                       R7 P0
+       13 CAPTURE                          VAL R4
+       14 CAPTURE                          VAL R0
+       15 CAPTURE                          VAL R2
+       16 NEWTABLE                         R8 0 5
+       18 MOVE                             R9 R5
+       19 GETTABLEKS                       R10 R4 K1 ["current"]
+       21 MOVE                             R11 R0
+       22 GETTABLEKS                       R12 R2 K2 ["register"]
+       24 GETTABLEKS                       R13 R2 K3 ["deregister"]
+       26 SETLIST                          R8 R9 5 [1]
+       28 CALL                             R6 2 0
+       29 RETURN                           R4 1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Foundation"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R1 R0 K4 ["Parent"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["React"]
+       13 CALL                             R2 1 1
+       14 GETTABLEKS                       R3 R2 K8 ["useEffect"]
+       16 GETTABLEKS                       R4 R2 K9 ["useRef"]
+       18 GETIMPORT                        R5 K6 [require]
+       20 GETTABLEKS                       R8 R0 K10 ["Utility"]
+       22 GETTABLEKS                       R7 R8 K11 ["Plugin"]
+       24 GETTABLEKS                       R6 R7 K12 ["StudioUri"]
+       26 CALL                             R5 1 1
+       27 GETIMPORT                        R6 K6 [require]
+       29 GETIMPORT                        R9 K1 [script]
+       31 GETTABLEKS                       R8 R9 K4 ["Parent"]
+       33 GETTABLEKS                       R7 R8 K13 ["useWidgetsContext"]
+       35 CALL                             R6 1 1
+       36 DUPCLOSURE                       R7 K14 [PROTO_2]
+       37 CAPTURE                          VAL R6
+       38 CAPTURE                          VAL R4
+       39 CAPTURE                          VAL R5
+       40 CAPTURE                          VAL R3
+       41 RETURN                           R7 1

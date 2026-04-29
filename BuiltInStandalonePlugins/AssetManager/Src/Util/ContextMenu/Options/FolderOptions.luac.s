@@ -282,32 +282,51 @@ PROTO_7:
        67 RETURN                           R4 1
 
 PROTO_8:
-        0 GETUPVAL                         R5 0
-        1 GETTABLEKS                       R4 R5 K0 ["MenuContext"]
-        3 GETTABLEKS                       R3 R4 K1 ["Sidebar"]
-        5 JUMPIFNOTEQ                      R0 R3 ; [+12]
-        7 GETTABLEKS                       R3 R1 K2 ["ExplorerController"]
-        9 LOADNIL                          R5
-       10 MOVE                             R6 R2
-       11 JUMPIFNOT                        R6 ; [+2]
-       12 GETTABLEKS                       R6 R2 K3 ["Scope"]
-       14 NAMECALL                         R3 R3 K4 ["stageFolder"]
-       16 CALL                             R3 3 0
-       17 RETURN                           R0 0
-       18 GETUPVAL                         R5 0
-       19 GETTABLEKS                       R4 R5 K0 ["MenuContext"]
-       21 GETTABLEKS                       R3 R4 K5 ["Asset"]
-       23 JUMPIFNOTEQ                      R0 R3 ; [+14]
-       25 GETTABLEKS                       R3 R1 K6 ["Localization"]
-       27 LOADK                            R5 K5 ["Asset"]
-       28 LOADK                            R6 K7 ["NewFolder"]
-       29 NAMECALL                         R3 R3 K8 ["getText"]
-       31 CALL                             R3 3 1
-       32 GETTABLEKS                       R4 R1 K9 ["ItemsController"]
-       34 MOVE                             R6 R3
-       35 NAMECALL                         R4 R4 K10 ["stageNewFolder"]
-       37 CALL                             R4 2 0
-       38 RETURN                           R0 0
+        0 JUMPIFNOT                        R2 ; [+28]
+        1 GETTABLEKS                       R3 R2 K0 ["Depth"]
+        3 JUMPIFNOT                        R3 ; [+25]
+        4 GETTABLEKS                       R3 R2 K0 ["Depth"]
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R4 R5 K1 ["FolderDepthMax"]
+        9 JUMPIFNOTLE                      R4 R3 ; [+19]
+       11 GETTABLEKS                       R3 R1 K2 ["PluginController"]
+       13 DUPTABLE                         R5 K5 [{"Key", "SubKey"}]
+       14 LOADK                            R6 K6 ["Toast"]
+       15 SETTABLEKS                       R6 R5 K3 ["Key"]
+       17 GETUPVAL                         R9 0
+       18 GETTABLEKS                       R8 R9 K7 ["ErrorTypeLookup"]
+       20 GETTABLEKS                       R7 R8 K8 ["CreateFolder"]
+       22 GETTABLEN                        R6 R7 1
+       23 SETTABLEKS                       R6 R5 K4 ["SubKey"]
+       25 NAMECALL                         R3 R3 K9 ["showToast"]
+       27 CALL                             R3 2 0
+       28 RETURN                           R0 0
+       29 GETUPVAL                         R5 1
+       30 GETTABLEKS                       R4 R5 K10 ["MenuContext"]
+       32 GETTABLEKS                       R3 R4 K11 ["Sidebar"]
+       34 JUMPIFNOTEQ                      R0 R3 ; [+12]
+       36 GETTABLEKS                       R3 R1 K12 ["ExplorerController"]
+       38 LOADNIL                          R5
+       39 MOVE                             R6 R2
+       40 JUMPIFNOT                        R6 ; [+2]
+       41 GETTABLEKS                       R6 R2 K13 ["Scope"]
+       43 NAMECALL                         R3 R3 K14 ["stageFolder"]
+       45 CALL                             R3 3 0
+       46 RETURN                           R0 0
+       47 GETUPVAL                         R5 1
+       48 GETTABLEKS                       R4 R5 K10 ["MenuContext"]
+       50 GETTABLEKS                       R3 R4 K15 ["Asset"]
+       52 JUMPIFNOTEQ                      R0 R3 ; [+14]
+       54 GETTABLEKS                       R3 R1 K16 ["Localization"]
+       56 LOADK                            R5 K15 ["Asset"]
+       57 LOADK                            R6 K17 ["NewFolder"]
+       58 NAMECALL                         R3 R3 K18 ["getText"]
+       60 CALL                             R3 3 1
+       61 GETTABLEKS                       R4 R1 K19 ["ItemsController"]
+       63 MOVE                             R6 R3
+       64 NAMECALL                         R4 R4 K20 ["stageNewFolder"]
+       66 CALL                             R4 2 0
+       67 RETURN                           R0 0
 
 PROTO_9:
         0 GETUPVAL                         R3 0
@@ -571,145 +590,151 @@ MAIN:
        11 GETTABLEKS                       R2 R3 K7 ["Dash"]
        13 CALL                             R1 1 1
        14 GETIMPORT                        R2 K5 [require]
-       16 GETTABLEKS                       R4 R0 K8 ["Src"]
-       18 GETTABLEKS                       R3 R4 K9 ["Types"]
-       20 CALL                             R2 1 1
-       21 GETIMPORT                        R3 K5 [require]
-       23 GETTABLEKS                       R7 R0 K8 ["Src"]
-       25 GETTABLEKS                       R6 R7 K10 ["Util"]
-       27 GETTABLEKS                       R5 R6 K11 ["Dialogs"]
-       29 GETTABLEKS                       R4 R5 K12 ["openMoveDialog"]
-       31 CALL                             R3 1 1
-       32 GETIMPORT                        R4 K5 [require]
-       34 GETTABLEKS                       R7 R0 K8 ["Src"]
-       36 GETTABLEKS                       R6 R7 K13 ["Flags"]
-       38 GETTABLEKS                       R5 R6 K14 ["getFFlagAmrOrganizationFoundation"]
+       16 GETTABLEKS                       R5 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R5 K9 ["Resources"]
+       20 GETTABLEKS                       R3 R4 K10 ["Constants"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R5 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R5 K11 ["Types"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K5 [require]
+       32 GETTABLEKS                       R8 R0 K8 ["Src"]
+       34 GETTABLEKS                       R7 R8 K12 ["Util"]
+       36 GETTABLEKS                       R6 R7 K13 ["Dialogs"]
+       38 GETTABLEKS                       R5 R6 K14 ["openMoveDialog"]
        40 CALL                             R4 1 1
        41 GETIMPORT                        R5 K5 [require]
        43 GETTABLEKS                       R8 R0 K8 ["Src"]
-       45 GETTABLEKS                       R7 R8 K13 ["Flags"]
-       47 GETTABLEKS                       R6 R7 K15 ["getFFlagAmrMoveToLastFolder"]
+       45 GETTABLEKS                       R7 R8 K15 ["Flags"]
+       47 GETTABLEKS                       R6 R7 K16 ["getFFlagAmrOrganizationFoundation"]
        49 CALL                             R5 1 1
-       50 NEWTABLE                         R6 2 0
-       52 GETTABLEKS                       R8 R2 K16 ["ScopeType"]
-       54 GETTABLEKS                       R7 R8 K17 ["ProjectPlaces"]
-       56 LOADB                            R8 1
-       57 SETTABLE                         R8 R6 R7
-       58 GETTABLEKS                       R8 R2 K16 ["ScopeType"]
-       60 GETTABLEKS                       R7 R8 K18 ["RecentUploads"]
-       62 LOADB                            R8 1
-       63 SETTABLE                         R8 R6 R7
-       64 DUPCLOSURE                       R7 K19 [PROTO_0]
-       65 CAPTURE                          VAL R6
-       66 DUPCLOSURE                       R8 K20 [PROTO_1]
-       67 CAPTURE                          VAL R4
-       68 CAPTURE                          VAL R2
-       69 DUPCLOSURE                       R9 K21 [PROTO_2]
-       70 CAPTURE                          VAL R1
-       71 CAPTURE                          VAL R2
-       72 DUPTABLE                         R10 K26 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-       73 LOADK                            R11 K27 ["ContextMenu"]
-       74 SETTABLEKS                       R11 R10 K22 ["TextKey"]
-       76 LOADK                            R11 K28 ["Move"]
-       77 SETTABLEKS                       R11 R10 K23 ["TextSubKey"]
-       79 DUPCLOSURE                       R11 K29 [PROTO_3]
-       80 CAPTURE                          VAL R2
-       81 CAPTURE                          VAL R1
-       82 CAPTURE                          VAL R3
-       83 SETTABLEKS                       R11 R10 K24 ["OnItemClicked"]
-       85 DUPCLOSURE                       R11 K30 [PROTO_4]
-       86 CAPTURE                          VAL R4
-       87 CAPTURE                          VAL R2
-       88 CAPTURE                          VAL R6
-       89 CAPTURE                          VAL R1
-       90 SETTABLEKS                       R11 R10 K25 ["ShouldRender"]
-       92 DUPTABLE                         R11 K32 [{"TextKey", "TextSubKey", "GetSubkeyArgs", "OnItemClicked", "ShouldRender"}]
-       93 LOADK                            R12 K27 ["ContextMenu"]
-       94 SETTABLEKS                       R12 R11 K22 ["TextKey"]
-       96 LOADK                            R12 K33 ["MoveToLastFolder"]
-       97 SETTABLEKS                       R12 R11 K23 ["TextSubKey"]
-       99 DUPCLOSURE                       R12 K34 [PROTO_5]
-      100 SETTABLEKS                       R12 R11 K31 ["GetSubkeyArgs"]
-      102 DUPCLOSURE                       R12 K35 [PROTO_6]
-      103 SETTABLEKS                       R12 R11 K24 ["OnItemClicked"]
-      105 DUPCLOSURE                       R12 K36 [PROTO_7]
-      106 CAPTURE                          VAL R4
-      107 CAPTURE                          VAL R5
-      108 CAPTURE                          VAL R2
-      109 CAPTURE                          VAL R1
-      110 CAPTURE                          VAL R6
-      111 SETTABLEKS                       R12 R11 K25 ["ShouldRender"]
-      113 DUPTABLE                         R12 K26 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      114 LOADK                            R13 K27 ["ContextMenu"]
-      115 SETTABLEKS                       R13 R12 K22 ["TextKey"]
-      117 LOADK                            R13 K37 ["CreateFolder"]
-      118 SETTABLEKS                       R13 R12 K23 ["TextSubKey"]
-      120 DUPCLOSURE                       R13 K38 [PROTO_8]
-      121 CAPTURE                          VAL R2
-      122 SETTABLEKS                       R13 R12 K24 ["OnItemClicked"]
-      124 DUPCLOSURE                       R13 K39 [PROTO_9]
-      125 CAPTURE                          VAL R4
-      126 CAPTURE                          VAL R2
-      127 CAPTURE                          VAL R6
-      128 SETTABLEKS                       R13 R12 K25 ["ShouldRender"]
-      130 DUPTABLE                         R13 K26 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      131 LOADK                            R14 K27 ["ContextMenu"]
-      132 SETTABLEKS                       R14 R13 K22 ["TextKey"]
-      134 LOADK                            R14 K40 ["GroupSelectionAsFolder"]
-      135 SETTABLEKS                       R14 R13 K23 ["TextSubKey"]
-      137 DUPCLOSURE                       R14 K41 [PROTO_10]
-      138 CAPTURE                          VAL R2
-      139 SETTABLEKS                       R14 R13 K24 ["OnItemClicked"]
-      141 DUPCLOSURE                       R14 K42 [PROTO_11]
-      142 CAPTURE                          VAL R4
-      143 CAPTURE                          VAL R2
-      144 CAPTURE                          VAL R1
-      145 CAPTURE                          VAL R6
-      146 SETTABLEKS                       R14 R13 K25 ["ShouldRender"]
-      148 DUPTABLE                         R14 K26 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      149 LOADK                            R15 K27 ["ContextMenu"]
-      150 SETTABLEKS                       R15 R14 K22 ["TextKey"]
-      152 LOADK                            R15 K43 ["Rename"]
-      153 SETTABLEKS                       R15 R14 K23 ["TextSubKey"]
-      155 DUPCLOSURE                       R15 K44 [PROTO_12]
-      156 CAPTURE                          VAL R2
-      157 SETTABLEKS                       R15 R14 K24 ["OnItemClicked"]
-      159 DUPCLOSURE                       R15 K45 [PROTO_13]
-      160 CAPTURE                          VAL R4
-      161 CAPTURE                          VAL R8
-      162 SETTABLEKS                       R15 R14 K25 ["ShouldRender"]
-      164 DUPTABLE                         R15 K26 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      165 LOADK                            R16 K27 ["ContextMenu"]
-      166 SETTABLEKS                       R16 R15 K22 ["TextKey"]
-      168 LOADK                            R16 K46 ["DeleteFolder"]
-      169 SETTABLEKS                       R16 R15 K23 ["TextSubKey"]
-      171 DUPCLOSURE                       R16 K47 [PROTO_14]
-      172 CAPTURE                          VAL R2
-      173 SETTABLEKS                       R16 R15 K24 ["OnItemClicked"]
-      175 DUPCLOSURE                       R16 K48 [PROTO_15]
-      176 CAPTURE                          VAL R4
-      177 CAPTURE                          VAL R8
-      178 SETTABLEKS                       R16 R15 K25 ["ShouldRender"]
-      180 DUPTABLE                         R16 K26 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
-      181 LOADK                            R17 K27 ["ContextMenu"]
-      182 SETTABLEKS                       R17 R16 K22 ["TextKey"]
-      184 LOADK                            R17 K49 ["DeleteFolders"]
-      185 SETTABLEKS                       R17 R16 K23 ["TextSubKey"]
-      187 DUPCLOSURE                       R17 K50 [PROTO_16]
-      188 CAPTURE                          VAL R2
-      189 SETTABLEKS                       R17 R16 K24 ["OnItemClicked"]
-      191 DUPCLOSURE                       R17 K51 [PROTO_17]
-      192 CAPTURE                          VAL R4
-      193 CAPTURE                          VAL R2
-      194 CAPTURE                          VAL R9
-      195 SETTABLEKS                       R17 R16 K25 ["ShouldRender"]
-      197 NEWTABLE                         R17 0 7
-      199 MOVE                             R18 R10
-      200 MOVE                             R19 R11
-      201 MOVE                             R20 R12
-      202 MOVE                             R21 R13
-      203 MOVE                             R22 R14
-      204 MOVE                             R23 R15
-      205 MOVE                             R24 R16
-      206 SETLIST                          R17 R18 7 [1]
-      208 RETURN                           R17 1
+       50 GETIMPORT                        R6 K5 [require]
+       52 GETTABLEKS                       R9 R0 K8 ["Src"]
+       54 GETTABLEKS                       R8 R9 K15 ["Flags"]
+       56 GETTABLEKS                       R7 R8 K17 ["getFFlagAmrMoveToLastFolder"]
+       58 CALL                             R6 1 1
+       59 NEWTABLE                         R7 2 0
+       61 GETTABLEKS                       R9 R3 K18 ["ScopeType"]
+       63 GETTABLEKS                       R8 R9 K19 ["ProjectPlaces"]
+       65 LOADB                            R9 1
+       66 SETTABLE                         R9 R7 R8
+       67 GETTABLEKS                       R9 R3 K18 ["ScopeType"]
+       69 GETTABLEKS                       R8 R9 K20 ["RecentUploads"]
+       71 LOADB                            R9 1
+       72 SETTABLE                         R9 R7 R8
+       73 DUPCLOSURE                       R8 K21 [PROTO_0]
+       74 CAPTURE                          VAL R7
+       75 DUPCLOSURE                       R9 K22 [PROTO_1]
+       76 CAPTURE                          VAL R5
+       77 CAPTURE                          VAL R3
+       78 DUPCLOSURE                       R10 K23 [PROTO_2]
+       79 CAPTURE                          VAL R1
+       80 CAPTURE                          VAL R3
+       81 DUPTABLE                         R11 K28 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+       82 LOADK                            R12 K29 ["ContextMenu"]
+       83 SETTABLEKS                       R12 R11 K24 ["TextKey"]
+       85 LOADK                            R12 K30 ["Move"]
+       86 SETTABLEKS                       R12 R11 K25 ["TextSubKey"]
+       88 DUPCLOSURE                       R12 K31 [PROTO_3]
+       89 CAPTURE                          VAL R3
+       90 CAPTURE                          VAL R1
+       91 CAPTURE                          VAL R4
+       92 SETTABLEKS                       R12 R11 K26 ["OnItemClicked"]
+       94 DUPCLOSURE                       R12 K32 [PROTO_4]
+       95 CAPTURE                          VAL R5
+       96 CAPTURE                          VAL R3
+       97 CAPTURE                          VAL R7
+       98 CAPTURE                          VAL R1
+       99 SETTABLEKS                       R12 R11 K27 ["ShouldRender"]
+      101 DUPTABLE                         R12 K34 [{"TextKey", "TextSubKey", "GetSubkeyArgs", "OnItemClicked", "ShouldRender"}]
+      102 LOADK                            R13 K29 ["ContextMenu"]
+      103 SETTABLEKS                       R13 R12 K24 ["TextKey"]
+      105 LOADK                            R13 K35 ["MoveToLastFolder"]
+      106 SETTABLEKS                       R13 R12 K25 ["TextSubKey"]
+      108 DUPCLOSURE                       R13 K36 [PROTO_5]
+      109 SETTABLEKS                       R13 R12 K33 ["GetSubkeyArgs"]
+      111 DUPCLOSURE                       R13 K37 [PROTO_6]
+      112 SETTABLEKS                       R13 R12 K26 ["OnItemClicked"]
+      114 DUPCLOSURE                       R13 K38 [PROTO_7]
+      115 CAPTURE                          VAL R5
+      116 CAPTURE                          VAL R6
+      117 CAPTURE                          VAL R3
+      118 CAPTURE                          VAL R1
+      119 CAPTURE                          VAL R7
+      120 SETTABLEKS                       R13 R12 K27 ["ShouldRender"]
+      122 DUPTABLE                         R13 K28 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+      123 LOADK                            R14 K29 ["ContextMenu"]
+      124 SETTABLEKS                       R14 R13 K24 ["TextKey"]
+      126 LOADK                            R14 K39 ["CreateFolder"]
+      127 SETTABLEKS                       R14 R13 K25 ["TextSubKey"]
+      129 DUPCLOSURE                       R14 K40 [PROTO_8]
+      130 CAPTURE                          VAL R2
+      131 CAPTURE                          VAL R3
+      132 SETTABLEKS                       R14 R13 K26 ["OnItemClicked"]
+      134 DUPCLOSURE                       R14 K41 [PROTO_9]
+      135 CAPTURE                          VAL R5
+      136 CAPTURE                          VAL R3
+      137 CAPTURE                          VAL R7
+      138 SETTABLEKS                       R14 R13 K27 ["ShouldRender"]
+      140 DUPTABLE                         R14 K28 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+      141 LOADK                            R15 K29 ["ContextMenu"]
+      142 SETTABLEKS                       R15 R14 K24 ["TextKey"]
+      144 LOADK                            R15 K42 ["GroupSelectionAsFolder"]
+      145 SETTABLEKS                       R15 R14 K25 ["TextSubKey"]
+      147 DUPCLOSURE                       R15 K43 [PROTO_10]
+      148 CAPTURE                          VAL R3
+      149 SETTABLEKS                       R15 R14 K26 ["OnItemClicked"]
+      151 DUPCLOSURE                       R15 K44 [PROTO_11]
+      152 CAPTURE                          VAL R5
+      153 CAPTURE                          VAL R3
+      154 CAPTURE                          VAL R1
+      155 CAPTURE                          VAL R7
+      156 SETTABLEKS                       R15 R14 K27 ["ShouldRender"]
+      158 DUPTABLE                         R15 K28 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+      159 LOADK                            R16 K29 ["ContextMenu"]
+      160 SETTABLEKS                       R16 R15 K24 ["TextKey"]
+      162 LOADK                            R16 K45 ["Rename"]
+      163 SETTABLEKS                       R16 R15 K25 ["TextSubKey"]
+      165 DUPCLOSURE                       R16 K46 [PROTO_12]
+      166 CAPTURE                          VAL R3
+      167 SETTABLEKS                       R16 R15 K26 ["OnItemClicked"]
+      169 DUPCLOSURE                       R16 K47 [PROTO_13]
+      170 CAPTURE                          VAL R5
+      171 CAPTURE                          VAL R9
+      172 SETTABLEKS                       R16 R15 K27 ["ShouldRender"]
+      174 DUPTABLE                         R16 K28 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+      175 LOADK                            R17 K29 ["ContextMenu"]
+      176 SETTABLEKS                       R17 R16 K24 ["TextKey"]
+      178 LOADK                            R17 K48 ["DeleteFolder"]
+      179 SETTABLEKS                       R17 R16 K25 ["TextSubKey"]
+      181 DUPCLOSURE                       R17 K49 [PROTO_14]
+      182 CAPTURE                          VAL R3
+      183 SETTABLEKS                       R17 R16 K26 ["OnItemClicked"]
+      185 DUPCLOSURE                       R17 K50 [PROTO_15]
+      186 CAPTURE                          VAL R5
+      187 CAPTURE                          VAL R9
+      188 SETTABLEKS                       R17 R16 K27 ["ShouldRender"]
+      190 DUPTABLE                         R17 K28 [{"TextKey", "TextSubKey", "OnItemClicked", "ShouldRender"}]
+      191 LOADK                            R18 K29 ["ContextMenu"]
+      192 SETTABLEKS                       R18 R17 K24 ["TextKey"]
+      194 LOADK                            R18 K51 ["DeleteFolders"]
+      195 SETTABLEKS                       R18 R17 K25 ["TextSubKey"]
+      197 DUPCLOSURE                       R18 K52 [PROTO_16]
+      198 CAPTURE                          VAL R3
+      199 SETTABLEKS                       R18 R17 K26 ["OnItemClicked"]
+      201 DUPCLOSURE                       R18 K53 [PROTO_17]
+      202 CAPTURE                          VAL R5
+      203 CAPTURE                          VAL R3
+      204 CAPTURE                          VAL R10
+      205 SETTABLEKS                       R18 R17 K27 ["ShouldRender"]
+      207 NEWTABLE                         R18 0 7
+      209 MOVE                             R19 R11
+      210 MOVE                             R20 R12
+      211 MOVE                             R21 R13
+      212 MOVE                             R22 R14
+      213 MOVE                             R23 R15
+      214 MOVE                             R24 R16
+      215 MOVE                             R25 R17
+      216 SETLIST                          R18 R19 7 [1]
+      218 RETURN                           R18 1

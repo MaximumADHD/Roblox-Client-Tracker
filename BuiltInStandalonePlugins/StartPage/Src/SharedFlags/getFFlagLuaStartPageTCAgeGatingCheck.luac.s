@@ -1,14 +1,9 @@
 PROTO_0:
         0 GETIMPORT                        R0 K1 [game]
-        2 LOADK                            R2 K2 ["StudioDialogManager"]
-        3 NAMECALL                         R0 R0 K3 ["GetEngineFeature"]
-        5 CALL                             R0 2 1
-        6 JUMPIFNOT                        R0 ; [+6]
-        7 GETIMPORT                        R0 K1 [game]
-        9 LOADK                            R2 K4 ["LuaStartPageTCAgeGatingCheck3"]
-       10 NAMECALL                         R0 R0 K5 ["GetFastFlag"]
-       12 CALL                             R0 2 1
-       13 RETURN                           R0 1
+        2 LOADK                            R2 K2 ["LuaStartPageTCAgeGatingCheck3"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
 
 MAIN:
         0 PREPVARARGS                      0

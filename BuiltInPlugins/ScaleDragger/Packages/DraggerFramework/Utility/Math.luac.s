@@ -354,6 +354,24 @@ PROTO_11:
        31 CALL                             R4 3 1
        32 RETURN                           R4 1
 
+PROTO_12:
+        0 MOVE                             R4 R2
+        1 GETTABLEKS                       R5 R0 K0 ["X"]
+        3 GETTABLEKS                       R6 R1 K0 ["X"]
+        5 CALL                             R4 2 1
+        6 MOVE                             R5 R2
+        7 GETTABLEKS                       R6 R0 K1 ["Y"]
+        9 GETTABLEKS                       R7 R1 K1 ["Y"]
+       11 CALL                             R5 2 1
+       12 MOVE                             R6 R2
+       13 GETTABLEKS                       R7 R0 K2 ["Z"]
+       15 GETTABLEKS                       R8 R1 K2 ["Z"]
+       17 CALL                             R6 2 -1
+       18 FASTCALL                         VECTOR ; [+2]
+       19 GETIMPORT                        R3 K5 [Vector3.new]
+       21 CALL                             R3 -1 1
+       22 RETURN                           R3 1
+
 MAIN:
         0 PREPVARARGS                      0
         1 GETIMPORT                        R2 K1 [script]
@@ -386,4 +404,6 @@ MAIN:
        42 SETTABLEKS                       R2 R1 K24 ["minComponent"]
        44 DUPCLOSURE                       R2 K25 [PROTO_11]
        45 SETTABLEKS                       R2 R1 K26 ["complimentDirection"]
-       47 RETURN                           R1 1
+       47 DUPCLOSURE                       R2 K27 [PROTO_12]
+       48 SETTABLEKS                       R2 R1 K28 ["componentwiseOperation"]
+       50 RETURN                           R1 1

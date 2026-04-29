@@ -8,27 +8,23 @@ MAIN:
         9 GETTABLEKS                       R4 R0 K6 ["Bin"]
        11 GETTABLEKS                       R3 R4 K7 ["Common"]
        13 GETTABLEKS                       R2 R3 K8 ["defineLuaFlags"]
-       15 CALL                             R1 1 1
-       16 GETTABLEKS                       R2 R1 K9 ["getEngineFeatureStudioDialogManager"]
-       18 CALL                             R2 0 1
-       19 JUMPIF                           R2 ; [+1]
-       20 RETURN                           R0 0
-       21 GETIMPORT                        R2 K5 [require]
-       23 GETTABLEKS                       R5 R0 K6 ["Bin"]
-       25 GETTABLEKS                       R4 R5 K7 ["Common"]
-       27 GETTABLEKS                       R3 R4 K10 ["pluginType"]
-       29 CALL                             R2 1 1
-       30 GETTABLEKS                       R3 R2 K11 ["get"]
-       32 CALL                             R3 0 1
-       33 GETTABLEKS                       R4 R2 K12 ["Standalone"]
-       35 JUMPIFEQ                         R3 R4 ; [+2]
-       37 RETURN                           R0 0
-       38 GETIMPORT                        R3 K5 [require]
-       40 GETTABLEKS                       R6 R0 K6 ["Bin"]
-       42 GETTABLEKS                       R5 R6 K7 ["Common"]
-       44 GETTABLEKS                       R4 R5 K13 ["setup"]
-       46 CALL                             R3 1 1
-       47 MOVE                             R4 R3
-       48 GETIMPORT                        R5 K15 [plugin]
-       50 CALL                             R4 1 0
-       51 RETURN                           R0 0
+       15 CALL                             R1 1 0
+       16 GETIMPORT                        R1 K5 [require]
+       18 GETTABLEKS                       R4 R0 K6 ["Bin"]
+       20 GETTABLEKS                       R3 R4 K7 ["Common"]
+       22 GETTABLEKS                       R2 R3 K9 ["pluginType"]
+       24 CALL                             R1 1 1
+       25 GETTABLEKS                       R2 R1 K10 ["get"]
+       27 CALL                             R2 0 1
+       28 GETTABLEKS                       R3 R1 K11 ["Standalone"]
+       30 JUMPIFEQ                         R2 R3 ; [+2]
+       32 RETURN                           R0 0
+       33 GETIMPORT                        R2 K5 [require]
+       35 GETTABLEKS                       R5 R0 K6 ["Bin"]
+       37 GETTABLEKS                       R4 R5 K7 ["Common"]
+       39 GETTABLEKS                       R3 R4 K12 ["setup"]
+       41 CALL                             R2 1 1
+       42 MOVE                             R3 R2
+       43 GETIMPORT                        R4 K14 [plugin]
+       45 CALL                             R3 1 0
+       46 RETURN                           R0 0

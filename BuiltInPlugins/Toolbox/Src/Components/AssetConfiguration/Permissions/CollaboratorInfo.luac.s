@@ -102,17 +102,46 @@ PROTO_3:
        25 RETURN                           R1 -1
 
 PROTO_4:
-        0 GETUPVAL                         R0 0
-        1 GETUPVAL                         R1 1
-        2 CALL                             R0 1 1
-        3 JUMPIFNOT                        R0 ; [+6]
-        4 GETUPVAL                         R1 2
-        5 NEWCLOSURE                       R2 P0
-        6 CAPTURE                          UPVAL U1
-        7 CAPTURE                          VAL R0
-        8 CAPTURE                          UPVAL U3
-        9 CALL                             R1 1 0
-       10 RETURN                           R0 0
+        0 LOADNIL                          R0
+        1 LOADNIL                          R1
+        2 GETUPVAL                         R2 0
+        3 CALL                             R2 0 1
+        4 JUMPIFNOT                        R2 ; [+22]
+        5 GETIMPORT                        R2 K1 [pcall]
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R3 R4 K2 ["getDisplayNameAsync"]
+       10 GETUPVAL                         R4 2
+       11 CALL                             R2 2 2
+       12 MOVE                             R0 R2
+       13 MOVE                             R1 R3
+       14 GETUPVAL                         R4 3
+       15 GETTABLEKS                       R3 R4 K3 ["current"]
+       17 GETUPVAL                         R5 2
+       18 GETTABLEKS                       R4 R5 K4 ["Type"]
+       20 GETTABLE                         R2 R3 R4
+       21 GETUPVAL                         R4 2
+       22 GETTABLEKS                       R3 R4 K5 ["Id"]
+       24 LOADNIL                          R4
+       25 SETTABLE                         R4 R2 R3
+       26 JUMP                             ; [+10]
+       27 GETUPVAL                         R3 1
+       28 GETTABLEKS                       R2 R3 K2 ["getDisplayNameAsync"]
+       30 GETUPVAL                         R3 2
+       31 CALL                             R2 1 1
+       32 MOVE                             R1 R2
+       33 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       35 LOADB                            R0 0 +1
+       36 LOADB                            R0 1
+       37 JUMPIFNOT                        R0 ; [+7]
+       38 JUMPIFNOT                        R1 ; [+6]
+       39 GETUPVAL                         R2 4
+       40 NEWCLOSURE                       R3 P0
+       41 CAPTURE                          UPVAL U2
+       42 CAPTURE                          REF R1
+       43 CAPTURE                          UPVAL U5
+       44 CALL                             R2 1 0
+       45 CLOSEUPVALS                      R1
+       46 RETURN                           R0 0
 
 PROTO_5:
         0 GETUPVAL                         R3 0
@@ -120,15 +149,43 @@ PROTO_5:
         3 GETTABLE                         R2 R3 R4
         4 GETTABLEKS                       R3 R0 K1 ["Id"]
         6 GETTABLE                         R1 R2 R3
-        7 JUMPIFNOTEQKNIL                  R1 ; [+9]
-        9 GETIMPORT                        R2 K4 [task.spawn]
-       11 NEWCLOSURE                       R3 P0
-       12 CAPTURE                          UPVAL U1
-       13 CAPTURE                          VAL R0
-       14 CAPTURE                          UPVAL U2
-       15 CAPTURE                          UPVAL U3
-       16 CALL                             R2 1 0
-       17 RETURN                           R1 1
+        7 GETUPVAL                         R3 1
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+14]
+       10 LOADB                            R2 0
+       11 JUMPIFNOTEQKNIL                  R1 ; [+16]
+       13 GETUPVAL                         R6 2
+       14 GETTABLEKS                       R5 R6 K2 ["current"]
+       16 GETTABLEKS                       R6 R0 K0 ["Type"]
+       18 GETTABLE                         R4 R5 R6
+       19 GETTABLEKS                       R5 R0 K1 ["Id"]
+       21 GETTABLE                         R3 R4 R5
+       22 NOT                              R2 R3
+       23 JUMP                             ; [+4]
+       24 JUMPIFEQKNIL                     R1 ; [+2]
+       26 LOADB                            R2 0 +1
+       27 LOADB                            R2 1
+       28 JUMPIFNOT                        R2 ; [+23]
+       29 GETUPVAL                         R3 1
+       30 CALL                             R3 0 1
+       31 JUMPIFNOT                        R3 ; [+10]
+       32 GETUPVAL                         R5 2
+       33 GETTABLEKS                       R4 R5 K2 ["current"]
+       35 GETTABLEKS                       R5 R0 K0 ["Type"]
+       37 GETTABLE                         R3 R4 R5
+       38 GETTABLEKS                       R4 R0 K1 ["Id"]
+       40 LOADB                            R5 1
+       41 SETTABLE                         R5 R3 R4
+       42 GETIMPORT                        R3 K5 [task.spawn]
+       44 NEWCLOSURE                       R4 P0
+       45 CAPTURE                          UPVAL U1
+       46 CAPTURE                          UPVAL U3
+       47 CAPTURE                          VAL R0
+       48 CAPTURE                          UPVAL U2
+       49 CAPTURE                          UPVAL U4
+       50 CAPTURE                          UPVAL U5
+       51 CALL                             R3 1 0
+       52 RETURN                           R1 1
 
 PROTO_6:
         0 GETUPVAL                         R0 0
@@ -138,10 +195,12 @@ PROTO_6:
         4 CAPTURE                          UPVAL U2
         5 CAPTURE                          UPVAL U3
         6 CAPTURE                          UPVAL U4
-        7 CAPTURE                          UPVAL U0
-        8 SETTABLEKS                       R3 R2 K0 ["GetDisplayName"]
-       10 CALL                             R0 2 -1
-       11 RETURN                           R0 -1
+        7 CAPTURE                          UPVAL U5
+        8 CAPTURE                          UPVAL U6
+        9 CAPTURE                          UPVAL U0
+       10 SETTABLEKS                       R3 R2 K0 ["GetDisplayName"]
+       12 CALL                             R0 2 -1
+       13 RETURN                           R0 -1
 
 PROTO_7:
         0 GETUPVAL                         R2 0
@@ -155,33 +214,45 @@ PROTO_7:
        14 SETTABLE                         R4 R2 R3
        15 CALL                             R1 1 2
        16 GETUPVAL                         R4 0
-       17 GETTABLEKS                       R3 R4 K7 ["useContext"]
-       19 GETUPVAL                         R5 1
-       20 GETTABLEKS                       R4 R5 K8 ["Context"]
-       22 CALL                             R3 1 1
-       23 GETUPVAL                         R5 0
-       24 GETTABLEKS                       R4 R5 K9 ["createElement"]
-       26 GETUPVAL                         R7 1
-       27 GETTABLEKS                       R6 R7 K8 ["Context"]
-       29 GETTABLEKS                       R5 R6 K10 ["Provider"]
-       31 DUPTABLE                         R6 K12 [{"value"}]
-       32 GETUPVAL                         R8 0
-       33 GETTABLEKS                       R7 R8 K13 ["useMemo"]
-       35 NEWCLOSURE                       R8 P0
-       36 CAPTURE                          UPVAL U2
-       37 CAPTURE                          VAL R3
-       38 CAPTURE                          VAL R1
-       39 CAPTURE                          UPVAL U3
-       40 CAPTURE                          VAL R2
-       41 NEWTABLE                         R9 0 2
-       43 MOVE                             R10 R3
-       44 MOVE                             R11 R1
-       45 SETLIST                          R9 R10 2 [1]
-       47 CALL                             R7 2 1
-       48 SETTABLEKS                       R7 R6 K11 ["value"]
-       50 GETTABLEKS                       R7 R0 K14 ["children"]
-       52 CALL                             R4 3 -1
-       53 RETURN                           R4 -1
+       17 GETTABLEKS                       R3 R4 K7 ["useRef"]
+       19 NEWTABLE                         R4 2 0
+       21 GETIMPORT                        R5 K4 [Enum.CreatorType.User]
+       23 NEWTABLE                         R6 0 0
+       25 SETTABLE                         R6 R4 R5
+       26 GETIMPORT                        R5 K6 [Enum.CreatorType.Group]
+       28 NEWTABLE                         R6 0 0
+       30 SETTABLE                         R6 R4 R5
+       31 CALL                             R3 1 1
+       32 GETUPVAL                         R5 0
+       33 GETTABLEKS                       R4 R5 K8 ["useContext"]
+       35 GETUPVAL                         R6 1
+       36 GETTABLEKS                       R5 R6 K9 ["Context"]
+       38 CALL                             R4 1 1
+       39 GETUPVAL                         R6 0
+       40 GETTABLEKS                       R5 R6 K10 ["createElement"]
+       42 GETUPVAL                         R8 1
+       43 GETTABLEKS                       R7 R8 K9 ["Context"]
+       45 GETTABLEKS                       R6 R7 K11 ["Provider"]
+       47 DUPTABLE                         R7 K13 [{"value"}]
+       48 GETUPVAL                         R9 0
+       49 GETTABLEKS                       R8 R9 K14 ["useMemo"]
+       51 NEWCLOSURE                       R9 P0
+       52 CAPTURE                          UPVAL U2
+       53 CAPTURE                          VAL R4
+       54 CAPTURE                          VAL R1
+       55 CAPTURE                          UPVAL U3
+       56 CAPTURE                          VAL R3
+       57 CAPTURE                          UPVAL U1
+       58 CAPTURE                          VAL R2
+       59 NEWTABLE                         R10 0 2
+       61 MOVE                             R11 R4
+       62 MOVE                             R12 R1
+       63 SETLIST                          R10 R11 2 [1]
+       65 CALL                             R8 2 1
+       66 SETTABLEKS                       R8 R7 K12 ["value"]
+       68 GETTABLEKS                       R8 R0 K15 ["children"]
+       70 CALL                             R5 3 -1
+       71 RETURN                           R5 -1
 
 MAIN:
         0 PREPVARARGS                      0
@@ -206,24 +277,29 @@ MAIN:
        32 CALL                             R6 1 1
        33 GETTABLEKS                       R8 R3 K10 ["Util"]
        35 GETTABLEKS                       R7 R8 K13 ["deepJoin"]
-       37 DUPCLOSURE                       R8 K14 [PROTO_0]
-       38 DUPCLOSURE                       R9 K15 [PROTO_1]
-       39 CAPTURE                          VAL R6
-       40 CAPTURE                          VAL R5
-       41 DUPTABLE                         R10 K18 [{"GetDisplayName", "GetThumbnail"}]
-       42 DUPCLOSURE                       R11 K19 [PROTO_2]
-       43 SETTABLEKS                       R11 R10 K16 ["GetDisplayName"]
-       45 SETTABLEKS                       R9 R10 K17 ["GetThumbnail"]
-       47 DUPTABLE                         R11 K22 [{"Context", "getDisplayNameAsync"}]
-       48 GETTABLEKS                       R12 R2 K23 ["createContext"]
-       50 MOVE                             R13 R10
-       51 CALL                             R12 1 1
-       52 SETTABLEKS                       R12 R11 K20 ["Context"]
-       54 SETTABLEKS                       R8 R11 K21 ["getDisplayNameAsync"]
-       56 DUPCLOSURE                       R12 K24 [PROTO_7]
-       57 CAPTURE                          VAL R2
-       58 CAPTURE                          VAL R11
-       59 CAPTURE                          VAL R7
-       60 CAPTURE                          VAL R8
-       61 SETTABLEKS                       R12 R11 K25 ["AsyncCache"]
-       63 RETURN                           R11 1
+       37 GETIMPORT                        R8 K6 [require]
+       39 GETTABLEKS                       R11 R0 K9 ["Src"]
+       41 GETTABLEKS                       R10 R11 K14 ["Flags"]
+       43 GETTABLEKS                       R9 R10 K15 ["getFFlagToolboxDedupeCollaboratorFetch"]
+       45 CALL                             R8 1 1
+       46 DUPCLOSURE                       R9 K16 [PROTO_0]
+       47 DUPCLOSURE                       R10 K17 [PROTO_1]
+       48 CAPTURE                          VAL R6
+       49 CAPTURE                          VAL R5
+       50 DUPTABLE                         R11 K20 [{"GetDisplayName", "GetThumbnail"}]
+       51 DUPCLOSURE                       R12 K21 [PROTO_2]
+       52 SETTABLEKS                       R12 R11 K18 ["GetDisplayName"]
+       54 SETTABLEKS                       R10 R11 K19 ["GetThumbnail"]
+       56 DUPTABLE                         R12 K24 [{"Context", "getDisplayNameAsync"}]
+       57 GETTABLEKS                       R13 R2 K25 ["createContext"]
+       59 MOVE                             R14 R11
+       60 CALL                             R13 1 1
+       61 SETTABLEKS                       R13 R12 K22 ["Context"]
+       63 SETTABLEKS                       R9 R12 K23 ["getDisplayNameAsync"]
+       65 DUPCLOSURE                       R13 K26 [PROTO_7]
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          VAL R12
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R8
+       70 SETTABLEKS                       R13 R12 K27 ["AsyncCache"]
+       72 RETURN                           R12 1

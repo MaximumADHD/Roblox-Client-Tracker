@@ -7,6 +7,7 @@ local UIBlox = Core.Parent
 local getTextSizeOffset = require(UIBlox.Utility.getTextSizeOffset)
 
 local Packages = UIBlox.Parent
+local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 local Roact = require(Packages.Roact)
 
@@ -92,7 +93,12 @@ local function AppStyleProvider(props: Props)
 
 	local foundationTokens: RbxDesignFoundationsV2Tokens = getFoundationTokens(style.deviceType, themeName)
 
-	baseTokens = TokensMappers.mapColorTokensToFoundation(baseTokens, foundationTokens)
+	-- Merge foundationTokens with contextTokens: contextTokens has Color/Config with overrides,
+	-- foundationTokens has Semantic/Global/Component that mapColorTokensToFoundation needs
+	local mergedTokens = if UIBloxConfig.useColorTokensForThemeMapping and foundationProviderPresent
+		then Cryo.Dictionary.join(foundationTokens, contextTokens)
+		else foundationTokens
+	baseTokens = TokensMappers.mapColorTokensToFoundation(baseTokens, mergedTokens)
 
 	theme = TokensMappers.mapThemeToFoundation(
 		theme,
@@ -101,8 +107,15 @@ local function AppStyleProvider(props: Props)
 			else foundationTokens
 	)
 	assert(validateTokens(baseTokens), "Invalid tokens!")
+	-- Use contextTokens (reactive with tokenOverrides) when FoundationProvider is present,
+	-- otherwise fall back to static foundationTokens
 	local tokens: Tokens = if UIBloxConfig.enableFoundationTokenMapping
-		then TokensMappers.addFoundationFlatKeys(baseTokens, foundationTokens)
+		then TokensMappers.addFoundationFlatKeys(
+			baseTokens,
+			if UIBloxConfig.useColorTokensForThemeMapping and foundationProviderPresent
+				then contextTokens
+				else foundationTokens
+		)
 		else baseTokens :: any
 
 	local appStyle: AppStyle = {

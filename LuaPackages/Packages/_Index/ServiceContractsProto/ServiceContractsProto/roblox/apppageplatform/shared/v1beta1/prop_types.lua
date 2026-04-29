@@ -1897,6 +1897,7 @@ type _TemplateArgFields = {
 		{ type: "literal", value: TemplateArg_LiteralValue }
 		| { type: "binding_path", value: string }
 		| { type: "translation", value: TranslationRef }
+		| { type: "format", value: StringFormat }
 	)?,
 }
 
@@ -1905,6 +1906,7 @@ type _TemplateArgPartialFields = {
 		{ type: "literal", value: TemplateArg_LiteralValue }
 		| { type: "binding_path", value: string }
 		| { type: "translation", value: TranslationRef }
+		| { type: "format", value: StringFormat }
 	)?,
 }
 
@@ -11304,6 +11306,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "format" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -11341,6 +11347,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "translation", value = messages.TranslationRef.decode(value) }
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "format", value = messages.StringFormat.decode(value) }
+					continue
 				end
 
 				local length
@@ -11375,6 +11386,8 @@ do
 				output.bindingPath = self.kind.value
 			elseif self.kind.type == "translation" then
 				output.translation = self.kind.value:jsonEncode()
+			elseif self.kind.type == "format" then
+				output.format = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -11398,6 +11411,10 @@ do
 
 		if input.translation ~= nil then
 			self.kind = { type = "translation", value = messages.TranslationRef.jsonDecode(input.translation) }
+		end
+
+		if input.format ~= nil then
+			self.kind = { type = "format", value = messages.StringFormat.jsonDecode(input.format) }
 		end
 
 		return self
