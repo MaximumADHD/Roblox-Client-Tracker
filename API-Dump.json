@@ -10278,6 +10278,18 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "MemberType": "Function",
+                    "Name": "TriggerOnLuaAppReadyToRender",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
                     "MemberType": "Event",
                     "Name": "OnBecomeActive",
                     "Parameters": [
@@ -86499,6 +86511,32 @@
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SubmitStratusBugReport",
+                    "Parameters": [
+                        {
+                            "Name": "description",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "username",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -87270,6 +87308,45 @@
             "Members": [
                 {
                     "Capabilities": [
+                        "Basic",
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "IsPostProcessReady",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic",
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "SetPostProcessEnabled",
+                    "Parameters": [
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
                         "Basic"
                     ],
                     "MemberType": "Function",
@@ -87286,6 +87363,32 @@
                     "ReturnType": {
                         "Category": "Class",
                         "Name": "MLSession"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic",
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "LoadPostProcessModelAsync",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
                     },
                     "Security": "None",
                     "Tags": [
@@ -87593,6 +87696,18 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsPurchaseSimulated",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -107942,6 +108057,80 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "IsDehydrated",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ShellPackagesCount",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "SkippedInstancesCount",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Packages",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "IsFinished",
                     "Security": {
                         "Read": "None",
@@ -123496,6 +123685,58 @@
                         "Basic"
                     ],
                     "MemberType": "Function",
+                    "Name": "LogPreferenceEvent",
+                    "Parameters": [
+                        {
+                            "Name": "preferenceType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "RecommendationPreferenceType"
+                            }
+                        },
+                        {
+                            "Name": "targetType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "RecommendationPreferenceTargetType"
+                            }
+                        },
+                        {
+                            "Name": "targetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "tracingId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "itemId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic"
+                    ],
+                    "MemberType": "Function",
                     "Name": "GenerateItemListAsync",
                     "Parameters": [
                         {
@@ -131761,6 +132002,24 @@
                         }
                     ],
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "ServerCommunication"
+                    ],
+                    "MemberType": "Event",
+                    "Name": "ServerLifecycleChanged",
+                    "Parameters": [
+                        {
+                            "Name": "serverLifecycleChangedEvent",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -146495,28 +146754,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "ShowPlaceVersionHistoryDialog",
-                    "Parameters": [
-                        {
-                            "Name": "placeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "ShowPublishToRoblox",
                     "Parameters": [
                     ],
@@ -155222,6 +155459,38 @@
                         "Name": "Array"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Chat"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "OnUserChatSettingUpdateAsync",
+                    "Parameters": [
+                        {
+                            "Name": "featureName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "featureValue",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Yields"
                     ],
@@ -165033,7 +165302,7 @@
                         "Category": "Class",
                         "Name": "Object"
                     },
-                    "Security": "PluginSecurity",
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -172841,7 +173110,7 @@
                         "Category": "Primitive",
                         "Name": "null"
                     },
-                    "Security": "PluginSecurity",
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -172882,7 +173151,7 @@
                         "Category": "Primitive",
                         "Name": "null"
                     },
-                    "Security": "PluginSecurity",
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -172901,7 +173170,7 @@
                         "Category": "Primitive",
                         "Name": "null"
                     },
-                    "Security": "PluginSecurity",
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -172920,7 +173189,7 @@
                         "Category": "Primitive",
                         "Name": "null"
                     },
-                    "Security": "PluginSecurity",
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -172946,7 +173215,7 @@
                         "Category": "Primitive",
                         "Name": "null"
                     },
-                    "Security": "PluginSecurity",
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -172965,7 +173234,7 @@
                         "Category": "Primitive",
                         "Name": "null"
                     },
-                    "Security": "PluginSecurity",
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -173621,18 +173890,6 @@
         {
             "Items": [
                 {
-                    "Name": "RewardedAdLoaded",
-                    "Value": 3
-                },
-                {
-                    "Name": "RewardedAdGrant",
-                    "Value": 4
-                },
-                {
-                    "Name": "RewardedAdUnloaded",
-                    "Value": 5
-                },
-                {
                     "Name": "VideoLoaded",
                     "Tags": [
                         "Deprecated"
@@ -173652,6 +173909,18 @@
                         "Deprecated"
                     ],
                     "Value": 2
+                },
+                {
+                    "Name": "RewardedAdLoaded",
+                    "Value": 3
+                },
+                {
+                    "Name": "RewardedAdGrant",
+                    "Value": 4
+                },
+                {
+                    "Name": "RewardedAdUnloaded",
+                    "Value": 5
                 }
             ],
             "Name": "AdEventType"
@@ -173807,6 +174076,20 @@
         {
             "Items": [
                 {
+                    "Name": "Parallel",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 0
+                },
+                {
+                    "Name": "Perpendicular",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 1
+                },
+                {
                     "Name": "PrimaryAxisParallel",
                     "Value": 2
                 },
@@ -173821,20 +174104,6 @@
                 {
                     "Name": "AllAxes",
                     "Value": 5
-                },
-                {
-                    "Name": "Parallel",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 0
-                },
-                {
-                    "Name": "Perpendicular",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 1
                 }
             ],
             "Name": "AlignType"
@@ -174846,6 +175115,10 @@
                 {
                     "Name": "EyeMakeup",
                     "Value": 90
+                },
+                {
+                    "Name": "VoxelFragment",
+                    "Value": 91
                 }
             ],
             "Name": "AssetType"
@@ -177258,6 +177531,18 @@
                     "Value": 533
                 },
                 {
+                    "Name": "PlacelaunchAgeVerificationRequired",
+                    "Value": 542
+                },
+                {
+                    "Name": "PlacelaunchParentalApprovalRequired",
+                    "Value": 543
+                },
+                {
+                    "Name": "PlacelaunchCoreGated",
+                    "Value": 544
+                },
+                {
                     "Name": "PlacelaunchCreatorBan",
                     "Value": 600
                 },
@@ -177428,6 +177713,10 @@
                 {
                     "Name": "AvatarSwitcher",
                     "Value": 8
+                },
+                {
+                    "Name": "ExperienceShop",
+                    "Value": 9
                 }
             ],
             "Name": "CoreGuiType"
@@ -181068,413 +181357,6 @@
                     "Value": 127
                 },
                 {
-                    "Name": "KeypadZero",
-                    "Value": 256
-                },
-                {
-                    "Name": "KeypadOne",
-                    "Value": 257
-                },
-                {
-                    "Name": "KeypadTwo",
-                    "Value": 258
-                },
-                {
-                    "Name": "KeypadThree",
-                    "Value": 259
-                },
-                {
-                    "Name": "KeypadFour",
-                    "Value": 260
-                },
-                {
-                    "Name": "KeypadFive",
-                    "Value": 261
-                },
-                {
-                    "Name": "KeypadSix",
-                    "Value": 262
-                },
-                {
-                    "Name": "KeypadSeven",
-                    "Value": 263
-                },
-                {
-                    "Name": "KeypadEight",
-                    "Value": 264
-                },
-                {
-                    "Name": "KeypadNine",
-                    "Value": 265
-                },
-                {
-                    "Name": "KeypadPeriod",
-                    "Value": 266
-                },
-                {
-                    "Name": "KeypadDivide",
-                    "Value": 267
-                },
-                {
-                    "Name": "KeypadMultiply",
-                    "Value": 268
-                },
-                {
-                    "Name": "KeypadMinus",
-                    "Value": 269
-                },
-                {
-                    "Name": "KeypadPlus",
-                    "Value": 270
-                },
-                {
-                    "Name": "KeypadEnter",
-                    "Value": 271
-                },
-                {
-                    "Name": "KeypadEquals",
-                    "Value": 272
-                },
-                {
-                    "Name": "Up",
-                    "Value": 273
-                },
-                {
-                    "Name": "Down",
-                    "Value": 274
-                },
-                {
-                    "Name": "Right",
-                    "Value": 275
-                },
-                {
-                    "Name": "Left",
-                    "Value": 276
-                },
-                {
-                    "Name": "Insert",
-                    "Value": 277
-                },
-                {
-                    "Name": "Home",
-                    "Value": 278
-                },
-                {
-                    "Name": "End",
-                    "Value": 279
-                },
-                {
-                    "Name": "PageUp",
-                    "Value": 280
-                },
-                {
-                    "Name": "PageDown",
-                    "Value": 281
-                },
-                {
-                    "Name": "F1",
-                    "Value": 282
-                },
-                {
-                    "Name": "F2",
-                    "Value": 283
-                },
-                {
-                    "Name": "F3",
-                    "Value": 284
-                },
-                {
-                    "Name": "F4",
-                    "Value": 285
-                },
-                {
-                    "Name": "F5",
-                    "Value": 286
-                },
-                {
-                    "Name": "F6",
-                    "Value": 287
-                },
-                {
-                    "Name": "F7",
-                    "Value": 288
-                },
-                {
-                    "Name": "F8",
-                    "Value": 289
-                },
-                {
-                    "Name": "F9",
-                    "Value": 290
-                },
-                {
-                    "Name": "F10",
-                    "Value": 291
-                },
-                {
-                    "Name": "F11",
-                    "Value": 292
-                },
-                {
-                    "Name": "F12",
-                    "Value": 293
-                },
-                {
-                    "Name": "F13",
-                    "Value": 294
-                },
-                {
-                    "Name": "F14",
-                    "Value": 295
-                },
-                {
-                    "Name": "F15",
-                    "Value": 296
-                },
-                {
-                    "Name": "NumLock",
-                    "Value": 300
-                },
-                {
-                    "Name": "CapsLock",
-                    "Value": 301
-                },
-                {
-                    "Name": "ScrollLock",
-                    "Value": 302
-                },
-                {
-                    "Name": "RightShift",
-                    "Value": 303
-                },
-                {
-                    "Name": "LeftShift",
-                    "Value": 304
-                },
-                {
-                    "Name": "RightControl",
-                    "Value": 305
-                },
-                {
-                    "Name": "LeftControl",
-                    "Value": 306
-                },
-                {
-                    "Name": "RightAlt",
-                    "Value": 307
-                },
-                {
-                    "Name": "LeftAlt",
-                    "Value": 308
-                },
-                {
-                    "Name": "RightMeta",
-                    "Value": 309
-                },
-                {
-                    "Name": "LeftMeta",
-                    "Value": 310
-                },
-                {
-                    "Name": "LeftSuper",
-                    "Value": 311
-                },
-                {
-                    "Name": "RightSuper",
-                    "Value": 312
-                },
-                {
-                    "Name": "Mode",
-                    "Value": 313
-                },
-                {
-                    "Name": "Compose",
-                    "Value": 314
-                },
-                {
-                    "Name": "Help",
-                    "Value": 315
-                },
-                {
-                    "Name": "Print",
-                    "Value": 316
-                },
-                {
-                    "Name": "SysReq",
-                    "Value": 317
-                },
-                {
-                    "Name": "Break",
-                    "Value": 318
-                },
-                {
-                    "Name": "Menu",
-                    "Value": 319
-                },
-                {
-                    "Name": "Power",
-                    "Value": 320
-                },
-                {
-                    "Name": "Euro",
-                    "Value": 321
-                },
-                {
-                    "Name": "Undo",
-                    "Value": 322
-                },
-                {
-                    "Name": "ButtonX",
-                    "Value": 1000
-                },
-                {
-                    "Name": "ButtonY",
-                    "Value": 1001
-                },
-                {
-                    "Name": "ButtonA",
-                    "Value": 1002
-                },
-                {
-                    "Name": "ButtonB",
-                    "Value": 1003
-                },
-                {
-                    "Name": "ButtonR1",
-                    "Value": 1004
-                },
-                {
-                    "Name": "ButtonL1",
-                    "Value": 1005
-                },
-                {
-                    "Name": "ButtonR2",
-                    "Value": 1006
-                },
-                {
-                    "Name": "ButtonL2",
-                    "Value": 1007
-                },
-                {
-                    "Name": "ButtonR3",
-                    "Value": 1008
-                },
-                {
-                    "Name": "ButtonL3",
-                    "Value": 1009
-                },
-                {
-                    "Name": "ButtonStart",
-                    "Value": 1010
-                },
-                {
-                    "Name": "ButtonSelect",
-                    "Value": 1011
-                },
-                {
-                    "Name": "DPadLeft",
-                    "Value": 1012
-                },
-                {
-                    "Name": "DPadRight",
-                    "Value": 1013
-                },
-                {
-                    "Name": "DPadUp",
-                    "Value": 1014
-                },
-                {
-                    "Name": "DPadDown",
-                    "Value": 1015
-                },
-                {
-                    "Name": "Thumbstick1",
-                    "Value": 1016
-                },
-                {
-                    "Name": "Thumbstick2",
-                    "Value": 1017
-                },
-                {
-                    "Name": "Thumbstick1Up",
-                    "Value": 1018
-                },
-                {
-                    "Name": "Thumbstick1Down",
-                    "Value": 1019
-                },
-                {
-                    "Name": "Thumbstick1Left",
-                    "Value": 1020
-                },
-                {
-                    "Name": "Thumbstick1Right",
-                    "Value": 1021
-                },
-                {
-                    "Name": "Thumbstick2Up",
-                    "Value": 1022
-                },
-                {
-                    "Name": "Thumbstick2Down",
-                    "Value": 1023
-                },
-                {
-                    "Name": "Thumbstick2Left",
-                    "Value": 1024
-                },
-                {
-                    "Name": "Thumbstick2Right",
-                    "Value": 1025
-                },
-                {
-                    "Name": "MouseLeftButton",
-                    "Value": 1026
-                },
-                {
-                    "Name": "MouseRightButton",
-                    "Value": 1027
-                },
-                {
-                    "Name": "MouseMiddleButton",
-                    "Value": 1028
-                },
-                {
-                    "Name": "MousePosition",
-                    "Value": 1033
-                },
-                {
-                    "LegacyNames": [
-                        "Touch"
-                    ],
-                    "Name": "TouchPosition",
-                    "Value": 1034
-                },
-                {
-                    "Name": "MouseWheel",
-                    "Value": 1035
-                },
-                {
-                    "Name": "TrackpadPan",
-                    "Value": 1040
-                },
-                {
-                    "Name": "TrackpadPinch",
-                    "Value": 1045
-                },
-                {
-                    "Name": "MouseDelta",
-                    "Value": 1048
-                },
-                {
-                    "Name": "TouchDelta",
-                    "Value": 1049
-                },
-                {
-                    "Name": "TouchPinch",
-                    "Value": 1050
-                },
-                {
                     "Name": "World0",
                     "Tags": [
                         "Deprecated"
@@ -182147,6 +182029,378 @@
                     "Value": 255
                 },
                 {
+                    "Name": "KeypadZero",
+                    "Value": 256
+                },
+                {
+                    "Name": "KeypadOne",
+                    "Value": 257
+                },
+                {
+                    "Name": "KeypadTwo",
+                    "Value": 258
+                },
+                {
+                    "Name": "KeypadThree",
+                    "Value": 259
+                },
+                {
+                    "Name": "KeypadFour",
+                    "Value": 260
+                },
+                {
+                    "Name": "KeypadFive",
+                    "Value": 261
+                },
+                {
+                    "Name": "KeypadSix",
+                    "Value": 262
+                },
+                {
+                    "Name": "KeypadSeven",
+                    "Value": 263
+                },
+                {
+                    "Name": "KeypadEight",
+                    "Value": 264
+                },
+                {
+                    "Name": "KeypadNine",
+                    "Value": 265
+                },
+                {
+                    "Name": "KeypadPeriod",
+                    "Value": 266
+                },
+                {
+                    "Name": "KeypadDivide",
+                    "Value": 267
+                },
+                {
+                    "Name": "KeypadMultiply",
+                    "Value": 268
+                },
+                {
+                    "Name": "KeypadMinus",
+                    "Value": 269
+                },
+                {
+                    "Name": "KeypadPlus",
+                    "Value": 270
+                },
+                {
+                    "Name": "KeypadEnter",
+                    "Value": 271
+                },
+                {
+                    "Name": "KeypadEquals",
+                    "Value": 272
+                },
+                {
+                    "Name": "Up",
+                    "Value": 273
+                },
+                {
+                    "Name": "Down",
+                    "Value": 274
+                },
+                {
+                    "Name": "Right",
+                    "Value": 275
+                },
+                {
+                    "Name": "Left",
+                    "Value": 276
+                },
+                {
+                    "Name": "Insert",
+                    "Value": 277
+                },
+                {
+                    "Name": "Home",
+                    "Value": 278
+                },
+                {
+                    "Name": "End",
+                    "Value": 279
+                },
+                {
+                    "Name": "PageUp",
+                    "Value": 280
+                },
+                {
+                    "Name": "PageDown",
+                    "Value": 281
+                },
+                {
+                    "Name": "F1",
+                    "Value": 282
+                },
+                {
+                    "Name": "F2",
+                    "Value": 283
+                },
+                {
+                    "Name": "F3",
+                    "Value": 284
+                },
+                {
+                    "Name": "F4",
+                    "Value": 285
+                },
+                {
+                    "Name": "F5",
+                    "Value": 286
+                },
+                {
+                    "Name": "F6",
+                    "Value": 287
+                },
+                {
+                    "Name": "F7",
+                    "Value": 288
+                },
+                {
+                    "Name": "F8",
+                    "Value": 289
+                },
+                {
+                    "Name": "F9",
+                    "Value": 290
+                },
+                {
+                    "Name": "F10",
+                    "Value": 291
+                },
+                {
+                    "Name": "F11",
+                    "Value": 292
+                },
+                {
+                    "Name": "F12",
+                    "Value": 293
+                },
+                {
+                    "Name": "F13",
+                    "Value": 294
+                },
+                {
+                    "Name": "F14",
+                    "Value": 295
+                },
+                {
+                    "Name": "F15",
+                    "Value": 296
+                },
+                {
+                    "Name": "NumLock",
+                    "Value": 300
+                },
+                {
+                    "Name": "CapsLock",
+                    "Value": 301
+                },
+                {
+                    "Name": "ScrollLock",
+                    "Value": 302
+                },
+                {
+                    "Name": "RightShift",
+                    "Value": 303
+                },
+                {
+                    "Name": "LeftShift",
+                    "Value": 304
+                },
+                {
+                    "Name": "RightControl",
+                    "Value": 305
+                },
+                {
+                    "Name": "LeftControl",
+                    "Value": 306
+                },
+                {
+                    "Name": "RightAlt",
+                    "Value": 307
+                },
+                {
+                    "Name": "LeftAlt",
+                    "Value": 308
+                },
+                {
+                    "Name": "RightMeta",
+                    "Value": 309
+                },
+                {
+                    "Name": "LeftMeta",
+                    "Value": 310
+                },
+                {
+                    "Name": "LeftSuper",
+                    "Value": 311
+                },
+                {
+                    "Name": "RightSuper",
+                    "Value": 312
+                },
+                {
+                    "Name": "Mode",
+                    "Value": 313
+                },
+                {
+                    "Name": "Compose",
+                    "Value": 314
+                },
+                {
+                    "Name": "Help",
+                    "Value": 315
+                },
+                {
+                    "Name": "Print",
+                    "Value": 316
+                },
+                {
+                    "Name": "SysReq",
+                    "Value": 317
+                },
+                {
+                    "Name": "Break",
+                    "Value": 318
+                },
+                {
+                    "Name": "Menu",
+                    "Value": 319
+                },
+                {
+                    "Name": "Power",
+                    "Value": 320
+                },
+                {
+                    "Name": "Euro",
+                    "Value": 321
+                },
+                {
+                    "Name": "Undo",
+                    "Value": 322
+                },
+                {
+                    "Name": "ButtonX",
+                    "Value": 1000
+                },
+                {
+                    "Name": "ButtonY",
+                    "Value": 1001
+                },
+                {
+                    "Name": "ButtonA",
+                    "Value": 1002
+                },
+                {
+                    "Name": "ButtonB",
+                    "Value": 1003
+                },
+                {
+                    "Name": "ButtonR1",
+                    "Value": 1004
+                },
+                {
+                    "Name": "ButtonL1",
+                    "Value": 1005
+                },
+                {
+                    "Name": "ButtonR2",
+                    "Value": 1006
+                },
+                {
+                    "Name": "ButtonL2",
+                    "Value": 1007
+                },
+                {
+                    "Name": "ButtonR3",
+                    "Value": 1008
+                },
+                {
+                    "Name": "ButtonL3",
+                    "Value": 1009
+                },
+                {
+                    "Name": "ButtonStart",
+                    "Value": 1010
+                },
+                {
+                    "Name": "ButtonSelect",
+                    "Value": 1011
+                },
+                {
+                    "Name": "DPadLeft",
+                    "Value": 1012
+                },
+                {
+                    "Name": "DPadRight",
+                    "Value": 1013
+                },
+                {
+                    "Name": "DPadUp",
+                    "Value": 1014
+                },
+                {
+                    "Name": "DPadDown",
+                    "Value": 1015
+                },
+                {
+                    "Name": "Thumbstick1",
+                    "Value": 1016
+                },
+                {
+                    "Name": "Thumbstick2",
+                    "Value": 1017
+                },
+                {
+                    "Name": "Thumbstick1Up",
+                    "Value": 1018
+                },
+                {
+                    "Name": "Thumbstick1Down",
+                    "Value": 1019
+                },
+                {
+                    "Name": "Thumbstick1Left",
+                    "Value": 1020
+                },
+                {
+                    "Name": "Thumbstick1Right",
+                    "Value": 1021
+                },
+                {
+                    "Name": "Thumbstick2Up",
+                    "Value": 1022
+                },
+                {
+                    "Name": "Thumbstick2Down",
+                    "Value": 1023
+                },
+                {
+                    "Name": "Thumbstick2Left",
+                    "Value": 1024
+                },
+                {
+                    "Name": "Thumbstick2Right",
+                    "Value": 1025
+                },
+                {
+                    "Name": "MouseLeftButton",
+                    "Value": 1026
+                },
+                {
+                    "Name": "MouseRightButton",
+                    "Value": 1027
+                },
+                {
+                    "Name": "MouseMiddleButton",
+                    "Value": 1028
+                },
+                {
                     "Name": "MouseBackButton",
                     "Tags": [
                         "Deprecated"
@@ -182173,6 +182427,41 @@
                         "Deprecated"
                     ],
                     "Value": 1032
+                },
+                {
+                    "Name": "MousePosition",
+                    "Value": 1033
+                },
+                {
+                    "LegacyNames": [
+                        "Touch"
+                    ],
+                    "Name": "TouchPosition",
+                    "Value": 1034
+                },
+                {
+                    "Name": "MouseWheel",
+                    "Value": 1035
+                },
+                {
+                    "Name": "TrackpadPan",
+                    "Value": 1040
+                },
+                {
+                    "Name": "TrackpadPinch",
+                    "Value": 1045
+                },
+                {
+                    "Name": "MouseDelta",
+                    "Value": 1048
+                },
+                {
+                    "Name": "TouchDelta",
+                    "Value": 1049
+                },
+                {
+                    "Name": "TouchPinch",
+                    "Value": 1050
                 }
             ],
             "Name": "KeyCode"
@@ -183749,10 +184038,6 @@
                     "Value": 0
                 },
                 {
-                    "Name": "NoPath",
-                    "Value": 5
-                },
-                {
                     "Name": "ClosestNoPath",
                     "Tags": [
                         "Deprecated"
@@ -183779,6 +184064,10 @@
                         "Deprecated"
                     ],
                     "Value": 4
+                },
+                {
+                    "Name": "NoPath",
+                    "Value": 5
                 }
             ],
             "Name": "PathStatus"
@@ -185069,6 +185358,44 @@
         {
             "Items": [
                 {
+                    "Name": "User",
+                    "Value": 0
+                },
+                {
+                    "Name": "Universe",
+                    "Value": 1
+                },
+                {
+                    "Name": "CustomTag",
+                    "Value": 2
+                }
+            ],
+            "Name": "RecommendationPreferenceTargetType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "AddFollow",
+                    "Value": 0
+                },
+                {
+                    "Name": "RemoveFollow",
+                    "Value": 1
+                },
+                {
+                    "Name": "AddMute",
+                    "Value": 2
+                },
+                {
+                    "Name": "RemoveMute",
+                    "Value": 3
+                }
+            ],
+            "Name": "RecommendationPreferenceType"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Default",
                     "Value": 0
                 },
@@ -186123,6 +186450,13 @@
                     "Value": 2
                 },
                 {
+                    "Name": "AssetRequire",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 3
+                },
+                {
                     "Name": "LoadString",
                     "Value": 4
                 },
@@ -186169,6 +186503,13 @@
                 {
                     "Name": "Animation",
                     "Value": 15
+                },
+                {
+                    "Name": "Avatar",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 16
                 },
                 {
                     "Name": "Input",
@@ -186313,20 +186654,6 @@
                 {
                     "Name": "LoadUnownedAsset",
                     "Value": 52
-                },
-                {
-                    "Name": "AssetRequire",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 3
-                },
-                {
-                    "Name": "Avatar",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 16
                 }
             ],
             "Name": "SecurityCapability"
@@ -186397,8 +186724,12 @@
                     "Value": 1
                 },
                 {
-                    "Name": "ClassicLadder",
+                    "Name": "ClassicFloor",
                     "Value": 2
+                },
+                {
+                    "Name": "ClassicLadder",
+                    "Value": 3
                 }
             ],
             "Name": "SensorMode"
@@ -187983,6 +188314,11 @@
         },
         {
             "Items": [
+            ],
+            "Name": "TagReplicability"
+        },
+        {
+            "Items": [
                 {
                     "Name": "PlaceSizeTooLarge",
                     "Value": 0
@@ -188005,6 +188341,13 @@
         {
             "Items": [
                 {
+                    "Name": "Legacy",
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "Value": 0
+                },
+                {
                     "Name": "Voxel",
                     "Value": 1
                 },
@@ -188019,13 +188362,6 @@
                 {
                     "Name": "Future",
                     "Value": 4
-                },
-                {
-                    "Name": "Legacy",
-                    "Tags": [
-                        "Deprecated"
-                    ],
-                    "Value": 0
                 },
                 {
                     "Name": "Unified",
@@ -190282,6 +190618,10 @@
                 {
                     "Name": "PreWrapDeformerOuterCage",
                     "Value": 14
+                },
+                {
+                    "Name": "SkinningTransfer",
+                    "Value": 15
                 }
             ],
             "Name": "WrapLayerDebugMode"

@@ -26528,6 +26528,474 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageLabel#TileSize",
     "code_sample": ""
   },
+  "@roblox/globaltype/StudioDeviceSimulatorService": {
+    "documentation": "Service allowing you to control Studio's Device Simulator.",
+    "keys": {
+      "CreateDeviceAsync": "@roblox/globaltype/StudioDeviceSimulatorService.CreateDeviceAsync",
+      "GetDeviceAsync": "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceAsync",
+      "GetDeviceInfoAsync": "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceInfoAsync",
+      "GetDeviceListAsync": "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceListAsync",
+      "GetOrientationAsync": "@roblox/globaltype/StudioDeviceSimulatorService.GetOrientationAsync",
+      "GetPixelDensityAsync": "@roblox/globaltype/StudioDeviceSimulatorService.GetPixelDensityAsync",
+      "GetResolutionAsync": "@roblox/globaltype/StudioDeviceSimulatorService.GetResolutionAsync",
+      "GetScalingModeAsync": "@roblox/globaltype/StudioDeviceSimulatorService.GetScalingModeAsync",
+      "RemoveDeviceAsync": "@roblox/globaltype/StudioDeviceSimulatorService.RemoveDeviceAsync",
+      "SetDeviceAsync": "@roblox/globaltype/StudioDeviceSimulatorService.SetDeviceAsync",
+      "SetOrientationAsync": "@roblox/globaltype/StudioDeviceSimulatorService.SetOrientationAsync",
+      "SetPixelDensityAsync": "@roblox/globaltype/StudioDeviceSimulatorService.SetPixelDensityAsync",
+      "SetResolutionAsync": "@roblox/globaltype/StudioDeviceSimulatorService.SetResolutionAsync",
+      "SetScalingModeAsync": "@roblox/globaltype/StudioDeviceSimulatorService.SetScalingModeAsync",
+      "StopSimulationAsync": "@roblox/globaltype/StudioDeviceSimulatorService.StopSimulationAsync",
+      "UpdateDeviceAsync": "@roblox/globaltype/StudioDeviceSimulatorService.UpdateDeviceAsync"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.CreateDeviceAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.CreateDeviceAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.CreateDeviceAsync/return/0": {
+    "documentation": "string"
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.CreateDeviceAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.CreateDeviceAsync/param/0"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.CreateDeviceAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioDeviceSimulatorService.CreateDeviceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#CreateDeviceAsync",
+    "code_sample": "local id = Simulator:CreateDeviceAsync({\n    Name = \"My Custom Tablet\",\n    Width = 2560,\n    Height = 1600,\n    PixelDensity = 300,\n    DeviceForm = Enum.DeviceForm.Tablet,\n})"
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceAsync/return/0": {
+    "documentation": "string"
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#GetDeviceAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceInfoAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceInfoAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceInfoAsync/return/0": {
+    "documentation": "A dictionary containing the device configuration and passed to <code>CreateDeviceAsync</code> and <code>UpdateDeviceAsync</code>."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceInfoAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceInfoAsync/param/0"
+      },
+      {
+        "name": "deviceId",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceInfoAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceInfoAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#GetDeviceInfoAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceListAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceListAsync/return/0": {
+    "documentation": "An array of device IDs."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceListAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceListAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioDeviceSimulatorService.GetDeviceListAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#GetDeviceListAsync",
+    "code_sample": "local Simulator = game:GetService(\"StudioDeviceSimulatorService\")\nlocal devices = Simulator:GetDeviceListAsync()\n\nfor _, deviceId in devices do\n    print(deviceId)\nend"
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetOrientationAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetOrientationAsync/return/0": {
+    "documentation": "ScreenOrientation"
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetOrientationAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.GetOrientationAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioDeviceSimulatorService.GetOrientationAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#GetOrientationAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetPixelDensityAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetPixelDensityAsync/return/0": {
+    "documentation": "number"
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetPixelDensityAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.GetPixelDensityAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioDeviceSimulatorService.GetPixelDensityAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#GetPixelDensityAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetResolutionAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetResolutionAsync/return/0": {
+    "documentation": "Vector2"
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetResolutionAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.GetResolutionAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioDeviceSimulatorService.GetResolutionAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#GetResolutionAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetScalingModeAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetScalingModeAsync/return/0": {
+    "documentation": "DeviceSimulatorScalingMode"
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.GetScalingModeAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.GetScalingModeAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioDeviceSimulatorService.GetScalingModeAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#GetScalingModeAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.RemoveDeviceAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.RemoveDeviceAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.RemoveDeviceAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.RemoveDeviceAsync/param/0"
+      },
+      {
+        "name": "deviceId",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.RemoveDeviceAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#RemoveDeviceAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetDeviceAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetDeviceAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetDeviceAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.SetDeviceAsync/param/0"
+      },
+      {
+        "name": "deviceId",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.SetDeviceAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#SetDeviceAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetOrientationAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetOrientationAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetOrientationAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.SetOrientationAsync/param/0"
+      },
+      {
+        "name": "orientation",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.SetOrientationAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#SetOrientationAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetPixelDensityAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetPixelDensityAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetPixelDensityAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.SetPixelDensityAsync/param/0"
+      },
+      {
+        "name": "density",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.SetPixelDensityAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#SetPixelDensityAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetResolutionAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetResolutionAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetResolutionAsync/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetResolutionAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.SetResolutionAsync/param/0"
+      },
+      {
+        "name": "width",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.SetResolutionAsync/param/1"
+      },
+      {
+        "name": "height",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.SetResolutionAsync/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#SetResolutionAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetScalingModeAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetScalingModeAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.SetScalingModeAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.SetScalingModeAsync/param/0"
+      },
+      {
+        "name": "mode",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.SetScalingModeAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#SetScalingModeAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.StopSimulationAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.StopSimulationAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.StopSimulationAsync/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#StopSimulationAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.UpdateDeviceAsync/param/0": {
+    "documentation": "Service allowing you to control Studio's Device Simulator."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.UpdateDeviceAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.UpdateDeviceAsync/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.UpdateDeviceAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.UpdateDeviceAsync/param/0"
+      },
+      {
+        "name": "deviceId",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.UpdateDeviceAsync/param/1"
+      },
+      {
+        "name": "config",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.UpdateDeviceAsync/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#UpdateDeviceAsync",
+    "code_sample": "Simulator:UpdateDeviceAsync(id, {\n    Name = \"My Custom Tablet\",\n    Width = 2732,\n    Height = 2048,\n    PixelDensity = 264,\n    DeviceForm = Enum.DeviceForm.Tablet,\n})"
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged": {
+    "documentation": "",
+    "keys": {
+      "Connect": "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Once",
+      "Wait": "@roblox/globaltype/StudioDeviceSimulatorService.ConfigurationChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioDeviceSimulatorService#ConfigurationChanged",
+    "code_sample": "Simulator.ConfigurationChanged:Connect(function()\n    local deviceId = Simulator:GetDeviceAsync()\n    if deviceId ~= \"default\" then\n        local res = Simulator:GetResolutionAsync()\n        print(string.format(\"Active: %s @ %dx%d\", deviceId, res.X, res.Y))\n    end\nend)"
+  },
   "@roblox/globaltype/Workspace": {
     "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world.",
     "keys": {
@@ -26553,7 +27021,6 @@
       "MeshPartHeadsAndAccessories": "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories",
       "MeshStreamingAndImprovedLods": "@roblox/globaltype/Workspace.MeshStreamingAndImprovedLods",
       "ModelStreamingBehavior": "@roblox/globaltype/Workspace.ModelStreamingBehavior",
-      "MoverConstraintRootBehavior": "@roblox/globaltype/Workspace.MoverConstraintRootBehavior",
       "NextGenerationReplication": "@roblox/globaltype/Workspace.NextGenerationReplication",
       "PathfindingUseImprovedSearch": "@roblox/globaltype/Workspace.PathfindingUseImprovedSearch",
       "PhysicsImprovedSleep": "@roblox/globaltype/Workspace.PhysicsImprovedSleep",
@@ -26611,7 +27078,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AvatarUnificationMode": {
-    "documentation": "",
+    "documentation": "Enables the R6 to R15 adapter, allowing R15 avatars to join R6 experiences.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AvatarUnificationMode",
     "code_sample": ""
   },
@@ -26636,7 +27103,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.FallHeightEnabled": {
-    "documentation": "",
+    "documentation": "Controls whether parts that fall below <code>Workspace.FallenPartsDestroyHeight</code> are automatically destroyed.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#FallHeightEnabled",
     "code_sample": ""
   },
@@ -26666,7 +27133,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.InsertPoint": {
-    "documentation": "",
+    "documentation": "The world position at which new objects are placed when inserted from the toolbox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#InsertPoint",
     "code_sample": ""
   },
@@ -26676,12 +27143,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.LayeredClothingCacheOptimizations": {
-    "documentation": "",
+    "documentation": "Controls whether layered clothing cache optimizations are enabled.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#LayeredClothingCacheOptimizations",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.LuauTypeCheckMode": {
-    "documentation": "",
+    "documentation": "Sets the Luau type checking mode for scripts in the experience.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#LuauTypeCheckMode",
     "code_sample": ""
   },
@@ -26700,23 +27167,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ModelStreamingBehavior",
     "code_sample": ""
   },
-  "@roblox/globaltype/Workspace.MoverConstraintRootBehavior": {
-    "documentation": "Controls the logic used to select the assembly root part when using any of the mover constraints.",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Workspace.NextGenerationReplication": {
     "documentation": "When <code>true</code>, enables an alternate replication system that alters and improves how properties are replicated under the hood.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#NextGenerationReplication",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PathfindingUseImprovedSearch": {
-    "documentation": "",
+    "documentation": "Controls whether an improved search algorithm is used by <code>PathfindingService</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PathfindingUseImprovedSearch",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PhysicsImprovedSleep": {
-    "documentation": "",
+    "documentation": "Controls whether the improved partial physics sleep algorithm is enabled.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PhysicsImprovedSleep",
     "code_sample": ""
   },
@@ -26726,7 +27188,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PlayerCharacterDestroyBehavior": {
-    "documentation": "",
+    "documentation": "Controls whether the engine automatically calls <code>Destroy()</code> on a player's character when it is replaced and on the <code>Player</code> object when the player leaves.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PlayerCharacterDestroyBehavior",
     "code_sample": ""
   },
@@ -26736,32 +27198,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PrimalPhysicsSolver": {
-    "documentation": "",
+    "documentation": "Controls whether the experimental Primal Physics Solver is enabled.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PrimalPhysicsSolver",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.RejectCharacterDeletions": {
-    "documentation": "",
+    "documentation": "Controls whether the server rejects attempts by clients to delete player characters from the workspace.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#RejectCharacterDeletions",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.RenderingCacheOptimizations": {
-    "documentation": "",
+    "documentation": "Controls whether rendering cache optimizations are enabled.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#RenderingCacheOptimizations",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.ReplicateInstanceDestroySetting": {
-    "documentation": "",
+    "documentation": "Controls how <code>Instance:Destroy()</code> calls are replicated from the server to clients.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ReplicateInstanceDestroySetting",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.Retargeting": {
-    "documentation": "",
+    "documentation": "Controls whether animation retargeting is enabled for character animations.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#Retargeting",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.SandboxedInstanceMode": {
-    "documentation": "",
+    "documentation": "Controls whether sandboxed instance mode (script capabilities) is enabled.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#SandboxedInstanceMode",
     "code_sample": ""
   },
@@ -26811,7 +27273,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
-    "documentation": "",
+    "documentation": "Controls whether the new Luau type solver is used for type inference.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseNewLuauTypeSolver",
     "code_sample": ""
   },
@@ -30538,7 +31000,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/UICorner.CornerRadius": {
-    "documentation": "Determines the radius of the component.",
+    "documentation": "Sets all four corner radii at once and reads from <code>TopLeftRadius</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/UICorner#CornerRadius",
     "code_sample": ""
   },
@@ -31940,7 +32402,13 @@
       "FreeMemoryMBytes": "@roblox/globaltype/NetworkSettings.FreeMemoryMBytes",
       "HttpProxyEnabled": "@roblox/globaltype/NetworkSettings.HttpProxyEnabled",
       "HttpProxyURL": "@roblox/globaltype/NetworkSettings.HttpProxyURL",
+      "InboundNetworkJitterMs": "@roblox/globaltype/NetworkSettings.InboundNetworkJitterMs",
+      "InboundNetworkLossPercent": "@roblox/globaltype/NetworkSettings.InboundNetworkLossPercent",
+      "InboundNetworkMinDelayMs": "@roblox/globaltype/NetworkSettings.InboundNetworkMinDelayMs",
       "IncomingReplicationLag": "@roblox/globaltype/NetworkSettings.IncomingReplicationLag",
+      "OutboundNetworkJitterMs": "@roblox/globaltype/NetworkSettings.OutboundNetworkJitterMs",
+      "OutboundNetworkLossPercent": "@roblox/globaltype/NetworkSettings.OutboundNetworkLossPercent",
+      "OutboundNetworkMinDelayMs": "@roblox/globaltype/NetworkSettings.OutboundNetworkMinDelayMs",
       "PrintJoinSizeBreakdown": "@roblox/globaltype/NetworkSettings.PrintJoinSizeBreakdown",
       "PrintPhysicsErrors": "@roblox/globaltype/NetworkSettings.PrintPhysicsErrors",
       "PrintStreamInstanceQuota": "@roblox/globaltype/NetworkSettings.PrintStreamInstanceQuota",
@@ -31971,9 +32439,39 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#HttpProxyURL",
     "code_sample": ""
   },
+  "@roblox/globaltype/NetworkSettings.InboundNetworkJitterMs": {
+    "documentation": "Adds jitter to playtest connections in the server-to-client direction.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#InboundNetworkJitterMs",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/NetworkSettings.InboundNetworkLossPercent": {
+    "documentation": "Sets the probability that packets on playtest connections from server to client are dropped.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#InboundNetworkLossPercent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/NetworkSettings.InboundNetworkMinDelayMs": {
+    "documentation": "Adds latency to playtest connections in the server-to-client direction.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#InboundNetworkMinDelayMs",
+    "code_sample": ""
+  },
   "@roblox/globaltype/NetworkSettings.IncomingReplicationLag": {
     "documentation": "Simulates additional network latency in the network receiving path.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#IncomingReplicationLag",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/NetworkSettings.OutboundNetworkJitterMs": {
+    "documentation": "Adds jitter to playtest connections in the client-to-server direction.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#OutboundNetworkJitterMs",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/NetworkSettings.OutboundNetworkLossPercent": {
+    "documentation": "Sets the probability that packets on playtest connections from client to server are dropped.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#OutboundNetworkLossPercent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/NetworkSettings.OutboundNetworkMinDelayMs": {
+    "documentation": "Adds latency to playtest connections in the client-to-server direction.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#OutboundNetworkMinDelayMs",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintJoinSizeBreakdown": {
@@ -46357,6 +46855,7 @@
       "DistanceFromCharacter": "@roblox/globaltype/Player.DistanceFromCharacter",
       "GetFriendsOnline": "@roblox/globaltype/Player.GetFriendsOnline",
       "GetFriendsOnlineAsync": "@roblox/globaltype/Player.GetFriendsOnlineAsync",
+      "GetFriendsWhoPlayedAsync": "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync",
       "GetJoinData": "@roblox/globaltype/Player.GetJoinData",
       "GetMouse": "@roblox/globaltype/Player.GetMouse",
       "GetNetworkPing": "@roblox/globaltype/Player.GetNetworkPing",
@@ -46707,6 +47206,26 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnlineAsync",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Failed to get online players: \" .. result)\nend"
+  },
+  "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync/param/0": {
+    "documentation": "An object that represents a presently connected client to the experience."
+  },
+  "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync/return/0": {
+    "documentation": "An array of user IDs."
+  },
+  "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Player.GetFriendsWhoPlayedAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsWhoPlayedAsync",
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -51988,6 +52507,9 @@
   "@roblox/globaltype/RunService.BindToSimulation/param/2": {
     "documentation": "Optional <code>StepFrequency</code> value indicating the frequency at which to call the bound function. If not provided, the default frequency will be used."
   },
+  "@roblox/globaltype/RunService.BindToSimulation/param/3": {
+    "documentation": "Optional priority of the binding as an integer; it determines the order in which bound functions are called within a simulation step. Lower numbers are called first. If two bindings have the same priority, the order between them is unspecified. Defaults to 2000."
+  },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
     "documentation": ""
   },
@@ -52005,6 +52527,10 @@
       {
         "name": "frequency",
         "documentation": "@roblox/globaltype/RunService.BindToSimulation/param/2"
+      },
+      {
+        "name": "priority",
+        "documentation": "@roblox/globaltype/RunService.BindToSimulation/param/3"
       }
     ],
     "returns": [
@@ -53344,7 +53870,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Sandboxed": {
-    "documentation": "Turns the instance to be a sandboxed container.",
+    "documentation": "When enabled, the instance can only access abilities in its <code>Capabilities</code> list.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Sandboxed",
     "code_sample": ""
   },
@@ -54376,7 +54902,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AncestryChanged": {
-    "documentation": "Fires when the <code>Instance.Parent</code> property of the object or one of its ancestors is changed.",
+    "documentation": "Fires when the <code>Instance.Parent</code> property of this object or one of its ancestors is changed.",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AncestryChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AncestryChanged.ConnectParallel",
@@ -57302,13 +57828,65 @@
   "@roblox/globaltype/StudioTestService": {
     "documentation": "Service allowing plugins to automate and customize Test and Run mode testing.",
     "keys": {
+      "EditModeActive": "@roblox/globaltype/StudioTestService.EditModeActive",
+      "AddPlayers": "@roblox/globaltype/StudioTestService.AddPlayers",
+      "CanLeaveTest": "@roblox/globaltype/StudioTestService.CanLeaveTest",
       "EndTest": "@roblox/globaltype/StudioTestService.EndTest",
+      "ExecuteMultiplayerTestAsync": "@roblox/globaltype/StudioTestService.ExecuteMultiplayerTestAsync",
       "ExecutePlayModeAsync": "@roblox/globaltype/StudioTestService.ExecutePlayModeAsync",
       "ExecuteRunModeAsync": "@roblox/globaltype/StudioTestService.ExecuteRunModeAsync",
-      "GetTestArgs": "@roblox/globaltype/StudioTestService.GetTestArgs"
+      "GetTestArgs": "@roblox/globaltype/StudioTestService.GetTestArgs",
+      "LeaveTest": "@roblox/globaltype/StudioTestService.LeaveTest"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService",
     "code_sample": ""
+  },
+  "@roblox/globaltype/StudioTestService.EditModeActive": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService#EditModeActive",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioTestService.AddPlayers/param/0": {
+    "documentation": "Service allowing plugins to automate and customize Test and Run mode testing."
+  },
+  "@roblox/globaltype/StudioTestService.AddPlayers/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioTestService.AddPlayers": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioTestService.AddPlayers/param/0"
+      },
+      {
+        "name": "numPlayers",
+        "documentation": "@roblox/globaltype/StudioTestService.AddPlayers/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService#AddPlayers",
+    "code_sample": "local StudioTestService = game:GetService(\"StudioTestService\")\n\ntask.wait(5)\nStudioTestService:AddPlayers(3)"
+  },
+  "@roblox/globaltype/StudioTestService.CanLeaveTest/param/0": {
+    "documentation": "Service allowing plugins to automate and customize Test and Run mode testing."
+  },
+  "@roblox/globaltype/StudioTestService.CanLeaveTest/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioTestService.CanLeaveTest": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioTestService.CanLeaveTest/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioTestService.CanLeaveTest/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService#CanLeaveTest",
+    "code_sample": "local StudioTestService = game:GetService(\"StudioTestService\")\n\nif StudioTestService:CanLeaveTest() then\n    StudioTestService:LeaveTest()\nend"
   },
   "@roblox/globaltype/StudioTestService.EndTest/param/0": {
     "documentation": "Service allowing plugins to automate and customize Test and Run mode testing."
@@ -57330,6 +57908,40 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService#EndTest",
+    "code_sample": "local StudioTestService = game:GetService(\"StudioTestService\")\n\n-- Server-side logic runs here, waits for players, runs assertions, etc.\nStudioTestService:EndTest(\"Success!\")"
+  },
+  "@roblox/globaltype/StudioTestService.ExecuteMultiplayerTestAsync/param/0": {
+    "documentation": "Service allowing plugins to automate and customize Test and Run mode testing."
+  },
+  "@roblox/globaltype/StudioTestService.ExecuteMultiplayerTestAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioTestService.ExecuteMultiplayerTestAsync/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioTestService.ExecuteMultiplayerTestAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioTestService.ExecuteMultiplayerTestAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioTestService.ExecuteMultiplayerTestAsync/param/0"
+      },
+      {
+        "name": "numPlayers",
+        "documentation": "@roblox/globaltype/StudioTestService.ExecuteMultiplayerTestAsync/param/1"
+      },
+      {
+        "name": "args",
+        "documentation": "@roblox/globaltype/StudioTestService.ExecuteMultiplayerTestAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioTestService.ExecuteMultiplayerTestAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService#ExecuteMultiplayerTestAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/StudioTestService.ExecutePlayModeAsync/param/0": {
@@ -57404,6 +58016,21 @@
       "@roblox/globaltype/StudioTestService.GetTestArgs/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService#GetTestArgs",
+    "code_sample": "local StudioTestService = game:GetService(\"StudioTestService\")\n\nlocal args = StudioTestService:GetTestArgs()\nprint(\"Received args:\", args)"
+  },
+  "@roblox/globaltype/StudioTestService.LeaveTest/param/0": {
+    "documentation": "Service allowing plugins to automate and customize Test and Run mode testing."
+  },
+  "@roblox/globaltype/StudioTestService.LeaveTest": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioTestService.LeaveTest/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService#LeaveTest",
     "code_sample": ""
   },
   "@roblox/globaltype/RocketPropulsion": {
@@ -61388,11 +62015,14 @@
       "Priority": "@roblox/globaltype/StyleRule.Priority",
       "Selector": "@roblox/globaltype/StyleRule.Selector",
       "SelectorError": "@roblox/globaltype/StyleRule.SelectorError",
+      "GetDefaultPropertyTransition": "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition",
       "GetProperties": "@roblox/globaltype/StyleRule.GetProperties",
       "GetProperty": "@roblox/globaltype/StyleRule.GetProperty",
       "GetPropertyTransitions": "@roblox/globaltype/StyleRule.GetPropertyTransitions",
+      "SetDefaultPropertyTransition": "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition",
       "SetProperties": "@roblox/globaltype/StyleRule.SetProperties",
       "SetProperty": "@roblox/globaltype/StyleRule.SetProperty",
+      "SetPropertyTransition": "@roblox/globaltype/StyleRule.SetPropertyTransition",
       "SetPropertyTransitions": "@roblox/globaltype/StyleRule.SetPropertyTransitions"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleRule",
@@ -61411,6 +62041,26 @@
   "@roblox/globaltype/StyleRule.SelectorError": {
     "documentation": "A read-only string that displays errors from the <code>Selector</code> property.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleRule#SelectorError",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition/param/0": {
+    "documentation": "Defines style properties which override properties on the instances affected by the <code>Selector</code> property."
+  },
+  "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition/return/0": {
+    "documentation": "The default transition as a <code>TweenInfo</code> or string token, or <code>nil</code> if no default transition is set."
+  },
+  "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition": {
+    "documentation": "Returns the default transition applied to all properties of the <code>StyleRule</code> that don't have an explicit transition set.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StyleRule.GetDefaultPropertyTransition/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleRule#GetDefaultPropertyTransition",
     "code_sample": ""
   },
   "@roblox/globaltype/StyleRule.GetProperties/param/0": {
@@ -61464,10 +62114,10 @@
     "documentation": "Defines style properties which override properties on the instances affected by the <code>Selector</code> property."
   },
   "@roblox/globaltype/StyleRule.GetPropertyTransitions/return/0": {
-    "documentation": ""
+    "documentation": "Dictionary of key-value pairs mapping property names to their transition parameters."
   },
   "@roblox/globaltype/StyleRule.GetPropertyTransitions": {
-    "documentation": "",
+    "documentation": "Returns a dictionary of all property transitions set on the <code>StyleRule</code>.",
     "params": [
       {
         "name": "self",
@@ -61478,6 +62128,28 @@
       "@roblox/globaltype/StyleRule.GetPropertyTransitions/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleRule#GetPropertyTransitions",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition/param/0": {
+    "documentation": "Defines style properties which override properties on the instances affected by the <code>Selector</code> property."
+  },
+  "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition/param/1": {
+    "documentation": "Either a <code>TweenInfo</code>, a token string defining the default transition timing, or <code>nil</code> to remove the default transition."
+  },
+  "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition": {
+    "documentation": "Sets or clears a default transition that applies to all properties of the <code>StyleRule</code> that don't have an explicit transition set.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition/param/0"
+      },
+      {
+        "name": "transitionParams",
+        "documentation": "@roblox/globaltype/StyleRule.SetDefaultPropertyTransition/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleRule#SetDefaultPropertyTransition",
     "code_sample": ""
   },
   "@roblox/globaltype/StyleRule.SetProperties/param/0": {
@@ -61531,14 +62203,43 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleRule#SetProperty",
     "code_sample": ""
   },
+  "@roblox/globaltype/StyleRule.SetPropertyTransition/param/0": {
+    "documentation": "Defines style properties which override properties on the instances affected by the <code>Selector</code> property."
+  },
+  "@roblox/globaltype/StyleRule.SetPropertyTransition/param/1": {
+    "documentation": "String name of the property to set a transition for, for example <code>\"BackgroundColor3\"</code> or <code>\"Size\"</code>."
+  },
+  "@roblox/globaltype/StyleRule.SetPropertyTransition/param/2": {
+    "documentation": "A <code>TweenInfo</code> or token string defining the transition timing, or <code>nil</code> to remove the transition for this property."
+  },
+  "@roblox/globaltype/StyleRule.SetPropertyTransition": {
+    "documentation": "Sets or clears the transition for a single property on the <code>StyleRule</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StyleRule.SetPropertyTransition/param/0"
+      },
+      {
+        "name": "property",
+        "documentation": "@roblox/globaltype/StyleRule.SetPropertyTransition/param/1"
+      },
+      {
+        "name": "transitionParams",
+        "documentation": "@roblox/globaltype/StyleRule.SetPropertyTransition/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StyleRule#SetPropertyTransition",
+    "code_sample": "local ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal coreSheet = ReplicatedStorage:FindFirstChild(\"CoreSheet\")\n\n-- Get reference to style rule\nlocal frameRule = coreSheet.Frame\n\n-- Set a 1-second linear transition on BackgroundColor3\nframeRule:SetPropertyTransition(\"BackgroundColor3\", TweenInfo.new(\n\t1, -- Time\n\tEnum.EasingStyle.Linear -- EasingStyle\n))\n\n-- Remove the transition\nframeRule:SetPropertyTransition(\"BackgroundColor3\", nil)"
+  },
   "@roblox/globaltype/StyleRule.SetPropertyTransitions/param/0": {
     "documentation": "Defines style properties which override properties on the instances affected by the <code>Selector</code> property."
   },
   "@roblox/globaltype/StyleRule.SetPropertyTransitions/param/1": {
-    "documentation": ""
+    "documentation": "Dictionary of property names to transition parameters."
   },
   "@roblox/globaltype/StyleRule.SetPropertyTransitions": {
-    "documentation": "",
+    "documentation": "Lets you declare and set transitions for multiple properties of the <code>StyleRule</code> at once.",
     "params": [
       {
         "name": "self",
@@ -81480,7 +82181,7 @@
     "documentation": "The user being prompted to purchase Premium."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
-    "documentation": "Prompts a user to purchase Roblox Premium.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>PromptRobloxSubscriptionPurchase()</code>.<br>Prompts a user to purchase Roblox Premium.",
     "params": [
       {
         "name": "self",
@@ -94842,7 +95543,6 @@
       "Position": "@roblox/globaltype/HapticEffect.Position",
       "Radius": "@roblox/globaltype/HapticEffect.Radius",
       "Type": "@roblox/globaltype/HapticEffect.Type",
-      "Waveform": "@roblox/globaltype/HapticEffect.Waveform",
       "Play": "@roblox/globaltype/HapticEffect.Play",
       "SetWaveformKeys": "@roblox/globaltype/HapticEffect.SetWaveformKeys",
       "Stop": "@roblox/globaltype/HapticEffect.Stop"
@@ -94868,11 +95568,6 @@
   "@roblox/globaltype/HapticEffect.Type": {
     "documentation": "<code>HapticEffectType</code> describing the haptic type.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HapticEffect#Type",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/HapticEffect.Waveform": {
-    "documentation": "<strong>Deprecated:</strong> ",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HapticEffect#Waveform",
     "code_sample": ""
   },
   "@roblox/globaltype/HapticEffect.Play/param/0": {
@@ -107283,7 +107978,7 @@
     "code_sample": ""
   },
   "@roblox/enum/LuauTypeCheckMode.Default": {
-    "documentation": "",
+    "documentation": "Uses the engine-default type checking mode.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107293,7 +107988,7 @@
     "code_sample": ""
   },
   "@roblox/enum/LuauTypeCheckMode.NoCheck": {
-    "documentation": "",
+    "documentation": "Scripts are not type-checked.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107303,7 +107998,7 @@
     "code_sample": ""
   },
   "@roblox/enum/LuauTypeCheckMode.Nonstrict": {
-    "documentation": "",
+    "documentation": "Scripts are type-checked in nonstrict mode.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107313,7 +108008,7 @@
     "code_sample": ""
   },
   "@roblox/enum/LuauTypeCheckMode.Strict": {
-    "documentation": "",
+    "documentation": "Scripts are type-checked in strict mode.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107323,7 +108018,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.LuauTypeCheckMode": {
-    "documentation": "",
+    "documentation": "The Luau type checking mode for scripts in the experience.",
     "keys": {
       "Default": "@roblox/enum/LuauTypeCheckMode.Default",
       "NoCheck": "@roblox/enum/LuauTypeCheckMode.NoCheck",
@@ -112245,7 +112940,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RejectCharacterDeletions.Default": {
-    "documentation": "",
+    "documentation": "Uses the engine-default behavior (currently equivalent to <code>Enabled</code>).",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112255,7 +112950,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RejectCharacterDeletions.Disabled": {
-    "documentation": "",
+    "documentation": "The server does not reject character deletion requests from clients.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112265,7 +112960,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RejectCharacterDeletions.Enabled": {
-    "documentation": "",
+    "documentation": "The server rejects client attempts to delete player characters.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -112275,7 +112970,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.RejectCharacterDeletions": {
-    "documentation": "",
+    "documentation": "Controls whether the server rejects client attempts to delete player characters.",
     "keys": {
       "Default": "@roblox/enum/RejectCharacterDeletions.Default",
       "Disabled": "@roblox/enum/RejectCharacterDeletions.Disabled",
@@ -116706,7 +117401,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AvatarUnificationMode.Default": {
-    "documentation": "",
+    "documentation": "Uses the engine-default avatar unification state.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116716,7 +117411,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AvatarUnificationMode.Disabled": {
-    "documentation": "",
+    "documentation": "Avatar unification is disabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116726,7 +117421,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AvatarUnificationMode.Enabled": {
-    "documentation": "",
+    "documentation": "Avatar unification is enabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -116736,7 +117431,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AvatarUnificationMode": {
-    "documentation": "",
+    "documentation": "Controls whether the R6 to R15 adapter is active, allowing R15 avatars to join R6 experiences.",
     "keys": {
       "Default": "@roblox/enum/AvatarUnificationMode.Default",
       "Disabled": "@roblox/enum/AvatarUnificationMode.Disabled",
@@ -121146,7 +121841,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PathfindingUseImprovedSearch.Default": {
-    "documentation": "",
+    "documentation": "Uses the engine-default pathfinding behavior.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121156,7 +121851,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PathfindingUseImprovedSearch.Disabled": {
-    "documentation": "",
+    "documentation": "Uses the legacy pathfinding search algorithm.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121166,7 +121861,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PathfindingUseImprovedSearch.Enabled": {
-    "documentation": "",
+    "documentation": "Uses the improved pathfinding search algorithm.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -121176,7 +121871,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PathfindingUseImprovedSearch": {
-    "documentation": "",
+    "documentation": "Controls whether <code>PathfindingService</code> uses an improved search algorithm.",
     "keys": {
       "Default": "@roblox/enum/PathfindingUseImprovedSearch.Default",
       "Disabled": "@roblox/enum/PathfindingUseImprovedSearch.Disabled",
@@ -133099,7 +133794,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerCharacterDestroyBehavior.Default": {
-    "documentation": "",
+    "documentation": "Uses the engine-default behavior.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133109,7 +133804,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerCharacterDestroyBehavior.Disabled": {
-    "documentation": "",
+    "documentation": "Automatic <code>Destroy()</code> calls on character replacement and player removal are disabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133119,7 +133814,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PlayerCharacterDestroyBehavior.Enabled": {
-    "documentation": "",
+    "documentation": "The engine automatically calls <code>Destroy()</code> on old characters when they are replaced (for example, on respawn) and on <code>Player</code> objects when players leave.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -133129,7 +133824,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PlayerCharacterDestroyBehavior": {
-    "documentation": "",
+    "documentation": "Controls destruction behavior when a player character is removed.",
     "keys": {
       "Default": "@roblox/enum/PlayerCharacterDestroyBehavior.Default",
       "Disabled": "@roblox/enum/PlayerCharacterDestroyBehavior.Disabled",
@@ -134584,46 +135279,6 @@
       "Italic": "@roblox/enum/FontStyle.Italic"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FontStyle",
-    "code_sample": ""
-  },
-  "@roblox/enum/MoverConstraintRootBehaviorMode.Default": {
-    "documentation": "The default option for <code>Workspace.MoverConstraintRootBehavior</code>. Currently set to <strong>Disabled</strong>.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/MoverConstraintRootBehaviorMode#Default",
-    "code_sample": ""
-  },
-  "@roblox/enum/MoverConstraintRootBehaviorMode.Disabled": {
-    "documentation": "The legacy logic will be used for assembly root part selection when a mechanism contains a mover constraint.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/MoverConstraintRootBehaviorMode#Disabled",
-    "code_sample": ""
-  },
-  "@roblox/enum/MoverConstraintRootBehaviorMode.Enabled": {
-    "documentation": "Improved logic will be used for assembly root part selection when a mechanism contains a mover constraint. This improved logic gives more consistent behavior when compared with other constraints or the deprecated <code>BodyMover</code> classes.",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/MoverConstraintRootBehaviorMode#Enabled",
-    "code_sample": ""
-  },
-  "@roblox/global/Enum.MoverConstraintRootBehaviorMode": {
-    "documentation": "Values for <code>Workspace.MoverConstraintRootBehavior</code>. Controls the logic for selecting the assembly root part when using various mover constraints.",
-    "keys": {
-      "Default": "@roblox/enum/MoverConstraintRootBehaviorMode.Default",
-      "Disabled": "@roblox/enum/MoverConstraintRootBehaviorMode.Disabled",
-      "Enabled": "@roblox/enum/MoverConstraintRootBehaviorMode.Enabled"
-    },
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/MoverConstraintRootBehaviorMode",
     "code_sample": ""
   },
   "@roblox/enum/RigScale.Default": {
@@ -136179,7 +136834,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RolloutState.Default": {
-    "documentation": "",
+    "documentation": "Uses the engine-wide rollout default, which changes as the feature progresses through its rollout phases.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136189,7 +136844,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RolloutState.Disabled": {
-    "documentation": "",
+    "documentation": "Opts out of the feature regardless of the engine-wide rollout phase.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136199,7 +136854,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RolloutState.Enabled": {
-    "documentation": "",
+    "documentation": "Opts in to the feature regardless of the engine-wide rollout phase.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -136209,7 +136864,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.RolloutState": {
-    "documentation": "",
+    "documentation": "A three-phase rollout state used to opt in or out of engine features.",
     "keys": {
       "Default": "@roblox/enum/RolloutState.Default",
       "Disabled": "@roblox/enum/RolloutState.Disabled",
@@ -137902,7 +138557,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ReplicateInstanceDestroySetting.Default": {
-    "documentation": "",
+    "documentation": "Uses the engine-default instance destroy replication behavior.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -137912,7 +138567,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ReplicateInstanceDestroySetting.Disabled": {
-    "documentation": "",
+    "documentation": "Uses legacy instance destroy replication behavior.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -137922,7 +138577,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ReplicateInstanceDestroySetting.Enabled": {
-    "documentation": "",
+    "documentation": "Uses improved instance destroy replication behavior.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -137932,7 +138587,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.ReplicateInstanceDestroySetting": {
-    "documentation": "",
+    "documentation": "Controls how <code>Instance:Destroy()</code> calls are replicated from server to clients.",
     "keys": {
       "Default": "@roblox/enum/ReplicateInstanceDestroySetting.Default",
       "Disabled": "@roblox/enum/ReplicateInstanceDestroySetting.Disabled",
@@ -138805,7 +139460,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RenderingCacheOptimizationMode.Default": {
-    "documentation": "",
+    "documentation": "Uses the engine-default rendering cache state.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -138815,7 +139470,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RenderingCacheOptimizationMode.Disabled": {
-    "documentation": "",
+    "documentation": "Rendering cache optimizations are disabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -138825,7 +139480,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RenderingCacheOptimizationMode.Enabled": {
-    "documentation": "",
+    "documentation": "Rendering cache optimizations are enabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -138835,7 +139490,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.RenderingCacheOptimizationMode": {
-    "documentation": "",
+    "documentation": "Controls rendering cache optimization behavior.",
     "keys": {
       "Default": "@roblox/enum/RenderingCacheOptimizationMode.Default",
       "Disabled": "@roblox/enum/RenderingCacheOptimizationMode.Disabled",
@@ -140203,7 +140858,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SandboxedInstanceMode.Default": {
-    "documentation": "",
+    "documentation": "Uses the engine-default sandboxed instance state.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140213,7 +140868,7 @@
     "code_sample": ""
   },
   "@roblox/enum/SandboxedInstanceMode.Experimental": {
-    "documentation": "",
+    "documentation": "Sandboxed instance mode is enabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140223,7 +140878,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.SandboxedInstanceMode": {
-    "documentation": "",
+    "documentation": "Controls whether sandboxed instance mode (script capabilities) is enabled.",
     "keys": {
       "Default": "@roblox/enum/SandboxedInstanceMode.Default",
       "Experimental": "@roblox/enum/SandboxedInstanceMode.Experimental"
@@ -140461,7 +141116,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PrimalPhysicsSolver.Default": {
-    "documentation": "",
+    "documentation": "Uses the engine-default physics solver state.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140471,7 +141126,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PrimalPhysicsSolver.Experimental": {
-    "documentation": "",
+    "documentation": "The experimental Primal Physics Solver is enabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140481,7 +141136,7 @@
     "code_sample": ""
   },
   "@roblox/enum/PrimalPhysicsSolver.Disabled": {
-    "documentation": "",
+    "documentation": "The Primal Physics Solver is disabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -140491,7 +141146,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.PrimalPhysicsSolver": {
-    "documentation": "",
+    "documentation": "Controls whether the experimental Primal Physics Solver is enabled.",
     "keys": {
       "Default": "@roblox/enum/PrimalPhysicsSolver.Default",
       "Experimental": "@roblox/enum/PrimalPhysicsSolver.Experimental",
