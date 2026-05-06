@@ -212,6 +212,7 @@ DefaultUnifiedGridVS_80000006,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80100001,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80100007,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80108001,Vertex,✔,✔,✔,❌,✔
+DefaultUnifiedGridVS_80108007,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80300000,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80308000,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_84000006,Vertex,✔,✔,✔,❌,✔
@@ -269,6 +270,7 @@ DefaultUnifiedPlasticReflectionVS_10108407,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14000006,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14000016,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14000406,Vertex,❌,❌,❌,✔,❌
+DefaultUnifiedPlasticReflectionVS_14000416,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14001006,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14001016,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14001406,Vertex,❌,❌,❌,✔,❌

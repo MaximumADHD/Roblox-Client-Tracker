@@ -9477,6 +9477,9 @@ Studio.AssetManager.Toast.GetItemsFailed,,,Failed to fetch items for this folder
 Studio.AssetManager.Dialogs.MoveDescription,,,Select a destination folder for selected assets.,Select a destination folder for selected assets.
 Studio.AssetManager.Dialogs.MoveTitle,,,Move 1 Asset,Move 1 Asset
 Studio.AssetManager.Dialogs.MoveTitleMultiple,,,Move {count} Assets,Move {count} Assets
+Studio.AssetManager.ItemProperty.ItemId,,,ID,ID
+Studio.AssetManager.ItemProperty.ItemType,,,Type,Type
+Studio.AssetManager.ContextMenu.SelectAll,,,Select All,Select All
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10360,6 +10363,9 @@ Studio.AssetImporter.UploadError.Title,,,Errors occurred during import,Errors oc
 Studio.AssetImporter.UploadError.ReconfigureButton,,,Reconfigure,Reconfigure
 Studio.AssetImporter.UploadError.OkButton,,,Ok,Ok
 Studio.AssetImporter.Statuses.EmissiveNeedsTransformWarning,,,Roblox transforms emissive map textures into a grayscale mask texture and modifies the imported color map to include the color information from the emissive map texture.,Roblox transforms emissive map textures into a grayscale mask texture and modifies the imported color map to include the color information from the emissive map texture.
+Studio.AssetImporter.SingleImport.Parsing,,,Parsing file...,Parsing file...
+Studio.AssetImporter.SingleImport.LocationQuestion,,,Your mesh contains location data. Would you like to move your mesh to the given location?,Your mesh contains location data. Would you like to move your mesh to the given location?
+Studio.AssetImporter.SingleImport.Importing,,,Importing file...,Importing file...
 Studio.AssetImporter.ImportQueue.NoPreset,,,N/A,N/A
 Studio.AssetImporter.ImportQueue.SearchBar,,,Search Import Queue,Search Import Queue
 Studio.AssetImporter.Properties.ScaleFactor,,,Scale Factor,Scale Factor
@@ -10373,6 +10379,7 @@ Studio.AssetImporter.Statuses.IncorrectPhysicalConstraintWarning,,,This rig will
 Studio.AssetImporter.Properties.PhysicalConstraintType,,,Constraint Type,Constraint Type
 Studio.AssetImporter.EnumItem.AnimationConstraint,,,Joint Upgrade (AnimationConstraint),Joint Upgrade (AnimationConstraint)
 Studio.AssetImporter.EnumItem.Motor6D,,,Legacy (Motor6D),Legacy (Motor6D)
+Studio.AssetImporter.HttpError.Unknown,,,Unknown error occurred. Please verify if upload succeeded.,Unknown error occurred. Please verify if upload succeeded.
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -14053,7 +14060,7 @@ Studio.Assistant.PrimitiveGen.StageDownloadingScript,,,Downloading Script,Downlo
 Studio.Assistant.PrimitiveGen.StageInserting,,,Inserting,Inserting
 Studio.Assistant.PrimitiveGen.StageResolvingDependencies,,,Resolving Dependencies,Resolving Dependencies
 Studio.Assistant.PrimitiveGen.StageSubmitting,,,Submitting,Submitting
-Studio.Assistant.Tools.PrimitiveGen,,,Primitive Gen,Primitive Gen
+Studio.Assistant.Tools.PrimitiveGen,,,Generate Procedural Model,Generate Procedural Model
 Studio.Assistant.Tools.WaitJobFinished,,,Wait Job Finished,Wait Job Finished
 Studio.Assistant.FromHistory.Retrieved,,,Retrieved {type} | {key},Retrieved {type} | {key}
 Studio.Assistant.Compaction.InProgress,,,Compacting conversation context...,Compacting conversation context...
@@ -14377,6 +14384,11 @@ Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableFallingDown,
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableGettingUp,,,Getting Up,Getting Up
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableClimbing,,,Climbing,Climbing
 Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableSwimming,,,Swimming,Swimming
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableCrouching,,,Crouching,Crouching
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableSprinting,,,Sprinting,Sprinting
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableStrafing,,,Strafing,Strafing
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableReaching,,,Reaching,Reaching
+Studio.AvatarSettings.MovementSettings.DefaultAbilitiesSectionEnableHolding,,,Holding,Holding
 Studio.ExplorerLibrary.HistoryDropdown.TitleText,,,History,History
 Studio.ExplorerLibrary.SearchBar.PlaceholderText,,,Search,Search
 Studio.ExplorerLibrary.SearchBrowser.ResultCountSingular,,,1 match,1 match
@@ -14740,6 +14752,8 @@ Studio.BetaFeatures.StyleQueryTitle,,,StyleQuery,StyleQuery
 Studio.BetaFeatures.StyleQueryDescription,,,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.,The new StyleQuery instance enables conditional styling based on parent sizing properties or device/user settings.
 Studio.BetaFeatures.ProceduralModelTitle,,,Edit-Time Procedural Models,Edit-Time Procedural Models
 Studio.BetaFeatures.ProceduralObjectsDescription,,,Adds a new ProceduralModel Instance type which generates child contents according to a developer written ModuleScript using Attributes as input parameters.,Adds a new ProceduralModel Instance type which generates child contents according to a developer written ModuleScript using Attributes as input parameters.
+Studio.BetaFeatures.IRCAndUIShadowTitle,,,New UI Capabilities,New UI Capabilities
+Studio.BetaFeatures.IRCAndUIShadowDescription,,,"Adds new properties on UICorner to create individually rounded corners, and a new instance UIShadow to create drop shadows or glows.","Adds new properties on UICorner to create individually rounded corners, and a new instance UIShadow to create drop shadows or glows."
 Studio.BetaFeatures.PlaytestSubagentTitle,,,Playtest Agent,Playtest Agent
 Studio.BetaFeatures.PlaytestSubagentDescription,,,Assistant subagent for automated playtesting.,Assistant subagent for automated playtesting.
 Studio.BetaFeatures.StylingTransitionsTitle,,,Styling Transitions,Styling Transitions
@@ -15104,6 +15118,8 @@ Studio.SystemMenu.Title.SaveToRobloxWithNotes,,,Save to Roblox with Notes,Save t
 Studio.SystemMenu.Tooltip.SaveToRobloxWithNotes,,,Save active document to Roblox with version notes,Save active document to Roblox with version notes
 Studio.SystemMenu.Title.Untitled,,,Untitled,Untitled
 Studio.SystemMenu.Tooltip.Performance,,,A basic performance overlay,A basic performance overlay
+Studio.SystemMenu.Title.ReportIllegalContent,,,Report Illegal Content,Report Illegal Content
+Studio.SystemMenu.Tooltip.ReportIllegalContent,,,Open a webpage to report illegal content on Roblox,Open a webpage to report illegal content on Roblox
 Studio.PlaceUpload.ErrorMessage.BadRequest,,,Place save was rejected. Check your network and try again later.,Place save was rejected. Check your network and try again later.
 Studio.DistributedScripts.AddBehaviorBindingPopup.CreateBehaviorBindingFmt1,,,Create and bind Behavior: %1,Create and bind Behavior: %1
 Studio.DistributedScripts.AddBehaviorBindingPopup.LineEditText,,,Search for a Behavior to bind to,Search for a Behavior to bind to
@@ -15129,7 +15145,7 @@ Studio.DistributedScripts.AuroraScriptUploadError,,,AuroraScripts can't be inclu
 Studio.SceneAnalysis.Plugin.Button,,,Scene Analysis,Scene Analysis
 Studio.SceneAnalysis.Plugin.Description,,,A tool for analyzing scene resources within your experience.,A tool for analyzing scene resources within your experience.
 Studio.SceneAnalysis.Plugin.Name,,,SceneAnalysis,SceneAnalysis
-Studio.SceneAnalysis.ContextMenu.SelectInstances,,,Select Instances(s),Select Instances(s)
+Studio.SceneAnalysis.ContextMenu.SelectInstances,,,Select Instance(s),Select Instance(s)
 Studio.SceneAnalysis.ContextMenu.CopyAssetIdToClipboard,,,Copy Asset ID to Clipboard,Copy Asset ID to Clipboard
 Studio.SceneAnalysis.Controls.AutoupdateToggle,,,Autoupdate,Autoupdate
 Studio.SceneAnalysis.Controls.SearchPlaceholder,,,Search...,Search...
@@ -15168,6 +15184,23 @@ Studio.SceneAnalysis.ColumnHeaders.References,,,References,References
 Studio.SceneAnalysis.ColumnHeaders.Owners,,,Owners,Owners
 Studio.SceneAnalysis.ColumnHeaders.InDatamodel,,,In Datamodel,In Datamodel
 Studio.SceneAnalysis.Messages.NoResults,,,(No Results),(No Results)
+Studio.SceneAnalysis.ColumnHeaders.MeshTriangles,,,Mesh Tri,Mesh Tri
+Studio.SceneAnalysis.ColumnHeaders.Instances,,,Instances,Instances
+Studio.SceneAnalysis.ColumnHeaders.AssetId,,,Asset Id,Asset Id
+Studio.SceneAnalysis.ColumnHeaders.InstancePaths,,,Instance Paths,Instance Paths
+Studio.SceneAnalysis.Tooltip.ChangeLabel,,,Change: {value},Change: {value}
+Studio.SceneAnalysis.Tooltip.DrawcallsLabel,,,Drawcalls: {value},Drawcalls: {value}
+Studio.SceneAnalysis.Tooltip.TrianglesLabel,,,Triangles: {value},Triangles: {value}
+Studio.SceneAnalysis.Tooltip.InstancesLabel,,,Instances: {value},Instances: {value}
+Studio.SceneAnalysis.Messages.QualityLevelWarning,,,Quality level and player devices will affect triangle counts. Values are indicative of current studio conditions only.,Quality level and player devices will affect triangle counts. Values are indicative of current studio conditions only.
+Studio.SceneAnalysis.Messages.ShadowsAvailabilityWarning,,,Shadows are not available at all quality and lighting levels.,Shadows are not available at all quality and lighting levels.
+Studio.SceneAnalysis.Messages.ShadowsEditModeWarning,,,Shadows do not update every frame in edit mode.,Shadows do not update every frame in edit mode.
+Studio.SceneAnalysis.SummaryPane.TotalSceneGeometry,,,Total Triangles: {triangles}  |  Drawcalls: {drawcalls},Total Triangles: {triangles}  |  Drawcalls: {drawcalls}
+Studio.SceneAnalysis.SummaryPane.SelectedSceneTriangles,,,Selected Triangles: {triangles}  Drawcalls: {drawcalls}  |  {summary},Selected Triangles: {triangles}  Drawcalls: {drawcalls}  |  {summary}
+Studio.SceneAnalysis.Tooltip.MeshTrianglesLabel,,,Mesh Tri: {value},Mesh Tri: {value}
+Studio.SceneAnalysis.Studio.SceneAnalysis.Categories.SceneGeometry,,,Scene Geometry,Scene Geometry
+Studio.SceneAnalysis.ColumnHeaders.Change,,,Change,Change
+Studio.SceneAnalysis.Categories.SceneGeometry,,,Scene Geometry,Scene Geometry
 Studio.DownloadPlaceCopy.PlaceFileDownloaded,,,Place file saved to: %1,Place file saved to: %1
 Studio.DownloadPlaceCopy.UnableToDownloadSaveFailed,,,Failed to download place file. Save failed.,Failed to download place file. Save failed.
 Studio.DownloadPlaceCopy.UnableToDownloadFetchContentUrlFailed,,,Failed to download place file. Couldn't fetch content URL.,Failed to download place file. Couldn't fetch content URL.
@@ -15262,6 +15295,23 @@ Studio.PublishPlace.Link.ViewExperienceSettings,,,→ Edit experience details & 
 Studio.PublishPlace.Link.ViewUsageMetrics,,,→ View performance,→ View performance
 Studio.PublishPlace.Link.ViewErrorReports,,,→ View error reports,→ View error reports
 Studio.PublishPlace.Message.QuickLinks,,,Quick Links:,Quick Links:
+Studio.PublishPlace.Message.PlacePublished.Anyone,,,Place published. Eligible players can now play this place in Roblox.,Place published. Eligible players can now play this place in Roblox.
+Studio.PublishPlace.Toast.PlacePublished.Anyone,,,Published. Eligible players can play now.,Published. Eligible players can play now.
+Studio.PublishPlace.Message.AddNotes,,,→ Add publish notes to v%1,→ Add publish notes to v%1
+Studio.PublishPlace.Message.PlacePublished.Editors,,,Place published. Editors can now play this place in Roblox.,Place published. Editors can now play this place in Roblox.
+Studio.PublishPlace.Message.PlacePublished.Friends,,,Place published. Friends can now play this place in Roblox.,Place published. Friends can now play this place in Roblox.
+Studio.PublishPlace.Toast.PlacePublished.Friends,,,Published. Friends can play now.,Published. Friends can play now.
+Studio.PublishPlace.Toast.PublishIneligible,,,Publish failed. This account isn't eligible.,Publish failed. This account isn't eligible.
+Studio.PublishPlace.Toast.PlacePublished.GroupmembersAndPlaytesters,,,Published. Group members and playtesters can play now.,Published. Group members and playtesters can play now.
+Studio.PublishPlace.Message.PlacePublished.GroupMembers,,,Place published. Group members can now play this place in Roblox.,Place published. Group members can now play this place in Roblox.
+Studio.PublishPlace.Toast.PlacePublished.GroupMembers,,,Published. Group members can play now.,Published. Group members can play now.
+Studio.PublishPlace.Message.PlacePublished.Playtesters,,,Place published. Playtesters can now play this place in Roblox.,Place published. Playtesters can now play this place in Roblox.
+Studio.PublishPlace.Toast.PlacePublished.Playtesters,,,Published. Playtesters can play now.,Published. Playtesters can play now.
+Studio.PublishPlace.Message.PlacePublished.FriendsAndPlaytesters,,,Place published. Friends and playtesters can now play this place in Roblox.,Place published. Friends and playtesters can now play this place in Roblox.
+Studio.PublishPlace.Toast.PlacePublished.FriendsAndPlaytesters,,,Published. Friends and playtesters can play now.,Published. Friends and playtesters can play now.
+Studio.PublishPlace.Message.PlacePublished.GroupmembersAndPlaytesters,,,Place published. Group members and playtesters can now play this place in Roblox.,Place published. Group members and playtesters can now play this place in Roblox.
+Studio.PublishPlace.Toast.ManageExperience,,,Manage experience,Manage experience
+Studio.PublishPlace.Message.PublishIneligible,,,Publish failed. The account isn't eligible to publish experiences publicly. Review your account requirements and try again.,Publish failed. The account isn't eligible to publish experiences publicly. Review your account requirements and try again.
 Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools
 Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
 Studio.ReactDevTools.Plugin.Button,,,DevTools,DevTools

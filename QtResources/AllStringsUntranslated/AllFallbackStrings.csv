@@ -7326,10 +7326,13 @@ Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot pub
 Studio.PublishPlace.Link.ViewErrorReports,Shown as a hyperlink to open a webpage,→ View error reports,→ View error reports
 Studio.PublishPlace.Link.ViewExperienceSettings,Shown as a hyperlink for user to open a webpage,→ Edit experience details & audience,→ Edit experience details & audience
 Studio.PublishPlace.Link.ViewUsageMetrics,Shown as a hyperlink to open a webpage,→ View performance,→ View performance
+Studio.PublishPlace.Message.AddNotes,"Hyperlink shown in output message after publish, to add version notes to that particular version number.",→ Add publish notes to v%1,→ Add publish notes to v%1
 Studio.PublishPlace.Message.NextStepsOnCreatorHub,Shown after the user publishes to Roblox. The following items are hyperlinks.,Next steps on Creator Hub:,Next steps on Creator Hub:
+Studio.PublishPlace.Message.PlacePublished.Anyone,"Message after publish, letting the status of who can play.",Place published. Eligible players can now play this place in Roblox.,Place published. Eligible players can now play this place in Roblox.
 Studio.PublishPlace.Message.QuickLinks,showing the next steps and useful links after the publish,Quick Links:,Quick Links:
 Studio.PublishPlace.Toast.AddNotes,Shown as a hyperlink on a toast after the user publish their game to Roblox,Add notes,Add notes
 Studio.PublishPlace.Toast.ChangesPublished,Shown on a toast after the game is published to Roblox,Changes published.,Changes published.
+Studio.PublishPlace.Toast.PlacePublished.Anyone,Toast notification after publish to let users know who can publish,Place published. Eligible players can play now.,Place published. Eligible players can play now.
 Studio.PublishPlace.Toast.ViewQuestionnaireLink,Shown as a hyperlink to open a web page,View questionnaire,View questionnaire
 Studio.PublishPlace.Toast.ViewQuestionnaireMessage,Shown in a toast next to a hyper link. Opens a web page,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
 Studio.QtUI.Action.DoNotAskMeAgain,,Do not ask me again,Do not ask me again
