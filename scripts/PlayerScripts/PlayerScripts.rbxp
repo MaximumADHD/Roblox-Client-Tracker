@@ -9,7 +9,6 @@
                         "$className": "LocalScript",
                         "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds.lua",
                         "AtomicBinding": {
-                            "$className": "ModuleScript",
                             "$path": "StarterPlayerScriptsCommon/RbxCharacterSounds/AtomicBinding.lua"
                         }
                     }
@@ -172,7 +171,7 @@
                                     "$properties": {
                                         "Vector2Scale": [
                                             4.189,
-                                            3.225
+                                            -3.225
                                         ],
                                         "ResponseCurve": 2,
                                         "KeyCode": "Thumbstick2"

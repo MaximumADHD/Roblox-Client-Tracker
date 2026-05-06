@@ -7070,7 +7070,7 @@ function InitToolsExportMenu() {
         var comboDiffDisplayName = "";
         MenuAddEntry(ExportMenu, '', 'Extra tools', null, true);
         g_Loader.toolsData.exportOptions.forEach(entry => {
-            if (entry.comboDiff && EnabledFastFlags.includes('MicroprofilerDiff')) {
+            if (entry.comboDiff) {
                 g_Loader.toolsData.ComboDiffFuncName = entry.funcName;
                 comboDiffDisplayName = entry.displayName;
             }

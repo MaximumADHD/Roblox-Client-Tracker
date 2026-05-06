@@ -580,6 +580,7 @@ Class AppLifecycleObserverService : Instance {🔒RobloxScript} [NotCreatable] [
 	Function AppLifecycleObserverService:IsDidDetachSupported() -> boolean {🔒RobloxScript}
 	Function AppLifecycleObserverService:TriggerOnLandingPageMount() -> () {🔒RobloxScript}
 	Function AppLifecycleObserverService:TriggerOnLuaAppInteractive() -> () {🔒RobloxScript}
+	Function AppLifecycleObserverService:TriggerOnLuaAppReadyToRender() -> () {🔒RobloxScript}
 	Event AppLifecycleObserverService.OnBecomeActive() {🔒RobloxScript}
 	Event AppLifecycleObserverService.OnDetach() {🔒RobloxScript}
 	Event AppLifecycleObserverService.OnHide() {🔒RobloxScript}
@@ -4344,6 +4345,7 @@ Class LodDataService : Instance {🔒RobloxEngine} [NotCreatable] [Service] [Not
 Class LogReporterService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function LogReporterService:ReportLog(fingerprint: string, uuid: string, desc: string, attributes: { [string]: any }, annotations: { [string]: any }) -> boolean {🔒RobloxScript}
 	Function LogReporterService:ReportMultipleLogs(fingerprint: string, uuid: string, desc: string, attributes: { [string]: any }, annotations: { [string]: any }, numLogs: number) -> boolean {🔒RobloxScript}
+	Function LogReporterService:SubmitStratusBugReport(description: string, username: string) -> boolean {🔒RobloxScript}
 Class LogService : Instance [NotCreatable] [Service]
 	Function LogService:ClearOutput() -> () {🚧Logging}
 	Function LogService:Error(message: string, context: { [string]: any }? = nil) -> () {🚧Logging} [CustomLuaState]
@@ -4416,6 +4418,9 @@ Class LuauScriptAnalyzerService : Instance {🔒RobloxEngine} [NotCreatable] [Se
 Class MLModelDeliveryService : Instance {🔒RobloxEngine} [NotCreatable] [Service]
 Class MLService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function MLService:CreateSessionAsync(assetId: string) -> MLSession {🚧Basic} [Yields]
+	Function MLService:IsPostProcessReady() -> boolean {🚧Basic + InternalTest}
+	Function MLService:LoadPostProcessModelAsync(assetId: number) -> () {🚧Basic + InternalTest} [Yields]
+	Function MLService:SetPostProcessEnabled(enabled: boolean) -> () {🚧Basic + InternalTest}
 Class MakeupDescription : Instance
 	Property MakeupDescription.AssetId: number {🚧AvatarAppearance}
 	Property MakeupDescription.Instance: Instance? {🚧AvatarAppearance}
@@ -4461,6 +4466,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:GetRobuxBalance() -> number {🔒RobloxScript} [Yields]
 	Function MarketplaceService:GetSubscriptionPurchaseInfoAsync(subscriptionId: string) -> { [string]: any } {🔒RobloxScript} [Yields]
 	Function MarketplaceService:GetUserSubscriptionDetailsInternalAsync(subscriptionId: string) -> { [string]: any } {🔒RobloxScript} [Yields]
+	Function MarketplaceService:IsPurchaseSimulated() -> boolean {🔒RobloxScript}
 	Function MarketplaceService:PerformBulkPurchase(orderRequest: { [string]: any }, options: { [string]: any }) -> { [string]: any } {🔒RobloxScript} [Yields]
 	Function MarketplaceService:PerformCancelSubscription(subscriptionId: string) -> () {🔒RobloxScript} [Yields]
 	Function MarketplaceService:PerformPurchase(infoType: Enum.InfoType, productId: number, expectedPrice: number, requestId: string, isRobloxPurchase: boolean, collectibleItemId: string? = "", collectibleProductId: string? = "", idempotencyKey: string? = "", purchaseAuthToken: string? = "", timedOptionsDays: number? = 0) -> { [string]: any } {🔒RobloxScript} [Yields]
@@ -4881,7 +4887,6 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property BasePart.NetworkOwnershipRule: Enum.NetworkOwnership [Hidden] [NotScriptable]
 	Property BasePart.CollisionGroupId: number [NotReplicated] [Deprecated]
 	Property BasePart.CollisionGroupReplicate: string {🔒RobloxScript} [Hidden] [NotScriptable]
-	Property BasePart.LocalSimulationValidation: number [Hidden] [NotScriptable]
 	Property BasePart.LocalTransparencyModifier: number [Hidden] [NotReplicated]
 	Property BasePart.NetworkIsSleeping: boolean [Hidden] [NotScriptable]
 	Property BasePart.NetworkOwnerV3: SystemAddress [Hidden] [NotScriptable]
@@ -5397,6 +5402,10 @@ Class PackageUIService : Instance {🔒RobloxScript} [NotCreatable] [Service] [N
 	Function PackageUIService:SetPackageVersion(packageInstance: Instance, versionNumber: number) -> Instance? {🔒RobloxScript} [Yields]
 	Event PackageUIService.OnConvertToPackageResult(isSuccessful: boolean, errorMessage: string) {🔒RobloxScript}
 	Event PackageUIService.OnOpenConvertToPackagePlugin(instances: { Instance }, name: string, cloneInstances: { Instance }) {🔒RobloxScript}
+Class Packages : Instance [NotCreatable] [Service]
+	Property Packages.IsDehydrated: boolean {🔒RobloxEngine} [Hidden]
+	Property Packages.ShellPackagesCount: number {🔒RobloxEngine} [Hidden]
+	Property Packages.SkippedInstancesCount: number {🔒RobloxEngine} [Hidden]
 Class Pages : Instance [NotCreatable] [NotReplicated]
 	Property Pages.IsFinished: boolean [ReadOnly]
 	Function Pages:AdvanceToNextPageAsync() -> () [Yields]
@@ -6183,6 +6192,7 @@ Class RecommendationService : Instance [NotCreatable] [Service]
 	Function RecommendationService:GetRecommendationItemAsync(itemId: string) -> { [string]: any } {🚧Basic} [Yields]
 	Function RecommendationService:LogActionEvent(actionType: Enum.RecommendationActionType, itemId: string, tracingId: string, actionEventDetails: { [string]: any }? = nil) -> () {🚧Basic}
 	Function RecommendationService:LogImpressionEvent(impressionType: Enum.RecommendationImpressionType, itemId: string, tracingId: string, impressionEventDetails: { [string]: any }? = nil) -> () {🚧Basic}
+	Function RecommendationService:LogPreferenceEvent(preferenceType: Enum.RecommendationPreferenceType, targetType: Enum.RecommendationPreferenceTargetType, targetId: string, tracingId: string? = "", itemId: string? = "") -> () {🚧Basic}
 	Function RecommendationService:RegisterItemAsync(player: Player, registerRecommendationItemsRequest: { [string]: any }) -> { [string]: any } {🚧Basic} [Yields]
 	Function RecommendationService:RemoveItemAsync(itemId: string) -> () {🚧Basic} [Yields]
 	Function RecommendationService:UpdateItemAsync(updateRecommendationItemRequest: { [string]: any }) -> () {🚧Basic} [Yields]
@@ -6651,6 +6661,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function DataModel:getGameTime() -> number {🔒RobloxScript}
 	Event DataModel.GraphicsQualityChangeRequest(betterQuality: boolean)
 	Event DataModel.Loaded()
+	Event DataModel.ServerLifecycleChanged(serverLifecycleChangedEvent: { [string]: any }) {🚧ServerCommunication}
 	Event DataModel.AllowedGearTypeChanged() [Deprecated]
 	Event DataModel.ItemChanged(object: Instance, descriptor: string) [Deprecated]
 	Event DataModel.ScreenshotReady(path: string) {🔒RobloxScript}
@@ -7424,7 +7435,6 @@ Class StudioService : Instance {🔒Plugin} [NotCreatable] [Service] [NotReplica
 	Function StudioService:PromptImportFile(fileTypeFilter: { any }? = {}) -> Instance? {🔒Plugin} [Yields] [Deprecated]
 	Function StudioService:PromptImportFiles(fileTypeFilter: { any }? = {}) -> { Instance } {🔒Plugin} [Yields] [Deprecated]
 	Function StudioService:SetPluginEnabled(assetId: number, state: boolean) -> () {🔒RobloxScript}
-	Function StudioService:ShowPlaceVersionHistoryDialog(placeId: number) -> () {🔒RobloxScript} [Deprecated]
 	Function StudioService:ShowPublishToRoblox() -> () {🔒RobloxScript}
 	Function StudioService:TryInstallPlugin(assetId: number, assetVersionId: number) -> () {🔒RobloxScript} [Yields]
 	Function StudioService:UninstallPlugin(assetId: number) -> () {🔒RobloxScript}
@@ -7824,6 +7834,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:GetChatGroupsAsync(players: { Instance }) -> { any } {🚧Chat} [Yields]
 	Function TextChatService:CanUsersWhisperAsync(fromUserId: number, toUserId: number) -> boolean {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:HasAllocatedUniverseChatContext(context: string) -> boolean {🚧Chat} {🔒RobloxScript}
+	Function TextChatService:OnUserChatSettingUpdateAsync(featureName: string, featureValue: string) -> boolean {🚧Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:SendEnableChatButtonClicked() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendEnableChatButtonShown() -> () {🚧Chat} {🔒RobloxScript}
 	Function TextChatService:SendExpChatLoadSuccess(loadingLatency: number) -> () {🚧Chat} {🔒RobloxScript}
@@ -7841,6 +7852,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.ClientToServerUniverseChatMessageSignalV1(text: string, metadata: string, messageId: string, userId: number, verified: boolean) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ExpChatFeatureValueChanged(userId: number, featureName: string, featureValue: string) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.OnIncomingMessageEvent(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
+	Event TextChatService.OnUserChatSettingUpdateServer() {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.SendingUniverseChatMessage(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.ServerToClientChatActionReplicateSignal(data: { [string]: any }) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientMessageReplicateSignal(text: string, prefixText: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, timestamp: number, status: Enum.TextChatMessageStatus) {🚧Chat} {🔒RobloxEngine} [Hidden]
@@ -7849,7 +7861,6 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.ServerToClientUniverseChatMessageSignalV1(data: { [string]: any }) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.UniverseChatChannelAllocated(context: string) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.UniverseChatMessageReceived(textChatMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
-	Event TextChatService.UpdateChatTimeout(userId: number, startTime: number, duration: number) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.UserMessageIntentSent(userIntentMessage: TextChatMessage) {🚧Chat} {🔒RobloxScript}
 	Event TextChatService.UserMessageIntentSentRemote(text: string, prefixText: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, timestamp: number) {🚧Chat} {🔒RobloxEngine} [Hidden]
 	Callback TextChatService.OnBubbleAdded(message: TextChatMessage, adornee: Instance) -> ...any {🚧Chat}
@@ -8310,7 +8321,7 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property UserInputService.StatusBarSize: Vector2 {🚧Input} {🔒RobloxScript} [Hidden] [ReadOnly]
 	Property UserInputService.TouchScreenEnabled: boolean {🚧Input} {🔒RobloxScript} [ReadOnly]
 	Property UserInputService.UserHeadCFrame: CFrame {🚧Input} [ReadOnly] [Deprecated]
-	Function UserInputService:CreateVirtualInput() -> Object {🚧Input} {🔒Plugin}
+	Function UserInputService:CreateVirtualInput() -> Object {🚧Input}
 	Function UserInputService:GamepadSupports(gamepadNum: Enum.UserInputType, gamepadKeyCode: Enum.KeyCode) -> boolean {🚧Input}
 	Function UserInputService:GetConnectedGamepads() -> { any } {🚧Input}
 	Function UserInputService:GetDeviceAcceleration() -> InputObject {🚧Input}
@@ -8751,13 +8762,13 @@ Class VideoSampler : Object [NotCreatable] [NotReplicated]
 	Property VideoSampler.TimeLength: number {🚧UI} [ReadOnly]
 	Property VideoSampler.VideoContent: Content {🚧UI} [ReadOnly]
 	Function VideoSampler:GetSamplesAtTimesAsync(times: { any }) -> { any } {🚧UI} [Yields]
-Class VirtualInput : Object {🔒Plugin} [NotCreatable] [NotReplicated]
-	Function VirtualInput:SendKey(isPressed: boolean, keyCode: Enum.KeyCode, isRepeatedKey: boolean? = false) -> () {🔒Plugin}
-	Function VirtualInput:SendMouseButton(position: Vector2, button: Enum.UserInputType, isDown: boolean, repeatCount: number? = 0) -> () {🔒Plugin}
-	Function VirtualInput:SendMouseDelta(positionDelta: Vector2) -> () {🔒Plugin}
-	Function VirtualInput:SendMousePosition(position: Vector2) -> () {🔒Plugin}
-	Function VirtualInput:SendPointerAction(position: Vector2, pointerAction: { [string]: any }) -> () {🔒Plugin}
-	Function VirtualInput:SendTextInput(text: string) -> () {🔒Plugin}
+Class VirtualInput : Object [NotCreatable] [NotReplicated]
+	Function VirtualInput:SendKey(isPressed: boolean, keyCode: Enum.KeyCode, isRepeatedKey: boolean? = false) -> ()
+	Function VirtualInput:SendMouseButton(position: Vector2, button: Enum.UserInputType, isDown: boolean, repeatCount: number? = 0) -> ()
+	Function VirtualInput:SendMouseDelta(positionDelta: Vector2) -> ()
+	Function VirtualInput:SendMousePosition(position: Vector2) -> ()
+	Function VirtualInput:SendPointerAction(position: Vector2, pointerAction: { [string]: any }) -> ()
+	Function VirtualInput:SendTextInput(text: string) -> ()
 Class VoxelBuffer : Object {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Function VoxelBuffer:ClearAsync(sizeInVoxels: Vector3?) -> () {🔒RobloxScript} [Yields]
 	Function VoxelBuffer:DrawBufferAsync(cframe: CFrame, scale: number, source: VoxelBuffer, mergeConfig: { [string]: any }) -> () {🔒RobloxScript} [Yields]
@@ -9128,6 +9139,7 @@ Enum AssetType
 	EnumItem AssetType.FaceMakeup : 88
 	EnumItem AssetType.LipMakeup : 89
 	EnumItem AssetType.EyeMakeup : 90
+	EnumItem AssetType.VoxelFragment : 91
 Enum AssetTypeVerification
 	EnumItem AssetTypeVerification.Default : 1
 	EnumItem AssetTypeVerification.ClientOnly : 2
@@ -9702,6 +9714,9 @@ Enum ConnectionError
 	EnumItem ConnectionError.PlacelaunchPartyCannotFit : 528
 	EnumItem ConnectionError.PlacelaunchHttpError : 529
 	EnumItem ConnectionError.PlacelaunchUserPrivacyUnauthorized : 533
+	EnumItem ConnectionError.PlacelaunchAgeVerificationRequired : 542
+	EnumItem ConnectionError.PlacelaunchParentalApprovalRequired : 543
+	EnumItem ConnectionError.PlacelaunchCoreGated : 544
 	EnumItem ConnectionError.PlacelaunchCreatorBan : 600
 	EnumItem ConnectionError.PlacelaunchDeviceBlock : 601
 	EnumItem ConnectionError.PlacelaunchCustomMessage : 610
@@ -9742,6 +9757,7 @@ Enum CoreGuiType
 	EnumItem CoreGuiType.SelfView : 6
 	EnumItem CoreGuiType.Captures : 7
 	EnumItem CoreGuiType.AvatarSwitcher : 8
+	EnumItem CoreGuiType.ExperienceShop : 9
 Enum CreateAssetResult
 	EnumItem CreateAssetResult.Success : 1
 	EnumItem CreateAssetResult.PermissionDenied : 2
@@ -11465,6 +11481,15 @@ Enum RecommendationItemContentType
 Enum RecommendationItemVisibility
 	EnumItem RecommendationItemVisibility.Private : 0
 	EnumItem RecommendationItemVisibility.Public : 1
+Enum RecommendationPreferenceTargetType
+	EnumItem RecommendationPreferenceTargetType.User : 0
+	EnumItem RecommendationPreferenceTargetType.Universe : 1
+	EnumItem RecommendationPreferenceTargetType.CustomTag : 2
+Enum RecommendationPreferenceType
+	EnumItem RecommendationPreferenceType.AddFollow : 0
+	EnumItem RecommendationPreferenceType.RemoveFollow : 1
+	EnumItem RecommendationPreferenceType.AddMute : 2
+	EnumItem RecommendationPreferenceType.RemoveMute : 3
 Enum RejectCharacterDeletions
 	EnumItem RejectCharacterDeletions.Default : 0
 	EnumItem RejectCharacterDeletions.Disabled : 1
@@ -11785,7 +11810,8 @@ Enum SelfViewPosition
 Enum SensorMode
 	EnumItem SensorMode.Floor : 0
 	EnumItem SensorMode.Ladder : 1
-	EnumItem SensorMode.ClassicLadder : 2
+	EnumItem SensorMode.ClassicFloor : 2
+	EnumItem SensorMode.ClassicLadder : 3
 Enum SensorUpdateType
 	EnumItem SensorUpdateType.OnRead : 0
 	EnumItem SensorUpdateType.Manual : 1
@@ -12154,6 +12180,7 @@ Enum SystemThemeValue
 Enum TableMajorAxis
 	EnumItem TableMajorAxis.RowMajor : 0
 	EnumItem TableMajorAxis.ColumnMajor : 1
+Enum TagReplicability
 Enum TeamCreateErrorState
 	EnumItem TeamCreateErrorState.PlaceSizeTooLarge : 0
 	EnumItem TeamCreateErrorState.PlaceSizeApproachingLimit : 1
@@ -12703,6 +12730,7 @@ Enum WrapLayerDebugMode
 	EnumItem WrapLayerDebugMode.LayerCageFittedToBase : 12
 	EnumItem WrapLayerDebugMode.LayerCageFittedToPrev : 13
 	EnumItem WrapLayerDebugMode.PreWrapDeformerOuterCage : 14
+	EnumItem WrapLayerDebugMode.SkinningTransfer : 15
 Enum WrapTargetDebugMode
 	EnumItem WrapTargetDebugMode.None : 0
 	EnumItem WrapTargetDebugMode.TargetCageOriginal : 1

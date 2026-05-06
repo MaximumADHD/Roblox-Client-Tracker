@@ -5917,6 +5917,12 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">Packages</string>
+        <token name="ServiceVisibility">1</token>        <!-- Off -->
+      </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">RenderSettings</string>
         <bool name="Browsable">false</bool>
         <string name="ExplorerOrder">20</string>
