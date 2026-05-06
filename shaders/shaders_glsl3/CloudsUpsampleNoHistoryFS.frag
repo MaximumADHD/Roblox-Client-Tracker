@@ -5,7 +5,7 @@
 #include <Params.h>
 #include <Globals.h>
 uniform vec4 CB4[2];
-uniform vec4 CB1[20];
+uniform vec4 CB1[18];
 uniform vec4 CB0[61];
 uniform sampler2D distTexture;
 uniform sampler2D cloudColorTexture;
