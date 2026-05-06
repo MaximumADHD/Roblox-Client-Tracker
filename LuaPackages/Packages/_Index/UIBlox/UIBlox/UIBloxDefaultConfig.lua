@@ -41,9 +41,6 @@ return {
 	-- Enable icon scaling for some icons used by experience details
 	enableScalingForSomeEdpIcons = false,
 
-	-- Enable rich text support for TooltipV2 header and body text
-	enableTooltipRichText = false,
-
 	-- Use Foundation Checkbox
 	useFoundationCheckbox = false,
 
@@ -59,4 +56,7 @@ return {
 	-- Use Color tokens (Surface, Content) instead of Semantic.Color tokens for theme mapping
 	-- This enables surface color overrides to work through the theme system
 	useColorTokensForThemeMapping = false,
+
+	-- Use tokens to color themed assets baked into PlayerTile and ItemTile
+	useTokensToColorThemedAssets = false,
 }

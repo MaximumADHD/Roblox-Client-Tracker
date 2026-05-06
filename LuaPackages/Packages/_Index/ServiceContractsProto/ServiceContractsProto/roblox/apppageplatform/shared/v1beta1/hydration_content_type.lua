@@ -35,6 +35,8 @@ export type HydrationContentType =
 	| "HYDRATION_CONTENT_TYPE_USER"
 	| "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE"
 	| "HYDRATION_CONTENT_TYPE_PLAYABILITY"
+	| "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW_LIMIT"
+	| "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE_FEEDBACK_METADATA"
 	| number -- Unknown
 
 messages.HydrationContentType = {
@@ -83,6 +85,10 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE"
 		elseif value == 21 then
 			return "HYDRATION_CONTENT_TYPE_PLAYABILITY"
+		elseif value == 22 then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW_LIMIT"
+		elseif value == 23 then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE_FEEDBACK_METADATA"
 		else
 			return nil
 		end
@@ -133,6 +139,10 @@ messages.HydrationContentType = {
 			return 20
 		elseif self == "HYDRATION_CONTENT_TYPE_PLAYABILITY" then
 			return 21
+		elseif self == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW_LIMIT" then
+			return 22
+		elseif self == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE_FEEDBACK_METADATA" then
+			return 23
 		else
 			return self
 		end
@@ -183,6 +193,10 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FAVORITE"
 		elseif name == "HYDRATION_CONTENT_TYPE_PLAYABILITY" then
 			return "HYDRATION_CONTENT_TYPE_PLAYABILITY"
+		elseif name == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW_LIMIT" then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_FOLLOW_LIMIT"
+		elseif name == "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE_FEEDBACK_METADATA" then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE_USER_VOTE_FEEDBACK_METADATA"
 		else
 			return nil
 		end

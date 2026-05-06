@@ -29,14 +29,11 @@ local useTokens = Foundation.Hooks.useTokens
 local Presentation = script.Parent
 local PlayerList = Presentation.Parent.Parent
 
-local FFlagPlayerListClosedNoRender = require(PlayerList.Flags.FFlagPlayerListClosedNoRender)
-
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 local SetIsUsingGamepad = require(PlayerList.Actions.SetIsUsingGamepad)
 
 local PlayerListDisplayContainer = require(PlayerList.Components.Container.PlayerListDisplayContainer)
 local PlayerDropDown = require(Presentation.PlayerDropDown)
-local PlayerListSorter = require(Presentation.PlayerListSorter)
 
 local Connection = PlayerList.Components.Connection
 local EventConnections = require(Connection.EventConnections)
@@ -46,7 +43,6 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerListFixMobileScrolling)
-local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListIgnoreDevGamepadBindings = PlayerListPackage.Flags.FFlagPlayerListIgnoreDevGamepadBindings
@@ -61,7 +57,6 @@ local OLD_PLAYERLIST_TEAM_ENTRY_SIZE = 20
 
 local MIN_PLAYERS_HEIGHT_ADJUST = 6
 local MAX_PLAYERS_HEIGHT_ADJUST = 12
-local HEADER_SIZE_Y = 44
 local BORDER_SIZE = 24
 
 local function map(x, inMin, inMax, outMin, outMax)
@@ -102,8 +97,8 @@ local function playerListSizeFromViewportSize(self, viewportSize, uiScale, playe
 	local sX = viewportSize.x > viewportSize.y and sMax or sMin
 	local sY = viewportSize.y > viewportSize.x and sMax or sMin
 
-	-- Remove when FFlagEnableMobilePlayerListOnConsole is enabled, even if FFlagUseNewPlayerList is enabled
-	if FFlagUseNewPlayerList and not FFlagEnableMobilePlayerListOnConsole then
+	-- Remove when FFlagEnableMobilePlayerListOnConsole is enabled
+	if not FFlagEnableMobilePlayerListOnConsole then
 		sX = sX * uiScale
 		sY = sY * uiScale
 	end
@@ -156,30 +151,15 @@ function PlayerListApp:init()
 	self.bodyTransparencyMotor = Otter.createSingleMotor(1)
 	self.bodyTransparencyMotor:onStep(function(transparency)
 		self.updateBodyTransparency(transparency)
-		if not FFlagPlayerListClosedNoRender then
-			if transparency < 0.5 and self.props.displayOptions.isVisible then
-				if not self.state.visible then
-					self:setState({
-						visible = true,
-					})
-				end
-			elseif self.state.visible then
-				self:setState({
-					visible = false,
-				})
-			end
-		end
 		self.props.setLayerCollectorEnabled(transparency < 0.99 or self.props.displayOptions.isVisible)
 	end)
-	if FFlagPlayerListClosedNoRender then
-		self.bodyTransparencyMotor:onComplete(function()
-			if not self.props.displayOptions.isVisible then
-				self:setState({
-					visible = false,
-				})
-			end
-		end)
-	end
+	self.bodyTransparencyMotor:onComplete(function()
+		if not self.props.displayOptions.isVisible then
+			self:setState({
+				visible = false,
+			})
+		end
+	end)
 
 	self.bgTransparency, self.updateBgTransparency = Roact.createBinding(0)
 	self.bgTransparencyMotor = Otter.createSingleMotor(1)
@@ -199,8 +179,8 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 	local contentVisible = self.state.visible
 	local dropDownVisible = self.props.isDropDownVisible
 
-	local headerSizeY = if FFlagUseNewPlayerList then self.props.tokens.Size.Size_1100 else HEADER_SIZE_Y
-	local closeButtonSize = if FFlagUseNewPlayerList then self.props.tokens.Size.Size_500 else 22
+	local headerSizeY = self.props.tokens.Size.Size_1100
+	local closeButtonSize = self.props.tokens.Size.Size_500
 
 	return {
 		UIScale = Roact.createElement("UIScale", {
@@ -217,7 +197,7 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 			BackgroundTransparency = 1,
 			Font = AppFonts.default:getBold(),
 			Visible = contentVisible and not dropDownVisible,
-			TextSize = if FFlagUseNewPlayerList then self.props.tokens.FontSize.FontSize_500 else 22,
+			TextSize = self.props.tokens.FontSize.FontSize_500,
 			TextColor3 = Color3.fromRGB(240, 240, 240),
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
@@ -253,7 +233,7 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 end
 
 function PlayerListApp:render()
-	if FFlagPlayerListClosedNoRender and not self.state.visible then
+	if not self.state.visible then
 		return Roact.createElement(ContextActionsBinder)
 	end
 	return WithLayoutValues(function(layoutValues)
@@ -286,7 +266,7 @@ function PlayerListApp:render()
 		local childElements = {}
 
 		if self.state.visible then
-			childElements["PlayerScrollList"] = Roact.createElement(if FFlagUseNewPlayerList then PlayerListDisplayContainer else PlayerListSorter, {
+			childElements["PlayerScrollList"] = Roact.createElement(PlayerListDisplayContainer, {
 				screenSizeY = self.props.screenSizeY,
 				entrySize = entrySize,
 				isVisible = if FFlagAddNewPlayerListFocusNav then self.props.displayOptions.isVisible else nil,
@@ -328,8 +308,8 @@ function PlayerListApp:render()
 					self, 
 					Vector2.new(self.props.screenSizeX, self.props.screenSizeY), 
 					self.state.UiScale, 
-					if FFlagUseNewPlayerList then layoutValues.PlayerListSizeMin else nil, 
-					if FFlagUseNewPlayerList then layoutValues.PlayerListSizeMax else nil
+					layoutValues.PlayerListSizeMin, 
+					layoutValues.PlayerListSizeMax
 				),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
@@ -366,18 +346,10 @@ function PlayerListApp:didUpdate(previousProps, previousState)
 		end
 	end
 
-	if not FFlagPlayerListClosedNoRender and isVisible ~= previousProps.displayOptions.isVisible and not isVisible then
+	if isVisible then
 		self:setState({
-			visible = isVisible,
+			visible = true,
 		})
-	end
-
-	if FFlagPlayerListClosedNoRender then
-		if isVisible then
-			self:setState({
-				visible = true,
-			})
-		end
 	end
 
 	if isVisible ~= previousProps.displayOptions.isVisible and isVisible  then
@@ -443,7 +415,7 @@ end
 
 local PlayerListAppWrapper = function(props)
 	local layoutValues = if FFlagEnableMobilePlayerListOnConsole then useLayoutValues() else nil
-	local tokens = if FFlagUseNewPlayerList then useTokens() else nil
+	local tokens = useTokens()
 
 	return Roact.createElement(PlayerListApp, Cryo.Dictionary.join(props, {
 		layoutValues = if FFlagEnableMobilePlayerListOnConsole then layoutValues else nil,
@@ -451,8 +423,4 @@ local PlayerListAppWrapper = function(props)
 	}))
 end
 
-if FFlagUseNewPlayerList or FFlagEnableMobilePlayerListOnConsole then
-	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerListAppWrapper)
-else
-	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerListApp)
-end
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerListAppWrapper)

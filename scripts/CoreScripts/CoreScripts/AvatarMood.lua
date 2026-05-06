@@ -5,8 +5,6 @@
 	// Written by: jcampos and jlem
 	// Description: Avatar's mood controller.
 ]]--
-game:DefineFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator", false)
-game:DefineFastFlag("AvatarMoodValidateMoodAnimation", false)
 
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
@@ -306,23 +304,14 @@ function initAvatarMood(animateScript)
 
 	if moodChild then
 		if #moodChild:GetChildren() > 0 then
-			if game:GetFastFlag("AvatarMoodValidateMoodAnimation") then
-				updateCharacterMood(LocalPlayer.Character, moodChild:FindFirstChildWhichIsA("Animation"))
-			else
-				local moodAnimation = moodChild:GetChildren()[1]
-				updateCharacterMood(LocalPlayer.Character, moodAnimation)
-			end
+			updateCharacterMood(LocalPlayer.Character, moodChild:FindFirstChildWhichIsA("Animation"))
 		end
 
 		disconnectAndRemoveConnection(Connection.MoodChildAdded)
 
 		-- need to use ChildAdded to get moodAnimation as descendants may not have replicated yet
 		connections[Connection.MoodChildAdded] = moodChild.ChildAdded:Connect(function(moodAnimation)
-			if game:GetFastFlag("AvatarMoodValidateMoodAnimation") then
-				if moodAnimation:IsA("Animation") then
-					updateCharacterMood(LocalPlayer.Character, moodAnimation)
-				end
-			else
+			if moodAnimation:IsA("Animation") then
 				updateCharacterMood(LocalPlayer.Character, moodAnimation)
 			end
 		end)
@@ -432,19 +421,7 @@ local function onAnimatorAdded(animator)
 	end
 end
 
-local function onAnimatorRemoving_Deprecated(animator)
-	assert(not game:GetFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator"))
-
-	-- clear connections
-	disconnectAndRemoveConnection(Connection.AnimationStreamTrackPlayed)
-	disconnectAndRemoveConnection(Connection.StreamTrackStopped)
-	-- move Mood to blend with Locomotion
-	switchPriority(Enum.AnimationPriority.Core)
-end
-
 local function onAnimatorRemoving(player, animator)
-	assert(game:GetFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator"))
-
 	-- clear connections
 	disconnectAndRemoveConnection(Connection.AnimationStreamTrackPlayed)
 	disconnectAndRemoveConnection(Connection.StreamTrackStopped)
@@ -493,11 +470,7 @@ local function onCharacterAdded(player, character)
 
 	connections[Connection.DescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
 		if descendant:IsA("Animator") then
-			if game:GetFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator") then
-				onAnimatorRemoving(player, descendant)
-			else
-				onAnimatorRemoving_Deprecated(descendant)
-			end
+			onAnimatorRemoving(player, descendant)
 		end
 	end)
 end

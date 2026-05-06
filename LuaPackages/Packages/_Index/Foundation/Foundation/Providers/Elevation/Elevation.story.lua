@@ -6,7 +6,6 @@ local Button = require(Foundation.Components.Button)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local Dialog = require(Foundation.Components.Dialog)
 local DialogSize = require(Foundation.Enums.DialogSize)
-local Flags = require(Foundation.Utility.Flags)
 local IconButton = require(Foundation.Components.IconButton)
 local InputSize = require(Foundation.Enums.InputSize)
 local Menu = require(Foundation.Components.Menu)
@@ -926,165 +925,163 @@ return {
 				})
 			end,
 		},
-		if Flags.FoundationBaseMenuSubmenuSupport
-			then {
-				name = "Sheet > Dialog > Nested Menus",
-				story = function()
-					local isSheetOpen, setIsSheetOpen = React.useState(false)
-					local isDialogOpen, setIsDialogOpen = React.useState(false)
-					local isMenuOpen, setIsMenuOpen = React.useState(false)
+		{
+			name = "Sheet > Dialog > Nested Menus",
+			story = function()
+				local isSheetOpen, setIsSheetOpen = React.useState(false)
+				local isDialogOpen, setIsDialogOpen = React.useState(false)
+				local isMenuOpen, setIsMenuOpen = React.useState(false)
 
-					local function toggleSheet()
-						setIsSheetOpen(not isSheetOpen)
-						if isSheetOpen then
-							setIsDialogOpen(false)
-							setIsMenuOpen(false)
-						end
+				local function toggleSheet()
+					setIsSheetOpen(not isSheetOpen)
+					if isSheetOpen then
+						setIsDialogOpen(false)
+						setIsMenuOpen(false)
 					end
+				end
 
-					local function toggleDialog()
-						setIsDialogOpen(not isDialogOpen)
-						if isDialogOpen then
-							setIsMenuOpen(false)
-						end
+				local function toggleDialog()
+					setIsDialogOpen(not isDialogOpen)
+					if isDialogOpen then
+						setIsMenuOpen(false)
 					end
+				end
 
-					local menuItems: { MenuItem } = {
-						{
-							id = "file",
-							icon = "page",
-							text = "File",
-							items = {
-								{
-									id = "open-recent",
-									icon = "clock",
-									text = "Open Recent",
-									items = {
-										{ id = "project-alpha", icon = "globe-simplified", text = "Project Alpha" } :: MenuItem,
-										{ id = "project-beta", icon = "globe-simplified", text = "Project Beta" } :: MenuItem,
-										{ id = "project-gamma", text = "Project Gamma" } :: MenuItem,
-									},
+				local menuItems: { MenuItem } = {
+					{
+						id = "file",
+						icon = "page",
+						text = "File",
+						items = {
+							{
+								id = "open-recent",
+								icon = "clock",
+								text = "Open Recent",
+								items = {
+									{ id = "project-alpha", icon = "globe-simplified", text = "Project Alpha" } :: MenuItem,
+									{ id = "project-beta", icon = "globe-simplified", text = "Project Beta" } :: MenuItem,
+									{ id = "project-gamma", text = "Project Gamma" } :: MenuItem,
 								},
-								{ id = "save", icon = "floppy-disk", text = "Save" },
-								{ id = "save-as", text = "Save As..." },
-								{
-									id = "export",
-									icon = "arrow-large-right",
-									text = "Export",
-									items = {
-										{ id = "export-rbxl", text = "Place File (.rbxl)" } :: MenuItem,
-										{ id = "export-rbxm", text = "Model File (.rbxm)" } :: MenuItem,
-										{ id = "export-png", icon = "photo-camera", text = "Screenshot (.png)" } :: MenuItem,
-									},
+							},
+							{ id = "save", icon = "floppy-disk", text = "Save" },
+							{ id = "save-as", text = "Save As..." },
+							{
+								id = "export",
+								icon = "arrow-large-right",
+								text = "Export",
+								items = {
+									{ id = "export-rbxl", text = "Place File (.rbxl)" } :: MenuItem,
+									{ id = "export-rbxm", text = "Model File (.rbxm)" } :: MenuItem,
+									{ id = "export-png", icon = "photo-camera", text = "Screenshot (.png)" } :: MenuItem,
 								},
-							} :: { MenuItem },
-						},
-						{
-							id = "edit",
-							icon = "pencil-square",
-							text = "Edit",
-							items = {
-								{ id = "undo", icon = "arrow-large-left", text = "Undo" },
-								{ id = "redo", icon = "arrow-large-right", text = "Redo" },
-								{ id = "cut", text = "Cut" },
-								{ id = "copy", text = "Copy" },
-								{ id = "paste", text = "Paste" },
-							} :: { MenuItem },
-						},
-						{ id = "select-all", icon = "check-large", text = "Select All" },
-						{ id = "preferences", icon = "gear", text = "Preferences" },
-					}
+							},
+						} :: { MenuItem },
+					},
+					{
+						id = "edit",
+						icon = "pencil-square",
+						text = "Edit",
+						items = {
+							{ id = "undo", icon = "arrow-large-left", text = "Undo" },
+							{ id = "redo", icon = "arrow-large-right", text = "Redo" },
+							{ id = "cut", text = "Cut" },
+							{ id = "copy", text = "Copy" },
+							{ id = "paste", text = "Paste" },
+						} :: { MenuItem },
+					},
+					{ id = "select-all", icon = "check-large", text = "Select All" },
+					{ id = "preferences", icon = "gear", text = "Preferences" },
+				}
 
-					return React.createElement(React.Fragment, nil, {
-						ToggleButton = React.createElement(Button, {
-							text = "Open Sheet",
-							onActivated = toggleSheet,
-							variant = ButtonVariant.Emphasis,
-						}),
-						Sheet = if isSheetOpen
-							then React.createElement(Sheet.Root, {
-								onClose = toggleSheet,
-								snapPoints = { 0.4, 0.7 },
-								defaultSnapPointIndex = 2,
-								displaySize = Enum.DisplaySize.Small,
-							}, {
-								Header = React.createElement(Sheet.Header, nil, {
-									Title = React.createElement(Text, {
-										Text = "Sheet with Dialog & Menus",
-										tag = "auto-xy text-title-medium content-emphasis",
+				return React.createElement(React.Fragment, nil, {
+					ToggleButton = React.createElement(Button, {
+						text = "Open Sheet",
+						onActivated = toggleSheet,
+						variant = ButtonVariant.Emphasis,
+					}),
+					Sheet = if isSheetOpen
+						then React.createElement(Sheet.Root, {
+							onClose = toggleSheet,
+							snapPoints = { 0.4, 0.7 },
+							defaultSnapPointIndex = 2,
+							displaySize = Enum.DisplaySize.Small,
+						}, {
+							Header = React.createElement(Sheet.Header, nil, {
+								Title = React.createElement(Text, {
+									Text = "Sheet with Dialog & Menus",
+									tag = "auto-xy text-title-medium content-emphasis",
+								}),
+							}),
+							Content = React.createElement(Sheet.Content, nil, {
+								Layout = React.createElement(View, {
+									tag = "col gap-medium auto-xy",
+								}, {
+									Description = React.createElement(Text, {
+										Text = "Open the dialog below, then try the nested menu inside it.",
+										tag = "auto-xy text-body-medium",
+										LayoutOrder = 1,
+									}),
+									OpenDialogButton = React.createElement(Button, {
+										text = "Open Dialog",
+										onActivated = toggleDialog,
+										variant = ButtonVariant.Emphasis,
+										LayoutOrder = 2,
 									}),
 								}),
-								Content = React.createElement(Sheet.Content, nil, {
-									Layout = React.createElement(View, {
-										tag = "col gap-medium auto-xy",
-									}, {
-										Description = React.createElement(Text, {
-											Text = "Open the dialog below, then try the nested menu inside it.",
-											tag = "auto-xy text-body-medium",
-											LayoutOrder = 1,
-										}),
-										OpenDialogButton = React.createElement(Button, {
-											text = "Open Dialog",
-											onActivated = toggleDialog,
-											variant = ButtonVariant.Emphasis,
-											LayoutOrder = 2,
-										}),
+							}),
+						})
+						else nil,
+					Dialog = if isDialogOpen
+						then React.createElement(Dialog.Root, {
+							onClose = toggleDialog,
+							hasBackdrop = true,
+							disablePortal = false,
+							size = DialogSize.Large,
+						}, {
+							DialogTitle = React.createElement(Dialog.Title, {
+								text = "Dialog with Nested Menu",
+							}),
+							DialogContent = React.createElement(Dialog.Content, nil, {
+								Layout = React.createElement(View, {
+									tag = "col gap-medium auto-xy",
+								}, {
+									Description = React.createElement(Text, {
+										Text = "The menu below has 3 levels of nested submenus. Hover or click to navigate.",
+										tag = "auto-xy text-body-medium",
+										LayoutOrder = 1,
 									}),
-								}),
-							})
-							else nil,
-						Dialog = if isDialogOpen
-							then React.createElement(Dialog.Root, {
-								onClose = toggleDialog,
-								hasBackdrop = true,
-								disablePortal = false,
-								size = DialogSize.Large,
-							}, {
-								DialogTitle = React.createElement(Dialog.Title, {
-									text = "Dialog with Nested Menu",
-								}),
-								DialogContent = React.createElement(Dialog.Content, nil, {
-									Layout = React.createElement(View, {
-										tag = "col gap-medium auto-xy",
+									MenuContainer = React.createElement(View, {
+										tag = "row auto-xy",
+										LayoutOrder = 2,
 									}, {
-										Description = React.createElement(Text, {
-											Text = "The menu below has 3 levels of nested submenus. Hover or click to navigate.",
-											tag = "auto-xy text-body-medium",
-											LayoutOrder = 1,
-										}),
-										MenuContainer = React.createElement(View, {
-											tag = "row auto-xy",
-											LayoutOrder = 2,
+										Menu = React.createElement(Menu, {
+											isOpen = isMenuOpen,
+											items = menuItems,
+											size = InputSize.Medium,
+											onPressedOutside = function()
+												setIsMenuOpen(false)
+											end,
+											onActivated = function(id)
+												print("Elevation story menu activated:", id)
+												setIsMenuOpen(false)
+											end,
 										}, {
-											Menu = React.createElement(Menu, {
-												isOpen = isMenuOpen,
-												items = menuItems,
+											Button = React.createElement(Button, {
+												text = "Open Menu",
 												size = InputSize.Medium,
-												onPressedOutside = function()
-													setIsMenuOpen(false)
+												onActivated = function()
+													setIsMenuOpen(not isMenuOpen)
 												end,
-												onActivated = function(id)
-													print("Elevation story menu activated:", id)
-													setIsMenuOpen(false)
-												end,
-											}, {
-												Button = React.createElement(Button, {
-													text = "Open Menu",
-													size = InputSize.Medium,
-													onActivated = function()
-														setIsMenuOpen(not isMenuOpen)
-													end,
-												}),
 											}),
 										}),
 									}),
 								}),
-							})
-							else nil,
-					})
-				end,
-			}
-			else {} :: any,
+							}),
+						})
+						else nil,
+				})
+			end,
+		},
 	},
 	controls = {},
 }

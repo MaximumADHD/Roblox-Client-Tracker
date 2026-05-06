@@ -162,7 +162,7 @@ return {
 					setItem({})
 					spawn(function()
 						wait(2.0)
-						local itemInfo = MarketplaceService:GetProductInfo(itemId)
+						local itemInfo = MarketplaceService:GetProductInfoAsync(itemId)
 						if itemInfo.IsPublicDomain then
 							itemInfo.PriceInRobux = 0
 							itemInfo.PriceText = "Free"
@@ -250,7 +250,7 @@ return {
 					setPlace({})
 					spawn(function()
 						wait(2.0)
-						local placeInfo = MarketplaceService:GetProductInfo(placeId)
+						local placeInfo = MarketplaceService:GetProductInfoAsync(placeId)
 						setPlace(placeInfo)
 					end)
 				end, { placeId })
@@ -416,7 +416,7 @@ return {
 					setItem({})
 					spawn(function()
 						wait(2.0)
-						local itemInfo = MarketplaceService:GetProductInfo(itemId)
+						local itemInfo = MarketplaceService:GetProductInfoAsync(itemId)
 						if itemInfo.IsPublicDomain then
 							itemInfo.PriceInRobux = 0
 							itemInfo.PriceText = "Free"

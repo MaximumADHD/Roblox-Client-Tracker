@@ -282,21 +282,11 @@ function module.setupAnimation(character)
 		end
 	end
 
+	-- Lookup table of all non-tool animations, to be populated later in setup function:
+	local animTableNontoolIds = {}
 	local function stopOtherNontoolAnimations(animIDsToKeep, transitionTime, destroyTracks, animTracks)
 		transitionTime = transitionTime or 0
 		debugPrint("[AnimRepl][Lua] stopOtherNontoolAnimations: transitionTime=", transitionTime)
-
-		-- Build a lookup of all non-tool animation IDs from animTable so we only
-		-- stop animations that this script owns, leaving other humanoid animations
-		-- (e.g. developer-spawned) untouched.
-		local animTableNontoolIds = {}
-		for animName, animSet in pairs(animTable) do
-			if not TOOL_ANIM_NAMES[animName] then
-				for idx = 1, animSet.count do
-					animTableNontoolIds[extractAnimIdNumber(animSet[idx].anim.AnimationId)] = true
-				end
-			end
-		end
 
 		for _, track in ipairs(animTracks or animator:GetPlayingAnimationTracks()) do
 			local animId = extractAnimIdNumber(track.Animation.AnimationId)
@@ -608,6 +598,17 @@ function module.setupAnimation(character)
 	if not isR6 then
 		fixedRunAnimId = extractAnimIdNumber(animTable["run"][1].anim.AnimationId)
 		assert(animTable["run"].count == 1)
+	end
+
+	-- Build a lookup of all non-tool animation IDs from animTable so we only
+	-- stop animations that this script owns in stopOtherNontoolAnimations,
+	-- leaving other humanoid animations (e.g. developer-spawned) untouched.
+	for animName, animSet in pairs(animTable) do
+		if not TOOL_ANIM_NAMES[animName] then
+			for idx = 1, animSet.count do
+				animTableNontoolIds[extractAnimIdNumber(animSet[idx].anim.AnimationId)] = true
+			end
+		end
 	end
 
 	--------------------------------------------------------------------------------
@@ -927,9 +928,17 @@ function module.setupAnimation(character)
 				queueAnimation(animState, "Standing", DEFAULT_TRANSITION_TIME)
 			end
 		else
+			-- This early-out prevents a feedback loop where the swim animation
+			-- generates root motion that keeps the character stuck in the Swimming pose
+			if humanoid.MoveDirection == Vector3.zero then
+				queueAnimation(animState, "SwimIdle", SWIM_TRANSITION_TIME)
+				return
+			end
+
 			-- R15: proper swim/swimidle
 			local heightScale = getHeightScale()
 			speed /= heightScale
+
 			local swimThreshold = if animState.pose == "Swimming" then SWIM_STOP_THRESHOLD else SWIM_START_THRESHOLD
 			if speed > swimThreshold then
 				local SWIMMING_SCALE = 10.0

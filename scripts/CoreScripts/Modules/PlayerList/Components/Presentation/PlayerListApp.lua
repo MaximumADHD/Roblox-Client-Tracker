@@ -24,13 +24,8 @@ local PlayerList = Presentation.Parent.Parent
 
 local useLeaderboardStore = PlayerListPackage.Hooks.useLeaderboardStore
 
-local FFlagPlayerListClosedNoRender = require(PlayerList.Flags.FFlagPlayerListClosedNoRender)
-local FFlagPlayerListClosedNoRenderWithTenFoot = require(PlayerList.Flags.FFlagPlayerListClosedNoRenderWithTenFoot)
-
-local PlayerListSorter = require(Presentation.PlayerListSorter)
 local PlayerEntryContainer = require(PlayerList.Components.Container.PlayerEntryContainer)
 local PlayerListDisplayContainer = require(PlayerList.Components.Container.PlayerListDisplayContainer)
-local PlayerEntry = require(Presentation.PlayerEntry)
 local TenFootSideBar = require(PresentationCommon.TenFootSideBar)
 
 local Connection = PlayerList.Components.Connection
@@ -39,9 +34,7 @@ local ContextActionsBinder = require(Connection.ContextActionsBinder)
 local TopStatConnector = require(Connection.TopStatConnector)
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
-local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 
-local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 
 local MOTOR_OPTIONS = {
@@ -108,7 +101,7 @@ function PlayerListApp:init()
 end
 
 function PlayerListApp:render()
-	if (FFlagPlayerListClosedNoRender or FFlagPlayerListClosedNoRenderWithTenFoot) and not self.state.visible then
+	if not self.state.visible then
 		return Roact.createFragment({
 			Roact.createElement(ContextActionsBinder),
 			-- TODO: Remove when playerIconInfo and playerRelationship data gets moved to leaderboard store (APPEXP-2963)
@@ -130,12 +123,7 @@ function PlayerListApp:render()
 			maxLeaderstats = layoutValues.MaxLeaderstatsSmallScreen
 		end
 
-		local leaderstatsCount = 0
-		if FFlagUseNewPlayerList then
-			leaderstatsCount = math.min(self.props.gameStatsCount, maxLeaderstats)
-		else
-			leaderstatsCount = math.min(#self.props.gameStats, maxLeaderstats)
-		end
+		local leaderstatsCount = math.min(self.props.gameStatsCount, maxLeaderstats)
 
 		if leaderstatsCount > 0 then
 			local statOffsetX = layoutValues.StatEntrySizeX + layoutValues.EntryPadding
@@ -172,14 +160,6 @@ function PlayerListApp:render()
 		local childElements = {}
 
 		if layoutValues.IsTenFoot then
-			local gameStatNames = nil
-			if FFlagPlayerListReduceRerenders then
-				gameStatNames = {}
-				for _, gameStat in self.props.gameStats do
-					table.insert(gameStatNames, gameStat.name)
-				end
-			end
-			
 			for _, player in ipairs(self.props.players) do
 				if player == Players.LocalPlayer then
 					childElements["TitlePlayerEntry"] = Roact.createElement("Frame", {
@@ -187,32 +167,20 @@ function PlayerListApp:render()
 						Size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.PlayerEntrySizeY),
 						BackgroundTransparency = 1,
 					}, {
-						PlayerEntry = if FFlagUseNewPlayerList 
-							then Roact.createElement(PlayerEntryContainer, {
-									entrySizeX = entrySize,
-									titlePlayerEntry = true,
-									player = player,
-									playerIconInfo = self.props.playerIconInfo[player.UserId],
-									playerRelationship = self.props.playerRelationship[player.UserId],
-								})
-							else Roact.createElement(PlayerEntry, {
-									player = player,
-									playerStats = self.props.playerStats[player.UserId],
-									playerIconInfo = self.props.playerIconInfo[player.UserId],
-									playerRelationship = self.props.playerRelationship[player.UserId],
-									titlePlayerEntry = true,
-									hasDivider = false,
-									gameStats = if FFlagPlayerListReduceRerenders then nil else self.props.gameStats,
-									gameStatNames = gameStatNames,
-									entrySize = entrySize,
-								}),
+					PlayerEntry = Roact.createElement(PlayerEntryContainer, {
+						entrySizeX = entrySize,
+						titlePlayerEntry = true,
+						player = player,
+						playerIconInfo = self.props.playerIconInfo[player.UserId],
+						playerRelationship = self.props.playerRelationship[player.UserId],
+					}),
 					})
 					break
 				end
 			end
 		end
 
-		childElements["PlayerScrollList"] = Roact.createElement(if FFlagUseNewPlayerList then PlayerListDisplayContainer else PlayerListSorter, {
+		childElements["PlayerScrollList"] = Roact.createElement(PlayerListDisplayContainer, {
 			screenSizeY = self.props.screenSizeY,
 			entrySize = entrySize,
 			isVisible = if FFlagAddNewPlayerListFocusNav then self.state.visible else nil,
@@ -315,8 +283,4 @@ local function PlayerListAppWithLeaderboardStore(props)
 	}))
 end
 
-if FFlagUseNewPlayerList then
-	return RoactRodux.connect(mapStateToProps, nil)(PlayerListAppWithLeaderboardStore)
-else
-	return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(PlayerListApp)
-end
+return RoactRodux.connect(mapStateToProps, nil)(PlayerListAppWithLeaderboardStore)

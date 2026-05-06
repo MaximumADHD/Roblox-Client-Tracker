@@ -22,12 +22,10 @@ type _UniverseUserFavoriteDataImpl = {
 }
 
 type _UniverseUserFavoriteDataFields = {
-	universe_id: number,
 	is_favorited: boolean,
 }
 
 type _UniverseUserFavoriteDataPartialFields = {
-	universe_id: number?,
 	is_favorited: boolean?,
 }
 
@@ -43,7 +41,6 @@ do
 
 	function _UniverseUserFavoriteDataImpl.new(data: _UniverseUserFavoriteDataPartialFields?): UniverseUserFavoriteData
 		return setmetatable({
-			universe_id = if data == nil or data.universe_id == nil then 0 else data.universe_id,
 			is_favorited = if data == nil or data.is_favorited == nil then false else data.is_favorited,
 		}, _UniverseUserFavoriteDataImpl :: _UniverseUserFavoriteDataImpl)
 	end
@@ -52,13 +49,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.universe_id ~= nil and self.universe_id ~= 0 then
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
-			output, cursor = proto.writeVarInt(output, cursor, self.universe_id)
-		end
-
 		if self.is_favorited then
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_favorited then 1 else 0)
 		end
 
@@ -77,11 +69,6 @@ do
 
 			if wireType == proto.wireTypes.varint then
 				if field == 1 then
-					local value
-					value, cursor = proto.readVarIntI64(input, cursor)
-					self.universe_id = value
-					continue
-				elseif field == 2 then
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.is_favorited = value ~= 0
@@ -118,10 +105,6 @@ do
 	function _UniverseUserFavoriteDataImpl.jsonEncode(self: UniverseUserFavoriteData): any
 		local output = {}
 
-		if self.universe_id ~= nil and self.universe_id ~= 0 then
-			output.universeId = self.universe_id
-		end
-
 		if self.is_favorited then
 			output.isFavorited = self.is_favorited
 		end
@@ -131,14 +114,6 @@ do
 
 	function _UniverseUserFavoriteDataImpl.jsonDecode(input: { [string]: any }): UniverseUserFavoriteData
 		local self = _UniverseUserFavoriteDataImpl.new()
-
-		if input.universe_id ~= nil then
-			self.universe_id = input.universe_id
-		end
-
-		if input.universeId ~= nil then
-			self.universe_id = input.universeId
-		end
 
 		if input.is_favorited ~= nil then
 			self.is_favorited = input.is_favorited

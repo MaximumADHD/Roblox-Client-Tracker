@@ -6,19 +6,14 @@ local Players = game:GetService("Players")
 local TopBar = script.Parent.Parent
 local FFlagTopBarDeprecateRespawnRodux = require(TopBar.Flags.FFlagTopBarDeprecateRespawnRodux)
 
-local EngineFeatureAvatarEditorServiceBustCacheEnabled = game:GetEngineFeature("AvatarEditorServiceBustCacheEnabled")
-
-if FFlagTopBarDeprecateRespawnRodux then 
-	return nil :: never 
+if FFlagTopBarDeprecateRespawnRodux then
+	return nil :: never
 end
 
 return function(store)
 	local state = store:getState()
 
-	if EngineFeatureAvatarEditorServiceBustCacheEnabled then
-		-- Remove any cast with EngineFeatureAvatarEditorServiceBustCacheEnabled
-		(AvatarEditorService :: any):BustAvatarFetchCache()
-	end
+	AvatarEditorService:BustAvatarFetchCache()
 
 	if state.respawn.customCallback then
 		state.respawn.customCallback:Fire()

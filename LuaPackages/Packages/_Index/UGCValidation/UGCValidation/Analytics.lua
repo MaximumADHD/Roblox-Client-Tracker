@@ -19,7 +19,6 @@ local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 local getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds =
 	require(root.flags.getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds)
 
-local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateHSRMeshIds = require(root.flags.getFFlagUGCValidateHSRMeshIds)
@@ -214,14 +213,12 @@ Analytics.ErrorType.validateBodyPartVertsSkinnedToR15_FailedToFetchSkinning =
 Analytics.ErrorType.validateBodyPartVertsSkinnedToR15_BodyIsSkinnedToFakeJoints =
 	"validateBodyPartVertsSkinnedToR15_BodyIsSkinnedToFakeJoints"
 
-if getEngineUGCValidateRelativeSkinningTransfer() then
-	Analytics.ErrorType.validateSkinningTransfer_FailedToExecute = "validateSkinningTransfer_FailedToExecute"
-	Analytics.ErrorType.validateSkinningTransfer_BodyPartsWithSpecialJoints =
-		"validateSkinningTransfer_BodyPartsWithSpecialJoints"
-	Analytics.ErrorType.validateSkinningTransfer_SkinningTransferOverride =
-		"validateSkinningTransfer_SkinningTransferOverride"
-	Analytics.ErrorType.validateSkinningTransfer_Weights = "validateSkinningTransfer_Weights"
-end
+Analytics.ErrorType.validateSkinningTransfer_FailedToExecute = "validateSkinningTransfer_FailedToExecute"
+Analytics.ErrorType.validateSkinningTransfer_BodyPartsWithSpecialJoints =
+	"validateSkinningTransfer_BodyPartsWithSpecialJoints"
+Analytics.ErrorType.validateSkinningTransfer_SkinningTransferOverride =
+	"validateSkinningTransfer_SkinningTransferOverride"
+Analytics.ErrorType.validateSkinningTransfer_Weights = "validateSkinningTransfer_Weights"
 
 if getFFlagUGCValidationEyebrowEyelashSupport() then
 	Analytics.ErrorType.validateSkinningTransfer_RequiredAssetTypes = "validateSkinningTransfer_RequiredAssetTypes"

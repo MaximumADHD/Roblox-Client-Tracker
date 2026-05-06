@@ -9,15 +9,10 @@ local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local EngineFeatureAvatarEditorServiceBustCacheEnabled = game:GetEngineFeature("AvatarEditorServiceBustCacheEnabled")
-
 return function(store)
 	local state = store:getState()
 	if state.respawn.enabled then
-		 if EngineFeatureAvatarEditorServiceBustCacheEnabled then
-			-- Remove any cast with EngineFeatureAvatarEditorServiceBustCacheEnabled
-			(AvatarEditorService :: any):BustAvatarFetchCache()
-		end
+		AvatarEditorService:BustAvatarFetchCache()
 
 		if state.respawn.customCallback then
 			state.respawn.customCallback:Fire()

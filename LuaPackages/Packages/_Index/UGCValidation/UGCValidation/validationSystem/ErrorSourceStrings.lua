@@ -75,6 +75,7 @@ ErrorSourceStrings.Keys = {
 	HrdMissingStandardJoint = "Common.UGCValidation.ErrorLabel.HrdMissingStandardJoint",
 	HrdImproperJointMapping = "Common.UGCValidation.ErrorLabel.HrdImproperJointMapping",
 	HrdBone_TooCloseToParent = "Common.UGCValidation.ErrorLabel.HrdBone_TooCloseToParent",
+	LeaderVertsNearCageIslands = "Common.UGCValidation.ErrorLabel.LeaderVertsNearCageIslands",
 }
 
 ErrorSourceStrings.Values = {
@@ -148,6 +149,7 @@ ErrorSourceStrings.Values = {
 	HrdMissingStandardJoint = "Joint {jointName} is a standard R15 joint, but the rig attachment is not connected to the HRD. Ensure that the HRD under your avatar is linking to an AttachmentConstraint rather than Motor6d.",
 	HrdImproperJointMapping = "Optional joint {jointName} is incorrectly mapped in the HRD. This must be mapped to a bone named {boneName}.",
 	HrdBone_TooCloseToParent = "Bone {bonePath} is too close to its parent. Adjust the position of the bone slightly.",
+	LeaderVertsNearCageIslands = "Eyelash has vertices skinned to RBX_Leader that are too far away from the eye landmarks on the inner cage. Ensure all vertices skinned to RBX_Leader are positioned closer to the eye area of the inner cage.",
 }
 
 return ErrorSourceStrings

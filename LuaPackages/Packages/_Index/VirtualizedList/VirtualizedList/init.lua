@@ -33,6 +33,7 @@ export type AnimatedFlatListProps<T> = AnimatedFlatList.Props<T>
 export type AnimatedScrollConfig<T> = Hooks.AnimatedScrollConfig<T>
 export type VirtualizedListProps = VirtualizedList.Props
 export type RenderItemProps<T> = VirtualizedList.RenderItemProps<T>
+export type VirtualizedItem<T> = Hooks.VirtualizedItem<T>
 
 return {
 	ScrollView = ScrollView,

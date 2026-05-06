@@ -42,6 +42,9 @@ export type Props = {
 	feedbackType: string?,
 	-- ButtonType override for the button
 	buttonType: string?,
+	-- Force UIBlox button render regardless of the useFoundationButton config flag.
+	-- DO NOT USE: internal escape hatch, not intended for external consumers.
+	DO_NOT_USE_useUIBloxButton: boolean?,
 }
 
 local function ExperienceActionRow(props: Props)
@@ -79,6 +82,7 @@ local function ExperienceActionRow(props: Props)
 			onActivated = props.onPlayPressed or NOOP,
 			isDisabled = not isActionable,
 			feedbackType = props.feedbackType,
+			DO_NOT_USE_useUIBloxButton = props.DO_NOT_USE_useUIBloxButton,
 		})
 	end
 end

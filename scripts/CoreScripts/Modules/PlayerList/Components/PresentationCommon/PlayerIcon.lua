@@ -26,7 +26,6 @@ local FFlagHidePremiumIconography = SharedFlags.FFlagHidePremiumIconography
 
 local PlayerList = Components.Parent
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
-local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagPlayerListFoundationSubscriptionIcon =
 	PlayerListPackage.Flags.FFlagPlayerListFoundationSubscriptionIcon
 
@@ -111,7 +110,7 @@ end
 
 function PlayerIcon:render()
 	return WithLayoutValues(function(layoutValues)
-		layoutValues = if FFlagUseNewPlayerList then self.props.layoutValues else layoutValues
+		layoutValues = self.props.layoutValues
 
 		local avatarIcon = self.props.playerIconInfo and self.props.playerIconInfo.avatarIcon
 		if avatarIcon == nil then
@@ -193,7 +192,7 @@ local function mapStateToProps(state)
 end
 
 local PlayerIconWrapper = function(props)
-	local layoutValues = if FFlagUseNewPlayerList then useLayoutValues() else nil
+	local layoutValues = useLayoutValues()
 
 	return React.createElement(PlayerIcon, Cryo.Dictionary.join(props, {
 		layoutValues = layoutValues,
@@ -201,7 +200,7 @@ local PlayerIconWrapper = function(props)
 end
 
 if FFlagPlayerListReduceRerenders then
-	return React.memo(RoactRodux.connect(mapStateToProps, nil)(if FFlagUseNewPlayerList then PlayerIconWrapper else PlayerIcon))
+	return React.memo(RoactRodux.connect(mapStateToProps, nil)(PlayerIconWrapper))
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(if FFlagUseNewPlayerList then PlayerIconWrapper else PlayerIcon)
+return RoactRodux.connect(mapStateToProps, nil)(PlayerIconWrapper)

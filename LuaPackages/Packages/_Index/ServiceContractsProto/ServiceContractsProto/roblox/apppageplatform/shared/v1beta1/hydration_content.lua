@@ -29,6 +29,8 @@ type _Messages = {
 	HydrationContent_UserEntry: _HydrationContent_UserEntryMessage,
 	HydrationContent_UniverseUserFavoriteEntry: _HydrationContent_UniverseUserFavoriteEntryMessage,
 	HydrationContent_PlayabilityEntry: _HydrationContent_PlayabilityEntryMessage,
+	HydrationContent_UniverseUserFollowLimitEntry: _HydrationContent_UniverseUserFollowLimitEntryMessage,
+	HydrationContent_UniverseUserVoteFeedbackMetadataEntry: _HydrationContent_UniverseUserVoteFeedbackMetadataEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -38,7 +40,11 @@ local _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data =
 	require(script.Parent.universe_user_favorite_data)
 local _roblox_apppageplatform_shared_v1beta1_universe_user_follow_data =
 	require(script.Parent.universe_user_follow_data)
+local _roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data =
+	require(script.Parent.universe_user_follow_limit_data)
 local _roblox_apppageplatform_shared_v1beta1_universe_user_vote_data = require(script.Parent.universe_user_vote_data)
+local _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data =
+	require(script.Parent.universe_user_vote_feedback_metadata_data)
 local _roblox_apppageplatform_shared_v1beta1_creator_data = require(script.Parent.creator_data)
 local _roblox_apppageplatform_shared_v1beta1_event_data = require(script.Parent.event_data)
 local _roblox_apppageplatform_shared_v1beta1_song_data = require(script.Parent.song_data)
@@ -67,73 +73,99 @@ type _HydrationContentImpl = {
 	descriptor: proto.Descriptor,
 }
 
-type _HydrationContentFields = {
-	badge: { [string]: _roblox_apppageplatform_shared_v1beta1_badge_data.BadgeData },
-	universe: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData },
-	creator: { [string]: _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData },
-	event: { [string]: _roblox_apppageplatform_shared_v1beta1_event_data.EventData },
-	song: { [string]: _roblox_apppageplatform_shared_v1beta1_song_data.SongData },
-	game_pass: { [string]: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData },
-	media_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData },
-	social_link: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData },
-	developer_product: { [string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData },
-	subscription: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData },
-	marketplace_catalog_category: {
-		[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData,
-	},
-	marketplace_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData },
-	marketplace_bundle: {
-		[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData,
-	},
-	marketplace_look: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData },
-	catalog_sort: { [string]: _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData },
-	age_recommendation: {
-		[string]: _roblox_apppageplatform_shared_v1beta1_age_recommendation_data.AgeRecommendationData,
-	},
-	universe_user_follow: {
-		[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_data.UniverseUserFollowData,
-	},
-	universe_user_vote: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_data.UniverseUserVoteData },
-	user: { [string]: _roblox_apppageplatform_shared_v1beta1_user_data.UserData },
-	universe_user_favorite: {
-		[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData,
-	},
-	playability: { [string]: _roblox_apppageplatform_shared_v1beta1_playability_data.PlayabilityData },
-}
+type _HydrationContentFields =
+	{
+		badge: { [string]: _roblox_apppageplatform_shared_v1beta1_badge_data.BadgeData },
+		universe: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData },
+		creator: { [string]: _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData },
+		event: { [string]: _roblox_apppageplatform_shared_v1beta1_event_data.EventData },
+		song: { [string]: _roblox_apppageplatform_shared_v1beta1_song_data.SongData },
+		game_pass: { [string]: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData },
+		media_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData },
+		social_link: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData },
+		developer_product: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData,
+		},
+		subscription: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData },
+		marketplace_catalog_category: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData,
+		},
+		marketplace_asset: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData,
+		},
+		marketplace_bundle: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData,
+		},
+		marketplace_look: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData },
+		catalog_sort: { [string]: _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData },
+		age_recommendation: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_age_recommendation_data.AgeRecommendationData,
+		},
+		universe_user_follow: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_data.UniverseUserFollowData,
+		},
+		universe_user_vote: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_data.UniverseUserVoteData,
+		},
+		user: { [string]: _roblox_apppageplatform_shared_v1beta1_user_data.UserData },
+		universe_user_favorite: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData,
+		},
+		playability: { [string]: _roblox_apppageplatform_shared_v1beta1_playability_data.PlayabilityData },
+		universe_user_follow_limit: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data.UniverseUserFollowLimitData,
+		},
+		universe_user_vote_feedback_metadata: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData,
+		},
+	}
 
-type _HydrationContentPartialFields = {
-	badge: { [string]: _roblox_apppageplatform_shared_v1beta1_badge_data.BadgeData }?,
-	universe: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData }?,
-	creator: { [string]: _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData }?,
-	event: { [string]: _roblox_apppageplatform_shared_v1beta1_event_data.EventData }?,
-	song: { [string]: _roblox_apppageplatform_shared_v1beta1_song_data.SongData }?,
-	game_pass: { [string]: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData }?,
-	media_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData }?,
-	social_link: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData }?,
-	developer_product: { [string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData }?,
-	subscription: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData }?,
-	marketplace_catalog_category: {
-		[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData,
-	}?,
-	marketplace_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData }?,
-	marketplace_bundle: {
-		[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData,
-	}?,
-	marketplace_look: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData }?,
-	catalog_sort: { [string]: _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData }?,
-	age_recommendation: {
-		[string]: _roblox_apppageplatform_shared_v1beta1_age_recommendation_data.AgeRecommendationData,
-	}?,
-	universe_user_follow: {
-		[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_data.UniverseUserFollowData,
-	}?,
-	universe_user_vote: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_data.UniverseUserVoteData }?,
-	user: { [string]: _roblox_apppageplatform_shared_v1beta1_user_data.UserData }?,
-	universe_user_favorite: {
-		[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData,
-	}?,
-	playability: { [string]: _roblox_apppageplatform_shared_v1beta1_playability_data.PlayabilityData }?,
-}
+type _HydrationContentPartialFields =
+	{
+		badge: { [string]: _roblox_apppageplatform_shared_v1beta1_badge_data.BadgeData }?,
+		universe: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData }?,
+		creator: { [string]: _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData }?,
+		event: { [string]: _roblox_apppageplatform_shared_v1beta1_event_data.EventData }?,
+		song: { [string]: _roblox_apppageplatform_shared_v1beta1_song_data.SongData }?,
+		game_pass: { [string]: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData }?,
+		media_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData }?,
+		social_link: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData }?,
+		developer_product: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData,
+		}?,
+		subscription: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData }?,
+		marketplace_catalog_category: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData,
+		}?,
+		marketplace_asset: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data.MarketplaceAssetData,
+		}?,
+		marketplace_bundle: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data.MarketplaceBundleData,
+		}?,
+		marketplace_look: { [string]: _roblox_apppageplatform_shared_v1beta1_marketplace_look_data.MarketplaceLookData }?,
+		catalog_sort: { [string]: _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortData }?,
+		age_recommendation: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_age_recommendation_data.AgeRecommendationData,
+		}?,
+		universe_user_follow: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_data.UniverseUserFollowData,
+		}?,
+		universe_user_vote: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_data.UniverseUserVoteData,
+		}?,
+		user: { [string]: _roblox_apppageplatform_shared_v1beta1_user_data.UserData }?,
+		universe_user_favorite: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_favorite_data.UniverseUserFavoriteData,
+		}?,
+		playability: { [string]: _roblox_apppageplatform_shared_v1beta1_playability_data.PlayabilityData }?,
+		universe_user_follow_limit: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data.UniverseUserFollowLimitData,
+		}?,
+		universe_user_vote_feedback_metadata: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData,
+		}?,
+	}
 
 export type HydrationContent = typeof(setmetatable({} :: _HydrationContentFields, {} :: _HydrationContentImpl))
 type _HydrationContentMessage = proto.Message<HydrationContent, _HydrationContentPartialFields>
@@ -751,6 +783,70 @@ type _HydrationContent_PlayabilityEntryMessage = proto.Message<
 	_HydrationContent_PlayabilityEntryPartialFields
 >
 
+type _HydrationContent_UniverseUserFollowLimitEntryImpl = {
+	__index: _HydrationContent_UniverseUserFollowLimitEntryImpl,
+	new: (
+		fields: _HydrationContent_UniverseUserFollowLimitEntryPartialFields?
+	) -> HydrationContent_UniverseUserFollowLimitEntry,
+	encode: (self: HydrationContent_UniverseUserFollowLimitEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_UniverseUserFollowLimitEntry,
+	jsonEncode: (self: HydrationContent_UniverseUserFollowLimitEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_UniverseUserFollowLimitEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_UniverseUserFollowLimitEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data.UniverseUserFollowLimitData?,
+}
+
+type _HydrationContent_UniverseUserFollowLimitEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data.UniverseUserFollowLimitData?,
+}
+
+export type HydrationContent_UniverseUserFollowLimitEntry = typeof(setmetatable(
+	{} :: _HydrationContent_UniverseUserFollowLimitEntryFields,
+	{} :: _HydrationContent_UniverseUserFollowLimitEntryImpl
+))
+type _HydrationContent_UniverseUserFollowLimitEntryMessage = proto.Message<
+	HydrationContent_UniverseUserFollowLimitEntry,
+	_HydrationContent_UniverseUserFollowLimitEntryPartialFields
+>
+
+type _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl = {
+	__index: _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl,
+	new: (
+		fields: _HydrationContent_UniverseUserVoteFeedbackMetadataEntryPartialFields?
+	) -> HydrationContent_UniverseUserVoteFeedbackMetadataEntry,
+	encode: (self: HydrationContent_UniverseUserVoteFeedbackMetadataEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_UniverseUserVoteFeedbackMetadataEntry,
+	jsonEncode: (self: HydrationContent_UniverseUserVoteFeedbackMetadataEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_UniverseUserVoteFeedbackMetadataEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_UniverseUserVoteFeedbackMetadataEntryFields =
+	{
+		key: string,
+		value: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData?,
+	}
+
+type _HydrationContent_UniverseUserVoteFeedbackMetadataEntryPartialFields =
+	{
+		key: string?,
+		value: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData?,
+	}
+
+export type HydrationContent_UniverseUserVoteFeedbackMetadataEntry = typeof(setmetatable(
+	{} :: _HydrationContent_UniverseUserVoteFeedbackMetadataEntryFields,
+	{} :: _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl
+))
+type _HydrationContent_UniverseUserVoteFeedbackMetadataEntryMessage = proto.Message<
+	HydrationContent_UniverseUserVoteFeedbackMetadataEntry,
+	_HydrationContent_UniverseUserVoteFeedbackMetadataEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -784,6 +880,13 @@ do
 				then {}
 				else data.universe_user_favorite,
 			playability = if data == nil or data.playability == nil then {} else data.playability,
+			universe_user_follow_limit = if data == nil or data.universe_user_follow_limit == nil
+				then {}
+				else data.universe_user_follow_limit,
+			universe_user_vote_feedback_metadata = if data == nil
+					or data.universe_user_vote_feedback_metadata == nil
+				then {}
+				else data.universe_user_vote_feedback_metadata,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -1085,6 +1188,37 @@ do
 			end
 		end
 
+		if self.universe_user_follow_limit ~= nil and next(self.universe_user_follow_limit) ~= nil then
+			for key, value in self.universe_user_follow_limit do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if
+			self.universe_user_vote_feedback_metadata ~= nil
+			and next(self.universe_user_vote_feedback_metadata) ~= nil
+		then
+			for key, value in self.universe_user_vote_feedback_metadata do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -1365,6 +1499,33 @@ do
 					self.playability[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_UniverseUserFollowLimitEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data.UniverseUserFollowLimitData.new()
+
+					self.universe_user_follow_limit[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 23 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_UniverseUserVoteFeedbackMetadataEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData.new()
+
+					self.universe_user_vote_feedback_metadata[mapEntry.key or keyDefault] = mapEntry.value
+						or valueDefault
+
+					continue
 				end
 
 				local length
@@ -1558,6 +1719,25 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.playability = newOutput
+		end
+
+		if self.universe_user_follow_limit ~= nil and next(self.universe_user_follow_limit) ~= nil then
+			local newOutput = {}
+			for key, value in self.universe_user_follow_limit do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.universeUserFollowLimit = newOutput
+		end
+
+		if
+			self.universe_user_vote_feedback_metadata ~= nil
+			and next(self.universe_user_vote_feedback_metadata) ~= nil
+		then
+			local newOutput = {}
+			for key, value in self.universe_user_vote_feedback_metadata do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.universeUserVoteFeedbackMetadata = newOutput
 		end
 
 		return output
@@ -1943,6 +2123,66 @@ do
 			end
 
 			self.playability = newOutput
+		end
+
+		if input.universe_user_follow_limit ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data.UniverseUserFollowLimitData,
+			} =
+				{}
+			for key, value in input.universe_user_follow_limit do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data.UniverseUserFollowLimitData.jsonDecode(
+						value
+					)
+			end
+
+			self.universe_user_follow_limit = newOutput
+		end
+
+		if input.universeUserFollowLimit ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data.UniverseUserFollowLimitData,
+			} =
+				{}
+			for key, value in input.universeUserFollowLimit do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data.UniverseUserFollowLimitData.jsonDecode(
+						value
+					)
+			end
+
+			self.universe_user_follow_limit = newOutput
+		end
+
+		if input.universe_user_vote_feedback_metadata ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData,
+			} =
+				{}
+			for key, value in input.universe_user_vote_feedback_metadata do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData.jsonDecode(
+						value
+					)
+			end
+
+			self.universe_user_vote_feedback_metadata = newOutput
+		end
+
+		if input.universeUserVoteFeedbackMetadata ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData,
+			} =
+				{}
+			for key, value in input.universeUserVoteFeedbackMetadata do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData.jsonDecode(
+						value
+					)
+			end
+
+			self.universe_user_vote_feedback_metadata = newOutput
 		end
 
 		return self
@@ -4551,6 +4791,277 @@ do
 	messages.HydrationContent_PlayabilityEntry = _HydrationContent_PlayabilityEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_PlayabilityEntry)
+end
+
+do
+	local _HydrationContent_UniverseUserFollowLimitEntryImpl = {}
+	_HydrationContent_UniverseUserFollowLimitEntryImpl.__index = _HydrationContent_UniverseUserFollowLimitEntryImpl
+
+	function _HydrationContent_UniverseUserFollowLimitEntryImpl.new(
+		data: _HydrationContent_UniverseUserFollowLimitEntryPartialFields?
+	): HydrationContent_UniverseUserFollowLimitEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_UniverseUserFollowLimitEntryImpl :: _HydrationContent_UniverseUserFollowLimitEntryImpl)
+	end
+
+	function _HydrationContent_UniverseUserFollowLimitEntryImpl.encode(
+		self: HydrationContent_UniverseUserFollowLimitEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_UniverseUserFollowLimitEntryImpl.decode(
+		input: buffer
+	): HydrationContent_UniverseUserFollowLimitEntry
+		local self = _HydrationContent_UniverseUserFollowLimitEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data.UniverseUserFollowLimitData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_UniverseUserFollowLimitEntryImpl.jsonEncode(
+		self: HydrationContent_UniverseUserFollowLimitEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_UniverseUserFollowLimitEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_UniverseUserFollowLimitEntry
+		local self = _HydrationContent_UniverseUserFollowLimitEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data.UniverseUserFollowLimitData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_UniverseUserFollowLimitEntryImpl.descriptor = {
+		name = "HydrationContent_UniverseUserFollowLimitEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UniverseUserFollowLimitEntry",
+	}
+
+	messages.HydrationContent_UniverseUserFollowLimitEntry = _HydrationContent_UniverseUserFollowLimitEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_UniverseUserFollowLimitEntry)
+end
+
+do
+	local _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl = {}
+	_HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl.__index =
+		_HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl
+
+	function _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl.new(
+		data: _HydrationContent_UniverseUserVoteFeedbackMetadataEntryPartialFields?
+	): HydrationContent_UniverseUserVoteFeedbackMetadataEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then nil else data.value,
+			},
+			_HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl :: _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl
+		)
+	end
+
+	function _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl.encode(
+		self: HydrationContent_UniverseUserVoteFeedbackMetadataEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl.decode(
+		input: buffer
+	): HydrationContent_UniverseUserVoteFeedbackMetadataEntry
+		local self = _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl.jsonEncode(
+		self: HydrationContent_UniverseUserVoteFeedbackMetadataEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_UniverseUserVoteFeedbackMetadataEntry
+		local self = _HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl.descriptor = {
+		name = "HydrationContent_UniverseUserVoteFeedbackMetadataEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UniverseUserVoteFeedbackMetadataEntry",
+	}
+
+	messages.HydrationContent_UniverseUserVoteFeedbackMetadataEntry =
+		_HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_UniverseUserVoteFeedbackMetadataEntry)
 end
 
 return {

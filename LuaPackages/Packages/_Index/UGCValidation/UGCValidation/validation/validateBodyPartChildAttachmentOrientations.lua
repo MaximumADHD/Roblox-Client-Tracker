@@ -1,6 +1,6 @@
 --[[
 We will validate two things:
-    - All rig attachments have no orientation
+    - All rig attachments have ~0 orientation (within a tiny tolerance to ignore float drift)
     - Grip attachments are oriented to best align tools along the arm. We base this off the vector from ElbowAtt to WristAtt 
 
 
@@ -21,6 +21,9 @@ local getAttachmentCFrameInPartSpace = require(root.util.getAttachmentCFrameInPa
 
 local ValidateBodyPartChildAttachmentOrientations = {}
 
+local FFlagUGCValidateRigAttachmentRotationUsesDiff =
+	game:DefineFastFlag("UGCValidateRigAttachmentRotationUsesDiff", false)
+game:DefineFastInt("UGCValidationAttRotRigAttachmentMaxThousandthsDegrees", 10)
 game:DefineFastInt("UGCValidationAttRotLimitRootAttachment", 30)
 game:DefineFastInt("UGCValidationAttRotLimitFaceFrontAttachment", 30)
 game:DefineFastInt("UGCValidationAttRotLimitHatAttachment", 30)
@@ -42,6 +45,9 @@ game:DefineFastInt("UGCValidationAttRotLimitRightShoulderAttachment", 30)
 game:DefineFastInt("UGCValidationAttRotLimitRightGripAttachment", 30)
 
 local thresholdTable = {
+	RigAttachment = function()
+		return game:GetFastInt("UGCValidationAttRotRigAttachmentMaxThousandthsDegrees") / 1000
+	end,
 	RootAttachment = function()
 		return game:GetFastInt("UGCValidationAttRotLimitRootAttachment")
 	end,
@@ -164,7 +170,7 @@ function ValidateBodyPartChildAttachmentOrientations.runValidation(
 ): (boolean, { string }?)
 	-- If schema is not valid, this test can error
 	-- We run three validations:
-	-- Rig attachments must be (0,0,0),
+	-- Rig attachments must be ~(0,0,0) (tiny tolerance to ignore float drift),
 	-- Grip attachments must be perpendicular to the bone, facing with the character
 	-- Non-rig and non-grip attachments must be within 30 degrees of (0,0,0)
 
@@ -176,8 +182,15 @@ function ValidateBodyPartChildAttachmentOrientations.runValidation(
 			local isGripAttachment = string.sub(desc.Name, -string.len(GRIP_ATT_SUFFIX)) == GRIP_ATT_SUFFIX
 
 			if isRigAttachment then
-				local x, y, z = getAttachmentCFrameInPartSpace(desc):ToOrientation()
-				if not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0) then
+				local isRotated
+				if FFlagUGCValidateRigAttachmentRotationUsesDiff then
+					isRotated = getDiffBetweenOrientations(CFrame.identity, getAttachmentCFrameInPartSpace(desc))
+						> thresholdTable.RigAttachment()
+				else
+					local x, y, z = getAttachmentCFrameInPartSpace(desc):ToOrientation()
+					isRotated = not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0)
+				end
+				if isRotated then
 					Analytics.reportFailure(
 						Analytics.ErrorType.validateBodyPartChildAttachmentOrientations_RotatedRig,
 						nil,

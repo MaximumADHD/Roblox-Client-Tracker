@@ -198,33 +198,27 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 					testId = `{popoverContext.testId}--arrow`,
 				})
 				else nil,
-			Content = React.createElement(
-				View,
-				{
-					AnchorPoint = anchorPoint,
-					Position = position:map(function(value: Vector2)
-						return UDim2.fromOffset(value.X, value.Y)
-					end),
-					selection = props.selection,
-					selectionGroup = props.selectionGroup,
-					sizeConstraint = {
-						MaxSize = screenSize,
-					},
-					stateLayer = {
-						affordance = StateLayerAffordance.None,
-					},
-					ZIndex = 4,
-					-- If onPressedOutside is provided, we need to swallow the press event to prevent it from propagating to the backdrop
-					onActivated = if props.onPressedOutside then function() end else nil,
-					backgroundStyle = backgroundStyle,
-					tag = `auto-xy {radiusToTag[props.radius]}`,
-					ref = setContentInstance,
-					testId = `{popoverContext.testId}--content`,
+			Content = React.createElement(View, {
+				AnchorPoint = anchorPoint,
+				Position = position:map(function(value: Vector2)
+					return UDim2.fromOffset(value.X, value.Y)
+				end),
+				selection = props.selection,
+				selectionGroup = props.selectionGroup,
+				sizeConstraint = {
+					MaxSize = screenSize,
 				},
-				if Flags.FoundationElevationKeepSiblingZIndex
-					then React.createElement(OwnerScope, { owner = elevation }, props.children)
-					else props.children
-			),
+				stateLayer = {
+					affordance = StateLayerAffordance.None,
+				},
+				ZIndex = 4,
+				-- If onPressedOutside is provided, we need to swallow the press event to prevent it from propagating to the backdrop
+				onActivated = if props.onPressedOutside then function() end else nil,
+				backgroundStyle = backgroundStyle,
+				tag = `auto-xy {radiusToTag[props.radius]}`,
+				ref = setContentInstance,
+				testId = `{popoverContext.testId}--content`,
+			}, React.createElement(OwnerScope, { owner = elevation }, props.children)),
 		})
 		else nil
 

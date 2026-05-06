@@ -24,15 +24,11 @@ type _UniverseUserFollowDataImpl = {
 type _UniverseUserFollowDataFields = {
 	can_follow: boolean,
 	is_following: boolean,
-	following_count_by_type: number,
-	following_limit_by_type: number,
 }
 
 type _UniverseUserFollowDataPartialFields = {
 	can_follow: boolean?,
 	is_following: boolean?,
-	following_count_by_type: number?,
-	following_limit_by_type: number?,
 }
 
 export type UniverseUserFollowData = typeof(setmetatable(
@@ -49,12 +45,6 @@ do
 		return setmetatable({
 			can_follow = if data == nil or data.can_follow == nil then false else data.can_follow,
 			is_following = if data == nil or data.is_following == nil then false else data.is_following,
-			following_count_by_type = if data == nil or data.following_count_by_type == nil
-				then 0
-				else data.following_count_by_type,
-			following_limit_by_type = if data == nil or data.following_limit_by_type == nil
-				then 0
-				else data.following_limit_by_type,
 		}, _UniverseUserFollowDataImpl :: _UniverseUserFollowDataImpl)
 	end
 
@@ -70,16 +60,6 @@ do
 		if self.is_following then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_following then 1 else 0)
-		end
-
-		if self.following_count_by_type ~= nil and self.following_count_by_type ~= 0 then
-			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
-			output, cursor = proto.writeVarInt(output, cursor, self.following_count_by_type)
-		end
-
-		if self.following_limit_by_type ~= nil and self.following_limit_by_type ~= 0 then
-			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
-			output, cursor = proto.writeVarInt(output, cursor, self.following_limit_by_type)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -105,16 +85,6 @@ do
 					local value
 					value, cursor = proto.readVarInt(input, cursor)
 					self.is_following = value ~= 0
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readVarIntI32(input, cursor)
-					self.following_count_by_type = value
-					continue
-				elseif field == 4 then
-					local value
-					value, cursor = proto.readVarIntI32(input, cursor)
-					self.following_limit_by_type = value
 					continue
 				end
 
@@ -156,14 +126,6 @@ do
 			output.isFollowing = self.is_following
 		end
 
-		if self.following_count_by_type ~= nil and self.following_count_by_type ~= 0 then
-			output.followingCountByType = self.following_count_by_type
-		end
-
-		if self.following_limit_by_type ~= nil and self.following_limit_by_type ~= 0 then
-			output.followingLimitByType = self.following_limit_by_type
-		end
-
 		return output
 	end
 
@@ -184,22 +146,6 @@ do
 
 		if input.isFollowing ~= nil then
 			self.is_following = input.isFollowing
-		end
-
-		if input.following_count_by_type ~= nil then
-			self.following_count_by_type = input.following_count_by_type
-		end
-
-		if input.followingCountByType ~= nil then
-			self.following_count_by_type = input.followingCountByType
-		end
-
-		if input.following_limit_by_type ~= nil then
-			self.following_limit_by_type = input.following_limit_by_type
-		end
-
-		if input.followingLimitByType ~= nil then
-			self.following_limit_by_type = input.followingLimitByType
 		end
 
 		return self

@@ -32,6 +32,20 @@ game:DefineFastString("UGCValidateAccurateBoundingBoxInflationThreshold", "0.334
 
 game:DefineFastFlag("UGCValidateAccurateBoundingBoxRasterMethod", false)
 
+--[[ Headless-avatar exploit fix.
+	Attack: place NeckRigAttachment above the entire head mesh. At assembly the head clips into the
+	torso and is functionally invisible, but it still passes the raster bounding-box check because
+	the mesh itself looks normal.
+	Mitigation: when computing the valid AABB, ignore mask pixels below the neck attachment Y
+	(minus a small margin). For exploit heads, this isolates the tiny "above-neck" geometry; the
+	real head then registers as massive inflation below the cropped bounds → fail. ]]
+game:DefineFastFlag("UGCValidateAccurateBoundingBoxRasterMethodNeckAttachmentCrop", false)
+
+-- Safety margin (in normalized view space, [-1, 1]) for the neck-attachment crop. 0.05 means the
+-- crop cutoff is shifted 5% of the view height below the neck attachment, so legit heads with
+-- geometry slightly under the neck joint aren't penalized.
+game:DefineFastString("UGCValidateAccurateBoundingBoxRasterMethodNeckAttachmentCropMargin", "0.05")
+
 local validateAccurateBoundingBoxFlags = {}
 
 function validateAccurateBoundingBoxFlags.targetPercentage(): number
@@ -52,6 +66,14 @@ end
 
 function validateAccurateBoundingBoxFlags.inflationThreshold(): number
 	return tonumber(game:GetFastString("UGCValidateAccurateBoundingBoxInflationThreshold")) :: number
+end
+
+function validateAccurateBoundingBoxFlags.neckAttachmentCrop(): boolean
+	return game:GetFastFlag("UGCValidateAccurateBoundingBoxRasterMethodNeckAttachmentCrop")
+end
+
+function validateAccurateBoundingBoxFlags.neckAttachmentCropMargin(): number
+	return tonumber(game:GetFastString("UGCValidateAccurateBoundingBoxRasterMethodNeckAttachmentCropMargin")) :: number
 end
 
 game:DefineFastString("UGCValidationInflationThresholdDynamicHeadX", "0.334")

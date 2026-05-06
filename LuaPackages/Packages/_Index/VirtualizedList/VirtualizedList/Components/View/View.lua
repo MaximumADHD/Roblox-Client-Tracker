@@ -35,6 +35,11 @@ export type Props = {
 	BackgroundTransparency: number,
 	onLayout: (Frame) -> (),
 	nativeRef: React.Ref<Frame>?,
+	SelectionGroup: boolean?,
+	SelectionBehaviorLeft: Enum.SelectionBehavior?,
+	SelectionBehaviorRight: Enum.SelectionBehavior?,
+	SelectionBehaviorUp: Enum.SelectionBehavior?,
+	SelectionBehaviorDown: Enum.SelectionBehavior?,
 }
 
 local View = React.Component:extend("View")
@@ -63,6 +68,11 @@ function View:render()
 		LayoutOrder = props.LayoutOrder or nil,
 		BorderSizePixel = props.BorderSizePixel or 0,
 		BackgroundTransparency = props.BackgroundTransparency or 1,
+		SelectionGroup = props.SelectionGroup,
+		SelectionBehaviorLeft = props.SelectionBehaviorLeft,
+		SelectionBehaviorRight = props.SelectionBehaviorRight,
+		SelectionBehaviorUp = props.SelectionBehaviorUp,
+		SelectionBehaviorDown = props.SelectionBehaviorDown,
 		[Change.AbsoluteSize] = props.onLayout,
 	}
 	return React.createElement("Frame", self.nativeProps, self.props.children)

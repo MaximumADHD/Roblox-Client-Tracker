@@ -378,6 +378,14 @@ type OptionalProps = {
 		when a sibling with a lower LayoutOrder changes size, which would push other items down.
 	]]
 	UNSTABLE_forceSiblingLayoutUpdate: boolean?,
+	--[[
+		ROBLOX DEVIATION: If true, the list will be sequentially selectable in the direction of the list.
+		For horizontal lists, this means you cannot press up or down to select items outside of the list
+		For vertical lists, this means you cannot press left or right to select items outside of the list.
+		The goal is to prevent the user from being able to select items that are not adjacent to the 
+		currently selected item, which causes confusion, frustration, and makes the UI feel jank.
+	]]
+	isSequentiallySelectable: boolean?,
 }
 
 export type Props = React_ElementConfig<typeof(ScrollView)> & RequiredProps & OptionalProps
@@ -1692,6 +1700,7 @@ function VirtualizedList:_pushCells(
 				ref = function(ref)
 					self._cellRefs[tostring(key)] = ref
 				end,
+				isSequentiallySelectable = self.props.isSequentiallySelectable,
 			})
 		)
 		prevCellKey = key
@@ -2691,6 +2700,19 @@ function CellRenderer:render()
 					LayoutOrder = if inversionStyle then -index else index,
 					AutomaticSize = if horizontal then Enum.AutomaticSize.X else Enum.AutomaticSize.Y,
 					nativeRef = self._nativeRef,
+					SelectionGroup = if self.props.isSequentiallySelectable then true else nil,
+					SelectionBehaviorLeft = if self.props.isSequentiallySelectable
+						then if self.props.horizontal then Enum.SelectionBehavior.Escape else Enum.SelectionBehavior.Stop
+						else nil,
+					SelectionBehaviorRight = if self.props.isSequentiallySelectable
+						then if self.props.horizontal then Enum.SelectionBehavior.Escape else Enum.SelectionBehavior.Stop
+						else nil,
+					SelectionBehaviorUp = if self.props.isSequentiallySelectable
+						then if self.props.horizontal then Enum.SelectionBehavior.Stop else Enum.SelectionBehavior.Escape
+						else nil,
+					SelectionBehaviorDown = if self.props.isSequentiallySelectable
+						then if self.props.horizontal then Enum.SelectionBehavior.Stop else Enum.SelectionBehavior.Escape
+						else nil,
 				},
 				if itemSeparator
 					then React.createElement("UIListLayout", {

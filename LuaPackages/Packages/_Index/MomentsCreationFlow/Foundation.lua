@@ -139,6 +139,7 @@ export type SliderProps = Package.SliderProps
 export type SnackbarProps = Package.SnackbarProps
 export type SnackbarAction = Package.SnackbarAction
 export type StatusIndicatorProps = Package.StatusIndicatorProps
+export type AlertAction = Package.AlertAction
 export type SystemBannerProps = Package.SystemBannerProps
 export type TabsProps = Package.TabsProps
 export type TabItem = Package.TabItem

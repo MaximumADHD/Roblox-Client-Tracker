@@ -6,92 +6,118 @@
 local proto = require(script.Parent.Parent.Parent.Parent.Parent.proto)
 local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 
-type _Messages = {
-	DismissDialogAction: _DismissDialogActionMessage,
-	DismissDialogAction_Params: _DismissDialogAction_ParamsMessage,
-	LinkAction: _LinkActionMessage,
-	LinkAction_Params: _LinkAction_ParamsMessage,
-	OpenSocialLinkAction: _OpenSocialLinkActionMessage,
-	OpenSocialLinkAction_Params: _OpenSocialLinkAction_ParamsMessage,
-	OpenGameDetailsAction: _OpenGameDetailsActionMessage,
-	OpenGameDetailsAction_Params: _OpenGameDetailsAction_ParamsMessage,
-	OpenJoinFriendsAction: _OpenJoinFriendsActionMessage,
-	OpenJoinFriendsAction_Params: _OpenJoinFriendsAction_ParamsMessage,
-	OpenMarketplaceTryOnAction: _OpenMarketplaceTryOnActionMessage,
-	OpenMarketplaceTryOnAction_Params: _OpenMarketplaceTryOnAction_ParamsMessage,
-	OpenSeeAllAction: _OpenSeeAllActionMessage,
-	OpenSeeAllAction_Params: _OpenSeeAllAction_ParamsMessage,
-	OpenSponsoredTooltipAction: _OpenSponsoredTooltipActionMessage,
-	OpenSponsoredTooltipAction_Params: _OpenSponsoredTooltipAction_ParamsMessage,
-	PlayButtonClickAction: _PlayButtonClickActionMessage,
-	PlayButtonClickAction_Params: _PlayButtonClickAction_ParamsMessage,
-	UpdateUserSettingsAction: _UpdateUserSettingsActionMessage,
-	UpdateUserSettingsAction_Params: _UpdateUserSettingsAction_ParamsMessage,
-	OpenTooltipAction: _OpenTooltipActionMessage,
-	OpenTooltipAction_Params: _OpenTooltipAction_ParamsMessage,
-	OpenBadgeDetailsAction: _OpenBadgeDetailsActionMessage,
-	OpenBadgeDetailsAction_Params: _OpenBadgeDetailsAction_ParamsMessage,
-	LoadMoreFromApiAction: _LoadMoreFromApiActionMessage,
-	LoadMoreFromApiAction_Params: _LoadMoreFromApiAction_ParamsMessage,
-	ShareAction: _ShareActionMessage,
-	ShareAction_ShareLinkData: _ShareAction_ShareLinkDataMessage,
-	ShareAction_Params: _ShareAction_ParamsMessage,
-	OpenAbuseReportAction: _OpenAbuseReportActionMessage,
-	OpenAbuseReportAction_Params: _OpenAbuseReportAction_ParamsMessage,
-	RemoveBadgeFromInventoryAction: _RemoveBadgeFromInventoryActionMessage,
-	RemoveBadgeFromInventoryAction_Params: _RemoveBadgeFromInventoryAction_ParamsMessage,
-	OpenProfileAction: _OpenProfileActionMessage,
-	OpenProfileAction_Params: _OpenProfileAction_ParamsMessage,
-	OpenFacialAgeEstimationAction: _OpenFacialAgeEstimationActionMessage,
-	OpenFacialAgeEstimationAction_Params: _OpenFacialAgeEstimationAction_ParamsMessage,
-	OpenAddConnectionsPageAction: _OpenAddConnectionsPageActionMessage,
-	OpenAddConnectionsPageAction_Params: _OpenAddConnectionsPageAction_ParamsMessage,
-	OpenMarketplaceAction: _OpenMarketplaceActionMessage,
-	OpenMarketplaceAction_Params: _OpenMarketplaceAction_ParamsMessage,
-	HideProfileCompletionAction: _HideProfileCompletionActionMessage,
-	HideProfileCompletionAction_Params: _HideProfileCompletionAction_ParamsMessage,
-	SelectMarketplaceCatalogCategory: _SelectMarketplaceCatalogCategoryMessage,
-	SelectMarketplaceCatalogCategory_Params: _SelectMarketplaceCatalogCategory_ParamsMessage,
-	SelectMarketplaceCatalogSubcategory: _SelectMarketplaceCatalogSubcategoryMessage,
-	SelectMarketplaceCatalogSubcategory_Params: _SelectMarketplaceCatalogSubcategory_ParamsMessage,
-	OpenMarketplaceCatalogSeeAll: _OpenMarketplaceCatalogSeeAllMessage,
-	OpenMarketplaceCatalogSeeAll_Params: _OpenMarketplaceCatalogSeeAll_ParamsMessage,
-	CloseMarketplaceCategoryTooltip: _CloseMarketplaceCategoryTooltipMessage,
-	CloseMarketplaceCategoryTooltip_Params: _CloseMarketplaceCategoryTooltip_ParamsMessage,
-	ResizeMarketplaceCatalog: _ResizeMarketplaceCatalogMessage,
-	ResizeMarketplaceCatalog_Params: _ResizeMarketplaceCatalog_ParamsMessage,
-	OpenChartsSortDetailAction: _OpenChartsSortDetailActionMessage,
-	OpenChartsSortDetailAction_Params: _OpenChartsSortDetailAction_ParamsMessage,
-	OpenSongDetailAction: _OpenSongDetailActionMessage,
-	OpenSongDetailAction_Params: _OpenSongDetailAction_ParamsMessage,
-	OpenMarketplaceCatalogFilters: _OpenMarketplaceCatalogFiltersMessage,
-	OpenMarketplaceCatalogFilters_Params: _OpenMarketplaceCatalogFilters_ParamsMessage,
-	RefreshFromApiAction: _RefreshFromApiActionMessage,
-	RefreshFromApiAction_Params: _RefreshFromApiAction_ParamsMessage,
-	RsvpToEventAction: _RsvpToEventActionMessage,
-	RsvpToEventAction_Params: _RsvpToEventAction_ParamsMessage,
-	OpenEventDetailsAction: _OpenEventDetailsActionMessage,
-	OpenEventDetailsAction_Params: _OpenEventDetailsAction_ParamsMessage,
-	ApplyChartsFilterAction: _ApplyChartsFilterActionMessage,
-	ApplyChartsFilterAction_Params: _ApplyChartsFilterAction_ParamsMessage,
-	AnalyticsEventAction: _AnalyticsEventActionMessage,
-	AnalyticsEventAction_Params: _AnalyticsEventAction_ParamsMessage,
-	CustomAnalyticsEventAction: _CustomAnalyticsEventActionMessage,
-	CustomAnalyticsEventAction_Params: _CustomAnalyticsEventAction_ParamsMessage,
-	OpenGameInviteAction: _OpenGameInviteActionMessage,
-	OpenGameInviteAction_Params: _OpenGameInviteAction_ParamsMessage,
-	Action: _ActionMessage,
-	ActionProp: _ActionPropMessage,
-	ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
-	ActionProp_ConditionalOptions: _ActionProp_ConditionalOptionsMessage,
-	FocusNavActionsProp: _FocusNavActionsPropMessage,
-	FocusNavActionsProp_ConditionalOption: _FocusNavActionsProp_ConditionalOptionMessage,
-	FocusNavActionsProp_ConditionalOptions: _FocusNavActionsProp_ConditionalOptionsMessage,
-	FocusNavActionsProp_FocusNavData: _FocusNavActionsProp_FocusNavDataMessage,
-	FocusNavActionsProp_FocusNavData_KeysEntry: _FocusNavActionsProp_FocusNavData_KeysEntryMessage,
-	FocusNavActionsProp_FocusNavData_EventsEntry: _FocusNavActionsProp_FocusNavData_EventsEntryMessage,
-	ActionType: _ActionTypeMessage,
-}
+type _Messages =
+	{
+		DismissDialogAction: _DismissDialogActionMessage,
+		DismissDialogAction_Params: _DismissDialogAction_ParamsMessage,
+		LinkAction: _LinkActionMessage,
+		LinkAction_Params: _LinkAction_ParamsMessage,
+		OpenSocialLinkAction: _OpenSocialLinkActionMessage,
+		OpenSocialLinkAction_Params: _OpenSocialLinkAction_ParamsMessage,
+		OpenGameDetailsAction: _OpenGameDetailsActionMessage,
+		OpenGameDetailsAction_Params: _OpenGameDetailsAction_ParamsMessage,
+		OpenJoinFriendsAction: _OpenJoinFriendsActionMessage,
+		OpenJoinFriendsAction_Params: _OpenJoinFriendsAction_ParamsMessage,
+		OpenMarketplaceTryOnAction: _OpenMarketplaceTryOnActionMessage,
+		OpenMarketplaceTryOnAction_Params: _OpenMarketplaceTryOnAction_ParamsMessage,
+		OpenSeeAllAction: _OpenSeeAllActionMessage,
+		OpenSeeAllAction_Params: _OpenSeeAllAction_ParamsMessage,
+		OpenSponsoredTooltipAction: _OpenSponsoredTooltipActionMessage,
+		OpenSponsoredTooltipAction_Params: _OpenSponsoredTooltipAction_ParamsMessage,
+		PlayButtonClickAction: _PlayButtonClickActionMessage,
+		PlayButtonClickAction_Params: _PlayButtonClickAction_ParamsMessage,
+		UpdateUserSettingsAction: _UpdateUserSettingsActionMessage,
+		UpdateUserSettingsAction_Params: _UpdateUserSettingsAction_ParamsMessage,
+		OpenTooltipAction: _OpenTooltipActionMessage,
+		OpenTooltipAction_Params: _OpenTooltipAction_ParamsMessage,
+		OpenBadgeDetailsAction: _OpenBadgeDetailsActionMessage,
+		OpenBadgeDetailsAction_Params: _OpenBadgeDetailsAction_ParamsMessage,
+		LoadMoreFromApiAction: _LoadMoreFromApiActionMessage,
+		LoadMoreFromApiAction_Params: _LoadMoreFromApiAction_ParamsMessage,
+		ShareAction: _ShareActionMessage,
+		ShareAction_ShareLinkData: _ShareAction_ShareLinkDataMessage,
+		ShareAction_Params: _ShareAction_ParamsMessage,
+		OpenAbuseReportAction: _OpenAbuseReportActionMessage,
+		OpenAbuseReportAction_Params: _OpenAbuseReportAction_ParamsMessage,
+		RemoveBadgeFromInventoryAction: _RemoveBadgeFromInventoryActionMessage,
+		RemoveBadgeFromInventoryAction_Params: _RemoveBadgeFromInventoryAction_ParamsMessage,
+		OpenProfileAction: _OpenProfileActionMessage,
+		OpenProfileAction_Params: _OpenProfileAction_ParamsMessage,
+		OpenFacialAgeEstimationAction: _OpenFacialAgeEstimationActionMessage,
+		OpenFacialAgeEstimationAction_Params: _OpenFacialAgeEstimationAction_ParamsMessage,
+		OpenAddConnectionsPageAction: _OpenAddConnectionsPageActionMessage,
+		OpenAddConnectionsPageAction_Params: _OpenAddConnectionsPageAction_ParamsMessage,
+		OpenMarketplaceAction: _OpenMarketplaceActionMessage,
+		OpenMarketplaceAction_Params: _OpenMarketplaceAction_ParamsMessage,
+		HideProfileCompletionAction: _HideProfileCompletionActionMessage,
+		HideProfileCompletionAction_Params: _HideProfileCompletionAction_ParamsMessage,
+		SelectMarketplaceCatalogCategory: _SelectMarketplaceCatalogCategoryMessage,
+		SelectMarketplaceCatalogCategory_Params: _SelectMarketplaceCatalogCategory_ParamsMessage,
+		SelectMarketplaceCatalogSubcategory: _SelectMarketplaceCatalogSubcategoryMessage,
+		SelectMarketplaceCatalogSubcategory_Params: _SelectMarketplaceCatalogSubcategory_ParamsMessage,
+		OpenMarketplaceCatalogSeeAll: _OpenMarketplaceCatalogSeeAllMessage,
+		OpenMarketplaceCatalogSeeAll_Params: _OpenMarketplaceCatalogSeeAll_ParamsMessage,
+		CloseMarketplaceCategoryTooltip: _CloseMarketplaceCategoryTooltipMessage,
+		CloseMarketplaceCategoryTooltip_Params: _CloseMarketplaceCategoryTooltip_ParamsMessage,
+		ResizeMarketplaceCatalog: _ResizeMarketplaceCatalogMessage,
+		ResizeMarketplaceCatalog_Params: _ResizeMarketplaceCatalog_ParamsMessage,
+		OpenChartsSortDetailAction: _OpenChartsSortDetailActionMessage,
+		OpenChartsSortDetailAction_Params: _OpenChartsSortDetailAction_ParamsMessage,
+		OpenSongDetailAction: _OpenSongDetailActionMessage,
+		OpenSongDetailAction_Params: _OpenSongDetailAction_ParamsMessage,
+		OpenMarketplaceCatalogFilters: _OpenMarketplaceCatalogFiltersMessage,
+		OpenMarketplaceCatalogFilters_Params: _OpenMarketplaceCatalogFilters_ParamsMessage,
+		RefreshFromApiAction: _RefreshFromApiActionMessage,
+		RefreshFromApiAction_Params: _RefreshFromApiAction_ParamsMessage,
+		RsvpToEventAction: _RsvpToEventActionMessage,
+		RsvpToEventAction_Params: _RsvpToEventAction_ParamsMessage,
+		OpenEventDetailsAction: _OpenEventDetailsActionMessage,
+		OpenEventDetailsAction_Params: _OpenEventDetailsAction_ParamsMessage,
+		OpenSduiOverlayAction: _OpenSduiOverlayActionMessage,
+		OpenSduiOverlayAction_Params: _OpenSduiOverlayAction_ParamsMessage,
+		ApplyChartsFilterAction: _ApplyChartsFilterActionMessage,
+		ApplyChartsFilterAction_Params: _ApplyChartsFilterAction_ParamsMessage,
+		AnalyticsEventAction: _AnalyticsEventActionMessage,
+		AnalyticsEventAction_Params: _AnalyticsEventAction_ParamsMessage,
+		CustomAnalyticsEventAction: _CustomAnalyticsEventActionMessage,
+		CustomAnalyticsEventAction_Params: _CustomAnalyticsEventAction_ParamsMessage,
+		OpenGameInviteAction: _OpenGameInviteActionMessage,
+		OpenGameInviteAction_Params: _OpenGameInviteAction_ParamsMessage,
+		LaunchExperienceAction: _LaunchExperienceActionMessage,
+		LaunchExperienceAction_ExperienceJoinData: _LaunchExperienceAction_ExperienceJoinDataMessage,
+		LaunchExperienceAction_Params: _LaunchExperienceAction_ParamsMessage,
+		ToggleExperienceFavoriteAction: _ToggleExperienceFavoriteActionMessage,
+		ToggleExperienceFavoriteAction_Params: _ToggleExperienceFavoriteAction_ParamsMessage,
+		ToggleExperienceFollowAction: _ToggleExperienceFollowActionMessage,
+		ToggleExperienceFollowAction_Params: _ToggleExperienceFollowAction_ParamsMessage,
+		ToggleExperienceVoteAction: _ToggleExperienceVoteActionMessage,
+		ToggleExperienceVoteAction_Params: _ToggleExperienceVoteAction_ParamsMessage,
+		OpenPurchasePromptAction: _OpenPurchasePromptActionMessage,
+		OpenPurchasePromptAction_ProductPayload: _OpenPurchasePromptAction_ProductPayloadMessage,
+		OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral: _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralMessage,
+		OpenPurchasePromptAction_PriceDiscountDetail: _OpenPurchasePromptAction_PriceDiscountDetailMessage,
+		OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral: _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralMessage,
+		OpenPurchasePromptAction_PriceDiscountDetailArrayProp: _OpenPurchasePromptAction_PriceDiscountDetailArrayPropMessage,
+		OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails: _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsMessage,
+		OpenPurchasePromptAction_DisplayInfo: _OpenPurchasePromptAction_DisplayInfoMessage,
+		OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral: _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralMessage,
+		OpenPurchasePromptAction_PurchaseOptions: _OpenPurchasePromptAction_PurchaseOptionsMessage,
+		OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral: _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralMessage,
+		OpenPurchasePromptAction_PurchaseAnalyticsMetadata: _OpenPurchasePromptAction_PurchaseAnalyticsMetadataMessage,
+		OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral: _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralMessage,
+		OpenPurchasePromptAction_Params: _OpenPurchasePromptAction_ParamsMessage,
+		Action: _ActionMessage,
+		ActionProp: _ActionPropMessage,
+		ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
+		ActionProp_ConditionalOptions: _ActionProp_ConditionalOptionsMessage,
+		FocusNavActionsProp: _FocusNavActionsPropMessage,
+		FocusNavActionsProp_ConditionalOption: _FocusNavActionsProp_ConditionalOptionMessage,
+		FocusNavActionsProp_ConditionalOptions: _FocusNavActionsProp_ConditionalOptionsMessage,
+		FocusNavActionsProp_FocusNavData: _FocusNavActionsProp_FocusNavDataMessage,
+		FocusNavActionsProp_FocusNavData_KeysEntry: _FocusNavActionsProp_FocusNavData_KeysEntryMessage,
+		FocusNavActionsProp_FocusNavData_EventsEntry: _FocusNavActionsProp_FocusNavData_EventsEntryMessage,
+		ActionType: _ActionTypeMessage,
+	}
 local messages: _Messages = {} :: _Messages
 
 local _google_protobuf_struct = require(script.Parent.Parent.Parent.Parent.Parent.google.protobuf.struct)
@@ -1887,6 +1913,61 @@ type _OpenEventDetailsAction_ParamsMessage = proto.Message<
 	_OpenEventDetailsAction_ParamsPartialFields
 >
 
+type _OpenSduiOverlayActionImpl = {
+	__index: _OpenSduiOverlayActionImpl,
+	new: (fields: _OpenSduiOverlayActionPartialFields?) -> OpenSduiOverlayAction,
+	encode: (self: OpenSduiOverlayAction) -> buffer,
+	decode: (input: buffer) -> OpenSduiOverlayAction,
+	jsonEncode: (self: OpenSduiOverlayAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSduiOverlayAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSduiOverlayActionFields = {
+	action_type: ActionType,
+	action_params: OpenSduiOverlayAction_Params?,
+}
+
+type _OpenSduiOverlayActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenSduiOverlayAction_Params?,
+}
+
+export type OpenSduiOverlayAction = typeof(setmetatable(
+	{} :: _OpenSduiOverlayActionFields,
+	{} :: _OpenSduiOverlayActionImpl
+))
+type _OpenSduiOverlayActionMessage = proto.Message<OpenSduiOverlayAction, _OpenSduiOverlayActionPartialFields>
+
+type _OpenSduiOverlayAction_ParamsImpl = {
+	__index: _OpenSduiOverlayAction_ParamsImpl,
+	new: (fields: _OpenSduiOverlayAction_ParamsPartialFields?) -> OpenSduiOverlayAction_Params,
+	encode: (self: OpenSduiOverlayAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenSduiOverlayAction_Params,
+	jsonEncode: (self: OpenSduiOverlayAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenSduiOverlayAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenSduiOverlayAction_ParamsFields = {
+	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	identifier: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenSduiOverlayAction_ParamsPartialFields = {
+	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	identifier: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenSduiOverlayAction_Params = typeof(setmetatable(
+	{} :: _OpenSduiOverlayAction_ParamsFields,
+	{} :: _OpenSduiOverlayAction_ParamsImpl
+))
+type _OpenSduiOverlayAction_ParamsMessage = proto.Message<
+	OpenSduiOverlayAction_Params,
+	_OpenSduiOverlayAction_ParamsPartialFields
+>
+
 type _ApplyChartsFilterActionImpl = {
 	__index: _ApplyChartsFilterActionImpl,
 	new: (fields: _ApplyChartsFilterActionPartialFields?) -> ApplyChartsFilterAction,
@@ -2112,6 +2193,781 @@ type _OpenGameInviteAction_ParamsMessage = proto.Message<
 	_OpenGameInviteAction_ParamsPartialFields
 >
 
+type _LaunchExperienceActionImpl = {
+	__index: _LaunchExperienceActionImpl,
+	new: (fields: _LaunchExperienceActionPartialFields?) -> LaunchExperienceAction,
+	encode: (self: LaunchExperienceAction) -> buffer,
+	decode: (input: buffer) -> LaunchExperienceAction,
+	jsonEncode: (self: LaunchExperienceAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LaunchExperienceAction,
+	descriptor: proto.Descriptor,
+}
+
+type _LaunchExperienceActionFields = {
+	action_type: ActionType,
+	action_params: LaunchExperienceAction_Params?,
+}
+
+type _LaunchExperienceActionPartialFields = {
+	action_type: ActionType?,
+	action_params: LaunchExperienceAction_Params?,
+}
+
+export type LaunchExperienceAction = typeof(setmetatable(
+	{} :: _LaunchExperienceActionFields,
+	{} :: _LaunchExperienceActionImpl
+))
+type _LaunchExperienceActionMessage = proto.Message<LaunchExperienceAction, _LaunchExperienceActionPartialFields>
+
+type _LaunchExperienceAction_ExperienceJoinDataImpl = {
+	__index: _LaunchExperienceAction_ExperienceJoinDataImpl,
+	new: (
+		fields: _LaunchExperienceAction_ExperienceJoinDataPartialFields?
+	) -> LaunchExperienceAction_ExperienceJoinData,
+	encode: (self: LaunchExperienceAction_ExperienceJoinData) -> buffer,
+	decode: (input: buffer) -> LaunchExperienceAction_ExperienceJoinData,
+	jsonEncode: (self: LaunchExperienceAction_ExperienceJoinData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LaunchExperienceAction_ExperienceJoinData,
+	descriptor: proto.Descriptor,
+}
+
+type _LaunchExperienceAction_ExperienceJoinDataFields = {
+	launch_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	event_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _LaunchExperienceAction_ExperienceJoinDataPartialFields = {
+	launch_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	event_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type LaunchExperienceAction_ExperienceJoinData = typeof(setmetatable(
+	{} :: _LaunchExperienceAction_ExperienceJoinDataFields,
+	{} :: _LaunchExperienceAction_ExperienceJoinDataImpl
+))
+type _LaunchExperienceAction_ExperienceJoinDataMessage = proto.Message<
+	LaunchExperienceAction_ExperienceJoinData,
+	_LaunchExperienceAction_ExperienceJoinDataPartialFields
+>
+
+type _LaunchExperienceAction_ParamsImpl = {
+	__index: _LaunchExperienceAction_ParamsImpl,
+	new: (fields: _LaunchExperienceAction_ParamsPartialFields?) -> LaunchExperienceAction_Params,
+	encode: (self: LaunchExperienceAction_Params) -> buffer,
+	decode: (input: buffer) -> LaunchExperienceAction_Params,
+	jsonEncode: (self: LaunchExperienceAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LaunchExperienceAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _LaunchExperienceAction_ParamsFields = {
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	launch_source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	experience_join_data: LaunchExperienceAction_ExperienceJoinData?,
+}
+
+type _LaunchExperienceAction_ParamsPartialFields = {
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	launch_source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	experience_join_data: LaunchExperienceAction_ExperienceJoinData?,
+}
+
+export type LaunchExperienceAction_Params = typeof(setmetatable(
+	{} :: _LaunchExperienceAction_ParamsFields,
+	{} :: _LaunchExperienceAction_ParamsImpl
+))
+type _LaunchExperienceAction_ParamsMessage = proto.Message<
+	LaunchExperienceAction_Params,
+	_LaunchExperienceAction_ParamsPartialFields
+>
+
+type _ToggleExperienceFavoriteActionImpl = {
+	__index: _ToggleExperienceFavoriteActionImpl,
+	new: (fields: _ToggleExperienceFavoriteActionPartialFields?) -> ToggleExperienceFavoriteAction,
+	encode: (self: ToggleExperienceFavoriteAction) -> buffer,
+	decode: (input: buffer) -> ToggleExperienceFavoriteAction,
+	jsonEncode: (self: ToggleExperienceFavoriteAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleExperienceFavoriteAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleExperienceFavoriteActionFields = {
+	action_type: ActionType,
+	action_params: ToggleExperienceFavoriteAction_Params?,
+}
+
+type _ToggleExperienceFavoriteActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ToggleExperienceFavoriteAction_Params?,
+}
+
+export type ToggleExperienceFavoriteAction = typeof(setmetatable(
+	{} :: _ToggleExperienceFavoriteActionFields,
+	{} :: _ToggleExperienceFavoriteActionImpl
+))
+type _ToggleExperienceFavoriteActionMessage = proto.Message<
+	ToggleExperienceFavoriteAction,
+	_ToggleExperienceFavoriteActionPartialFields
+>
+
+type _ToggleExperienceFavoriteAction_ParamsImpl = {
+	__index: _ToggleExperienceFavoriteAction_ParamsImpl,
+	new: (fields: _ToggleExperienceFavoriteAction_ParamsPartialFields?) -> ToggleExperienceFavoriteAction_Params,
+	encode: (self: ToggleExperienceFavoriteAction_Params) -> buffer,
+	decode: (input: buffer) -> ToggleExperienceFavoriteAction_Params,
+	jsonEncode: (self: ToggleExperienceFavoriteAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleExperienceFavoriteAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleExperienceFavoriteAction_ParamsFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	ctx: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ToggleExperienceFavoriteAction_ParamsPartialFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	ctx: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ToggleExperienceFavoriteAction_Params = typeof(setmetatable(
+	{} :: _ToggleExperienceFavoriteAction_ParamsFields,
+	{} :: _ToggleExperienceFavoriteAction_ParamsImpl
+))
+type _ToggleExperienceFavoriteAction_ParamsMessage = proto.Message<
+	ToggleExperienceFavoriteAction_Params,
+	_ToggleExperienceFavoriteAction_ParamsPartialFields
+>
+
+type _ToggleExperienceFollowActionImpl = {
+	__index: _ToggleExperienceFollowActionImpl,
+	new: (fields: _ToggleExperienceFollowActionPartialFields?) -> ToggleExperienceFollowAction,
+	encode: (self: ToggleExperienceFollowAction) -> buffer,
+	decode: (input: buffer) -> ToggleExperienceFollowAction,
+	jsonEncode: (self: ToggleExperienceFollowAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleExperienceFollowAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleExperienceFollowActionFields = {
+	action_type: ActionType,
+	action_params: ToggleExperienceFollowAction_Params?,
+}
+
+type _ToggleExperienceFollowActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ToggleExperienceFollowAction_Params?,
+}
+
+export type ToggleExperienceFollowAction = typeof(setmetatable(
+	{} :: _ToggleExperienceFollowActionFields,
+	{} :: _ToggleExperienceFollowActionImpl
+))
+type _ToggleExperienceFollowActionMessage = proto.Message<
+	ToggleExperienceFollowAction,
+	_ToggleExperienceFollowActionPartialFields
+>
+
+type _ToggleExperienceFollowAction_ParamsImpl = {
+	__index: _ToggleExperienceFollowAction_ParamsImpl,
+	new: (fields: _ToggleExperienceFollowAction_ParamsPartialFields?) -> ToggleExperienceFollowAction_Params,
+	encode: (self: ToggleExperienceFollowAction_Params) -> buffer,
+	decode: (input: buffer) -> ToggleExperienceFollowAction_Params,
+	jsonEncode: (self: ToggleExperienceFollowAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleExperienceFollowAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleExperienceFollowAction_ParamsFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	game_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	ctx: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ToggleExperienceFollowAction_ParamsPartialFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	game_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	ctx: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ToggleExperienceFollowAction_Params = typeof(setmetatable(
+	{} :: _ToggleExperienceFollowAction_ParamsFields,
+	{} :: _ToggleExperienceFollowAction_ParamsImpl
+))
+type _ToggleExperienceFollowAction_ParamsMessage = proto.Message<
+	ToggleExperienceFollowAction_Params,
+	_ToggleExperienceFollowAction_ParamsPartialFields
+>
+
+type _ToggleExperienceVoteActionImpl = {
+	__index: _ToggleExperienceVoteActionImpl,
+	new: (fields: _ToggleExperienceVoteActionPartialFields?) -> ToggleExperienceVoteAction,
+	encode: (self: ToggleExperienceVoteAction) -> buffer,
+	decode: (input: buffer) -> ToggleExperienceVoteAction,
+	jsonEncode: (self: ToggleExperienceVoteAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleExperienceVoteAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleExperienceVoteActionFields = {
+	action_type: ActionType,
+	action_params: ToggleExperienceVoteAction_Params?,
+}
+
+type _ToggleExperienceVoteActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ToggleExperienceVoteAction_Params?,
+}
+
+export type ToggleExperienceVoteAction = typeof(setmetatable(
+	{} :: _ToggleExperienceVoteActionFields,
+	{} :: _ToggleExperienceVoteActionImpl
+))
+type _ToggleExperienceVoteActionMessage = proto.Message<
+	ToggleExperienceVoteAction,
+	_ToggleExperienceVoteActionPartialFields
+>
+
+type _ToggleExperienceVoteAction_ParamsImpl = {
+	__index: _ToggleExperienceVoteAction_ParamsImpl,
+	new: (fields: _ToggleExperienceVoteAction_ParamsPartialFields?) -> ToggleExperienceVoteAction_Params,
+	encode: (self: ToggleExperienceVoteAction_Params) -> buffer,
+	decode: (input: buffer) -> ToggleExperienceVoteAction_Params,
+	jsonEncode: (self: ToggleExperienceVoteAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ToggleExperienceVoteAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ToggleExperienceVoteAction_ParamsFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	vote_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	ctx: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ToggleExperienceVoteAction_ParamsPartialFields = {
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	vote_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	ctx: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ToggleExperienceVoteAction_Params = typeof(setmetatable(
+	{} :: _ToggleExperienceVoteAction_ParamsFields,
+	{} :: _ToggleExperienceVoteAction_ParamsImpl
+))
+type _ToggleExperienceVoteAction_ParamsMessage = proto.Message<
+	ToggleExperienceVoteAction_Params,
+	_ToggleExperienceVoteAction_ParamsPartialFields
+>
+
+type _OpenPurchasePromptActionImpl = {
+	__index: _OpenPurchasePromptActionImpl,
+	new: (fields: _OpenPurchasePromptActionPartialFields?) -> OpenPurchasePromptAction,
+	encode: (self: OpenPurchasePromptAction) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction,
+	jsonEncode: (self: OpenPurchasePromptAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptActionFields = {
+	action_type: ActionType,
+	action_params: OpenPurchasePromptAction_Params?,
+}
+
+type _OpenPurchasePromptActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenPurchasePromptAction_Params?,
+}
+
+export type OpenPurchasePromptAction = typeof(setmetatable(
+	{} :: _OpenPurchasePromptActionFields,
+	{} :: _OpenPurchasePromptActionImpl
+))
+type _OpenPurchasePromptActionMessage = proto.Message<OpenPurchasePromptAction, _OpenPurchasePromptActionPartialFields>
+
+type _OpenPurchasePromptAction_ProductPayloadImpl = {
+	__index: _OpenPurchasePromptAction_ProductPayloadImpl,
+	new: (fields: _OpenPurchasePromptAction_ProductPayloadPartialFields?) -> OpenPurchasePromptAction_ProductPayload,
+	encode: (self: OpenPurchasePromptAction_ProductPayload) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_ProductPayload,
+	jsonEncode: (self: OpenPurchasePromptAction_ProductPayload) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction_ProductPayload,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_ProductPayloadFields = {
+	kind: (
+		{ type: "literal", value: OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _OpenPurchasePromptAction_ProductPayloadPartialFields = {
+	kind: (
+		{ type: "literal", value: OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type OpenPurchasePromptAction_ProductPayload = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_ProductPayloadFields,
+	{} :: _OpenPurchasePromptAction_ProductPayloadImpl
+))
+type _OpenPurchasePromptAction_ProductPayloadMessage = proto.Message<
+	OpenPurchasePromptAction_ProductPayload,
+	_OpenPurchasePromptAction_ProductPayloadPartialFields
+>
+
+type _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl = {
+	__index: _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl,
+	new: (
+		fields: _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralPartialFields?
+	) -> OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral,
+	encode: (self: OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral,
+	jsonEncode: (self: OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralFields = {
+	kind: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subscription_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	equip_if_purchased: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	expected_price: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	icon_image_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	is_subscription_in_robux: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	display_price: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralPartialFields = {
+	kind: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subscription_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	equip_if_purchased: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	expected_price: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	icon_image_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	is_subscription_in_robux: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	display_price: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralFields,
+	{} :: _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl
+))
+type _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralMessage = proto.Message<
+	OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral,
+	_OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralPartialFields
+>
+
+type _OpenPurchasePromptAction_PriceDiscountDetailImpl = {
+	__index: _OpenPurchasePromptAction_PriceDiscountDetailImpl,
+	new: (
+		fields: _OpenPurchasePromptAction_PriceDiscountDetailPartialFields?
+	) -> OpenPurchasePromptAction_PriceDiscountDetail,
+	encode: (self: OpenPurchasePromptAction_PriceDiscountDetail) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_PriceDiscountDetail,
+	jsonEncode: (self: OpenPurchasePromptAction_PriceDiscountDetail) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction_PriceDiscountDetail,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_PriceDiscountDetailFields = {
+	kind: (
+		{ type: "literal", value: OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _OpenPurchasePromptAction_PriceDiscountDetailPartialFields = {
+	kind: (
+		{ type: "literal", value: OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type OpenPurchasePromptAction_PriceDiscountDetail = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_PriceDiscountDetailFields,
+	{} :: _OpenPurchasePromptAction_PriceDiscountDetailImpl
+))
+type _OpenPurchasePromptAction_PriceDiscountDetailMessage = proto.Message<
+	OpenPurchasePromptAction_PriceDiscountDetail,
+	_OpenPurchasePromptAction_PriceDiscountDetailPartialFields
+>
+
+type _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl = {
+	__index: _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl,
+	new: (
+		fields: _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralPartialFields?
+	) -> OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral,
+	encode: (self: OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral,
+	jsonEncode: (self: OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralFields = {
+	type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	amount_in_robux: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	percent: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+}
+
+type _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralPartialFields = {
+	type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	amount_in_robux: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	percent: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+}
+
+export type OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralFields,
+	{} :: _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl
+))
+type _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralMessage = proto.Message<
+	OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral,
+	_OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralPartialFields
+>
+
+type _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl = {
+	__index: _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl,
+	new: (
+		fields: _OpenPurchasePromptAction_PriceDiscountDetailArrayPropPartialFields?
+	) -> OpenPurchasePromptAction_PriceDiscountDetailArrayProp,
+	encode: (self: OpenPurchasePromptAction_PriceDiscountDetailArrayProp) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_PriceDiscountDetailArrayProp,
+	jsonEncode: (self: OpenPurchasePromptAction_PriceDiscountDetailArrayProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction_PriceDiscountDetailArrayProp,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_PriceDiscountDetailArrayPropFields = {
+	kind: (
+		{ type: "literal", value: OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _OpenPurchasePromptAction_PriceDiscountDetailArrayPropPartialFields = {
+	kind: (
+		{ type: "literal", value: OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type OpenPurchasePromptAction_PriceDiscountDetailArrayProp = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_PriceDiscountDetailArrayPropFields,
+	{} :: _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl
+))
+type _OpenPurchasePromptAction_PriceDiscountDetailArrayPropMessage = proto.Message<
+	OpenPurchasePromptAction_PriceDiscountDetailArrayProp,
+	_OpenPurchasePromptAction_PriceDiscountDetailArrayPropPartialFields
+>
+
+type _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl = {
+	__index: _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl,
+	new: (
+		fields: _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsPartialFields?
+	) -> OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails,
+	encode: (self: OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails,
+	jsonEncode: (
+		self: OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails
+	) -> { [string]: any },
+	jsonDecode: (
+		input: { [string]: any }
+	) -> OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsFields = {
+	array: { OpenPurchasePromptAction_PriceDiscountDetail },
+}
+
+type _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsPartialFields = {
+	array: { OpenPurchasePromptAction_PriceDiscountDetail }?,
+}
+
+export type OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsFields,
+	{} :: _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl
+))
+type _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsMessage = proto.Message<
+	OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails,
+	_OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsPartialFields
+>
+
+type _OpenPurchasePromptAction_DisplayInfoImpl = {
+	__index: _OpenPurchasePromptAction_DisplayInfoImpl,
+	new: (fields: _OpenPurchasePromptAction_DisplayInfoPartialFields?) -> OpenPurchasePromptAction_DisplayInfo,
+	encode: (self: OpenPurchasePromptAction_DisplayInfo) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_DisplayInfo,
+	jsonEncode: (self: OpenPurchasePromptAction_DisplayInfo) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction_DisplayInfo,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_DisplayInfoFields = {
+	kind: (
+		{ type: "literal", value: OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _OpenPurchasePromptAction_DisplayInfoPartialFields = {
+	kind: (
+		{ type: "literal", value: OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type OpenPurchasePromptAction_DisplayInfo = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_DisplayInfoFields,
+	{} :: _OpenPurchasePromptAction_DisplayInfoImpl
+))
+type _OpenPurchasePromptAction_DisplayInfoMessage = proto.Message<
+	OpenPurchasePromptAction_DisplayInfo,
+	_OpenPurchasePromptAction_DisplayInfoPartialFields
+>
+
+type _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl = {
+	__index: _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl,
+	new: (
+		fields: _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralPartialFields?
+	) -> OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral,
+	encode: (self: OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral,
+	jsonEncode: (self: OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralFields = {
+	product_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	description: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	image_url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	price_in_robux: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	display_price: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	icon_image_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	product_id: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	target_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_for_sale: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	product_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	base_price_in_robux: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	price_discount_details: OpenPurchasePromptAction_PriceDiscountDetailArrayProp?,
+}
+
+type _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralPartialFields = {
+	product_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	description: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	image_url: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	price_in_robux: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	display_price: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	icon_image_asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	product_id: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	target_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	is_for_sale: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	product_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	base_price_in_robux: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+	price_discount_details: OpenPurchasePromptAction_PriceDiscountDetailArrayProp?,
+}
+
+export type OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralFields,
+	{} :: _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl
+))
+type _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralMessage = proto.Message<
+	OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral,
+	_OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralPartialFields
+>
+
+type _OpenPurchasePromptAction_PurchaseOptionsImpl = {
+	__index: _OpenPurchasePromptAction_PurchaseOptionsImpl,
+	new: (fields: _OpenPurchasePromptAction_PurchaseOptionsPartialFields?) -> OpenPurchasePromptAction_PurchaseOptions,
+	encode: (self: OpenPurchasePromptAction_PurchaseOptions) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_PurchaseOptions,
+	jsonEncode: (self: OpenPurchasePromptAction_PurchaseOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction_PurchaseOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_PurchaseOptionsFields = {
+	kind: (
+		{ type: "literal", value: OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _OpenPurchasePromptAction_PurchaseOptionsPartialFields = {
+	kind: (
+		{ type: "literal", value: OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type OpenPurchasePromptAction_PurchaseOptions = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_PurchaseOptionsFields,
+	{} :: _OpenPurchasePromptAction_PurchaseOptionsImpl
+))
+type _OpenPurchasePromptAction_PurchaseOptionsMessage = proto.Message<
+	OpenPurchasePromptAction_PurchaseOptions,
+	_OpenPurchasePromptAction_PurchaseOptionsPartialFields
+>
+
+type _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl = {
+	__index: _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl,
+	new: (
+		fields: _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralPartialFields?
+	) -> OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral,
+	encode: (self: OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral,
+	jsonEncode: (self: OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralFields = {
+	should_skip_ownership_check: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	enable_preloaded_purchase_ui: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	completion_message: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	completion_button_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prevent_double_confirm: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	provided_robux_balance: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+}
+
+type _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralPartialFields = {
+	should_skip_ownership_check: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	enable_preloaded_purchase_ui: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	completion_message: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	completion_button_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	prevent_double_confirm: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	provided_robux_balance: _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop?,
+}
+
+export type OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralFields,
+	{} :: _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl
+))
+type _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralMessage = proto.Message<
+	OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral,
+	_OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralPartialFields
+>
+
+type _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl = {
+	__index: _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl,
+	new: (
+		fields: _OpenPurchasePromptAction_PurchaseAnalyticsMetadataPartialFields?
+	) -> OpenPurchasePromptAction_PurchaseAnalyticsMetadata,
+	encode: (self: OpenPurchasePromptAction_PurchaseAnalyticsMetadata) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_PurchaseAnalyticsMetadata,
+	jsonEncode: (self: OpenPurchasePromptAction_PurchaseAnalyticsMetadata) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction_PurchaseAnalyticsMetadata,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_PurchaseAnalyticsMetadataFields = {
+	kind: ({
+		type: "literal",
+		value: OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral,
+	} | { type: "binding_path", value: string })?,
+}
+
+type _OpenPurchasePromptAction_PurchaseAnalyticsMetadataPartialFields = {
+	kind: ({
+		type: "literal",
+		value: OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral,
+	} | { type: "binding_path", value: string })?,
+}
+
+export type OpenPurchasePromptAction_PurchaseAnalyticsMetadata = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_PurchaseAnalyticsMetadataFields,
+	{} :: _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl
+))
+type _OpenPurchasePromptAction_PurchaseAnalyticsMetadataMessage = proto.Message<
+	OpenPurchasePromptAction_PurchaseAnalyticsMetadata,
+	_OpenPurchasePromptAction_PurchaseAnalyticsMetadataPartialFields
+>
+
+type _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl = {
+	__index: _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl,
+	new: (
+		fields: _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralPartialFields?
+	) -> OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral,
+	encode: (self: OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral,
+	jsonEncode: (
+		self: OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral
+	) -> { [string]: any },
+	jsonDecode: (
+		input: { [string]: any }
+	) -> OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralFields = {
+	surface: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	product_universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralPartialFields = {
+	surface: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	product_universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralFields,
+	{} :: _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl
+))
+type _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralMessage = proto.Message<
+	OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral,
+	_OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralPartialFields
+>
+
+type _OpenPurchasePromptAction_ParamsImpl = {
+	__index: _OpenPurchasePromptAction_ParamsImpl,
+	new: (fields: _OpenPurchasePromptAction_ParamsPartialFields?) -> OpenPurchasePromptAction_Params,
+	encode: (self: OpenPurchasePromptAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenPurchasePromptAction_Params,
+	jsonEncode: (self: OpenPurchasePromptAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenPurchasePromptAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenPurchasePromptAction_ParamsFields = {
+	product_payload: OpenPurchasePromptAction_ProductPayload?,
+	display_info: OpenPurchasePromptAction_DisplayInfo?,
+	purchase_options: OpenPurchasePromptAction_PurchaseOptions?,
+	purchase_analytics_metadata: OpenPurchasePromptAction_PurchaseAnalyticsMetadata?,
+	root_place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenPurchasePromptAction_ParamsPartialFields = {
+	product_payload: OpenPurchasePromptAction_ProductPayload?,
+	display_info: OpenPurchasePromptAction_DisplayInfo?,
+	purchase_options: OpenPurchasePromptAction_PurchaseOptions?,
+	purchase_analytics_metadata: OpenPurchasePromptAction_PurchaseAnalyticsMetadata?,
+	root_place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenPurchasePromptAction_Params = typeof(setmetatable(
+	{} :: _OpenPurchasePromptAction_ParamsFields,
+	{} :: _OpenPurchasePromptAction_ParamsImpl
+))
+type _OpenPurchasePromptAction_ParamsMessage = proto.Message<
+	OpenPurchasePromptAction_Params,
+	_OpenPurchasePromptAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -2160,8 +3016,15 @@ type _ActionFields = {
 		| { type: "custom_analytics_event_action", value: CustomAnalyticsEventAction }
 		| { type: "open_game_invite_action", value: OpenGameInviteAction }
 		| { type: "open_event_details_action", value: OpenEventDetailsAction }
+		| { type: "launch_experience_action", value: LaunchExperienceAction }
+		| { type: "toggle_experience_favorite_action", value: ToggleExperienceFavoriteAction }
+		| { type: "toggle_experience_follow_action", value: ToggleExperienceFollowAction }
+		| { type: "toggle_experience_vote_action", value: ToggleExperienceVoteAction }
+		| { type: "open_purchase_prompt_action", value: OpenPurchasePromptAction }
+		| { type: "open_sdui_overlay_action", value: OpenSduiOverlayAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
 }
 
 type _ActionPartialFields = {
@@ -2202,8 +3065,15 @@ type _ActionPartialFields = {
 		| { type: "custom_analytics_event_action", value: CustomAnalyticsEventAction }
 		| { type: "open_game_invite_action", value: OpenGameInviteAction }
 		| { type: "open_event_details_action", value: OpenEventDetailsAction }
+		| { type: "launch_experience_action", value: LaunchExperienceAction }
+		| { type: "toggle_experience_favorite_action", value: ToggleExperienceFavoriteAction }
+		| { type: "toggle_experience_follow_action", value: ToggleExperienceFollowAction }
+		| { type: "toggle_experience_vote_action", value: ToggleExperienceVoteAction }
+		| { type: "open_purchase_prompt_action", value: OpenPurchasePromptAction }
+		| { type: "open_sdui_overlay_action", value: OpenSduiOverlayAction }
 	)?,
 	telemetry_handler: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	accessibility_label: _roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat?,
 }
 
 export type Action = typeof(setmetatable({} :: _ActionFields, {} :: _ActionImpl))
@@ -2499,6 +3369,12 @@ export type ActionType =
 	| "ACTION_TYPE_CUSTOM_ANALYTICS_EVENT"
 	| "ACTION_TYPE_OPEN_GAME_INVITE"
 	| "ACTION_TYPE_OPEN_EVENT_DETAILS"
+	| "ACTION_TYPE_LAUNCH_EXPERIENCE"
+	| "ACTION_TYPE_TOGGLE_EXPERIENCE_FAVORITE"
+	| "ACTION_TYPE_TOGGLE_EXPERIENCE_FOLLOW"
+	| "ACTION_TYPE_TOGGLE_EXPERIENCE_VOTE"
+	| "ACTION_TYPE_OPEN_PURCHASE_PROMPT"
+	| "ACTION_TYPE_OPEN_SDUI_OVERLAY"
 	| number -- Unknown
 
 do
@@ -11481,6 +12357,275 @@ do
 end
 
 do
+	local _OpenSduiOverlayActionImpl = {}
+	_OpenSduiOverlayActionImpl.__index = _OpenSduiOverlayActionImpl
+
+	function _OpenSduiOverlayActionImpl.new(data: _OpenSduiOverlayActionPartialFields?): OpenSduiOverlayAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenSduiOverlayActionImpl :: _OpenSduiOverlayActionImpl)
+	end
+
+	function _OpenSduiOverlayActionImpl.encode(self: OpenSduiOverlayAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSduiOverlayActionImpl.decode(input: buffer): OpenSduiOverlayAction
+		local self = _OpenSduiOverlayActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenSduiOverlayAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSduiOverlayActionImpl.jsonEncode(self: OpenSduiOverlayAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSduiOverlayActionImpl.jsonDecode(input: { [string]: any }): OpenSduiOverlayAction
+		local self = _OpenSduiOverlayActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenSduiOverlayAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenSduiOverlayAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenSduiOverlayActionImpl.descriptor = {
+		name = "OpenSduiOverlayAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenSduiOverlayAction",
+	}
+
+	messages.OpenSduiOverlayAction = _OpenSduiOverlayActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSduiOverlayAction)
+end
+
+do
+	local _OpenSduiOverlayAction_ParamsImpl = {}
+	_OpenSduiOverlayAction_ParamsImpl.__index = _OpenSduiOverlayAction_ParamsImpl
+
+	function _OpenSduiOverlayAction_ParamsImpl.new(
+		data: _OpenSduiOverlayAction_ParamsPartialFields?
+	): OpenSduiOverlayAction_Params
+		return setmetatable({
+			config_key = if data == nil or data.config_key == nil then nil else data.config_key,
+			identifier = if data == nil or data.identifier == nil then nil else data.identifier,
+		}, _OpenSduiOverlayAction_ParamsImpl :: _OpenSduiOverlayAction_ParamsImpl)
+	end
+
+	function _OpenSduiOverlayAction_ParamsImpl.encode(self: OpenSduiOverlayAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.config_key ~= nil then
+			local encoded = self.config_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.identifier ~= nil then
+			local encoded = self.identifier:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenSduiOverlayAction_ParamsImpl.decode(input: buffer): OpenSduiOverlayAction_Params
+		local self = _OpenSduiOverlayAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.identifier = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenSduiOverlayAction_ParamsImpl.jsonEncode(self: OpenSduiOverlayAction_Params): any
+		local output = {}
+
+		if self.config_key ~= nil then
+			output.configKey = self.config_key:jsonEncode()
+		end
+
+		if self.identifier ~= nil then
+			output.identifier = self.identifier:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenSduiOverlayAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenSduiOverlayAction_Params
+		local self = _OpenSduiOverlayAction_ParamsImpl.new()
+
+		if input.config_key ~= nil then
+			self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.config_key)
+		end
+
+		if input.configKey ~= nil then
+			self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.configKey)
+		end
+
+		if input.identifier ~= nil then
+			self.identifier = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.identifier)
+		end
+
+		return self
+	end
+
+	_OpenSduiOverlayAction_ParamsImpl.descriptor = {
+		name = "OpenSduiOverlayAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenSduiOverlayAction_Params = _OpenSduiOverlayAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenSduiOverlayAction_Params)
+end
+
+do
 	local _ApplyChartsFilterActionImpl = {}
 	_ApplyChartsFilterActionImpl.__index = _ApplyChartsFilterActionImpl
 
@@ -12605,6 +13750,4016 @@ do
 end
 
 do
+	local _LaunchExperienceActionImpl = {}
+	_LaunchExperienceActionImpl.__index = _LaunchExperienceActionImpl
+
+	function _LaunchExperienceActionImpl.new(data: _LaunchExperienceActionPartialFields?): LaunchExperienceAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _LaunchExperienceActionImpl :: _LaunchExperienceActionImpl)
+	end
+
+	function _LaunchExperienceActionImpl.encode(self: LaunchExperienceAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LaunchExperienceActionImpl.decode(input: buffer): LaunchExperienceAction
+		local self = _LaunchExperienceActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.LaunchExperienceAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LaunchExperienceActionImpl.jsonEncode(self: LaunchExperienceAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LaunchExperienceActionImpl.jsonDecode(input: { [string]: any }): LaunchExperienceAction
+		local self = _LaunchExperienceActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.LaunchExperienceAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.LaunchExperienceAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_LaunchExperienceActionImpl.descriptor = {
+		name = "LaunchExperienceAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.LaunchExperienceAction",
+	}
+
+	messages.LaunchExperienceAction = _LaunchExperienceActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LaunchExperienceAction)
+end
+
+do
+	local _LaunchExperienceAction_ExperienceJoinDataImpl = {}
+	_LaunchExperienceAction_ExperienceJoinDataImpl.__index = _LaunchExperienceAction_ExperienceJoinDataImpl
+
+	function _LaunchExperienceAction_ExperienceJoinDataImpl.new(
+		data: _LaunchExperienceAction_ExperienceJoinDataPartialFields?
+	): LaunchExperienceAction_ExperienceJoinData
+		return setmetatable({
+			launch_data = if data == nil or data.launch_data == nil then nil else data.launch_data,
+			event_id = if data == nil or data.event_id == nil then nil else data.event_id,
+		}, _LaunchExperienceAction_ExperienceJoinDataImpl :: _LaunchExperienceAction_ExperienceJoinDataImpl)
+	end
+
+	function _LaunchExperienceAction_ExperienceJoinDataImpl.encode(
+		self: LaunchExperienceAction_ExperienceJoinData
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.launch_data ~= nil then
+			local encoded = self.launch_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.event_id ~= nil then
+			local encoded = self.event_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LaunchExperienceAction_ExperienceJoinDataImpl.decode(
+		input: buffer
+	): LaunchExperienceAction_ExperienceJoinData
+		local self = _LaunchExperienceAction_ExperienceJoinDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.launch_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LaunchExperienceAction_ExperienceJoinDataImpl.jsonEncode(
+		self: LaunchExperienceAction_ExperienceJoinData
+	): any
+		local output = {}
+
+		if self.launch_data ~= nil then
+			output.launchData = self.launch_data:jsonEncode()
+		end
+
+		if self.event_id ~= nil then
+			output.eventId = self.event_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LaunchExperienceAction_ExperienceJoinDataImpl.jsonDecode(
+		input: { [string]: any }
+	): LaunchExperienceAction_ExperienceJoinData
+		local self = _LaunchExperienceAction_ExperienceJoinDataImpl.new()
+
+		if input.launch_data ~= nil then
+			self.launch_data =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.launch_data)
+		end
+
+		if input.launchData ~= nil then
+			self.launch_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.launchData)
+		end
+
+		if input.event_id ~= nil then
+			self.event_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.event_id)
+		end
+
+		if input.eventId ~= nil then
+			self.event_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.eventId)
+		end
+
+		return self
+	end
+
+	_LaunchExperienceAction_ExperienceJoinDataImpl.descriptor = {
+		name = "LaunchExperienceAction_ExperienceJoinData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceJoinData",
+	}
+
+	messages.LaunchExperienceAction_ExperienceJoinData = _LaunchExperienceAction_ExperienceJoinDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LaunchExperienceAction_ExperienceJoinData)
+end
+
+do
+	local _LaunchExperienceAction_ParamsImpl = {}
+	_LaunchExperienceAction_ParamsImpl.__index = _LaunchExperienceAction_ParamsImpl
+
+	function _LaunchExperienceAction_ParamsImpl.new(
+		data: _LaunchExperienceAction_ParamsPartialFields?
+	): LaunchExperienceAction_Params
+		return setmetatable({
+			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			launch_source = if data == nil or data.launch_source == nil then nil else data.launch_source,
+			experience_join_data = if data == nil or data.experience_join_data == nil
+				then nil
+				else data.experience_join_data,
+		}, _LaunchExperienceAction_ParamsImpl :: _LaunchExperienceAction_ParamsImpl)
+	end
+
+	function _LaunchExperienceAction_ParamsImpl.encode(self: LaunchExperienceAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.place_id ~= nil then
+			local encoded = self.place_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.launch_source ~= nil then
+			local encoded = self.launch_source:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.experience_join_data ~= nil then
+			local encoded = self.experience_join_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LaunchExperienceAction_ParamsImpl.decode(input: buffer): LaunchExperienceAction_Params
+		local self = _LaunchExperienceAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.launch_source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.experience_join_data = messages.LaunchExperienceAction_ExperienceJoinData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LaunchExperienceAction_ParamsImpl.jsonEncode(self: LaunchExperienceAction_Params): any
+		local output = {}
+
+		if self.place_id ~= nil then
+			output.placeId = self.place_id:jsonEncode()
+		end
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.launch_source ~= nil then
+			output.launchSource = self.launch_source:jsonEncode()
+		end
+
+		if self.experience_join_data ~= nil then
+			output.experienceJoinData = self.experience_join_data:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LaunchExperienceAction_ParamsImpl.jsonDecode(input: { [string]: any }): LaunchExperienceAction_Params
+		local self = _LaunchExperienceAction_ParamsImpl.new()
+
+		if input.place_id ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.place_id)
+		end
+
+		if input.placeId ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeId)
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.launch_source ~= nil then
+			self.launch_source =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.launch_source)
+		end
+
+		if input.launchSource ~= nil then
+			self.launch_source =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.launchSource)
+		end
+
+		if input.experience_join_data ~= nil then
+			self.experience_join_data =
+				messages.LaunchExperienceAction_ExperienceJoinData.jsonDecode(input.experience_join_data)
+		end
+
+		if input.experienceJoinData ~= nil then
+			self.experience_join_data =
+				messages.LaunchExperienceAction_ExperienceJoinData.jsonDecode(input.experienceJoinData)
+		end
+
+		return self
+	end
+
+	_LaunchExperienceAction_ParamsImpl.descriptor = {
+		name = "LaunchExperienceAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.LaunchExperienceAction_Params = _LaunchExperienceAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LaunchExperienceAction_Params)
+end
+
+do
+	local _ToggleExperienceFavoriteActionImpl = {}
+	_ToggleExperienceFavoriteActionImpl.__index = _ToggleExperienceFavoriteActionImpl
+
+	function _ToggleExperienceFavoriteActionImpl.new(
+		data: _ToggleExperienceFavoriteActionPartialFields?
+	): ToggleExperienceFavoriteAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ToggleExperienceFavoriteActionImpl :: _ToggleExperienceFavoriteActionImpl)
+	end
+
+	function _ToggleExperienceFavoriteActionImpl.encode(self: ToggleExperienceFavoriteAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleExperienceFavoriteActionImpl.decode(input: buffer): ToggleExperienceFavoriteAction
+		local self = _ToggleExperienceFavoriteActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ToggleExperienceFavoriteAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleExperienceFavoriteActionImpl.jsonEncode(self: ToggleExperienceFavoriteAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleExperienceFavoriteActionImpl.jsonDecode(input: { [string]: any }): ToggleExperienceFavoriteAction
+		local self = _ToggleExperienceFavoriteActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ToggleExperienceFavoriteAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ToggleExperienceFavoriteAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ToggleExperienceFavoriteActionImpl.descriptor = {
+		name = "ToggleExperienceFavoriteAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ToggleExperienceFavoriteAction",
+	}
+
+	messages.ToggleExperienceFavoriteAction = _ToggleExperienceFavoriteActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleExperienceFavoriteAction)
+end
+
+do
+	local _ToggleExperienceFavoriteAction_ParamsImpl = {}
+	_ToggleExperienceFavoriteAction_ParamsImpl.__index = _ToggleExperienceFavoriteAction_ParamsImpl
+
+	function _ToggleExperienceFavoriteAction_ParamsImpl.new(
+		data: _ToggleExperienceFavoriteAction_ParamsPartialFields?
+	): ToggleExperienceFavoriteAction_Params
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
+			ctx = if data == nil or data.ctx == nil then nil else data.ctx,
+		}, _ToggleExperienceFavoriteAction_ParamsImpl :: _ToggleExperienceFavoriteAction_ParamsImpl)
+	end
+
+	function _ToggleExperienceFavoriteAction_ParamsImpl.encode(self: ToggleExperienceFavoriteAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.place_id ~= nil then
+			local encoded = self.place_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.ctx ~= nil then
+			local encoded = self.ctx:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleExperienceFavoriteAction_ParamsImpl.decode(input: buffer): ToggleExperienceFavoriteAction_Params
+		local self = _ToggleExperienceFavoriteAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.ctx = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleExperienceFavoriteAction_ParamsImpl.jsonEncode(self: ToggleExperienceFavoriteAction_Params): any
+		local output = {}
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.place_id ~= nil then
+			output.placeId = self.place_id:jsonEncode()
+		end
+
+		if self.ctx ~= nil then
+			output.ctx = self.ctx:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleExperienceFavoriteAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): ToggleExperienceFavoriteAction_Params
+		local self = _ToggleExperienceFavoriteAction_ParamsImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.place_id ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.place_id)
+		end
+
+		if input.placeId ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeId)
+		end
+
+		if input.ctx ~= nil then
+			self.ctx = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ctx)
+		end
+
+		return self
+	end
+
+	_ToggleExperienceFavoriteAction_ParamsImpl.descriptor = {
+		name = "ToggleExperienceFavoriteAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ToggleExperienceFavoriteAction_Params = _ToggleExperienceFavoriteAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleExperienceFavoriteAction_Params)
+end
+
+do
+	local _ToggleExperienceFollowActionImpl = {}
+	_ToggleExperienceFollowActionImpl.__index = _ToggleExperienceFollowActionImpl
+
+	function _ToggleExperienceFollowActionImpl.new(
+		data: _ToggleExperienceFollowActionPartialFields?
+	): ToggleExperienceFollowAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ToggleExperienceFollowActionImpl :: _ToggleExperienceFollowActionImpl)
+	end
+
+	function _ToggleExperienceFollowActionImpl.encode(self: ToggleExperienceFollowAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleExperienceFollowActionImpl.decode(input: buffer): ToggleExperienceFollowAction
+		local self = _ToggleExperienceFollowActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ToggleExperienceFollowAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleExperienceFollowActionImpl.jsonEncode(self: ToggleExperienceFollowAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleExperienceFollowActionImpl.jsonDecode(input: { [string]: any }): ToggleExperienceFollowAction
+		local self = _ToggleExperienceFollowActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ToggleExperienceFollowAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ToggleExperienceFollowAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ToggleExperienceFollowActionImpl.descriptor = {
+		name = "ToggleExperienceFollowAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ToggleExperienceFollowAction",
+	}
+
+	messages.ToggleExperienceFollowAction = _ToggleExperienceFollowActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleExperienceFollowAction)
+end
+
+do
+	local _ToggleExperienceFollowAction_ParamsImpl = {}
+	_ToggleExperienceFollowAction_ParamsImpl.__index = _ToggleExperienceFollowAction_ParamsImpl
+
+	function _ToggleExperienceFollowAction_ParamsImpl.new(
+		data: _ToggleExperienceFollowAction_ParamsPartialFields?
+	): ToggleExperienceFollowAction_Params
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			game_name = if data == nil or data.game_name == nil then nil else data.game_name,
+			ctx = if data == nil or data.ctx == nil then nil else data.ctx,
+		}, _ToggleExperienceFollowAction_ParamsImpl :: _ToggleExperienceFollowAction_ParamsImpl)
+	end
+
+	function _ToggleExperienceFollowAction_ParamsImpl.encode(self: ToggleExperienceFollowAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.game_name ~= nil then
+			local encoded = self.game_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.ctx ~= nil then
+			local encoded = self.ctx:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleExperienceFollowAction_ParamsImpl.decode(input: buffer): ToggleExperienceFollowAction_Params
+		local self = _ToggleExperienceFollowAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.game_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.ctx = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleExperienceFollowAction_ParamsImpl.jsonEncode(self: ToggleExperienceFollowAction_Params): any
+		local output = {}
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.game_name ~= nil then
+			output.gameName = self.game_name:jsonEncode()
+		end
+
+		if self.ctx ~= nil then
+			output.ctx = self.ctx:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleExperienceFollowAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): ToggleExperienceFollowAction_Params
+		local self = _ToggleExperienceFollowAction_ParamsImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.game_name ~= nil then
+			self.game_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.game_name)
+		end
+
+		if input.gameName ~= nil then
+			self.game_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.gameName)
+		end
+
+		if input.ctx ~= nil then
+			self.ctx = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ctx)
+		end
+
+		return self
+	end
+
+	_ToggleExperienceFollowAction_ParamsImpl.descriptor = {
+		name = "ToggleExperienceFollowAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ToggleExperienceFollowAction_Params = _ToggleExperienceFollowAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleExperienceFollowAction_Params)
+end
+
+do
+	local _ToggleExperienceVoteActionImpl = {}
+	_ToggleExperienceVoteActionImpl.__index = _ToggleExperienceVoteActionImpl
+
+	function _ToggleExperienceVoteActionImpl.new(
+		data: _ToggleExperienceVoteActionPartialFields?
+	): ToggleExperienceVoteAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ToggleExperienceVoteActionImpl :: _ToggleExperienceVoteActionImpl)
+	end
+
+	function _ToggleExperienceVoteActionImpl.encode(self: ToggleExperienceVoteAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleExperienceVoteActionImpl.decode(input: buffer): ToggleExperienceVoteAction
+		local self = _ToggleExperienceVoteActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ToggleExperienceVoteAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleExperienceVoteActionImpl.jsonEncode(self: ToggleExperienceVoteAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleExperienceVoteActionImpl.jsonDecode(input: { [string]: any }): ToggleExperienceVoteAction
+		local self = _ToggleExperienceVoteActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ToggleExperienceVoteAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ToggleExperienceVoteAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ToggleExperienceVoteActionImpl.descriptor = {
+		name = "ToggleExperienceVoteAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ToggleExperienceVoteAction",
+	}
+
+	messages.ToggleExperienceVoteAction = _ToggleExperienceVoteActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleExperienceVoteAction)
+end
+
+do
+	local _ToggleExperienceVoteAction_ParamsImpl = {}
+	_ToggleExperienceVoteAction_ParamsImpl.__index = _ToggleExperienceVoteAction_ParamsImpl
+
+	function _ToggleExperienceVoteAction_ParamsImpl.new(
+		data: _ToggleExperienceVoteAction_ParamsPartialFields?
+	): ToggleExperienceVoteAction_Params
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+			vote_direction = if data == nil or data.vote_direction == nil then nil else data.vote_direction,
+			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
+			ctx = if data == nil or data.ctx == nil then nil else data.ctx,
+		}, _ToggleExperienceVoteAction_ParamsImpl :: _ToggleExperienceVoteAction_ParamsImpl)
+	end
+
+	function _ToggleExperienceVoteAction_ParamsImpl.encode(self: ToggleExperienceVoteAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.vote_direction ~= nil then
+			local encoded = self.vote_direction:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.place_id ~= nil then
+			local encoded = self.place_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.ctx ~= nil then
+			local encoded = self.ctx:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ToggleExperienceVoteAction_ParamsImpl.decode(input: buffer): ToggleExperienceVoteAction_Params
+		local self = _ToggleExperienceVoteAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.vote_direction = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.ctx = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ToggleExperienceVoteAction_ParamsImpl.jsonEncode(self: ToggleExperienceVoteAction_Params): any
+		local output = {}
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.vote_direction ~= nil then
+			output.voteDirection = self.vote_direction:jsonEncode()
+		end
+
+		if self.place_id ~= nil then
+			output.placeId = self.place_id:jsonEncode()
+		end
+
+		if self.ctx ~= nil then
+			output.ctx = self.ctx:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ToggleExperienceVoteAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): ToggleExperienceVoteAction_Params
+		local self = _ToggleExperienceVoteAction_ParamsImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.vote_direction ~= nil then
+			self.vote_direction =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.vote_direction)
+		end
+
+		if input.voteDirection ~= nil then
+			self.vote_direction =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.voteDirection)
+		end
+
+		if input.place_id ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.place_id)
+		end
+
+		if input.placeId ~= nil then
+			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeId)
+		end
+
+		if input.ctx ~= nil then
+			self.ctx = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.ctx)
+		end
+
+		return self
+	end
+
+	_ToggleExperienceVoteAction_ParamsImpl.descriptor = {
+		name = "ToggleExperienceVoteAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ToggleExperienceVoteAction_Params = _ToggleExperienceVoteAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ToggleExperienceVoteAction_Params)
+end
+
+do
+	local _OpenPurchasePromptActionImpl = {}
+	_OpenPurchasePromptActionImpl.__index = _OpenPurchasePromptActionImpl
+
+	function _OpenPurchasePromptActionImpl.new(data: _OpenPurchasePromptActionPartialFields?): OpenPurchasePromptAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenPurchasePromptActionImpl :: _OpenPurchasePromptActionImpl)
+	end
+
+	function _OpenPurchasePromptActionImpl.encode(self: OpenPurchasePromptAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptActionImpl.decode(input: buffer): OpenPurchasePromptAction
+		local self = _OpenPurchasePromptActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenPurchasePromptAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptActionImpl.jsonEncode(self: OpenPurchasePromptAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptActionImpl.jsonDecode(input: { [string]: any }): OpenPurchasePromptAction
+		local self = _OpenPurchasePromptActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenPurchasePromptAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenPurchasePromptAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptActionImpl.descriptor = {
+		name = "OpenPurchasePromptAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenPurchasePromptAction",
+	}
+
+	messages.OpenPurchasePromptAction = _OpenPurchasePromptActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction)
+end
+
+do
+	local _OpenPurchasePromptAction_ProductPayloadImpl = {}
+	_OpenPurchasePromptAction_ProductPayloadImpl.__index = _OpenPurchasePromptAction_ProductPayloadImpl
+
+	function _OpenPurchasePromptAction_ProductPayloadImpl.new(
+		data: _OpenPurchasePromptAction_ProductPayloadPartialFields?
+	): OpenPurchasePromptAction_ProductPayload
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _OpenPurchasePromptAction_ProductPayloadImpl :: _OpenPurchasePromptAction_ProductPayloadImpl)
+	end
+
+	function _OpenPurchasePromptAction_ProductPayloadImpl.encode(self: OpenPurchasePromptAction_ProductPayload): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_ProductPayloadImpl.decode(input: buffer): OpenPurchasePromptAction_ProductPayload
+		local self = _OpenPurchasePromptAction_ProductPayloadImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral.decode(value),
+					}
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_ProductPayloadImpl.jsonEncode(self: OpenPurchasePromptAction_ProductPayload): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_ProductPayloadImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenPurchasePromptAction_ProductPayload
+		local self = _OpenPurchasePromptAction_ProductPayloadImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral.jsonDecode(
+					input.literal
+				),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_ProductPayloadImpl.descriptor = {
+		name = "OpenPurchasePromptAction_ProductPayload",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ProductPayload",
+	}
+
+	messages.OpenPurchasePromptAction_ProductPayload = _OpenPurchasePromptAction_ProductPayloadImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction_ProductPayload)
+end
+
+do
+	local _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl = {}
+	_OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl.__index =
+		_OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl
+
+	function _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl.new(
+		data: _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralPartialFields?
+	): OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral
+		return setmetatable(
+			{
+				kind = if data == nil or data.kind == nil then nil else data.kind,
+				id = if data == nil or data.id == nil then nil else data.id,
+				subscription_id = if data == nil or data.subscription_id == nil then nil else data.subscription_id,
+				universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+				equip_if_purchased = if data == nil or data.equip_if_purchased == nil
+					then nil
+					else data.equip_if_purchased,
+				name = if data == nil or data.name == nil then nil else data.name,
+				expected_price = if data == nil or data.expected_price == nil then nil else data.expected_price,
+				icon_image_asset_id = if data == nil or data.icon_image_asset_id == nil
+					then nil
+					else data.icon_image_asset_id,
+				is_subscription_in_robux = if data == nil or data.is_subscription_in_robux == nil
+					then nil
+					else data.is_subscription_in_robux,
+				display_price = if data == nil or data.display_price == nil then nil else data.display_price,
+			},
+			_OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl :: _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl
+		)
+	end
+
+	function _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl.encode(
+		self: OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			local encoded = self.kind:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.id ~= nil then
+			local encoded = self.id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subscription_id ~= nil then
+			local encoded = self.subscription_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.equip_if_purchased ~= nil then
+			local encoded = self.equip_if_purchased:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.name ~= nil then
+			local encoded = self.name:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.expected_price ~= nil then
+			local encoded = self.expected_price:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.icon_image_asset_id ~= nil then
+			local encoded = self.icon_image_asset_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_subscription_in_robux ~= nil then
+			local encoded = self.is_subscription_in_robux:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.display_price ~= nil then
+			local encoded = self.display_price:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl.decode(
+		input: buffer
+	): OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral
+		local self = _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subscription_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.equip_if_purchased = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.expected_price = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.icon_image_asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_subscription_in_robux =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.display_price = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl.jsonEncode(
+		self: OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral
+	): any
+		local output = {}
+
+		if self.kind ~= nil then
+			output.kind = self.kind:jsonEncode()
+		end
+
+		if self.id ~= nil then
+			output.id = self.id:jsonEncode()
+		end
+
+		if self.subscription_id ~= nil then
+			output.subscriptionId = self.subscription_id:jsonEncode()
+		end
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		if self.equip_if_purchased ~= nil then
+			output.equipIfPurchased = self.equip_if_purchased:jsonEncode()
+		end
+
+		if self.name ~= nil then
+			output.name = self.name:jsonEncode()
+		end
+
+		if self.expected_price ~= nil then
+			output.expectedPrice = self.expected_price:jsonEncode()
+		end
+
+		if self.icon_image_asset_id ~= nil then
+			output.iconImageAssetId = self.icon_image_asset_id:jsonEncode()
+		end
+
+		if self.is_subscription_in_robux ~= nil then
+			output.isSubscriptionInRobux = self.is_subscription_in_robux:jsonEncode()
+		end
+
+		if self.display_price ~= nil then
+			output.displayPrice = self.display_price:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral
+		local self = _OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl.new()
+
+		if input.kind ~= nil then
+			self.kind = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.kind)
+		end
+
+		if input.id ~= nil then
+			self.id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.id)
+		end
+
+		if input.subscription_id ~= nil then
+			self.subscription_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subscription_id)
+		end
+
+		if input.subscriptionId ~= nil then
+			self.subscription_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subscriptionId)
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		if input.equip_if_purchased ~= nil then
+			self.equip_if_purchased =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.equip_if_purchased)
+		end
+
+		if input.equipIfPurchased ~= nil then
+			self.equip_if_purchased =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.equipIfPurchased)
+		end
+
+		if input.name ~= nil then
+			self.name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.name)
+		end
+
+		if input.expected_price ~= nil then
+			self.expected_price =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.expected_price)
+		end
+
+		if input.expectedPrice ~= nil then
+			self.expected_price =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.expectedPrice)
+		end
+
+		if input.icon_image_asset_id ~= nil then
+			self.icon_image_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.icon_image_asset_id)
+		end
+
+		if input.iconImageAssetId ~= nil then
+			self.icon_image_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.iconImageAssetId)
+		end
+
+		if input.is_subscription_in_robux ~= nil then
+			self.is_subscription_in_robux =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_subscription_in_robux)
+		end
+
+		if input.isSubscriptionInRobux ~= nil then
+			self.is_subscription_in_robux =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isSubscriptionInRobux)
+		end
+
+		if input.display_price ~= nil then
+			self.display_price =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.display_price)
+		end
+
+		if input.displayPrice ~= nil then
+			self.display_price =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.displayPrice)
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl.descriptor = {
+		name = "OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ProductPayloadLiteral",
+	}
+
+	messages.OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral =
+		_OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteralImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral)
+end
+
+do
+	local _OpenPurchasePromptAction_PriceDiscountDetailImpl = {}
+	_OpenPurchasePromptAction_PriceDiscountDetailImpl.__index = _OpenPurchasePromptAction_PriceDiscountDetailImpl
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailImpl.new(
+		data: _OpenPurchasePromptAction_PriceDiscountDetailPartialFields?
+	): OpenPurchasePromptAction_PriceDiscountDetail
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _OpenPurchasePromptAction_PriceDiscountDetailImpl :: _OpenPurchasePromptAction_PriceDiscountDetailImpl)
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailImpl.encode(
+		self: OpenPurchasePromptAction_PriceDiscountDetail
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailImpl.decode(
+		input: buffer
+	): OpenPurchasePromptAction_PriceDiscountDetail
+		local self = _OpenPurchasePromptAction_PriceDiscountDetailImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailImpl.jsonEncode(
+		self: OpenPurchasePromptAction_PriceDiscountDetail
+	): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenPurchasePromptAction_PriceDiscountDetail
+		local self = _OpenPurchasePromptAction_PriceDiscountDetailImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral.jsonDecode(
+					input.literal
+				),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_PriceDiscountDetailImpl.descriptor = {
+		name = "OpenPurchasePromptAction_PriceDiscountDetail",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PriceDiscountDetail",
+	}
+
+	messages.OpenPurchasePromptAction_PriceDiscountDetail = _OpenPurchasePromptAction_PriceDiscountDetailImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction_PriceDiscountDetail)
+end
+
+do
+	local _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl = {}
+	_OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl.__index =
+		_OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl
+
+	function _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl.new(
+		data: _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralPartialFields?
+	): OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral
+		return setmetatable(
+			{
+				type = if data == nil or data.type == nil then nil else data.type,
+				amount_in_robux = if data == nil or data.amount_in_robux == nil then nil else data.amount_in_robux,
+				percent = if data == nil or data.percent == nil then nil else data.percent,
+			},
+			_OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl :: _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl
+		)
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl.encode(
+		self: OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.type ~= nil then
+			local encoded = self.type:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.amount_in_robux ~= nil then
+			local encoded = self.amount_in_robux:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.percent ~= nil then
+			local encoded = self.percent:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl.decode(
+		input: buffer
+	): OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral
+		local self = _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.amount_in_robux = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.percent = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl.jsonEncode(
+		self: OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral
+	): any
+		local output = {}
+
+		if self.type ~= nil then
+			output.type = self.type:jsonEncode()
+		end
+
+		if self.amount_in_robux ~= nil then
+			output.amountInRobux = self.amount_in_robux:jsonEncode()
+		end
+
+		if self.percent ~= nil then
+			output.percent = self.percent:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl.jsonDecode(
+		input: {
+			[string]: any,
+		}
+	): OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral
+		local self = _OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl.new()
+
+		if input.type ~= nil then
+			self.type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.type)
+		end
+
+		if input.amount_in_robux ~= nil then
+			self.amount_in_robux =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.amount_in_robux)
+		end
+
+		if input.amountInRobux ~= nil then
+			self.amount_in_robux =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.amountInRobux)
+		end
+
+		if input.percent ~= nil then
+			self.percent = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.percent)
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl.descriptor = {
+		name = "OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PriceDiscountDetailLiteral",
+	}
+
+	messages.OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral =
+		_OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteralImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral)
+end
+
+do
+	local _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl = {}
+	_OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl.__index =
+		_OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl.new(
+		data: _OpenPurchasePromptAction_PriceDiscountDetailArrayPropPartialFields?
+	): OpenPurchasePromptAction_PriceDiscountDetailArrayProp
+		return setmetatable(
+			{
+				kind = if data == nil or data.kind == nil then nil else data.kind,
+			},
+			_OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl :: _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl
+		)
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl.encode(
+		self: OpenPurchasePromptAction_PriceDiscountDetailArrayProp
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl.decode(
+		input: buffer
+	): OpenPurchasePromptAction_PriceDiscountDetailArrayProp
+		local self = _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl.jsonEncode(
+		self: OpenPurchasePromptAction_PriceDiscountDetailArrayProp
+	): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenPurchasePromptAction_PriceDiscountDetailArrayProp
+		local self = _OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails.jsonDecode(
+					input.literal
+				),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl.descriptor = {
+		name = "OpenPurchasePromptAction_PriceDiscountDetailArrayProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PriceDiscountDetailArrayProp",
+	}
+
+	messages.OpenPurchasePromptAction_PriceDiscountDetailArrayProp =
+		_OpenPurchasePromptAction_PriceDiscountDetailArrayPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction_PriceDiscountDetailArrayProp)
+end
+
+do
+	local _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl = {}
+	_OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl.__index =
+		_OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl.new(
+		data: _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsPartialFields?
+	): OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails
+		return setmetatable(
+			{
+				array = if data == nil or data.array == nil then {} else data.array,
+			},
+			_OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl :: _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl
+		)
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl.encode(
+		self: OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.array ~= nil and #self.array > 0 then
+			for _, value in self.array do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl.decode(
+		input: buffer
+	): OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails
+		local self = _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.array, messages.OpenPurchasePromptAction_PriceDiscountDetail.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl.jsonEncode(
+		self: OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails
+	): any
+		local output = {}
+
+		if self.array ~= nil and #self.array > 0 then
+			local newOutput = {}
+			for _, value in self.array do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.array = newOutput
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl.jsonDecode(
+		input: {
+			[string]: any,
+		}
+	): OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails
+		local self = _OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl.new()
+
+		if input.array ~= nil then
+			local newOutput: { OpenPurchasePromptAction_PriceDiscountDetail } = {}
+			for _, value in input.array do
+				table.insert(newOutput, messages.OpenPurchasePromptAction_PriceDiscountDetail.jsonDecode(value))
+			end
+
+			self.array = newOutput
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl.descriptor = {
+		name = "OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ArrayOfPriceDiscountDetails",
+	}
+
+	messages.OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails =
+		_OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetailsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(
+		messages.OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails
+	)
+end
+
+do
+	local _OpenPurchasePromptAction_DisplayInfoImpl = {}
+	_OpenPurchasePromptAction_DisplayInfoImpl.__index = _OpenPurchasePromptAction_DisplayInfoImpl
+
+	function _OpenPurchasePromptAction_DisplayInfoImpl.new(
+		data: _OpenPurchasePromptAction_DisplayInfoPartialFields?
+	): OpenPurchasePromptAction_DisplayInfo
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _OpenPurchasePromptAction_DisplayInfoImpl :: _OpenPurchasePromptAction_DisplayInfoImpl)
+	end
+
+	function _OpenPurchasePromptAction_DisplayInfoImpl.encode(self: OpenPurchasePromptAction_DisplayInfo): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_DisplayInfoImpl.decode(input: buffer): OpenPurchasePromptAction_DisplayInfo
+		local self = _OpenPurchasePromptAction_DisplayInfoImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral.decode(value),
+					}
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_DisplayInfoImpl.jsonEncode(self: OpenPurchasePromptAction_DisplayInfo): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_DisplayInfoImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenPurchasePromptAction_DisplayInfo
+		local self = _OpenPurchasePromptAction_DisplayInfoImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral.jsonDecode(input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_DisplayInfoImpl.descriptor = {
+		name = "OpenPurchasePromptAction_DisplayInfo",
+		fullName = "roblox.apppageplatform.shared.v1beta1.DisplayInfo",
+	}
+
+	messages.OpenPurchasePromptAction_DisplayInfo = _OpenPurchasePromptAction_DisplayInfoImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction_DisplayInfo)
+end
+
+do
+	local _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl = {}
+	_OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl.__index =
+		_OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl
+
+	function _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl.new(
+		data: _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralPartialFields?
+	): OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral
+		return setmetatable(
+			{
+				product_name = if data == nil or data.product_name == nil then nil else data.product_name,
+				description = if data == nil or data.description == nil then nil else data.description,
+				image_url = if data == nil or data.image_url == nil then nil else data.image_url,
+				price_in_robux = if data == nil or data.price_in_robux == nil then nil else data.price_in_robux,
+				display_price = if data == nil or data.display_price == nil then nil else data.display_price,
+				icon_image_asset_id = if data == nil or data.icon_image_asset_id == nil
+					then nil
+					else data.icon_image_asset_id,
+				product_id = if data == nil or data.product_id == nil then nil else data.product_id,
+				target_id = if data == nil or data.target_id == nil then nil else data.target_id,
+				is_for_sale = if data == nil or data.is_for_sale == nil then nil else data.is_for_sale,
+				product_type = if data == nil or data.product_type == nil then nil else data.product_type,
+				base_price_in_robux = if data == nil or data.base_price_in_robux == nil
+					then nil
+					else data.base_price_in_robux,
+				price_discount_details = if data == nil or data.price_discount_details == nil
+					then nil
+					else data.price_discount_details,
+			},
+			_OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl :: _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl
+		)
+	end
+
+	function _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl.encode(
+		self: OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.product_name ~= nil then
+			local encoded = self.product_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.description ~= nil then
+			local encoded = self.description:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_url ~= nil then
+			local encoded = self.image_url:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.price_in_robux ~= nil then
+			local encoded = self.price_in_robux:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.display_price ~= nil then
+			local encoded = self.display_price:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.icon_image_asset_id ~= nil then
+			local encoded = self.icon_image_asset_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.product_id ~= nil then
+			local encoded = self.product_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.target_id ~= nil then
+			local encoded = self.target_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.is_for_sale ~= nil then
+			local encoded = self.is_for_sale:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.product_type ~= nil then
+			local encoded = self.product_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.base_price_in_robux ~= nil then
+			local encoded = self.base_price_in_robux:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.price_discount_details ~= nil then
+			local encoded = self.price_discount_details:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl.decode(
+		input: buffer
+	): OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral
+		local self = _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.product_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.description = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_url = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.price_in_robux = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.display_price = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.icon_image_asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.product_id = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.target_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_for_sale = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.product_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.base_price_in_robux = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.price_discount_details =
+						messages.OpenPurchasePromptAction_PriceDiscountDetailArrayProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl.jsonEncode(
+		self: OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral
+	): any
+		local output = {}
+
+		if self.product_name ~= nil then
+			output.productName = self.product_name:jsonEncode()
+		end
+
+		if self.description ~= nil then
+			output.description = self.description:jsonEncode()
+		end
+
+		if self.image_url ~= nil then
+			output.imageUrl = self.image_url:jsonEncode()
+		end
+
+		if self.price_in_robux ~= nil then
+			output.priceInRobux = self.price_in_robux:jsonEncode()
+		end
+
+		if self.display_price ~= nil then
+			output.displayPrice = self.display_price:jsonEncode()
+		end
+
+		if self.icon_image_asset_id ~= nil then
+			output.iconImageAssetId = self.icon_image_asset_id:jsonEncode()
+		end
+
+		if self.product_id ~= nil then
+			output.productId = self.product_id:jsonEncode()
+		end
+
+		if self.target_id ~= nil then
+			output.targetId = self.target_id:jsonEncode()
+		end
+
+		if self.is_for_sale ~= nil then
+			output.isForSale = self.is_for_sale:jsonEncode()
+		end
+
+		if self.product_type ~= nil then
+			output.productType = self.product_type:jsonEncode()
+		end
+
+		if self.base_price_in_robux ~= nil then
+			output.basePriceInRobux = self.base_price_in_robux:jsonEncode()
+		end
+
+		if self.price_discount_details ~= nil then
+			output.priceDiscountDetails = self.price_discount_details:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral
+		local self = _OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl.new()
+
+		if input.product_name ~= nil then
+			self.product_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.product_name)
+		end
+
+		if input.productName ~= nil then
+			self.product_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.productName)
+		end
+
+		if input.description ~= nil then
+			self.description =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.description)
+		end
+
+		if input.image_url ~= nil then
+			self.image_url = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.image_url)
+		end
+
+		if input.imageUrl ~= nil then
+			self.image_url = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.imageUrl)
+		end
+
+		if input.price_in_robux ~= nil then
+			self.price_in_robux =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.price_in_robux)
+		end
+
+		if input.priceInRobux ~= nil then
+			self.price_in_robux =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.priceInRobux)
+		end
+
+		if input.display_price ~= nil then
+			self.display_price =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.display_price)
+		end
+
+		if input.displayPrice ~= nil then
+			self.display_price =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.displayPrice)
+		end
+
+		if input.icon_image_asset_id ~= nil then
+			self.icon_image_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.icon_image_asset_id)
+		end
+
+		if input.iconImageAssetId ~= nil then
+			self.icon_image_asset_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.iconImageAssetId)
+		end
+
+		if input.product_id ~= nil then
+			self.product_id = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.product_id)
+		end
+
+		if input.productId ~= nil then
+			self.product_id = _roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.productId)
+		end
+
+		if input.target_id ~= nil then
+			self.target_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.target_id)
+		end
+
+		if input.targetId ~= nil then
+			self.target_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.targetId)
+		end
+
+		if input.is_for_sale ~= nil then
+			self.is_for_sale = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_for_sale)
+		end
+
+		if input.isForSale ~= nil then
+			self.is_for_sale = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isForSale)
+		end
+
+		if input.product_type ~= nil then
+			self.product_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.product_type)
+		end
+
+		if input.productType ~= nil then
+			self.product_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.productType)
+		end
+
+		if input.base_price_in_robux ~= nil then
+			self.base_price_in_robux =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.base_price_in_robux)
+		end
+
+		if input.basePriceInRobux ~= nil then
+			self.base_price_in_robux =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.basePriceInRobux)
+		end
+
+		if input.price_discount_details ~= nil then
+			self.price_discount_details =
+				messages.OpenPurchasePromptAction_PriceDiscountDetailArrayProp.jsonDecode(input.price_discount_details)
+		end
+
+		if input.priceDiscountDetails ~= nil then
+			self.price_discount_details =
+				messages.OpenPurchasePromptAction_PriceDiscountDetailArrayProp.jsonDecode(input.priceDiscountDetails)
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl.descriptor = {
+		name = "OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral",
+		fullName = "roblox.apppageplatform.shared.v1beta1.DisplayInfoLiteral",
+	}
+
+	messages.OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral =
+		_OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteralImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral)
+end
+
+do
+	local _OpenPurchasePromptAction_PurchaseOptionsImpl = {}
+	_OpenPurchasePromptAction_PurchaseOptionsImpl.__index = _OpenPurchasePromptAction_PurchaseOptionsImpl
+
+	function _OpenPurchasePromptAction_PurchaseOptionsImpl.new(
+		data: _OpenPurchasePromptAction_PurchaseOptionsPartialFields?
+	): OpenPurchasePromptAction_PurchaseOptions
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _OpenPurchasePromptAction_PurchaseOptionsImpl :: _OpenPurchasePromptAction_PurchaseOptionsImpl)
+	end
+
+	function _OpenPurchasePromptAction_PurchaseOptionsImpl.encode(
+		self: OpenPurchasePromptAction_PurchaseOptions
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_PurchaseOptionsImpl.decode(
+		input: buffer
+	): OpenPurchasePromptAction_PurchaseOptions
+		local self = _OpenPurchasePromptAction_PurchaseOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral.decode(value),
+					}
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_PurchaseOptionsImpl.jsonEncode(
+		self: OpenPurchasePromptAction_PurchaseOptions
+	): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_PurchaseOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenPurchasePromptAction_PurchaseOptions
+		local self = _OpenPurchasePromptAction_PurchaseOptionsImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral.jsonDecode(
+					input.literal
+				),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_PurchaseOptionsImpl.descriptor = {
+		name = "OpenPurchasePromptAction_PurchaseOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PurchaseOptions",
+	}
+
+	messages.OpenPurchasePromptAction_PurchaseOptions = _OpenPurchasePromptAction_PurchaseOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction_PurchaseOptions)
+end
+
+do
+	local _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl = {}
+	_OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl.__index =
+		_OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl
+
+	function _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl.new(
+		data: _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralPartialFields?
+	): OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral
+		return setmetatable(
+			{
+				should_skip_ownership_check = if data == nil or data.should_skip_ownership_check == nil
+					then nil
+					else data.should_skip_ownership_check,
+				enable_preloaded_purchase_ui = if data == nil or data.enable_preloaded_purchase_ui == nil
+					then nil
+					else data.enable_preloaded_purchase_ui,
+				completion_message = if data == nil or data.completion_message == nil
+					then nil
+					else data.completion_message,
+				completion_button_text = if data == nil or data.completion_button_text == nil
+					then nil
+					else data.completion_button_text,
+				prevent_double_confirm = if data == nil or data.prevent_double_confirm == nil
+					then nil
+					else data.prevent_double_confirm,
+				provided_robux_balance = if data == nil or data.provided_robux_balance == nil
+					then nil
+					else data.provided_robux_balance,
+			},
+			_OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl :: _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl
+		)
+	end
+
+	function _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl.encode(
+		self: OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.should_skip_ownership_check ~= nil then
+			local encoded = self.should_skip_ownership_check:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.enable_preloaded_purchase_ui ~= nil then
+			local encoded = self.enable_preloaded_purchase_ui:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.completion_message ~= nil then
+			local encoded = self.completion_message:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.completion_button_text ~= nil then
+			local encoded = self.completion_button_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.prevent_double_confirm ~= nil then
+			local encoded = self.prevent_double_confirm:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.provided_robux_balance ~= nil then
+			local encoded = self.provided_robux_balance:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl.decode(
+		input: buffer
+	): OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral
+		local self = _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.should_skip_ownership_check =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.enable_preloaded_purchase_ui =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.completion_message = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.completion_button_text =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prevent_double_confirm =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.provided_robux_balance =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl.jsonEncode(
+		self: OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral
+	): any
+		local output = {}
+
+		if self.should_skip_ownership_check ~= nil then
+			output.shouldSkipOwnershipCheck = self.should_skip_ownership_check:jsonEncode()
+		end
+
+		if self.enable_preloaded_purchase_ui ~= nil then
+			output.enablePreloadedPurchaseUi = self.enable_preloaded_purchase_ui:jsonEncode()
+		end
+
+		if self.completion_message ~= nil then
+			output.completionMessage = self.completion_message:jsonEncode()
+		end
+
+		if self.completion_button_text ~= nil then
+			output.completionButtonText = self.completion_button_text:jsonEncode()
+		end
+
+		if self.prevent_double_confirm ~= nil then
+			output.preventDoubleConfirm = self.prevent_double_confirm:jsonEncode()
+		end
+
+		if self.provided_robux_balance ~= nil then
+			output.providedRobuxBalance = self.provided_robux_balance:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral
+		local self = _OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl.new()
+
+		if input.should_skip_ownership_check ~= nil then
+			self.should_skip_ownership_check =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.should_skip_ownership_check)
+		end
+
+		if input.shouldSkipOwnershipCheck ~= nil then
+			self.should_skip_ownership_check =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.shouldSkipOwnershipCheck)
+		end
+
+		if input.enable_preloaded_purchase_ui ~= nil then
+			self.enable_preloaded_purchase_ui = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(
+				input.enable_preloaded_purchase_ui
+			)
+		end
+
+		if input.enablePreloadedPurchaseUi ~= nil then
+			self.enable_preloaded_purchase_ui =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.enablePreloadedPurchaseUi)
+		end
+
+		if input.completion_message ~= nil then
+			self.completion_message =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.completion_message)
+		end
+
+		if input.completionMessage ~= nil then
+			self.completion_message =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.completionMessage)
+		end
+
+		if input.completion_button_text ~= nil then
+			self.completion_button_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.completion_button_text)
+		end
+
+		if input.completionButtonText ~= nil then
+			self.completion_button_text =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.completionButtonText)
+		end
+
+		if input.prevent_double_confirm ~= nil then
+			self.prevent_double_confirm =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.prevent_double_confirm)
+		end
+
+		if input.preventDoubleConfirm ~= nil then
+			self.prevent_double_confirm =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.preventDoubleConfirm)
+		end
+
+		if input.provided_robux_balance ~= nil then
+			self.provided_robux_balance =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.provided_robux_balance)
+		end
+
+		if input.providedRobuxBalance ~= nil then
+			self.provided_robux_balance =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int64Prop.jsonDecode(input.providedRobuxBalance)
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl.descriptor = {
+		name = "OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PurchaseOptionsLiteral",
+	}
+
+	messages.OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral =
+		_OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteralImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral)
+end
+
+do
+	local _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl = {}
+	_OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl.__index =
+		_OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl
+
+	function _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl.new(
+		data: _OpenPurchasePromptAction_PurchaseAnalyticsMetadataPartialFields?
+	): OpenPurchasePromptAction_PurchaseAnalyticsMetadata
+		return setmetatable(
+			{
+				kind = if data == nil or data.kind == nil then nil else data.kind,
+			},
+			_OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl :: _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl
+		)
+	end
+
+	function _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl.encode(
+		self: OpenPurchasePromptAction_PurchaseAnalyticsMetadata
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl.decode(
+		input: buffer
+	): OpenPurchasePromptAction_PurchaseAnalyticsMetadata
+		local self = _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl.jsonEncode(
+		self: OpenPurchasePromptAction_PurchaseAnalyticsMetadata
+	): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl.jsonDecode(
+		input: { [string]: any }
+	): OpenPurchasePromptAction_PurchaseAnalyticsMetadata
+		local self = _OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral.jsonDecode(
+					input.literal
+				),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl.descriptor = {
+		name = "OpenPurchasePromptAction_PurchaseAnalyticsMetadata",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PurchaseAnalyticsMetadata",
+	}
+
+	messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata =
+		_OpenPurchasePromptAction_PurchaseAnalyticsMetadataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata)
+end
+
+do
+	local _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl = {}
+	_OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl.__index =
+		_OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl
+
+	function _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl.new(
+		data: _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralPartialFields?
+	): OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral
+		return setmetatable(
+			{
+				surface = if data == nil or data.surface == nil then nil else data.surface,
+				product_universe_id = if data == nil or data.product_universe_id == nil
+					then nil
+					else data.product_universe_id,
+			},
+			_OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl :: _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl
+		)
+	end
+
+	function _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl.encode(
+		self: OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.surface ~= nil then
+			local encoded = self.surface:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.product_universe_id ~= nil then
+			local encoded = self.product_universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl.decode(
+		input: buffer
+	): OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral
+		local self = _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.surface = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.product_universe_id =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl.jsonEncode(
+		self: OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral
+	): any
+		local output = {}
+
+		if self.surface ~= nil then
+			output.surface = self.surface:jsonEncode()
+		end
+
+		if self.product_universe_id ~= nil then
+			output.productUniverseId = self.product_universe_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl.jsonDecode(
+		input: {
+			[string]: any,
+		}
+	): OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral
+		local self = _OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl.new()
+
+		if input.surface ~= nil then
+			self.surface = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surface)
+		end
+
+		if input.product_universe_id ~= nil then
+			self.product_universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.product_universe_id)
+		end
+
+		if input.productUniverseId ~= nil then
+			self.product_universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.productUniverseId)
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl.descriptor = {
+		name = "OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral",
+		fullName = "roblox.apppageplatform.shared.v1beta1.PurchaseAnalyticsMetadataLiteral",
+	}
+
+	messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral =
+		_OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteralImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(
+		messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral
+	)
+end
+
+do
+	local _OpenPurchasePromptAction_ParamsImpl = {}
+	_OpenPurchasePromptAction_ParamsImpl.__index = _OpenPurchasePromptAction_ParamsImpl
+
+	function _OpenPurchasePromptAction_ParamsImpl.new(
+		data: _OpenPurchasePromptAction_ParamsPartialFields?
+	): OpenPurchasePromptAction_Params
+		return setmetatable({
+			product_payload = if data == nil or data.product_payload == nil then nil else data.product_payload,
+			display_info = if data == nil or data.display_info == nil then nil else data.display_info,
+			purchase_options = if data == nil or data.purchase_options == nil then nil else data.purchase_options,
+			purchase_analytics_metadata = if data == nil or data.purchase_analytics_metadata == nil
+				then nil
+				else data.purchase_analytics_metadata,
+			root_place_id = if data == nil or data.root_place_id == nil then nil else data.root_place_id,
+		}, _OpenPurchasePromptAction_ParamsImpl :: _OpenPurchasePromptAction_ParamsImpl)
+	end
+
+	function _OpenPurchasePromptAction_ParamsImpl.encode(self: OpenPurchasePromptAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.product_payload ~= nil then
+			local encoded = self.product_payload:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.display_info ~= nil then
+			local encoded = self.display_info:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.purchase_options ~= nil then
+			local encoded = self.purchase_options:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.purchase_analytics_metadata ~= nil then
+			local encoded = self.purchase_analytics_metadata:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.root_place_id ~= nil then
+			local encoded = self.root_place_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenPurchasePromptAction_ParamsImpl.decode(input: buffer): OpenPurchasePromptAction_Params
+		local self = _OpenPurchasePromptAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.product_payload = messages.OpenPurchasePromptAction_ProductPayload.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.display_info = messages.OpenPurchasePromptAction_DisplayInfo.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.purchase_options = messages.OpenPurchasePromptAction_PurchaseOptions.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.purchase_analytics_metadata =
+						messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.root_place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenPurchasePromptAction_ParamsImpl.jsonEncode(self: OpenPurchasePromptAction_Params): any
+		local output = {}
+
+		if self.product_payload ~= nil then
+			output.productPayload = self.product_payload:jsonEncode()
+		end
+
+		if self.display_info ~= nil then
+			output.displayInfo = self.display_info:jsonEncode()
+		end
+
+		if self.purchase_options ~= nil then
+			output.purchaseOptions = self.purchase_options:jsonEncode()
+		end
+
+		if self.purchase_analytics_metadata ~= nil then
+			output.purchaseAnalyticsMetadata = self.purchase_analytics_metadata:jsonEncode()
+		end
+
+		if self.root_place_id ~= nil then
+			output.rootPlaceId = self.root_place_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenPurchasePromptAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenPurchasePromptAction_Params
+		local self = _OpenPurchasePromptAction_ParamsImpl.new()
+
+		if input.product_payload ~= nil then
+			self.product_payload = messages.OpenPurchasePromptAction_ProductPayload.jsonDecode(input.product_payload)
+		end
+
+		if input.productPayload ~= nil then
+			self.product_payload = messages.OpenPurchasePromptAction_ProductPayload.jsonDecode(input.productPayload)
+		end
+
+		if input.display_info ~= nil then
+			self.display_info = messages.OpenPurchasePromptAction_DisplayInfo.jsonDecode(input.display_info)
+		end
+
+		if input.displayInfo ~= nil then
+			self.display_info = messages.OpenPurchasePromptAction_DisplayInfo.jsonDecode(input.displayInfo)
+		end
+
+		if input.purchase_options ~= nil then
+			self.purchase_options = messages.OpenPurchasePromptAction_PurchaseOptions.jsonDecode(input.purchase_options)
+		end
+
+		if input.purchaseOptions ~= nil then
+			self.purchase_options = messages.OpenPurchasePromptAction_PurchaseOptions.jsonDecode(input.purchaseOptions)
+		end
+
+		if input.purchase_analytics_metadata ~= nil then
+			self.purchase_analytics_metadata = messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata.jsonDecode(
+				input.purchase_analytics_metadata
+			)
+		end
+
+		if input.purchaseAnalyticsMetadata ~= nil then
+			self.purchase_analytics_metadata =
+				messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata.jsonDecode(input.purchaseAnalyticsMetadata)
+		end
+
+		if input.root_place_id ~= nil then
+			self.root_place_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.root_place_id)
+		end
+
+		if input.rootPlaceId ~= nil then
+			self.root_place_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.rootPlaceId)
+		end
+
+		return self
+	end
+
+	_OpenPurchasePromptAction_ParamsImpl.descriptor = {
+		name = "OpenPurchasePromptAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenPurchasePromptAction_Params = _OpenPurchasePromptAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenPurchasePromptAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -12612,6 +17767,9 @@ do
 		return setmetatable({
 			kind = if data == nil or data.kind == nil then nil else data.kind,
 			telemetry_handler = if data == nil or data.telemetry_handler == nil then nil else data.telemetry_handler,
+			accessibility_label = if data == nil or data.accessibility_label == nil
+				then nil
+				else data.accessibility_label,
 		}, _ActionImpl :: _ActionImpl)
 	end
 
@@ -12764,12 +17922,42 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 36, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "launch_experience_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 37, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "toggle_experience_favorite_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 38, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "toggle_experience_follow_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 39, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "toggle_experience_vote_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 40, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_purchase_prompt_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 41, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_sdui_overlay_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 42, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
 		if self.telemetry_handler ~= nil then
 			local encoded = self.telemetry_handler:encode()
 			output, cursor = proto.writeTag(output, cursor, 1000, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.accessibility_label ~= nil then
+			local encoded = self.accessibility_label:encode()
+			output, cursor = proto.writeTag(output, cursor, 1001, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -13028,10 +18216,60 @@ do
 					self.kind =
 						{ type = "open_event_details_action", value = messages.OpenEventDetailsAction.decode(value) }
 					continue
+				elseif field == 37 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "launch_experience_action", value = messages.LaunchExperienceAction.decode(value) }
+					continue
+				elseif field == 38 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "toggle_experience_favorite_action",
+						value = messages.ToggleExperienceFavoriteAction.decode(value),
+					}
+					continue
+				elseif field == 39 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "toggle_experience_follow_action",
+						value = messages.ToggleExperienceFollowAction.decode(value),
+					}
+					continue
+				elseif field == 40 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "toggle_experience_vote_action",
+						value = messages.ToggleExperienceVoteAction.decode(value),
+					}
+					continue
+				elseif field == 41 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_purchase_prompt_action",
+						value = messages.OpenPurchasePromptAction.decode(value),
+					}
+					continue
+				elseif field == 42 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "open_sdui_overlay_action", value = messages.OpenSduiOverlayAction.decode(value) }
+					continue
 				elseif field == 1000 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.telemetry_handler = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 1001 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.accessibility_label =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat.decode(value)
 					continue
 				end
 
@@ -13133,11 +18371,27 @@ do
 				output.openGameInviteAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_event_details_action" then
 				output.openEventDetailsAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "launch_experience_action" then
+				output.launchExperienceAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "toggle_experience_favorite_action" then
+				output.toggleExperienceFavoriteAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "toggle_experience_follow_action" then
+				output.toggleExperienceFollowAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "toggle_experience_vote_action" then
+				output.toggleExperienceVoteAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_purchase_prompt_action" then
+				output.openPurchasePromptAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_sdui_overlay_action" then
+				output.openSduiOverlayAction = self.kind.value:jsonEncode()
 			end
 		end
 
 		if self.telemetry_handler ~= nil then
 			output.telemetryHandler = self.telemetry_handler:jsonEncode()
+		end
+
+		if self.accessibility_label ~= nil then
+			output.accessibilityLabel = self.accessibility_label:jsonEncode()
 		end
 
 		return output
@@ -13636,6 +18890,90 @@ do
 			}
 		end
 
+		if input.launch_experience_action ~= nil then
+			self.kind = {
+				type = "launch_experience_action",
+				value = messages.LaunchExperienceAction.jsonDecode(input.launch_experience_action),
+			}
+		end
+
+		if input.launchExperienceAction ~= nil then
+			self.kind = {
+				type = "launch_experience_action",
+				value = messages.LaunchExperienceAction.jsonDecode(input.launchExperienceAction),
+			}
+		end
+
+		if input.toggle_experience_favorite_action ~= nil then
+			self.kind = {
+				type = "toggle_experience_favorite_action",
+				value = messages.ToggleExperienceFavoriteAction.jsonDecode(input.toggle_experience_favorite_action),
+			}
+		end
+
+		if input.toggleExperienceFavoriteAction ~= nil then
+			self.kind = {
+				type = "toggle_experience_favorite_action",
+				value = messages.ToggleExperienceFavoriteAction.jsonDecode(input.toggleExperienceFavoriteAction),
+			}
+		end
+
+		if input.toggle_experience_follow_action ~= nil then
+			self.kind = {
+				type = "toggle_experience_follow_action",
+				value = messages.ToggleExperienceFollowAction.jsonDecode(input.toggle_experience_follow_action),
+			}
+		end
+
+		if input.toggleExperienceFollowAction ~= nil then
+			self.kind = {
+				type = "toggle_experience_follow_action",
+				value = messages.ToggleExperienceFollowAction.jsonDecode(input.toggleExperienceFollowAction),
+			}
+		end
+
+		if input.toggle_experience_vote_action ~= nil then
+			self.kind = {
+				type = "toggle_experience_vote_action",
+				value = messages.ToggleExperienceVoteAction.jsonDecode(input.toggle_experience_vote_action),
+			}
+		end
+
+		if input.toggleExperienceVoteAction ~= nil then
+			self.kind = {
+				type = "toggle_experience_vote_action",
+				value = messages.ToggleExperienceVoteAction.jsonDecode(input.toggleExperienceVoteAction),
+			}
+		end
+
+		if input.open_purchase_prompt_action ~= nil then
+			self.kind = {
+				type = "open_purchase_prompt_action",
+				value = messages.OpenPurchasePromptAction.jsonDecode(input.open_purchase_prompt_action),
+			}
+		end
+
+		if input.openPurchasePromptAction ~= nil then
+			self.kind = {
+				type = "open_purchase_prompt_action",
+				value = messages.OpenPurchasePromptAction.jsonDecode(input.openPurchasePromptAction),
+			}
+		end
+
+		if input.open_sdui_overlay_action ~= nil then
+			self.kind = {
+				type = "open_sdui_overlay_action",
+				value = messages.OpenSduiOverlayAction.jsonDecode(input.open_sdui_overlay_action),
+			}
+		end
+
+		if input.openSduiOverlayAction ~= nil then
+			self.kind = {
+				type = "open_sdui_overlay_action",
+				value = messages.OpenSduiOverlayAction.jsonDecode(input.openSduiOverlayAction),
+			}
+		end
+
 		if input.telemetry_handler ~= nil then
 			self.telemetry_handler =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.telemetry_handler)
@@ -13644,6 +18982,16 @@ do
 		if input.telemetryHandler ~= nil then
 			self.telemetry_handler =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.telemetryHandler)
+		end
+
+		if input.accessibility_label ~= nil then
+			self.accessibility_label =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat.jsonDecode(input.accessibility_label)
+		end
+
+		if input.accessibilityLabel ~= nil then
+			self.accessibility_label =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringFormat.jsonDecode(input.accessibilityLabel)
 		end
 
 		return self
@@ -14872,6 +20220,18 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_GAME_INVITE"
 		elseif value == 36 then
 			return "ACTION_TYPE_OPEN_EVENT_DETAILS"
+		elseif value == 37 then
+			return "ACTION_TYPE_LAUNCH_EXPERIENCE"
+		elseif value == 38 then
+			return "ACTION_TYPE_TOGGLE_EXPERIENCE_FAVORITE"
+		elseif value == 39 then
+			return "ACTION_TYPE_TOGGLE_EXPERIENCE_FOLLOW"
+		elseif value == 40 then
+			return "ACTION_TYPE_TOGGLE_EXPERIENCE_VOTE"
+		elseif value == 41 then
+			return "ACTION_TYPE_OPEN_PURCHASE_PROMPT"
+		elseif value == 42 then
+			return "ACTION_TYPE_OPEN_SDUI_OVERLAY"
 		else
 			return nil
 		end
@@ -14952,6 +20312,18 @@ messages.ActionType = {
 			return 35
 		elseif self == "ACTION_TYPE_OPEN_EVENT_DETAILS" then
 			return 36
+		elseif self == "ACTION_TYPE_LAUNCH_EXPERIENCE" then
+			return 37
+		elseif self == "ACTION_TYPE_TOGGLE_EXPERIENCE_FAVORITE" then
+			return 38
+		elseif self == "ACTION_TYPE_TOGGLE_EXPERIENCE_FOLLOW" then
+			return 39
+		elseif self == "ACTION_TYPE_TOGGLE_EXPERIENCE_VOTE" then
+			return 40
+		elseif self == "ACTION_TYPE_OPEN_PURCHASE_PROMPT" then
+			return 41
+		elseif self == "ACTION_TYPE_OPEN_SDUI_OVERLAY" then
+			return 42
 		else
 			return self
 		end
@@ -15032,6 +20404,18 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_GAME_INVITE"
 		elseif name == "ACTION_TYPE_OPEN_EVENT_DETAILS" then
 			return "ACTION_TYPE_OPEN_EVENT_DETAILS"
+		elseif name == "ACTION_TYPE_LAUNCH_EXPERIENCE" then
+			return "ACTION_TYPE_LAUNCH_EXPERIENCE"
+		elseif name == "ACTION_TYPE_TOGGLE_EXPERIENCE_FAVORITE" then
+			return "ACTION_TYPE_TOGGLE_EXPERIENCE_FAVORITE"
+		elseif name == "ACTION_TYPE_TOGGLE_EXPERIENCE_FOLLOW" then
+			return "ACTION_TYPE_TOGGLE_EXPERIENCE_FOLLOW"
+		elseif name == "ACTION_TYPE_TOGGLE_EXPERIENCE_VOTE" then
+			return "ACTION_TYPE_TOGGLE_EXPERIENCE_VOTE"
+		elseif name == "ACTION_TYPE_OPEN_PURCHASE_PROMPT" then
+			return "ACTION_TYPE_OPEN_PURCHASE_PROMPT"
+		elseif name == "ACTION_TYPE_OPEN_SDUI_OVERLAY" then
+			return "ACTION_TYPE_OPEN_SDUI_OVERLAY"
 		else
 			return nil
 		end
@@ -15104,6 +20488,8 @@ return {
 	RsvpToEventAction_Params = messages.RsvpToEventAction_Params,
 	OpenEventDetailsAction = messages.OpenEventDetailsAction,
 	OpenEventDetailsAction_Params = messages.OpenEventDetailsAction_Params,
+	OpenSduiOverlayAction = messages.OpenSduiOverlayAction,
+	OpenSduiOverlayAction_Params = messages.OpenSduiOverlayAction_Params,
 	ApplyChartsFilterAction = messages.ApplyChartsFilterAction,
 	ApplyChartsFilterAction_Params = messages.ApplyChartsFilterAction_Params,
 	AnalyticsEventAction = messages.AnalyticsEventAction,
@@ -15112,6 +20498,29 @@ return {
 	CustomAnalyticsEventAction_Params = messages.CustomAnalyticsEventAction_Params,
 	OpenGameInviteAction = messages.OpenGameInviteAction,
 	OpenGameInviteAction_Params = messages.OpenGameInviteAction_Params,
+	LaunchExperienceAction = messages.LaunchExperienceAction,
+	LaunchExperienceAction_ExperienceJoinData = messages.LaunchExperienceAction_ExperienceJoinData,
+	LaunchExperienceAction_Params = messages.LaunchExperienceAction_Params,
+	ToggleExperienceFavoriteAction = messages.ToggleExperienceFavoriteAction,
+	ToggleExperienceFavoriteAction_Params = messages.ToggleExperienceFavoriteAction_Params,
+	ToggleExperienceFollowAction = messages.ToggleExperienceFollowAction,
+	ToggleExperienceFollowAction_Params = messages.ToggleExperienceFollowAction_Params,
+	ToggleExperienceVoteAction = messages.ToggleExperienceVoteAction,
+	ToggleExperienceVoteAction_Params = messages.ToggleExperienceVoteAction_Params,
+	OpenPurchasePromptAction = messages.OpenPurchasePromptAction,
+	OpenPurchasePromptAction_ProductPayload = messages.OpenPurchasePromptAction_ProductPayload,
+	OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral = messages.OpenPurchasePromptAction_ProductPayload_ProductPayloadLiteral,
+	OpenPurchasePromptAction_PriceDiscountDetail = messages.OpenPurchasePromptAction_PriceDiscountDetail,
+	OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral = messages.OpenPurchasePromptAction_PriceDiscountDetail_PriceDiscountDetailLiteral,
+	OpenPurchasePromptAction_PriceDiscountDetailArrayProp = messages.OpenPurchasePromptAction_PriceDiscountDetailArrayProp,
+	OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails = messages.OpenPurchasePromptAction_PriceDiscountDetailArrayProp_ArrayOfPriceDiscountDetails,
+	OpenPurchasePromptAction_DisplayInfo = messages.OpenPurchasePromptAction_DisplayInfo,
+	OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral = messages.OpenPurchasePromptAction_DisplayInfo_DisplayInfoLiteral,
+	OpenPurchasePromptAction_PurchaseOptions = messages.OpenPurchasePromptAction_PurchaseOptions,
+	OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral = messages.OpenPurchasePromptAction_PurchaseOptions_PurchaseOptionsLiteral,
+	OpenPurchasePromptAction_PurchaseAnalyticsMetadata = messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata,
+	OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral = messages.OpenPurchasePromptAction_PurchaseAnalyticsMetadata_PurchaseAnalyticsMetadataLiteral,
+	OpenPurchasePromptAction_Params = messages.OpenPurchasePromptAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

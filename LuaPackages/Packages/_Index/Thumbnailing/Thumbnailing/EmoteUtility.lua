@@ -12,7 +12,6 @@ local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local FStringEmoteUtilityFallbackKeyframeSequenceAssetId =
 	game:DefineFastString("EmoteUtilityFallbackKeyframeSequenceAssetId", "10921261056")
 local FFlagEmoteUtilityDefaultMoodFromCharacter = game:DefineFastFlag("EmoteUtilityDefaultMoodFromCharacter", false)
-local FFlagEmoteUtilitySupportAJU = game:DefineFastFlag("EmoteUtilitySupportAJU2", false)
 
 local module = {}
 
@@ -45,7 +44,7 @@ module.FallbackKeyframeSequenceAssetId = FStringEmoteUtilityFallbackKeyframeSequ
 module.debugLoadAssetsFromFiles = false
 module.mapAssetIdToFileName = nil :: MapAssetIdToFileNameType?
 
-module.EmoteUtilitySupportAJU = FFlagEmoteUtilitySupportAJU
+module.EmoteUtilitySupportAJU = true
 
 -- In cases where no asset id is provided for posing the avatar, fall back a pose based on this animation.
 -- Note: this only works on prod, not sitetest or gametest.
@@ -725,53 +724,43 @@ end
 	We have to play the animation a bit to get things to jump into place.
 ]]
 module.ForceAnimationToStep = function(character: Model)
-	if FFlagEmoteUtilitySupportAJU then
-		local partsToProcess = { character:FindFirstChild("HumanoidRootPart") :: BasePart }
-		local visited: { [BasePart]: boolean } = {}
-		local jointQueue: { { part0: BasePart, part1: BasePart, joint: AnimatableJoint } } = {}
+	local partsToProcess = { character:FindFirstChild("HumanoidRootPart") :: BasePart }
+	local visited: { [BasePart]: boolean } = {}
+	local jointQueue: { { part0: BasePart, part1: BasePart, joint: AnimatableJoint } } = {}
 
-		while #partsToProcess > 0 do
-			local currentPart = table.remove(partsToProcess, 1) :: BasePart
-			if visited[currentPart] then
+	while #partsToProcess > 0 do
+		local currentPart = table.remove(partsToProcess, 1) :: BasePart
+		if visited[currentPart] then
+			continue
+		end
+		visited[currentPart] = true
+
+		for _, joint in currentPart:GetJoints() do
+			if not joint:IsA("Motor6D") and not joint:IsA("AnimationConstraint") then
 				continue
 			end
-			visited[currentPart] = true
 
-			for _, joint in currentPart:GetJoints() do
-				if not joint:IsA("Motor6D") and not joint:IsA("AnimationConstraint") then
-					continue
-				end
-
-				local part0, part1 = getJointParts(joint)
-				if part0 == currentPart and part1 and not visited[part1 :: BasePart] then
-					table.insert(jointQueue, { part0 = currentPart, part1 = part1 :: BasePart, joint = joint })
-					table.insert(partsToProcess, part1 :: BasePart)
-				end
+			local part0, part1 = getJointParts(joint)
+			if part0 == currentPart and part1 and not visited[part1 :: BasePart] then
+				table.insert(jointQueue, { part0 = currentPart, part1 = part1 :: BasePart, joint = joint })
+				table.insert(partsToProcess, part1 :: BasePart)
 			end
 		end
+	end
 
-		-- Disable all AnimationConstraints so they don't fight
-		-- the CFrame placements we're about to make.
-		for _, desc in character:GetDescendants() do
-			if desc:IsA("AnimationConstraint") then
-				desc.Enabled = false
-			end
+	-- Disable all AnimationConstraints so they don't fight
+	-- the CFrame placements we're about to make.
+	for _, desc in character:GetDescendants() do
+		if desc:IsA("AnimationConstraint") then
+			desc.Enabled = false
 		end
+	end
 
-		for _, entry in jointQueue do
-			local joint = entry.joint
-			if joint:IsA("Motor6D") or joint:IsA("AnimationConstraint") then
-				local poseCFrame: CFrame = getJointPose(joint)
-				applyCFrame(entry.part0, entry.part1, joint :: AnimatableJoint, poseCFrame)
-			end
-		end
-	else
-		local humanoid = character:FindFirstChildOfClass("Humanoid")
-		if humanoid then
-			local animator = humanoid:FindFirstChildOfClass("Animator")
-			if animator then
-				animator:StepAnimations(0.1)
-			end
+	for _, entry in jointQueue do
+		local joint = entry.joint
+		if joint:IsA("Motor6D") or joint:IsA("AnimationConstraint") then
+			local poseCFrame: CFrame = getJointPose(joint)
+			applyCFrame(entry.part0, entry.part1, joint :: AnimatableJoint, poseCFrame)
 		end
 	end
 end
@@ -820,7 +809,7 @@ module.GetJointBetween = function(part0: Part?, part1: Part?): AnimatableJoint?
 	for _, obj in part1:GetChildren() do
 		if obj:IsA("Motor6D") and obj.Part0 == part0 then
 			return obj
-		elseif FFlagEmoteUtilitySupportAJU and obj:IsA("AnimationConstraint") and obj.Part0 == part0 then
+		elseif obj:IsA("AnimationConstraint") and obj.Part0 == part0 then
 			return obj
 		end
 	end
@@ -1131,7 +1120,7 @@ module.SetPlayerCharacterNeutralPose = function(character: Model)
 		if instance:IsA("Motor6D") then
 			local motor6D = instance :: Motor6D
 			motor6D.Transform = CFrame.new()
-		elseif FFlagEmoteUtilitySupportAJU and instance:IsA("AnimationConstraint") then
+		elseif instance:IsA("AnimationConstraint") then
 			instance.Transform = CFrame.new()
 		end
 

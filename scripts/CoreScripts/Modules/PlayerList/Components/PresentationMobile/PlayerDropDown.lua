@@ -43,7 +43,6 @@ local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
-local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
 local RequestFriendship = require(PlayerList.Thunks.RequestFriendship)
@@ -220,7 +219,7 @@ end
 
 function PlayerDropDown:render()
 	return WithLayoutValues(function(layoutValues)
-		layoutValues = if FFlagUseNewPlayerList then self.props.layoutValues else layoutValues
+		layoutValues = self.props.layoutValues
 
 		local selectedPlayer = self.props.selectedPlayer
 
@@ -398,7 +397,7 @@ local function mapDispatchToProps(dispatch)
 end
 
 local function PlayerDropDownWrapper(props)
-	local layoutValues = if FFlagUseNewPlayerList then useLayoutValues() else nil
+	local layoutValues = useLayoutValues()
 
 	local focusGuiObject = ReactFocusNavigation.useFocusGuiObject()
 	local focusedGuiObject = ReactFocusNavigation.useFocusedGuiObject()
@@ -410,16 +409,8 @@ local function PlayerDropDownWrapper(props)
 	}))
 end
 
-if FFlagAddNewPlayerListMobileFocusNav or FFlagUseNewPlayerList then
-	if FFlagPlayerListReduceRerenders then
-		return React.memo(RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDownWrapper))
-	end
-
-	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDownWrapper)
-else
-	if FFlagPlayerListReduceRerenders then
-		return React.memo(RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDown))
-	end
-
-	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDown)
+if FFlagPlayerListReduceRerenders then
+	return React.memo(RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDownWrapper))
 end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDownWrapper)

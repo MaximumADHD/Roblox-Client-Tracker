@@ -40,6 +40,7 @@ local FFlagEnableModerateChatRemoteEvent =
 local FFlagEnableSummarySystemMessageOnLua =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableSummarySystemMessageOnLua
 
+local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 local FFlagProfileSettingsSlidingWindowRateLimit = game:DefineFastFlag("ProfileSettingsSlidingWindowRateLimit", false)
 local FIntProfileSettingsRateLimitSeconds = game:DefineFastInt("ProfileSettingsRateLimitSeconds", 5)
 local FIntProfileSettingsMaxRequestsPerWindow = game:DefineFastInt("ProfileSettingsMaxRequestsPerWindow", 3)
@@ -156,7 +157,7 @@ if FFlagEnableModerateChatRemoteEvent then
 end
 
 local RemoteEvent_ExpChatFeatureValueChanged
-if FFlagEnableSummarySystemMessageOnLua then
+if FFlagEnableSummarySystemMessageOnLua or FFlagAIRephraseSettingEnabled then
 	RemoteEvent_ExpChatFeatureValueChanged = Instance.new("RemoteEvent")
 	RemoteEvent_ExpChatFeatureValueChanged.Name = "ExpChatFeatureValueChanged"
 	RemoteEvent_ExpChatFeatureValueChanged.Parent = RobloxReplicatedStorage
@@ -602,7 +603,7 @@ if FFlagEnableModerateChatRemoteEvent then
 	end)
 end
 
-if FFlagEnableSummarySystemMessageOnLua then
+if FFlagEnableSummarySystemMessageOnLua or FFlagAIRephraseSettingEnabled then
 	TextChatService.ExpChatFeatureValueChanged:Connect(
 		function(userId: number, featureName: string, featureValue: string)
 			local player = Players:GetPlayerByUserId(userId)

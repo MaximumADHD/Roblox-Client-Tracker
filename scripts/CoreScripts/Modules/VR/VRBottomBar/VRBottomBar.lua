@@ -90,8 +90,6 @@ local FIntVRBottomBarPositionOffsetVerticalNumber =
 	require(RobloxGui.Modules.Flags.FIntVRBottomBarPositionOffsetVerticalNumber)
 local FIntVRBottomBarPositionOffsetDepthNumber =
 	require(RobloxGui.Modules.Flags.FIntVRBottomBarPositionOffsetDepthNumber)
-local FFlagVRBottomBarHighlightedLeaveGameIcon =
-	require(RobloxGui.Modules.Flags.FFlagVRBottomBarHighlightedLeaveGameIcon)
 local IsSpatialRobloxGuiEnabled = require(RobloxGui.Modules.VR.IsSpatialRobloxGuiEnabled)
 
 local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
@@ -797,12 +795,8 @@ function VRBottomBar:updateItems()
 		table.insert(enabledItems, SafetyOff)
 	end
 
-	if FFlagVRBottomBarHighlightedLeaveGameIcon then
-		if VRHub.ShowHighlightedLeaveGameIcon then
-			table.insert(enabledItems, LeaveGameHighlighted)
-		else
-			table.insert(enabledItems, LeaveGame)
-		end
+	if VRHub.ShowHighlightedLeaveGameIcon then
+		table.insert(enabledItems, LeaveGameHighlighted)
 	else
 		table.insert(enabledItems, LeaveGame)
 	end
@@ -945,11 +939,10 @@ function VRBottomBar:renderWithStyle(style)
 			}),
 		}),
 
-		ShowHighlightedLeaveGameIconToggled = FFlagVRBottomBarHighlightedLeaveGameIcon
-			and Roact.createElement(ExternalEventConnection, {
-				event = VRHub.ShowHighlightedLeaveGameIconToggled.Event,
-				callback = self.updateItemListState,
-			}),
+		ShowHighlightedLeaveGameIconToggled = Roact.createElement(ExternalEventConnection, {
+			event = VRHub.ShowHighlightedLeaveGameIconToggled.Event,
+			callback = self.updateItemListState,
+		}),
 		ShowTopBarChanged = Roact.createElement(ExternalEventConnection, {
 			event = VRHub.ShowTopBarChanged.Event,
 			callback = self.onShowTopBarChanged,

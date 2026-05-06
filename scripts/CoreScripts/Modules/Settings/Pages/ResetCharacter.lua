@@ -59,8 +59,6 @@ local FFlagConfirmationButtonsUseGreyButtons = require(RobloxGui.Modules.Setting
 local FFlagMenuButtonsFixConfirmationScrolling = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsFixConfirmationScrolling)
 local FFlagRenameRespawnConfirmationPage = SharedFlags.FFlagRenameRespawnConfirmationPage
 
-local EngineFeatureAvatarEditorServiceBustCacheEnabled = game:GetEngineFeature("AvatarEditorServiceBustCacheEnabled")
-
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 local focusNavigationService = ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
@@ -93,9 +91,9 @@ local function ResetCharacterButtonsContainer(props: Props)
 		ConfirmResetCharacter = Constants.ConfirmResetCharacterLocalizedKey,
 		ResetCharacter = if FFlagRenameRespawnConfirmationPage then Constants.RespawnLocalizedKey else Constants.ResetCharacterLocalizedKey,
 		DontResetCharacter = Constants.DontResetCharacterLocalizedKey,
-	}) 
+	})
 
-	React.useEffect(function() 
+	React.useEffect(function()
 		if lastInput ~= Input.Touch then
 			focusGuiObject(resetCharacterButtonRef.current)
 		else
@@ -268,10 +266,7 @@ local function Initialize()
 	this.ResetBindable = true
 
 	local onResetFunction = function(props: ResetProps?)
-		if EngineFeatureAvatarEditorServiceBustCacheEnabled then
-			-- Remove any cast with EngineFeatureAvatarEditorServiceBustCacheEnabled
-			(AvatarEditorService :: any):BustAvatarFetchCache()
-		end
+		AvatarEditorService:BustAvatarFetchCache()
 
 		if this.ResetBindable == true then
 			resetCharFunc(props)
@@ -335,8 +330,8 @@ PageInstance.Displayed.Event:connect(function()
 	if not FFlagRefactorMenuConfirmationButtons then
 		GuiService.SelectedCoreObject = PageInstance.ResetCharacterButton
 	end
-	if FFlagEnableConsoleExpControls then 
-		if ChromeEnabled then 
+	if FFlagEnableConsoleExpControls then
+		if ChromeEnabled then
 			if FFlagChromeShortcutRemoveLeaveOnRespawnPage then
 				ChromeService:setShortcutBar(ChromeConstants.TILTMENU_RESPAWN_DIALOG_SHORTCUTBAR_ID)
 			else

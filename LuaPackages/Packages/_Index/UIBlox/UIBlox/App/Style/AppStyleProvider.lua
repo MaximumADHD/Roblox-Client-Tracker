@@ -39,6 +39,7 @@ local getTokens = TokenPackage.getTokens
 local validateTokens = TokenPackage.validateTokens
 local getFoundationTokens = TokenPackage.getFoundationTokens
 local TokensMappers = TokenPackage.Mappers
+local foundationSurfaceTokensDiffer = require(script.Parent.foundationSurfaceTokensDiffer)
 
 type AppStyle = StyleTypes.AppStyle
 type BaseTokens = StyleTypes.BaseTokens
@@ -64,6 +65,7 @@ export type Props = {
 		settings: Settings?,
 	},
 	children: { [string]: React.ReactElement? }?,
+	DO_NOT_USE_useFoundationButton: boolean?,
 }
 
 -- After join, there are no optional values
@@ -173,7 +175,12 @@ local function AppStyleProvider(props: Props)
 			},
 			styleMetadata = {
 				ThemeName = themeNameConstant,
+				-- True when `Color.Surface` Surface_0/100/200/300 differ from static `getFoundationTokens`
+				HasSurfaceOverrides = if UIBloxConfig.useTokensToColorThemedAssets and foundationProviderPresent
+					then foundationSurfaceTokensDiffer(foundationTokens, contextTokens)
+					else false,
 			},
+			useFoundationButton = props.DO_NOT_USE_useFoundationButton,
 		},
 	}, Roact.oneChild(props.children :: any))
 

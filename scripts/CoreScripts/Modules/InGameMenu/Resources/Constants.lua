@@ -72,6 +72,7 @@ local Constants = {
 	AnalyticsResumeShieldSource = "shield",
 	AnalyticsResumeButtonSource = "button",
 	AnalyticsResumeGamepadSource = "gamepad",
+	AnalyticsResumeXButtonSource = "x_button",
 	AnalyticsConfirmedName = "confirmed",
 	AnalyticsCancelledName = "cancelled",
 	AnalyticsReportLeft = "ingame_menu_report_left",

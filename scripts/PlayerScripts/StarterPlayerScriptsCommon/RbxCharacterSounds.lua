@@ -19,7 +19,6 @@ end
 local FFlagUserSoundsUseRelativeVelocity = loadFlag('UserSoundsUseRelativeVelocity2')
 local FFlagUserNewCharacterSoundsApi = loadFlag('UserNewCharacterSoundsApi3')
 local FFlagUserFixCharSoundsEmitters = loadFlag('UserFixCharSoundsEmitters')
-local FFlagUserFixCharSoundsEmitterRootPart = loadFlag('UserFixCharSoundsEmitterRootPart')
 
 local SOUND_DATA : { [string]: {[string]: any}} = {
 	Climbing = {
@@ -180,7 +179,7 @@ local function initializeSoundSystem(instances: { [string]: Instance })
 		local character = nil
 		local humanoidRootPart = nil
 		if FFlagUserFixCharSoundsEmitters then
-			humanoidRootPart = if FFlagUserFixCharSoundsEmitterRootPart then (humanoid.RootPart or humanoid.Parent) else humanoid.RootPart
+			humanoidRootPart = humanoid.RootPart
 		else
 			localPlayer = Players.LocalPlayer
 			character = localPlayer.Character
@@ -389,9 +388,6 @@ local function initializeSoundSystem(instances: { [string]: Instance })
 		stateChangedConn:Disconnect()
 		steppedConn:Disconnect()
 
-		if FFlagUserFixCharSoundsEmitterRootPart and audioEmitter then
-			audioEmitter:Destroy()
-		end
 		-- Unparent all sounds and empty sounds table
 		-- This is needed in order to support the case where initializeSoundSystem might be called more than once for the same player,
 		-- which might happen in case player character is unparented and parented back on server and reset-children mechanism is active.

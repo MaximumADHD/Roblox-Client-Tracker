@@ -614,48 +614,46 @@ return {
 				})
 			end,
 		},
-		if Flags.FoundationBaseMenuSubmenuSupport
-			then {
-				name = "Nested Submenus",
-				story = function(props: Props)
-					local isOpen, setIsOpen = React.useState(false)
+		{
+			name = "Nested Submenus",
+			story = function(props: Props)
+				local isOpen, setIsOpen = React.useState(false)
 
-					local maxDepth = props.controls.maxDepth
-					local items = React.useMemo(function()
-						return truncateGroups(makeNestedSubmenuItems(setIsOpen), maxDepth)
-					end, { maxDepth })
+				local maxDepth = props.controls.maxDepth
+				local items = React.useMemo(function()
+					return truncateGroups(makeNestedSubmenuItems(setIsOpen), maxDepth)
+				end, { maxDepth })
 
-					return React.createElement(View, {
-						Size = UDim2.new(1, 0, 0, 600),
-						tag = "row align-x-center align-y-center",
+				return React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 600),
+					tag = "row align-x-center align-y-center",
+				}, {
+					Menu = React.createElement(Menu, {
+						isOpen = isOpen,
+						items = items,
+						size = props.controls.size,
+						side = props.controls.side,
+						align = props.controls.align,
+						onPressedOutside = function()
+							setIsOpen(false)
+						end,
+						onActivated = function(id)
+							print("Menu item activated by parent:", id)
+							setIsOpen(false)
+						end,
 					}, {
-						Menu = React.createElement(Menu, {
-							isOpen = isOpen,
-							items = items,
-							size = props.controls.size,
-							side = props.controls.side,
-							align = props.controls.align,
-							onPressedOutside = function()
-								setIsOpen(false)
+						Button = React.createElement(Button, {
+							text = "Open Menu",
+							size = InputSize.Medium,
+							onActivated = function()
+								setIsOpen(not isOpen)
 							end,
-							onActivated = function(id)
-								print("Menu item activated by parent:", id)
-								setIsOpen(false)
-							end,
-						}, {
-							Button = React.createElement(Button, {
-								text = "Open Menu",
-								size = InputSize.Medium,
-								onActivated = function()
-									setIsOpen(not isOpen)
-								end,
-							}),
 						}),
-					})
-				end,
-			}
-			else {} :: any,
-		if Flags.FoundationBaseMenuSubmenuSupport and Flags.FoundationFixNestedSubMenuOnClick
+					}),
+				})
+			end,
+		},
+		if Flags.FoundationFixNestedSubMenuOnClick
 			then {
 				name = "Nested Submenus (per-item onActivated)",
 				story = function(props: Props)

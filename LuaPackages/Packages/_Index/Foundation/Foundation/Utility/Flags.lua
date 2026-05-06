@@ -87,10 +87,8 @@ return {
 	FoundationViewRemoveDashUnion = SafeFlags.createGetFFlag("FoundationViewRemoveDashUnion")(),
 
 	-- Foundation@1.74.0
-	FoundationBaseMenuSubmenuSupport = SafeFlags.createGetFFlag("FoundationBaseMenuSubmenuSupport")(),
 	FoundationCenterSheetUseStableContainer = SafeFlags.createGetFFlag("FoundationCenterSheetUseStableContainer")(),
 	FoundationColorPickerDesignUpdate = SafeFlags.createGetFFlag("FoundationColorPickerDesignUpdate")(),
-	FoundationElevationKeepSiblingZIndex = SafeFlags.createGetFFlag("FoundationElevationKeepSiblingZIndex2")(),
 	FoundationImageSafeLookup = SafeFlags.createGetFFlag("FoundationImageSafeLookup")(),
 	FoundationTruncateBadgeText = SafeFlags.createGetFFlag("FoundationTruncateBadgeText2")(),
 
@@ -158,17 +156,22 @@ return {
 	FoundationUseAttributeTokens = FoundationUseAttributeTokens,
 
 	-- Foundation@1.84.0
+	FoundationActionEmphasisStatusIndicator = SafeFlags.createGetFFlag("FoundationActionEmphasisStatusIndicator")(),
+	FoundationPopoverPluginPrewarmDepthPool = FoundationPopoverPluginPrewarmDepthPool
+		and FoundationPopoverPluginDepthPool,
+
+	-- Foundation@1.85.0
 	FoundationCleanupTextInputPolyfill = FoundationCleanupTextInputPolyfill,
 	FoundationInputVariantsConsolidateContainer = FoundationInputVariantsConsolidateContainer
 		and FoundationNumberInputTextFix
 		and FoundationCleanupTextInputPolyfill,
-	FoundationPopoverPluginPrewarmDepthPool = FoundationPopoverPluginPrewarmDepthPool
-		and FoundationPopoverPluginDepthPool,
 	FoundationSharedInputVariants = FoundationSharedInputVariants
 		and FoundationCleanupTextInputPolyfill
 		and FoundationInputVariantsConsolidateContainer
 		and FoundationNumberInputTextFix,
-	FoundationActionEmphasisStatusIndicator = SafeFlags.createGetFFlag("FoundationActionEmphasisStatusIndicator")(),
+	FoundationInputSelectionProps = SafeFlags.createGetFFlag("FoundationInputSelectionProps")(),
+	FoundationMigrateDeprecatedApis = SafeFlags.createGetFFlag("FoundationMigrateDeprecatedApis")(),
+	FoundationSystemBannerOptionalTitle = SafeFlags.createGetFFlag("FoundationSystemBannerOptionalTitle")(),
 
 	-- Unreleased flags
 }

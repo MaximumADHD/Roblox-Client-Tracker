@@ -20,6 +20,8 @@ local StandardButtonSize = require(Core.Button.Enum.StandardButtonSize)
 local GenericButton = require(Core.Button.GenericButton)
 local ControlState = require(Core.Control.Enum.ControlState)
 
+local StyleContext = require(Core.Style.StyleContext)
+
 local isReactTagProp = require(UIBlox.Utility.isReactTagProp)
 
 local Images = require(App.ImageSet.Images)
@@ -155,6 +157,10 @@ Button.validateProps = t.strictInterface({
 	-- Optional selection cursor
 	cursor = t.optional(t.any),
 
+	-- Force UIBlox button render regardless of the useFoundationButton config flag.
+	-- DO NOT USE: internal escape hatch, not intended for external consumers.
+	DO_NOT_USE_useUIBloxButton = t.optional(t.boolean),
+
 	[React.Change.AbsoluteSize] = t.optional(t.callback),
 	[React.Change.AbsolutePosition] = t.optional(t.callback),
 })
@@ -229,7 +235,10 @@ local ButtonFunctionalWrapper = function(passedProps)
 end
 
 local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
-	if UIBloxConfig.useFoundationButton then
+	local styleContainer = React.useContext(StyleContext)
+	local useFoundationButton = styleContainer and styleContainer.useFoundationButton
+
+	if (UIBloxConfig.useFoundationButton or useFoundationButton) and not buttonProps.DO_NOT_USE_useUIBloxButton then
 		local tokens = Foundation.Hooks.useTokens()
 		local props = Cryo.Dictionary.join(Button.defaultProps, buttonProps)
 		local isRoactGamepadEnabled = props.isRoactGamepadEnabled
@@ -253,7 +262,7 @@ local ButtonForwardRef = React.forwardRef(function(buttonProps, ref)
 					sizeConstraint:Destroy()
 				end
 			end
-		end, { maxWidth, finalRef })
+		end, { maxWidth, finalRef } :: { unknown })
 
 		return React.createElement(
 			if isRoactGamepadEnabled then RoactGamepad.Focusable[Foundation.Button] else Foundation.Button,

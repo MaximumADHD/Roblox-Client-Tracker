@@ -46,7 +46,6 @@ local pcallDeferred = require(root.util.pcallDeferred)
 
 local getFIntUGCValidationLCHandleScaleOffsetMaximum =
 	require(root.flags.getFIntUGCValidationLCHandleScaleOffsetMaximum) -- / 1000
-local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
@@ -411,12 +410,10 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 	end
 
 	if not getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning() then
-		if getEngineUGCValidateRelativeSkinningTransfer() then
-			success, failedReason = validateSkinningTransfer(handle, validationContext)
-			if not success then
-				table.insert(reasons, table.concat(failedReason, "\n"))
-				validationResult = false
-			end
+		success, failedReason = validateSkinningTransfer(handle, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
 		end
 
 		if not Constants.SkinningTransferRequiredTypes[assetTypeEnum] then

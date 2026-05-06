@@ -6,109 +6,94 @@
 local proto = require(script.Parent.Parent.Parent.Parent.Parent.proto)
 local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 
-type _Messages =
-	{
-		TranslationRef: _TranslationRefMessage,
-		StringFormat: _StringFormatMessage,
-		StringFormat_FormatArg: _StringFormat_FormatArgMessage,
-		StringFormat_FormatArg_Formatter: _StringFormat_FormatArg_FormatterMessage,
-		StringFormat_FormatArg_Formatter_DateConfig: _StringFormat_FormatArg_Formatter_DateConfigMessage,
-		StringFormat_FormatArg_Formatter_Type: _StringFormat_FormatArg_Formatter_TypeMessage,
-		StringFormat_ArgsEntry: _StringFormat_ArgsEntryMessage,
-		StringProp: _StringPropMessage,
-		StringProp_ConditionalOption: _StringProp_ConditionalOptionMessage,
-		StringProp_ConditionalOptions: _StringProp_ConditionalOptionsMessage,
-		FloatProp: _FloatPropMessage,
-		FloatProp_ConditionalOption: _FloatProp_ConditionalOptionMessage,
-		FloatProp_ConditionalOptions: _FloatProp_ConditionalOptionsMessage,
-		DoubleProp: _DoublePropMessage,
-		DoubleProp_ConditionalOption: _DoubleProp_ConditionalOptionMessage,
-		DoubleProp_ConditionalOptions: _DoubleProp_ConditionalOptionsMessage,
-		Int32Prop: _Int32PropMessage,
-		Int32Prop_ConditionalOption: _Int32Prop_ConditionalOptionMessage,
-		Int32Prop_ConditionalOptions: _Int32Prop_ConditionalOptionsMessage,
-		Int64Prop: _Int64PropMessage,
-		Int64Prop_ConditionalOption: _Int64Prop_ConditionalOptionMessage,
-		Int64Prop_ConditionalOptions: _Int64Prop_ConditionalOptionsMessage,
-		BoolProp: _BoolPropMessage,
-		BoolProp_ConditionalOption: _BoolProp_ConditionalOptionMessage,
-		BoolProp_ConditionalOptions: _BoolProp_ConditionalOptionsMessage,
-		StructProp: _StructPropMessage,
-		StructProp_ConditionalOption: _StructProp_ConditionalOptionMessage,
-		StructProp_ConditionalOptions: _StructProp_ConditionalOptionsMessage,
-		ImageStringProp: _ImageStringPropMessage,
-		ImageStringProp_ConditionalOption: _ImageStringProp_ConditionalOptionMessage,
-		ImageStringProp_ConditionalOptions: _ImageStringProp_ConditionalOptionsMessage,
-		ImageSetProp: _ImageSetPropMessage,
-		ImageSetProp_ConditionalOption: _ImageSetProp_ConditionalOptionMessage,
-		ImageSetProp_ConditionalOptions: _ImageSetProp_ConditionalOptionsMessage,
-		ColorProp: _ColorPropMessage,
-		ColorProp_ConditionalOption: _ColorProp_ConditionalOptionMessage,
-		ColorProp_ConditionalOptions: _ColorProp_ConditionalOptionsMessage,
-		TypographyProp: _TypographyPropMessage,
-		TypographyProp_ConditionalOption: _TypographyProp_ConditionalOptionMessage,
-		TypographyProp_ConditionalOptions: _TypographyProp_ConditionalOptionsMessage,
-		TypographyFontProp: _TypographyFontPropMessage,
-		TypographyFontProp_ConditionalOption: _TypographyFontProp_ConditionalOptionMessage,
-		TypographyFontProp_ConditionalOptions: _TypographyFontProp_ConditionalOptionsMessage,
-		ColorStyleProp: _ColorStylePropMessage,
-		ColorStyleProp_ConditionalOption: _ColorStyleProp_ConditionalOptionMessage,
-		ColorStyleProp_ConditionalOptions: _ColorStyleProp_ConditionalOptionsMessage,
-		FillBehaviorProp: _FillBehaviorPropMessage,
-		FillBehaviorProp_ConditionalOption: _FillBehaviorProp_ConditionalOptionMessage,
-		FillBehaviorProp_ConditionalOptions: _FillBehaviorProp_ConditionalOptionsMessage,
-		InputSizeProp: _InputSizePropMessage,
-		InputSizeProp_ConditionalOption: _InputSizeProp_ConditionalOptionMessage,
-		InputSizeProp_ConditionalOptions: _InputSizeProp_ConditionalOptionsMessage,
-		UDimProp: _UDimPropMessage,
-		UDimProp_ConditionalOption: _UDimProp_ConditionalOptionMessage,
-		UDimProp_ConditionalOptions: _UDimProp_ConditionalOptionsMessage,
-		UDim2Prop: _UDim2PropMessage,
-		UDim2Prop_ConditionalOption: _UDim2Prop_ConditionalOptionMessage,
-		UDim2Prop_ConditionalOptions: _UDim2Prop_ConditionalOptionsMessage,
-		Vector2Prop: _Vector2PropMessage,
-		Vector2Prop_ConditionalOption: _Vector2Prop_ConditionalOptionMessage,
-		Vector2Prop_ConditionalOptions: _Vector2Prop_ConditionalOptionsMessage,
-		TemplateArg: _TemplateArgMessage,
-		TemplateArg_LiteralValue: _TemplateArg_LiteralValueMessage,
-		NestedComponentProp: _NestedComponentPropMessage,
-		NestedComponentProp_ConditionalOption: _NestedComponentProp_ConditionalOptionMessage,
-		NestedComponentProp_ConditionalOptions: _NestedComponentProp_ConditionalOptionsMessage,
-		NestedComponentProp_TemplateData: _NestedComponentProp_TemplateDataMessage,
-		NestedComponentProp_TemplateData_InputsEntry: _NestedComponentProp_TemplateData_InputsEntryMessage,
-		LazyNestedComponentListProp: _LazyNestedComponentListPropMessage,
-		LazyNestedComponentListProp_ConditionalOption: _LazyNestedComponentListProp_ConditionalOptionMessage,
-		LazyNestedComponentListProp_ConditionalOptions: _LazyNestedComponentListProp_ConditionalOptionsMessage,
-		LazyNestedComponentListProp_TemplateData: _LazyNestedComponentListProp_TemplateDataMessage,
-		LazyNestedComponentListProp_TemplateData_InputsEntry: _LazyNestedComponentListProp_TemplateData_InputsEntryMessage,
-		LazyNestedComponentListProp_TemplateDataList: _LazyNestedComponentListProp_TemplateDataListMessage,
-		LazyNestedComponentListProp_OrderedTemplateData: _LazyNestedComponentListProp_OrderedTemplateDataMessage,
-		LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataMessage,
-		LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueMessage,
-		LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryMessage,
-		NestedComponentListProp: _NestedComponentListPropMessage,
-		IconProp: _IconPropMessage,
-		IconProp_ConditionalOption: _IconProp_ConditionalOptionMessage,
-		IconProp_ConditionalOptions: _IconProp_ConditionalOptionsMessage,
-		IconSizeProp: _IconSizePropMessage,
-		GradientProp: _GradientPropMessage,
-		GradientProp_ConditionalOption: _GradientProp_ConditionalOptionMessage,
-		GradientProp_ConditionalOptions: _GradientProp_ConditionalOptionsMessage,
-		GradientProp_GradientData: _GradientProp_GradientDataMessage,
-		ArrayOfStructProp: _ArrayOfStructPropMessage,
-		ArrayOfStructProp_ConditionalOption: _ArrayOfStructProp_ConditionalOptionMessage,
-		ArrayOfStructProp_ConditionalOptions: _ArrayOfStructProp_ConditionalOptionsMessage,
-		ArrayOfStructProp_ArrayOfStructs: _ArrayOfStructProp_ArrayOfStructsMessage,
-		UiScaledFloatProp: _UiScaledFloatPropMessage,
-		UiScaledFloatProp_ConditionalOption: _UiScaledFloatProp_ConditionalOptionMessage,
-		UiScaledFloatProp_ConditionalOptions: _UiScaledFloatProp_ConditionalOptionsMessage,
-		UiScaledUDimProp: _UiScaledUDimPropMessage,
-		UiScaledUDimProp_ConditionalOption: _UiScaledUDimProp_ConditionalOptionMessage,
-		UiScaledUDimProp_ConditionalOptions: _UiScaledUDimProp_ConditionalOptionsMessage,
-		UiScaledUDim2Prop: _UiScaledUDim2PropMessage,
-		UiScaledUDim2Prop_ConditionalOption: _UiScaledUDim2Prop_ConditionalOptionMessage,
-		UiScaledUDim2Prop_ConditionalOptions: _UiScaledUDim2Prop_ConditionalOptionsMessage,
-	}
+type _Messages = {
+	TranslationRef: _TranslationRefMessage,
+	StringFormat: _StringFormatMessage,
+	StringFormat_FormatArg: _StringFormat_FormatArgMessage,
+	StringFormat_FormatArg_Formatter: _StringFormat_FormatArg_FormatterMessage,
+	StringFormat_FormatArg_Formatter_DateConfig: _StringFormat_FormatArg_Formatter_DateConfigMessage,
+	StringFormat_FormatArg_Formatter_Type: _StringFormat_FormatArg_Formatter_TypeMessage,
+	StringFormat_ArgsEntry: _StringFormat_ArgsEntryMessage,
+	StringProp: _StringPropMessage,
+	StringProp_ConditionalOption: _StringProp_ConditionalOptionMessage,
+	StringProp_ConditionalOptions: _StringProp_ConditionalOptionsMessage,
+	FloatProp: _FloatPropMessage,
+	FloatProp_ConditionalOption: _FloatProp_ConditionalOptionMessage,
+	FloatProp_ConditionalOptions: _FloatProp_ConditionalOptionsMessage,
+	DoubleProp: _DoublePropMessage,
+	DoubleProp_ConditionalOption: _DoubleProp_ConditionalOptionMessage,
+	DoubleProp_ConditionalOptions: _DoubleProp_ConditionalOptionsMessage,
+	Int32Prop: _Int32PropMessage,
+	Int32Prop_ConditionalOption: _Int32Prop_ConditionalOptionMessage,
+	Int32Prop_ConditionalOptions: _Int32Prop_ConditionalOptionsMessage,
+	Int64Prop: _Int64PropMessage,
+	Int64Prop_ConditionalOption: _Int64Prop_ConditionalOptionMessage,
+	Int64Prop_ConditionalOptions: _Int64Prop_ConditionalOptionsMessage,
+	BoolProp: _BoolPropMessage,
+	BoolProp_ConditionalOption: _BoolProp_ConditionalOptionMessage,
+	BoolProp_ConditionalOptions: _BoolProp_ConditionalOptionsMessage,
+	StructProp: _StructPropMessage,
+	StructProp_ConditionalOption: _StructProp_ConditionalOptionMessage,
+	StructProp_ConditionalOptions: _StructProp_ConditionalOptionsMessage,
+	ImageStringProp: _ImageStringPropMessage,
+	ImageStringProp_ConditionalOption: _ImageStringProp_ConditionalOptionMessage,
+	ImageStringProp_ConditionalOptions: _ImageStringProp_ConditionalOptionsMessage,
+	ImageSetProp: _ImageSetPropMessage,
+	ImageSetProp_ConditionalOption: _ImageSetProp_ConditionalOptionMessage,
+	ImageSetProp_ConditionalOptions: _ImageSetProp_ConditionalOptionsMessage,
+	ColorProp: _ColorPropMessage,
+	ColorProp_ConditionalOption: _ColorProp_ConditionalOptionMessage,
+	ColorProp_ConditionalOptions: _ColorProp_ConditionalOptionsMessage,
+	TypographyProp: _TypographyPropMessage,
+	TypographyProp_ConditionalOption: _TypographyProp_ConditionalOptionMessage,
+	TypographyProp_ConditionalOptions: _TypographyProp_ConditionalOptionsMessage,
+	TypographyFontProp: _TypographyFontPropMessage,
+	TypographyFontProp_ConditionalOption: _TypographyFontProp_ConditionalOptionMessage,
+	TypographyFontProp_ConditionalOptions: _TypographyFontProp_ConditionalOptionsMessage,
+	ColorStyleProp: _ColorStylePropMessage,
+	ColorStyleProp_ConditionalOption: _ColorStyleProp_ConditionalOptionMessage,
+	ColorStyleProp_ConditionalOptions: _ColorStyleProp_ConditionalOptionsMessage,
+	FillBehaviorProp: _FillBehaviorPropMessage,
+	FillBehaviorProp_ConditionalOption: _FillBehaviorProp_ConditionalOptionMessage,
+	FillBehaviorProp_ConditionalOptions: _FillBehaviorProp_ConditionalOptionsMessage,
+	InputSizeProp: _InputSizePropMessage,
+	InputSizeProp_ConditionalOption: _InputSizeProp_ConditionalOptionMessage,
+	InputSizeProp_ConditionalOptions: _InputSizeProp_ConditionalOptionsMessage,
+	UDimProp: _UDimPropMessage,
+	UDimProp_ConditionalOption: _UDimProp_ConditionalOptionMessage,
+	UDimProp_ConditionalOptions: _UDimProp_ConditionalOptionsMessage,
+	UDim2Prop: _UDim2PropMessage,
+	UDim2Prop_ConditionalOption: _UDim2Prop_ConditionalOptionMessage,
+	UDim2Prop_ConditionalOptions: _UDim2Prop_ConditionalOptionsMessage,
+	Vector2Prop: _Vector2PropMessage,
+	Vector2Prop_ConditionalOption: _Vector2Prop_ConditionalOptionMessage,
+	Vector2Prop_ConditionalOptions: _Vector2Prop_ConditionalOptionsMessage,
+	IconProp: _IconPropMessage,
+	IconProp_ConditionalOption: _IconProp_ConditionalOptionMessage,
+	IconProp_ConditionalOptions: _IconProp_ConditionalOptionsMessage,
+	FoundationIconConfigProp: _FoundationIconConfigPropMessage,
+	FoundationIconConfigProp_ConditionalOption: _FoundationIconConfigProp_ConditionalOptionMessage,
+	FoundationIconConfigProp_ConditionalOptions: _FoundationIconConfigProp_ConditionalOptionsMessage,
+	FoundationIconConfigProp_FoundationIconConfig: _FoundationIconConfigProp_FoundationIconConfigMessage,
+	IconSizeProp: _IconSizePropMessage,
+	GradientProp: _GradientPropMessage,
+	GradientProp_ConditionalOption: _GradientProp_ConditionalOptionMessage,
+	GradientProp_ConditionalOptions: _GradientProp_ConditionalOptionsMessage,
+	GradientProp_GradientData: _GradientProp_GradientDataMessage,
+	ArrayOfStructProp: _ArrayOfStructPropMessage,
+	ArrayOfStructProp_ConditionalOption: _ArrayOfStructProp_ConditionalOptionMessage,
+	ArrayOfStructProp_ConditionalOptions: _ArrayOfStructProp_ConditionalOptionsMessage,
+	ArrayOfStructProp_ArrayOfStructs: _ArrayOfStructProp_ArrayOfStructsMessage,
+	UiScaledFloatProp: _UiScaledFloatPropMessage,
+	UiScaledFloatProp_ConditionalOption: _UiScaledFloatProp_ConditionalOptionMessage,
+	UiScaledFloatProp_ConditionalOptions: _UiScaledFloatProp_ConditionalOptionsMessage,
+	UiScaledUDimProp: _UiScaledUDimPropMessage,
+	UiScaledUDimProp_ConditionalOption: _UiScaledUDimProp_ConditionalOptionMessage,
+	UiScaledUDimProp_ConditionalOptions: _UiScaledUDimProp_ConditionalOptionsMessage,
+	UiScaledUDim2Prop: _UiScaledUDim2PropMessage,
+	UiScaledUDim2Prop_ConditionalOption: _UiScaledUDim2Prop_ConditionalOptionMessage,
+	UiScaledUDim2Prop_ConditionalOptions: _UiScaledUDim2Prop_ConditionalOptionsMessage,
+}
 local messages: _Messages = {} :: _Messages
 
 local _google_protobuf_struct = require(script.Parent.Parent.Parent.Parent.Parent.google.protobuf.struct)
@@ -937,6 +922,7 @@ type _ImageStringPropFields = {
 		| { type: "conditional", value: ImageStringProp_ConditionalOptions }
 		| { type: "translation", value: TranslationRef }
 	)?,
+	alt: StringFormat?,
 }
 
 type _ImageStringPropPartialFields = {
@@ -947,6 +933,7 @@ type _ImageStringPropPartialFields = {
 		| { type: "conditional", value: ImageStringProp_ConditionalOptions }
 		| { type: "translation", value: TranslationRef }
 	)?,
+	alt: StringFormat?,
 }
 
 export type ImageStringProp = typeof(setmetatable({} :: _ImageStringPropFields, {} :: _ImageStringPropImpl))
@@ -1882,578 +1869,6 @@ type _Vector2Prop_ConditionalOptionsMessage = proto.Message<
 	_Vector2Prop_ConditionalOptionsPartialFields
 >
 
-type _TemplateArgImpl = {
-	__index: _TemplateArgImpl,
-	new: (fields: _TemplateArgPartialFields?) -> TemplateArg,
-	encode: (self: TemplateArg) -> buffer,
-	decode: (input: buffer) -> TemplateArg,
-	jsonEncode: (self: TemplateArg) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> TemplateArg,
-	descriptor: proto.Descriptor,
-}
-
-type _TemplateArgFields = {
-	kind: (
-		{ type: "literal", value: TemplateArg_LiteralValue }
-		| { type: "binding_path", value: string }
-		| { type: "translation", value: TranslationRef }
-		| { type: "format", value: StringFormat }
-	)?,
-}
-
-type _TemplateArgPartialFields = {
-	kind: (
-		{ type: "literal", value: TemplateArg_LiteralValue }
-		| { type: "binding_path", value: string }
-		| { type: "translation", value: TranslationRef }
-		| { type: "format", value: StringFormat }
-	)?,
-}
-
-export type TemplateArg = typeof(setmetatable({} :: _TemplateArgFields, {} :: _TemplateArgImpl))
-type _TemplateArgMessage = proto.Message<TemplateArg, _TemplateArgPartialFields>
-
-type _TemplateArg_LiteralValueImpl = {
-	__index: _TemplateArg_LiteralValueImpl,
-	new: (fields: _TemplateArg_LiteralValuePartialFields?) -> TemplateArg_LiteralValue,
-	encode: (self: TemplateArg_LiteralValue) -> buffer,
-	decode: (input: buffer) -> TemplateArg_LiteralValue,
-	jsonEncode: (self: TemplateArg_LiteralValue) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> TemplateArg_LiteralValue,
-	descriptor: proto.Descriptor,
-}
-
-type _TemplateArg_LiteralValueFields = {
-	kind: (
-		{ type: "string_value", value: string }
-		| { type: "int32_value", value: number }
-		| { type: "int64_value", value: number }
-		| { type: "float_value", value: number }
-		| { type: "double_value", value: number }
-		| { type: "bool_value", value: boolean }
-	)?,
-}
-
-type _TemplateArg_LiteralValuePartialFields = {
-	kind: (
-		{ type: "string_value", value: string }
-		| { type: "int32_value", value: number }
-		| { type: "int64_value", value: number }
-		| { type: "float_value", value: number }
-		| { type: "double_value", value: number }
-		| { type: "bool_value", value: boolean }
-	)?,
-}
-
-export type TemplateArg_LiteralValue = typeof(setmetatable(
-	{} :: _TemplateArg_LiteralValueFields,
-	{} :: _TemplateArg_LiteralValueImpl
-))
-type _TemplateArg_LiteralValueMessage = proto.Message<TemplateArg_LiteralValue, _TemplateArg_LiteralValuePartialFields>
-
-type _NestedComponentPropImpl = {
-	__index: _NestedComponentPropImpl,
-	new: (fields: _NestedComponentPropPartialFields?) -> NestedComponentProp,
-	encode: (self: NestedComponentProp) -> buffer,
-	decode: (input: buffer) -> NestedComponentProp,
-	jsonEncode: (self: NestedComponentProp) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> NestedComponentProp,
-	descriptor: proto.Descriptor,
-}
-
-type _NestedComponentPropFields = {
-	kind: (
-		{ type: "literal", value: NestedComponentProp_TemplateData }
-		| { type: "conditional", value: NestedComponentProp_ConditionalOptions }
-	)?,
-}
-
-type _NestedComponentPropPartialFields = {
-	kind: (
-		{ type: "literal", value: NestedComponentProp_TemplateData }
-		| { type: "conditional", value: NestedComponentProp_ConditionalOptions }
-	)?,
-}
-
-export type NestedComponentProp = typeof(setmetatable({} :: _NestedComponentPropFields, {} :: _NestedComponentPropImpl))
-type _NestedComponentPropMessage = proto.Message<NestedComponentProp, _NestedComponentPropPartialFields>
-
-type _NestedComponentProp_ConditionalOptionImpl = {
-	__index: _NestedComponentProp_ConditionalOptionImpl,
-	new: (fields: _NestedComponentProp_ConditionalOptionPartialFields?) -> NestedComponentProp_ConditionalOption,
-	encode: (self: NestedComponentProp_ConditionalOption) -> buffer,
-	decode: (input: buffer) -> NestedComponentProp_ConditionalOption,
-	jsonEncode: (self: NestedComponentProp_ConditionalOption) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> NestedComponentProp_ConditionalOption,
-	descriptor: proto.Descriptor,
-}
-
-type _NestedComponentProp_ConditionalOptionFields = {
-	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: { type: "literal", value: NestedComponentProp_TemplateData }?,
-}
-
-type _NestedComponentProp_ConditionalOptionPartialFields = {
-	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: { type: "literal", value: NestedComponentProp_TemplateData }?,
-}
-
-export type NestedComponentProp_ConditionalOption = typeof(setmetatable(
-	{} :: _NestedComponentProp_ConditionalOptionFields,
-	{} :: _NestedComponentProp_ConditionalOptionImpl
-))
-type _NestedComponentProp_ConditionalOptionMessage = proto.Message<
-	NestedComponentProp_ConditionalOption,
-	_NestedComponentProp_ConditionalOptionPartialFields
->
-
-type _NestedComponentProp_ConditionalOptionsImpl = {
-	__index: _NestedComponentProp_ConditionalOptionsImpl,
-	new: (fields: _NestedComponentProp_ConditionalOptionsPartialFields?) -> NestedComponentProp_ConditionalOptions,
-	encode: (self: NestedComponentProp_ConditionalOptions) -> buffer,
-	decode: (input: buffer) -> NestedComponentProp_ConditionalOptions,
-	jsonEncode: (self: NestedComponentProp_ConditionalOptions) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> NestedComponentProp_ConditionalOptions,
-	descriptor: proto.Descriptor,
-}
-
-type _NestedComponentProp_ConditionalOptionsFields = {
-	options: { NestedComponentProp_ConditionalOption },
-}
-
-type _NestedComponentProp_ConditionalOptionsPartialFields = {
-	options: { NestedComponentProp_ConditionalOption }?,
-}
-
-export type NestedComponentProp_ConditionalOptions = typeof(setmetatable(
-	{} :: _NestedComponentProp_ConditionalOptionsFields,
-	{} :: _NestedComponentProp_ConditionalOptionsImpl
-))
-type _NestedComponentProp_ConditionalOptionsMessage = proto.Message<
-	NestedComponentProp_ConditionalOptions,
-	_NestedComponentProp_ConditionalOptionsPartialFields
->
-
-type _NestedComponentProp_TemplateDataImpl = {
-	__index: _NestedComponentProp_TemplateDataImpl,
-	new: (fields: _NestedComponentProp_TemplateDataPartialFields?) -> NestedComponentProp_TemplateData,
-	encode: (self: NestedComponentProp_TemplateData) -> buffer,
-	decode: (input: buffer) -> NestedComponentProp_TemplateData,
-	jsonEncode: (self: NestedComponentProp_TemplateData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> NestedComponentProp_TemplateData,
-	descriptor: proto.Descriptor,
-}
-
-type _NestedComponentProp_TemplateDataFields = {
-	inputs: { [string]: TemplateArg },
-	roblox_component: string,
-}
-
-type _NestedComponentProp_TemplateDataPartialFields = {
-	inputs: { [string]: TemplateArg }?,
-	roblox_component: string?,
-}
-
-export type NestedComponentProp_TemplateData = typeof(setmetatable(
-	{} :: _NestedComponentProp_TemplateDataFields,
-	{} :: _NestedComponentProp_TemplateDataImpl
-))
-type _NestedComponentProp_TemplateDataMessage = proto.Message<
-	NestedComponentProp_TemplateData,
-	_NestedComponentProp_TemplateDataPartialFields
->
-
-type _NestedComponentProp_TemplateData_InputsEntryImpl = {
-	__index: _NestedComponentProp_TemplateData_InputsEntryImpl,
-	new: (
-		fields: _NestedComponentProp_TemplateData_InputsEntryPartialFields?
-	) -> NestedComponentProp_TemplateData_InputsEntry,
-	encode: (self: NestedComponentProp_TemplateData_InputsEntry) -> buffer,
-	decode: (input: buffer) -> NestedComponentProp_TemplateData_InputsEntry,
-	jsonEncode: (self: NestedComponentProp_TemplateData_InputsEntry) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> NestedComponentProp_TemplateData_InputsEntry,
-	descriptor: proto.Descriptor,
-}
-
-type _NestedComponentProp_TemplateData_InputsEntryFields = {
-	key: string,
-	value: TemplateArg?,
-}
-
-type _NestedComponentProp_TemplateData_InputsEntryPartialFields = {
-	key: string?,
-	value: TemplateArg?,
-}
-
-export type NestedComponentProp_TemplateData_InputsEntry = typeof(setmetatable(
-	{} :: _NestedComponentProp_TemplateData_InputsEntryFields,
-	{} :: _NestedComponentProp_TemplateData_InputsEntryImpl
-))
-type _NestedComponentProp_TemplateData_InputsEntryMessage = proto.Message<
-	NestedComponentProp_TemplateData_InputsEntry,
-	_NestedComponentProp_TemplateData_InputsEntryPartialFields
->
-
-type _LazyNestedComponentListPropImpl = {
-	__index: _LazyNestedComponentListPropImpl,
-	new: (fields: _LazyNestedComponentListPropPartialFields?) -> LazyNestedComponentListProp,
-	encode: (self: LazyNestedComponentListProp) -> buffer,
-	decode: (input: buffer) -> LazyNestedComponentListProp,
-	jsonEncode: (self: LazyNestedComponentListProp) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp,
-	descriptor: proto.Descriptor,
-}
-
-type _LazyNestedComponentListPropFields = {
-	kind: (
-		{ type: "array_map", value: LazyNestedComponentListProp_TemplateData }
-		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
-		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
-		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
-	)?,
-}
-
-type _LazyNestedComponentListPropPartialFields = {
-	kind: (
-		{ type: "array_map", value: LazyNestedComponentListProp_TemplateData }
-		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
-		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
-		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
-	)?,
-}
-
-export type LazyNestedComponentListProp = typeof(setmetatable(
-	{} :: _LazyNestedComponentListPropFields,
-	{} :: _LazyNestedComponentListPropImpl
-))
-type _LazyNestedComponentListPropMessage = proto.Message<
-	LazyNestedComponentListProp,
-	_LazyNestedComponentListPropPartialFields
->
-
-type _LazyNestedComponentListProp_ConditionalOptionImpl = {
-	__index: _LazyNestedComponentListProp_ConditionalOptionImpl,
-	new: (
-		fields: _LazyNestedComponentListProp_ConditionalOptionPartialFields?
-	) -> LazyNestedComponentListProp_ConditionalOption,
-	encode: (self: LazyNestedComponentListProp_ConditionalOption) -> buffer,
-	decode: (input: buffer) -> LazyNestedComponentListProp_ConditionalOption,
-	jsonEncode: (self: LazyNestedComponentListProp_ConditionalOption) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_ConditionalOption,
-	descriptor: proto.Descriptor,
-}
-
-type _LazyNestedComponentListProp_ConditionalOptionFields = {
-	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: (
-		{ type: "literal", value: LazyNestedComponentListProp_TemplateData }
-		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
-	)?,
-}
-
-type _LazyNestedComponentListProp_ConditionalOptionPartialFields = {
-	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: (
-		{ type: "literal", value: LazyNestedComponentListProp_TemplateData }
-		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
-	)?,
-}
-
-export type LazyNestedComponentListProp_ConditionalOption = typeof(setmetatable(
-	{} :: _LazyNestedComponentListProp_ConditionalOptionFields,
-	{} :: _LazyNestedComponentListProp_ConditionalOptionImpl
-))
-type _LazyNestedComponentListProp_ConditionalOptionMessage = proto.Message<
-	LazyNestedComponentListProp_ConditionalOption,
-	_LazyNestedComponentListProp_ConditionalOptionPartialFields
->
-
-type _LazyNestedComponentListProp_ConditionalOptionsImpl = {
-	__index: _LazyNestedComponentListProp_ConditionalOptionsImpl,
-	new: (
-		fields: _LazyNestedComponentListProp_ConditionalOptionsPartialFields?
-	) -> LazyNestedComponentListProp_ConditionalOptions,
-	encode: (self: LazyNestedComponentListProp_ConditionalOptions) -> buffer,
-	decode: (input: buffer) -> LazyNestedComponentListProp_ConditionalOptions,
-	jsonEncode: (self: LazyNestedComponentListProp_ConditionalOptions) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_ConditionalOptions,
-	descriptor: proto.Descriptor,
-}
-
-type _LazyNestedComponentListProp_ConditionalOptionsFields = {
-	options: { LazyNestedComponentListProp_ConditionalOption },
-}
-
-type _LazyNestedComponentListProp_ConditionalOptionsPartialFields = {
-	options: { LazyNestedComponentListProp_ConditionalOption }?,
-}
-
-export type LazyNestedComponentListProp_ConditionalOptions = typeof(setmetatable(
-	{} :: _LazyNestedComponentListProp_ConditionalOptionsFields,
-	{} :: _LazyNestedComponentListProp_ConditionalOptionsImpl
-))
-type _LazyNestedComponentListProp_ConditionalOptionsMessage = proto.Message<
-	LazyNestedComponentListProp_ConditionalOptions,
-	_LazyNestedComponentListProp_ConditionalOptionsPartialFields
->
-
-type _LazyNestedComponentListProp_TemplateDataImpl = {
-	__index: _LazyNestedComponentListProp_TemplateDataImpl,
-	new: (fields: _LazyNestedComponentListProp_TemplateDataPartialFields?) -> LazyNestedComponentListProp_TemplateData,
-	encode: (self: LazyNestedComponentListProp_TemplateData) -> buffer,
-	decode: (input: buffer) -> LazyNestedComponentListProp_TemplateData,
-	jsonEncode: (self: LazyNestedComponentListProp_TemplateData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_TemplateData,
-	descriptor: proto.Descriptor,
-}
-
-type _LazyNestedComponentListProp_TemplateDataFields = {
-	binding_path: string,
-	roblox_component: string,
-	inputs: { [string]: TemplateArg },
-}
-
-type _LazyNestedComponentListProp_TemplateDataPartialFields = {
-	binding_path: string?,
-	roblox_component: string?,
-	inputs: { [string]: TemplateArg }?,
-}
-
-export type LazyNestedComponentListProp_TemplateData = typeof(setmetatable(
-	{} :: _LazyNestedComponentListProp_TemplateDataFields,
-	{} :: _LazyNestedComponentListProp_TemplateDataImpl
-))
-type _LazyNestedComponentListProp_TemplateDataMessage = proto.Message<
-	LazyNestedComponentListProp_TemplateData,
-	_LazyNestedComponentListProp_TemplateDataPartialFields
->
-
-type _LazyNestedComponentListProp_TemplateData_InputsEntryImpl = {
-	__index: _LazyNestedComponentListProp_TemplateData_InputsEntryImpl,
-	new: (
-		fields: _LazyNestedComponentListProp_TemplateData_InputsEntryPartialFields?
-	) -> LazyNestedComponentListProp_TemplateData_InputsEntry,
-	encode: (self: LazyNestedComponentListProp_TemplateData_InputsEntry) -> buffer,
-	decode: (input: buffer) -> LazyNestedComponentListProp_TemplateData_InputsEntry,
-	jsonEncode: (self: LazyNestedComponentListProp_TemplateData_InputsEntry) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_TemplateData_InputsEntry,
-	descriptor: proto.Descriptor,
-}
-
-type _LazyNestedComponentListProp_TemplateData_InputsEntryFields = {
-	key: string,
-	value: TemplateArg?,
-}
-
-type _LazyNestedComponentListProp_TemplateData_InputsEntryPartialFields = {
-	key: string?,
-	value: TemplateArg?,
-}
-
-export type LazyNestedComponentListProp_TemplateData_InputsEntry = typeof(setmetatable(
-	{} :: _LazyNestedComponentListProp_TemplateData_InputsEntryFields,
-	{} :: _LazyNestedComponentListProp_TemplateData_InputsEntryImpl
-))
-type _LazyNestedComponentListProp_TemplateData_InputsEntryMessage = proto.Message<
-	LazyNestedComponentListProp_TemplateData_InputsEntry,
-	_LazyNestedComponentListProp_TemplateData_InputsEntryPartialFields
->
-
-type _LazyNestedComponentListProp_TemplateDataListImpl = {
-	__index: _LazyNestedComponentListProp_TemplateDataListImpl,
-	new: (
-		fields: _LazyNestedComponentListProp_TemplateDataListPartialFields?
-	) -> LazyNestedComponentListProp_TemplateDataList,
-	encode: (self: LazyNestedComponentListProp_TemplateDataList) -> buffer,
-	decode: (input: buffer) -> LazyNestedComponentListProp_TemplateDataList,
-	jsonEncode: (self: LazyNestedComponentListProp_TemplateDataList) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_TemplateDataList,
-	descriptor: proto.Descriptor,
-}
-
-type _LazyNestedComponentListProp_TemplateDataListFields = {
-	items: { LazyNestedComponentListProp_TemplateData },
-}
-
-type _LazyNestedComponentListProp_TemplateDataListPartialFields = {
-	items: { LazyNestedComponentListProp_TemplateData }?,
-}
-
-export type LazyNestedComponentListProp_TemplateDataList = typeof(setmetatable(
-	{} :: _LazyNestedComponentListProp_TemplateDataListFields,
-	{} :: _LazyNestedComponentListProp_TemplateDataListImpl
-))
-type _LazyNestedComponentListProp_TemplateDataListMessage = proto.Message<
-	LazyNestedComponentListProp_TemplateDataList,
-	_LazyNestedComponentListProp_TemplateDataListPartialFields
->
-
-type _LazyNestedComponentListProp_OrderedTemplateDataImpl = {
-	__index: _LazyNestedComponentListProp_OrderedTemplateDataImpl,
-	new: (
-		fields: _LazyNestedComponentListProp_OrderedTemplateDataPartialFields?
-	) -> LazyNestedComponentListProp_OrderedTemplateData,
-	encode: (self: LazyNestedComponentListProp_OrderedTemplateData) -> buffer,
-	decode: (input: buffer) -> LazyNestedComponentListProp_OrderedTemplateData,
-	jsonEncode: (self: LazyNestedComponentListProp_OrderedTemplateData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_OrderedTemplateData,
-	descriptor: proto.Descriptor,
-}
-
-type _LazyNestedComponentListProp_OrderedTemplateDataFields = {
-	entry_map_path: string,
-	entry_order: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData?,
-	template_data_map: { [string]: LazyNestedComponentListProp_TemplateData },
-}
-
-type _LazyNestedComponentListProp_OrderedTemplateDataPartialFields = {
-	entry_map_path: string?,
-	entry_order: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData?,
-	template_data_map: { [string]: LazyNestedComponentListProp_TemplateData }?,
-}
-
-export type LazyNestedComponentListProp_OrderedTemplateData = typeof(setmetatable(
-	{} :: _LazyNestedComponentListProp_OrderedTemplateDataFields,
-	{} :: _LazyNestedComponentListProp_OrderedTemplateDataImpl
-))
-type _LazyNestedComponentListProp_OrderedTemplateDataMessage = proto.Message<
-	LazyNestedComponentListProp_OrderedTemplateData,
-	_LazyNestedComponentListProp_OrderedTemplateDataPartialFields
->
-
-type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl = {
-	__index: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl,
-	new: (
-		fields: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataPartialFields?
-	) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
-	encode: (self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData) -> buffer,
-	decode: (input: buffer) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
-	jsonEncode: (self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
-	descriptor: proto.Descriptor,
-}
-
-type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataFields = {
-	kind: (
-		{ type: "literal", value: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue }
-		| { type: "binding_path", value: string }
-	)?,
-}
-
-type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataPartialFields = {
-	kind: (
-		{ type: "literal", value: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue }
-		| { type: "binding_path", value: string }
-	)?,
-}
-
-export type LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData = typeof(setmetatable(
-	{} :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataFields,
-	{} :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl
-))
-type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataMessage = proto.Message<
-	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
-	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataPartialFields
->
-
-type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl = {
-	__index: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl,
-	new: (
-		fields: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValuePartialFields?
-	) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
-	encode: (self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue) -> buffer,
-	decode: (input: buffer) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
-	jsonEncode: (
-		self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
-	) -> { [string]: any },
-	jsonDecode: (
-		input: { [string]: any }
-	) -> LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
-	descriptor: proto.Descriptor,
-}
-
-type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueFields = {
-	items: { string },
-}
-
-type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValuePartialFields = {
-	items: { string }?,
-}
-
-export type LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue = typeof(setmetatable(
-	{} :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueFields,
-	{} :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl
-))
-type _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueMessage = proto.Message<
-	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
-	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValuePartialFields
->
-
-type _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl = {
-	__index: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl,
-	new: (
-		fields: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryPartialFields?
-	) -> LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry,
-	encode: (self: LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry) -> buffer,
-	decode: (input: buffer) -> LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry,
-	jsonEncode: (self: LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry,
-	descriptor: proto.Descriptor,
-}
-
-type _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryFields = {
-	key: string,
-	value: LazyNestedComponentListProp_TemplateData?,
-}
-
-type _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryPartialFields = {
-	key: string?,
-	value: LazyNestedComponentListProp_TemplateData?,
-}
-
-export type LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry = typeof(setmetatable(
-	{} :: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryFields,
-	{} :: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl
-))
-type _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryMessage = proto.Message<
-	LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry,
-	_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryPartialFields
->
-
-type _NestedComponentListPropImpl = {
-	__index: _NestedComponentListPropImpl,
-	new: (fields: _NestedComponentListPropPartialFields?) -> NestedComponentListProp,
-	encode: (self: NestedComponentListProp) -> buffer,
-	decode: (input: buffer) -> NestedComponentListProp,
-	jsonEncode: (self: NestedComponentListProp) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> NestedComponentListProp,
-	descriptor: proto.Descriptor,
-}
-
-type _NestedComponentListPropFields = {
-	kind: (
-		{ type: "array_map", value: LazyNestedComponentListProp_TemplateData }
-		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
-		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
-		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
-	)?,
-}
-
-type _NestedComponentListPropPartialFields = {
-	kind: (
-		{ type: "array_map", value: LazyNestedComponentListProp_TemplateData }
-		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
-		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
-		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
-	)?,
-}
-
-export type NestedComponentListProp = typeof(setmetatable(
-	{} :: _NestedComponentListPropFields,
-	{} :: _NestedComponentListPropImpl
-))
-type _NestedComponentListPropMessage = proto.Message<NestedComponentListProp, _NestedComponentListPropPartialFields>
-
 type _IconPropImpl = {
 	__index: _IconPropImpl,
 	new: (fields: _IconPropPartialFields?) -> IconProp,
@@ -2537,6 +1952,135 @@ export type IconProp_ConditionalOptions = typeof(setmetatable(
 type _IconProp_ConditionalOptionsMessage = proto.Message<
 	IconProp_ConditionalOptions,
 	_IconProp_ConditionalOptionsPartialFields
+>
+
+type _FoundationIconConfigPropImpl = {
+	__index: _FoundationIconConfigPropImpl,
+	new: (fields: _FoundationIconConfigPropPartialFields?) -> FoundationIconConfigProp,
+	encode: (self: FoundationIconConfigProp) -> buffer,
+	decode: (input: buffer) -> FoundationIconConfigProp,
+	jsonEncode: (self: FoundationIconConfigProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FoundationIconConfigProp,
+	descriptor: proto.Descriptor,
+}
+
+type _FoundationIconConfigPropFields = {
+	kind: (
+		{ type: "literal", value: FoundationIconConfigProp_FoundationIconConfig }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: FoundationIconConfigProp_ConditionalOptions }
+	)?,
+}
+
+type _FoundationIconConfigPropPartialFields = {
+	kind: (
+		{ type: "literal", value: FoundationIconConfigProp_FoundationIconConfig }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: FoundationIconConfigProp_ConditionalOptions }
+	)?,
+}
+
+export type FoundationIconConfigProp = typeof(setmetatable(
+	{} :: _FoundationIconConfigPropFields,
+	{} :: _FoundationIconConfigPropImpl
+))
+type _FoundationIconConfigPropMessage = proto.Message<FoundationIconConfigProp, _FoundationIconConfigPropPartialFields>
+
+type _FoundationIconConfigProp_ConditionalOptionImpl = {
+	__index: _FoundationIconConfigProp_ConditionalOptionImpl,
+	new: (
+		fields: _FoundationIconConfigProp_ConditionalOptionPartialFields?
+	) -> FoundationIconConfigProp_ConditionalOption,
+	encode: (self: FoundationIconConfigProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> FoundationIconConfigProp_ConditionalOption,
+	jsonEncode: (self: FoundationIconConfigProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FoundationIconConfigProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _FoundationIconConfigProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: FoundationIconConfigProp_FoundationIconConfig }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _FoundationIconConfigProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: FoundationIconConfigProp_FoundationIconConfig }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type FoundationIconConfigProp_ConditionalOption = typeof(setmetatable(
+	{} :: _FoundationIconConfigProp_ConditionalOptionFields,
+	{} :: _FoundationIconConfigProp_ConditionalOptionImpl
+))
+type _FoundationIconConfigProp_ConditionalOptionMessage = proto.Message<
+	FoundationIconConfigProp_ConditionalOption,
+	_FoundationIconConfigProp_ConditionalOptionPartialFields
+>
+
+type _FoundationIconConfigProp_ConditionalOptionsImpl = {
+	__index: _FoundationIconConfigProp_ConditionalOptionsImpl,
+	new: (
+		fields: _FoundationIconConfigProp_ConditionalOptionsPartialFields?
+	) -> FoundationIconConfigProp_ConditionalOptions,
+	encode: (self: FoundationIconConfigProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> FoundationIconConfigProp_ConditionalOptions,
+	jsonEncode: (self: FoundationIconConfigProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FoundationIconConfigProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _FoundationIconConfigProp_ConditionalOptionsFields = {
+	options: { FoundationIconConfigProp_ConditionalOption },
+}
+
+type _FoundationIconConfigProp_ConditionalOptionsPartialFields = {
+	options: { FoundationIconConfigProp_ConditionalOption }?,
+}
+
+export type FoundationIconConfigProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _FoundationIconConfigProp_ConditionalOptionsFields,
+	{} :: _FoundationIconConfigProp_ConditionalOptionsImpl
+))
+type _FoundationIconConfigProp_ConditionalOptionsMessage = proto.Message<
+	FoundationIconConfigProp_ConditionalOptions,
+	_FoundationIconConfigProp_ConditionalOptionsPartialFields
+>
+
+type _FoundationIconConfigProp_FoundationIconConfigImpl = {
+	__index: _FoundationIconConfigProp_FoundationIconConfigImpl,
+	new: (
+		fields: _FoundationIconConfigProp_FoundationIconConfigPartialFields?
+	) -> FoundationIconConfigProp_FoundationIconConfig,
+	encode: (self: FoundationIconConfigProp_FoundationIconConfig) -> buffer,
+	decode: (input: buffer) -> FoundationIconConfigProp_FoundationIconConfig,
+	jsonEncode: (self: FoundationIconConfigProp_FoundationIconConfig) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> FoundationIconConfigProp_FoundationIconConfig,
+	descriptor: proto.Descriptor,
+}
+
+type _FoundationIconConfigProp_FoundationIconConfigFields = {
+	name: StringProp?,
+	variant: StringProp?,
+}
+
+type _FoundationIconConfigProp_FoundationIconConfigPartialFields = {
+	name: StringProp?,
+	variant: StringProp?,
+}
+
+export type FoundationIconConfigProp_FoundationIconConfig = typeof(setmetatable(
+	{} :: _FoundationIconConfigProp_FoundationIconConfigFields,
+	{} :: _FoundationIconConfigProp_FoundationIconConfigImpl
+))
+type _FoundationIconConfigProp_FoundationIconConfigMessage = proto.Message<
+	FoundationIconConfigProp_FoundationIconConfig,
+	_FoundationIconConfigProp_FoundationIconConfigPartialFields
 >
 
 type _IconSizePropImpl = {
@@ -6855,6 +6399,7 @@ do
 	function _ImageStringPropImpl.new(data: _ImageStringPropPartialFields?): ImageStringProp
 		return setmetatable({
 			kind = if data == nil or data.kind == nil then nil else data.kind,
+			alt = if data == nil or data.alt == nil then nil else data.alt,
 		}, _ImageStringPropImpl :: _ImageStringPropImpl)
 	end
 
@@ -6882,6 +6427,12 @@ do
 				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
+		end
+
+		if self.alt ~= nil then
+			local encoded = self.alt:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -6929,6 +6480,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "translation", value = messages.TranslationRef.decode(value) }
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.alt = messages.StringFormat.decode(value)
+					continue
 				end
 
 				local length
@@ -6970,6 +6526,10 @@ do
 			end
 		end
 
+		if self.alt ~= nil then
+			output.alt = self.alt:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -7001,6 +6561,10 @@ do
 
 		if input.translation ~= nil then
 			self.kind = { type = "translation", value = messages.TranslationRef.jsonDecode(input.translation) }
+		end
+
+		if input.alt ~= nil then
+			self.alt = messages.StringFormat.jsonDecode(input.alt)
 		end
 
 		return self
@@ -11281,2684 +10845,6 @@ do
 end
 
 do
-	local _TemplateArgImpl = {}
-	_TemplateArgImpl.__index = _TemplateArgImpl
-
-	function _TemplateArgImpl.new(data: _TemplateArgPartialFields?): TemplateArg
-		return setmetatable({
-			kind = if data == nil or data.kind == nil then nil else data.kind,
-		}, _TemplateArgImpl :: _TemplateArgImpl)
-	end
-
-	function _TemplateArgImpl.encode(self: TemplateArg): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "binding_path" then
-				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeString(output, cursor, self.kind.value)
-			elseif self.kind.type == "translation" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "format" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _TemplateArgImpl.decode(input: buffer): TemplateArg
-		local self = _TemplateArgImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "literal", value = messages.TemplateArg_LiteralValue.decode(value) }
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "binding_path", value = buffer.tostring(value) }
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "translation", value = messages.TranslationRef.decode(value) }
-					continue
-				elseif field == 4 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "format", value = messages.StringFormat.decode(value) }
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _TemplateArgImpl.jsonEncode(self: TemplateArg): any
-		local output = {}
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				output.literal = self.kind.value:jsonEncode()
-			elseif self.kind.type == "binding_path" then
-				output.bindingPath = self.kind.value
-			elseif self.kind.type == "translation" then
-				output.translation = self.kind.value:jsonEncode()
-			elseif self.kind.type == "format" then
-				output.format = self.kind.value:jsonEncode()
-			end
-		end
-
-		return output
-	end
-
-	function _TemplateArgImpl.jsonDecode(input: { [string]: any }): TemplateArg
-		local self = _TemplateArgImpl.new()
-
-		if input.literal ~= nil then
-			self.kind = { type = "literal", value = messages.TemplateArg_LiteralValue.jsonDecode(input.literal) }
-		end
-
-		if input.binding_path ~= nil then
-			self.kind = { type = "binding_path", value = input.binding_path }
-		end
-
-		if input.bindingPath ~= nil then
-			self.kind = { type = "binding_path", value = input.bindingPath }
-		end
-
-		if input.translation ~= nil then
-			self.kind = { type = "translation", value = messages.TranslationRef.jsonDecode(input.translation) }
-		end
-
-		if input.format ~= nil then
-			self.kind = { type = "format", value = messages.StringFormat.jsonDecode(input.format) }
-		end
-
-		return self
-	end
-
-	_TemplateArgImpl.descriptor = {
-		name = "TemplateArg",
-		fullName = "roblox.apppageplatform.shared.v1beta1.TemplateArg",
-	}
-
-	messages.TemplateArg = _TemplateArgImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.TemplateArg)
-end
-
-do
-	local _TemplateArg_LiteralValueImpl = {}
-	_TemplateArg_LiteralValueImpl.__index = _TemplateArg_LiteralValueImpl
-
-	function _TemplateArg_LiteralValueImpl.new(data: _TemplateArg_LiteralValuePartialFields?): TemplateArg_LiteralValue
-		return setmetatable({
-			kind = if data == nil or data.kind == nil then nil else data.kind,
-		}, _TemplateArg_LiteralValueImpl :: _TemplateArg_LiteralValueImpl)
-	end
-
-	function _TemplateArg_LiteralValueImpl.encode(self: TemplateArg_LiteralValue): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.kind ~= nil then
-			if self.kind.type == "string_value" then
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeString(output, cursor, self.kind.value)
-			elseif self.kind.type == "int32_value" then
-				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
-				output, cursor = proto.writeVarInt(output, cursor, self.kind.value)
-			elseif self.kind.type == "int64_value" then
-				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
-				output, cursor = proto.writeVarInt(output, cursor, self.kind.value)
-			elseif self.kind.type == "float_value" then
-				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.i32)
-				output, cursor = proto.writeFloat(output, cursor, self.kind.value)
-			elseif self.kind.type == "double_value" then
-				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.i64)
-				output, cursor = proto.writeDouble(output, cursor, self.kind.value)
-			elseif self.kind.type == "bool_value" then
-				output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
-				output, cursor = proto.writeVarInt(output, cursor, if self.kind.value then 1 else 0)
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _TemplateArg_LiteralValueImpl.decode(input: buffer): TemplateArg_LiteralValue
-		local self = _TemplateArg_LiteralValueImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				if field == 2 then
-					local value
-					value, cursor = proto.readVarIntI32(input, cursor)
-					self.kind = { type = "int32_value", value = value }
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readVarIntI64(input, cursor)
-					self.kind = { type = "int64_value", value = value }
-					continue
-				elseif field == 6 then
-					local value
-					value, cursor = proto.readVarInt(input, cursor)
-					self.kind = { type = "bool_value", value = value ~= 0 }
-					continue
-				end
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "string_value", value = buffer.tostring(value) }
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				if field == 4 then
-					local value
-					value, cursor = proto.readFloat(input, cursor)
-					self.kind = { type = "float_value", value = value }
-					continue
-				end
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				if field == 5 then
-					local value
-					value, cursor = proto.readDouble(input, cursor)
-					self.kind = { type = "double_value", value = value }
-					continue
-				end
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _TemplateArg_LiteralValueImpl.jsonEncode(self: TemplateArg_LiteralValue): any
-		local output = {}
-
-		if self.kind ~= nil then
-			if self.kind.type == "string_value" then
-				output.stringValue = self.kind.value
-			elseif self.kind.type == "int32_value" then
-				output.int32Value = self.kind.value
-			elseif self.kind.type == "int64_value" then
-				output.int64Value = self.kind.value
-			elseif self.kind.type == "float_value" then
-				output.floatValue = proto.json.serializeNumber(self.kind.value)
-			elseif self.kind.type == "double_value" then
-				output.doubleValue = proto.json.serializeNumber(self.kind.value)
-			elseif self.kind.type == "bool_value" then
-				output.boolValue = self.kind.value
-			end
-		end
-
-		return output
-	end
-
-	function _TemplateArg_LiteralValueImpl.jsonDecode(input: { [string]: any }): TemplateArg_LiteralValue
-		local self = _TemplateArg_LiteralValueImpl.new()
-
-		if input.string_value ~= nil then
-			self.kind = { type = "string_value", value = input.string_value }
-		end
-
-		if input.stringValue ~= nil then
-			self.kind = { type = "string_value", value = input.stringValue }
-		end
-
-		if input.int32_value ~= nil then
-			self.kind = { type = "int32_value", value = input.int32_value }
-		end
-
-		if input.int32Value ~= nil then
-			self.kind = { type = "int32_value", value = input.int32Value }
-		end
-
-		if input.int64_value ~= nil then
-			self.kind = { type = "int64_value", value = input.int64_value }
-		end
-
-		if input.int64Value ~= nil then
-			self.kind = { type = "int64_value", value = input.int64Value }
-		end
-
-		if input.float_value ~= nil then
-			self.kind = { type = "float_value", value = proto.json.deserializeNumber(input.float_value) }
-		end
-
-		if input.floatValue ~= nil then
-			self.kind = { type = "float_value", value = proto.json.deserializeNumber(input.floatValue) }
-		end
-
-		if input.double_value ~= nil then
-			self.kind = { type = "double_value", value = proto.json.deserializeNumber(input.double_value) }
-		end
-
-		if input.doubleValue ~= nil then
-			self.kind = { type = "double_value", value = proto.json.deserializeNumber(input.doubleValue) }
-		end
-
-		if input.bool_value ~= nil then
-			self.kind = { type = "bool_value", value = input.bool_value }
-		end
-
-		if input.boolValue ~= nil then
-			self.kind = { type = "bool_value", value = input.boolValue }
-		end
-
-		return self
-	end
-
-	_TemplateArg_LiteralValueImpl.descriptor = {
-		name = "TemplateArg_LiteralValue",
-		fullName = "roblox.apppageplatform.shared.v1beta1.LiteralValue",
-	}
-
-	messages.TemplateArg_LiteralValue = _TemplateArg_LiteralValueImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.TemplateArg_LiteralValue)
-end
-
-do
-	local _NestedComponentPropImpl = {}
-	_NestedComponentPropImpl.__index = _NestedComponentPropImpl
-
-	function _NestedComponentPropImpl.new(data: _NestedComponentPropPartialFields?): NestedComponentProp
-		return setmetatable({
-			kind = if data == nil or data.kind == nil then nil else data.kind,
-		}, _NestedComponentPropImpl :: _NestedComponentPropImpl)
-	end
-
-	function _NestedComponentPropImpl.encode(self: NestedComponentProp): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "conditional" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _NestedComponentPropImpl.decode(input: buffer): NestedComponentProp
-		local self = _NestedComponentPropImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "literal", value = messages.NestedComponentProp_TemplateData.decode(value) }
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind =
-						{ type = "conditional", value = messages.NestedComponentProp_ConditionalOptions.decode(value) }
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _NestedComponentPropImpl.jsonEncode(self: NestedComponentProp): any
-		local output = {}
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				output.literal = self.kind.value:jsonEncode()
-			elseif self.kind.type == "conditional" then
-				output.conditional = self.kind.value:jsonEncode()
-			end
-		end
-
-		return output
-	end
-
-	function _NestedComponentPropImpl.jsonDecode(input: { [string]: any }): NestedComponentProp
-		local self = _NestedComponentPropImpl.new()
-
-		if input.literal ~= nil then
-			self.kind =
-				{ type = "literal", value = messages.NestedComponentProp_TemplateData.jsonDecode(input.literal) }
-		end
-
-		if input.conditional ~= nil then
-			self.kind = {
-				type = "conditional",
-				value = messages.NestedComponentProp_ConditionalOptions.jsonDecode(input.conditional),
-			}
-		end
-
-		return self
-	end
-
-	_NestedComponentPropImpl.descriptor = {
-		name = "NestedComponentProp",
-		fullName = "roblox.apppageplatform.shared.v1beta1.NestedComponentProp",
-	}
-
-	messages.NestedComponentProp = _NestedComponentPropImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.NestedComponentProp)
-end
-
-do
-	local _NestedComponentProp_ConditionalOptionImpl = {}
-	_NestedComponentProp_ConditionalOptionImpl.__index = _NestedComponentProp_ConditionalOptionImpl
-
-	function _NestedComponentProp_ConditionalOptionImpl.new(
-		data: _NestedComponentProp_ConditionalOptionPartialFields?
-	): NestedComponentProp_ConditionalOption
-		return setmetatable({
-			condition = if data == nil or data.condition == nil then nil else data.condition,
-			kind = if data == nil or data.kind == nil then nil else data.kind,
-		}, _NestedComponentProp_ConditionalOptionImpl :: _NestedComponentProp_ConditionalOptionImpl)
-	end
-
-	function _NestedComponentProp_ConditionalOptionImpl.encode(self: NestedComponentProp_ConditionalOption): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.condition ~= nil then
-			local encoded = self.condition:encode()
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _NestedComponentProp_ConditionalOptionImpl.decode(input: buffer): NestedComponentProp_ConditionalOption
-		local self = _NestedComponentProp_ConditionalOptionImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "literal", value = messages.NestedComponentProp_TemplateData.decode(value) }
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _NestedComponentProp_ConditionalOptionImpl.jsonEncode(self: NestedComponentProp_ConditionalOption): any
-		local output = {}
-
-		if self.condition ~= nil then
-			output.condition = self.condition:jsonEncode()
-		end
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				output.literal = self.kind.value:jsonEncode()
-			end
-		end
-
-		return output
-	end
-
-	function _NestedComponentProp_ConditionalOptionImpl.jsonDecode(
-		input: { [string]: any }
-	): NestedComponentProp_ConditionalOption
-		local self = _NestedComponentProp_ConditionalOptionImpl.new()
-
-		if input.condition ~= nil then
-			self.condition =
-				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
-		end
-
-		if input.literal ~= nil then
-			self.kind =
-				{ type = "literal", value = messages.NestedComponentProp_TemplateData.jsonDecode(input.literal) }
-		end
-
-		return self
-	end
-
-	_NestedComponentProp_ConditionalOptionImpl.descriptor = {
-		name = "NestedComponentProp_ConditionalOption",
-		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
-	}
-
-	messages.NestedComponentProp_ConditionalOption = _NestedComponentProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.NestedComponentProp_ConditionalOption)
-end
-
-do
-	local _NestedComponentProp_ConditionalOptionsImpl = {}
-	_NestedComponentProp_ConditionalOptionsImpl.__index = _NestedComponentProp_ConditionalOptionsImpl
-
-	function _NestedComponentProp_ConditionalOptionsImpl.new(
-		data: _NestedComponentProp_ConditionalOptionsPartialFields?
-	): NestedComponentProp_ConditionalOptions
-		return setmetatable({
-			options = if data == nil or data.options == nil then {} else data.options,
-		}, _NestedComponentProp_ConditionalOptionsImpl :: _NestedComponentProp_ConditionalOptionsImpl)
-	end
-
-	function _NestedComponentProp_ConditionalOptionsImpl.encode(self: NestedComponentProp_ConditionalOptions): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.options ~= nil and #self.options > 0 then
-			for _, value in self.options do
-				local encoded = value:encode()
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _NestedComponentProp_ConditionalOptionsImpl.decode(input: buffer): NestedComponentProp_ConditionalOptions
-		local self = _NestedComponentProp_ConditionalOptionsImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.options, messages.NestedComponentProp_ConditionalOption.decode(value))
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _NestedComponentProp_ConditionalOptionsImpl.jsonEncode(self: NestedComponentProp_ConditionalOptions): any
-		local output = {}
-
-		if self.options ~= nil and #self.options > 0 then
-			local newOutput = {}
-			for _, value in self.options do
-				table.insert(newOutput, value:jsonEncode())
-			end
-			output.options = newOutput
-		end
-
-		return output
-	end
-
-	function _NestedComponentProp_ConditionalOptionsImpl.jsonDecode(
-		input: { [string]: any }
-	): NestedComponentProp_ConditionalOptions
-		local self = _NestedComponentProp_ConditionalOptionsImpl.new()
-
-		if input.options ~= nil then
-			local newOutput: { NestedComponentProp_ConditionalOption } = {}
-			for _, value in input.options do
-				table.insert(newOutput, messages.NestedComponentProp_ConditionalOption.jsonDecode(value))
-			end
-
-			self.options = newOutput
-		end
-
-		return self
-	end
-
-	_NestedComponentProp_ConditionalOptionsImpl.descriptor = {
-		name = "NestedComponentProp_ConditionalOptions",
-		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
-	}
-
-	messages.NestedComponentProp_ConditionalOptions = _NestedComponentProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.NestedComponentProp_ConditionalOptions)
-end
-
-do
-	local _NestedComponentProp_TemplateDataImpl = {}
-	_NestedComponentProp_TemplateDataImpl.__index = _NestedComponentProp_TemplateDataImpl
-
-	function _NestedComponentProp_TemplateDataImpl.new(
-		data: _NestedComponentProp_TemplateDataPartialFields?
-	): NestedComponentProp_TemplateData
-		return setmetatable({
-			inputs = if data == nil or data.inputs == nil then {} else data.inputs,
-			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
-		}, _NestedComponentProp_TemplateDataImpl :: _NestedComponentProp_TemplateDataImpl)
-	end
-
-	function _NestedComponentProp_TemplateDataImpl.encode(self: NestedComponentProp_TemplateData): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.inputs ~= nil and next(self.inputs) ~= nil then
-			for key, value in self.inputs do
-				local mapBuffer = buffer.create(0)
-				local mapCursor = 0
-				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
-				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
-				local encoded = value:encode()
-				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
-				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
-			end
-		end
-
-		if self.roblox_component ~= nil and self.roblox_component ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.roblox_component)
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _NestedComponentProp_TemplateDataImpl.decode(input: buffer): NestedComponentProp_TemplateData
-		local self = _NestedComponentProp_TemplateDataImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-
-					local mapEntry = messages.NestedComponentProp_TemplateData_InputsEntry.decode(value)
-
-					local keyDefault = ""
-					local valueDefault = messages.TemplateArg.new()
-
-					self.inputs[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
-
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.roblox_component = buffer.tostring(value)
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _NestedComponentProp_TemplateDataImpl.jsonEncode(self: NestedComponentProp_TemplateData): any
-		local output = {}
-
-		if self.inputs ~= nil and next(self.inputs) ~= nil then
-			local newOutput = {}
-			for key, value in self.inputs do
-				newOutput[key] = value:jsonEncode()
-			end
-			output.inputs = newOutput
-		end
-
-		if self.roblox_component ~= nil and self.roblox_component ~= "" then
-			output.robloxComponent = self.roblox_component
-		end
-
-		return output
-	end
-
-	function _NestedComponentProp_TemplateDataImpl.jsonDecode(
-		input: { [string]: any }
-	): NestedComponentProp_TemplateData
-		local self = _NestedComponentProp_TemplateDataImpl.new()
-
-		if input.inputs ~= nil then
-			local newOutput: { [string]: TemplateArg } = {}
-			for key, value in input.inputs do
-				newOutput[key] = messages.TemplateArg.jsonDecode(value)
-			end
-
-			self.inputs = newOutput
-		end
-
-		if input.roblox_component ~= nil then
-			self.roblox_component = input.roblox_component
-		end
-
-		if input.robloxComponent ~= nil then
-			self.roblox_component = input.robloxComponent
-		end
-
-		return self
-	end
-
-	_NestedComponentProp_TemplateDataImpl.descriptor = {
-		name = "NestedComponentProp_TemplateData",
-		fullName = "roblox.apppageplatform.shared.v1beta1.TemplateData",
-	}
-
-	messages.NestedComponentProp_TemplateData = _NestedComponentProp_TemplateDataImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.NestedComponentProp_TemplateData)
-end
-
-do
-	local _NestedComponentProp_TemplateData_InputsEntryImpl = {}
-	_NestedComponentProp_TemplateData_InputsEntryImpl.__index = _NestedComponentProp_TemplateData_InputsEntryImpl
-
-	function _NestedComponentProp_TemplateData_InputsEntryImpl.new(
-		data: _NestedComponentProp_TemplateData_InputsEntryPartialFields?
-	): NestedComponentProp_TemplateData_InputsEntry
-		return setmetatable({
-			key = if data == nil or data.key == nil then "" else data.key,
-			value = if data == nil or data.value == nil then nil else data.value,
-		}, _NestedComponentProp_TemplateData_InputsEntryImpl :: _NestedComponentProp_TemplateData_InputsEntryImpl)
-	end
-
-	function _NestedComponentProp_TemplateData_InputsEntryImpl.encode(
-		self: NestedComponentProp_TemplateData_InputsEntry
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.key ~= nil and self.key ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.key)
-		end
-
-		if self.value ~= nil then
-			local encoded = self.value:encode()
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _NestedComponentProp_TemplateData_InputsEntryImpl.decode(
-		input: buffer
-	): NestedComponentProp_TemplateData_InputsEntry
-		local self = _NestedComponentProp_TemplateData_InputsEntryImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.key = buffer.tostring(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.value = messages.TemplateArg.decode(value)
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _NestedComponentProp_TemplateData_InputsEntryImpl.jsonEncode(
-		self: NestedComponentProp_TemplateData_InputsEntry
-	): any
-		local output = {}
-
-		if self.key ~= nil and self.key ~= "" then
-			output.key = self.key
-		end
-
-		if self.value ~= nil then
-			output.value = self.value:jsonEncode()
-		end
-
-		return output
-	end
-
-	function _NestedComponentProp_TemplateData_InputsEntryImpl.jsonDecode(
-		input: { [string]: any }
-	): NestedComponentProp_TemplateData_InputsEntry
-		local self = _NestedComponentProp_TemplateData_InputsEntryImpl.new()
-
-		if input.key ~= nil then
-			self.key = input.key
-		end
-
-		if input.value ~= nil then
-			self.value = messages.TemplateArg.jsonDecode(input.value)
-		end
-
-		return self
-	end
-
-	_NestedComponentProp_TemplateData_InputsEntryImpl.descriptor = {
-		name = "NestedComponentProp_TemplateData_InputsEntry",
-		fullName = "roblox.apppageplatform.shared.v1beta1.InputsEntry",
-	}
-
-	messages.NestedComponentProp_TemplateData_InputsEntry = _NestedComponentProp_TemplateData_InputsEntryImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.NestedComponentProp_TemplateData_InputsEntry)
-end
-
-do
-	local _LazyNestedComponentListPropImpl = {}
-	_LazyNestedComponentListPropImpl.__index = _LazyNestedComponentListPropImpl
-
-	function _LazyNestedComponentListPropImpl.new(
-		data: _LazyNestedComponentListPropPartialFields?
-	): LazyNestedComponentListProp
-		return setmetatable({
-			kind = if data == nil or data.kind == nil then nil else data.kind,
-		}, _LazyNestedComponentListPropImpl :: _LazyNestedComponentListPropImpl)
-	end
-
-	function _LazyNestedComponentListPropImpl.encode(self: LazyNestedComponentListProp): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.kind ~= nil then
-			if self.kind.type == "array_map" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "item_list" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "conditional" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "ordered_template_data" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _LazyNestedComponentListPropImpl.decode(input: buffer): LazyNestedComponentListProp
-		local self = _LazyNestedComponentListPropImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind =
-						{ type = "array_map", value = messages.LazyNestedComponentListProp_TemplateData.decode(value) }
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = {
-						type = "item_list",
-						value = messages.LazyNestedComponentListProp_TemplateDataList.decode(value),
-					}
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = {
-						type = "conditional",
-						value = messages.LazyNestedComponentListProp_ConditionalOptions.decode(value),
-					}
-					continue
-				elseif field == 4 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = {
-						type = "ordered_template_data",
-						value = messages.LazyNestedComponentListProp_OrderedTemplateData.decode(value),
-					}
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _LazyNestedComponentListPropImpl.jsonEncode(self: LazyNestedComponentListProp): any
-		local output = {}
-
-		if self.kind ~= nil then
-			if self.kind.type == "array_map" then
-				output.arrayMap = self.kind.value:jsonEncode()
-			elseif self.kind.type == "item_list" then
-				output.itemList = self.kind.value:jsonEncode()
-			elseif self.kind.type == "conditional" then
-				output.conditional = self.kind.value:jsonEncode()
-			elseif self.kind.type == "ordered_template_data" then
-				output.orderedTemplateData = self.kind.value:jsonEncode()
-			end
-		end
-
-		return output
-	end
-
-	function _LazyNestedComponentListPropImpl.jsonDecode(input: { [string]: any }): LazyNestedComponentListProp
-		local self = _LazyNestedComponentListPropImpl.new()
-
-		if input.array_map ~= nil then
-			self.kind = {
-				type = "array_map",
-				value = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(input.array_map),
-			}
-		end
-
-		if input.arrayMap ~= nil then
-			self.kind = {
-				type = "array_map",
-				value = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(input.arrayMap),
-			}
-		end
-
-		if input.item_list ~= nil then
-			self.kind = {
-				type = "item_list",
-				value = messages.LazyNestedComponentListProp_TemplateDataList.jsonDecode(input.item_list),
-			}
-		end
-
-		if input.itemList ~= nil then
-			self.kind = {
-				type = "item_list",
-				value = messages.LazyNestedComponentListProp_TemplateDataList.jsonDecode(input.itemList),
-			}
-		end
-
-		if input.conditional ~= nil then
-			self.kind = {
-				type = "conditional",
-				value = messages.LazyNestedComponentListProp_ConditionalOptions.jsonDecode(input.conditional),
-			}
-		end
-
-		if input.ordered_template_data ~= nil then
-			self.kind = {
-				type = "ordered_template_data",
-				value = messages.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(
-					input.ordered_template_data
-				),
-			}
-		end
-
-		if input.orderedTemplateData ~= nil then
-			self.kind = {
-				type = "ordered_template_data",
-				value = messages.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(input.orderedTemplateData),
-			}
-		end
-
-		return self
-	end
-
-	_LazyNestedComponentListPropImpl.descriptor = {
-		name = "LazyNestedComponentListProp",
-		fullName = "roblox.apppageplatform.shared.v1beta1.LazyNestedComponentListProp",
-	}
-
-	messages.LazyNestedComponentListProp = _LazyNestedComponentListPropImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.LazyNestedComponentListProp)
-end
-
-do
-	local _LazyNestedComponentListProp_ConditionalOptionImpl = {}
-	_LazyNestedComponentListProp_ConditionalOptionImpl.__index = _LazyNestedComponentListProp_ConditionalOptionImpl
-
-	function _LazyNestedComponentListProp_ConditionalOptionImpl.new(
-		data: _LazyNestedComponentListProp_ConditionalOptionPartialFields?
-	): LazyNestedComponentListProp_ConditionalOption
-		return setmetatable({
-			condition = if data == nil or data.condition == nil then nil else data.condition,
-			kind = if data == nil or data.kind == nil then nil else data.kind,
-		}, _LazyNestedComponentListProp_ConditionalOptionImpl :: _LazyNestedComponentListProp_ConditionalOptionImpl)
-	end
-
-	function _LazyNestedComponentListProp_ConditionalOptionImpl.encode(
-		self: LazyNestedComponentListProp_ConditionalOption
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.condition ~= nil then
-			local encoded = self.condition:encode()
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "item_list" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _LazyNestedComponentListProp_ConditionalOptionImpl.decode(
-		input: buffer
-	): LazyNestedComponentListProp_ConditionalOption
-		local self = _LazyNestedComponentListProp_ConditionalOptionImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind =
-						{ type = "literal", value = messages.LazyNestedComponentListProp_TemplateData.decode(value) }
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = {
-						type = "item_list",
-						value = messages.LazyNestedComponentListProp_TemplateDataList.decode(value),
-					}
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _LazyNestedComponentListProp_ConditionalOptionImpl.jsonEncode(
-		self: LazyNestedComponentListProp_ConditionalOption
-	): any
-		local output = {}
-
-		if self.condition ~= nil then
-			output.condition = self.condition:jsonEncode()
-		end
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				output.literal = self.kind.value:jsonEncode()
-			elseif self.kind.type == "item_list" then
-				output.itemList = self.kind.value:jsonEncode()
-			end
-		end
-
-		return output
-	end
-
-	function _LazyNestedComponentListProp_ConditionalOptionImpl.jsonDecode(
-		input: { [string]: any }
-	): LazyNestedComponentListProp_ConditionalOption
-		local self = _LazyNestedComponentListProp_ConditionalOptionImpl.new()
-
-		if input.condition ~= nil then
-			self.condition =
-				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
-		end
-
-		if input.literal ~= nil then
-			self.kind = {
-				type = "literal",
-				value = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(input.literal),
-			}
-		end
-
-		if input.item_list ~= nil then
-			self.kind = {
-				type = "item_list",
-				value = messages.LazyNestedComponentListProp_TemplateDataList.jsonDecode(input.item_list),
-			}
-		end
-
-		if input.itemList ~= nil then
-			self.kind = {
-				type = "item_list",
-				value = messages.LazyNestedComponentListProp_TemplateDataList.jsonDecode(input.itemList),
-			}
-		end
-
-		return self
-	end
-
-	_LazyNestedComponentListProp_ConditionalOptionImpl.descriptor = {
-		name = "LazyNestedComponentListProp_ConditionalOption",
-		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
-	}
-
-	messages.LazyNestedComponentListProp_ConditionalOption = _LazyNestedComponentListProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.LazyNestedComponentListProp_ConditionalOption)
-end
-
-do
-	local _LazyNestedComponentListProp_ConditionalOptionsImpl = {}
-	_LazyNestedComponentListProp_ConditionalOptionsImpl.__index = _LazyNestedComponentListProp_ConditionalOptionsImpl
-
-	function _LazyNestedComponentListProp_ConditionalOptionsImpl.new(
-		data: _LazyNestedComponentListProp_ConditionalOptionsPartialFields?
-	): LazyNestedComponentListProp_ConditionalOptions
-		return setmetatable({
-			options = if data == nil or data.options == nil then {} else data.options,
-		}, _LazyNestedComponentListProp_ConditionalOptionsImpl :: _LazyNestedComponentListProp_ConditionalOptionsImpl)
-	end
-
-	function _LazyNestedComponentListProp_ConditionalOptionsImpl.encode(
-		self: LazyNestedComponentListProp_ConditionalOptions
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.options ~= nil and #self.options > 0 then
-			for _, value in self.options do
-				local encoded = value:encode()
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _LazyNestedComponentListProp_ConditionalOptionsImpl.decode(
-		input: buffer
-	): LazyNestedComponentListProp_ConditionalOptions
-		local self = _LazyNestedComponentListProp_ConditionalOptionsImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.options, messages.LazyNestedComponentListProp_ConditionalOption.decode(value))
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _LazyNestedComponentListProp_ConditionalOptionsImpl.jsonEncode(
-		self: LazyNestedComponentListProp_ConditionalOptions
-	): any
-		local output = {}
-
-		if self.options ~= nil and #self.options > 0 then
-			local newOutput = {}
-			for _, value in self.options do
-				table.insert(newOutput, value:jsonEncode())
-			end
-			output.options = newOutput
-		end
-
-		return output
-	end
-
-	function _LazyNestedComponentListProp_ConditionalOptionsImpl.jsonDecode(
-		input: { [string]: any }
-	): LazyNestedComponentListProp_ConditionalOptions
-		local self = _LazyNestedComponentListProp_ConditionalOptionsImpl.new()
-
-		if input.options ~= nil then
-			local newOutput: { LazyNestedComponentListProp_ConditionalOption } = {}
-			for _, value in input.options do
-				table.insert(newOutput, messages.LazyNestedComponentListProp_ConditionalOption.jsonDecode(value))
-			end
-
-			self.options = newOutput
-		end
-
-		return self
-	end
-
-	_LazyNestedComponentListProp_ConditionalOptionsImpl.descriptor = {
-		name = "LazyNestedComponentListProp_ConditionalOptions",
-		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
-	}
-
-	messages.LazyNestedComponentListProp_ConditionalOptions = _LazyNestedComponentListProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.LazyNestedComponentListProp_ConditionalOptions)
-end
-
-do
-	local _LazyNestedComponentListProp_TemplateDataImpl = {}
-	_LazyNestedComponentListProp_TemplateDataImpl.__index = _LazyNestedComponentListProp_TemplateDataImpl
-
-	function _LazyNestedComponentListProp_TemplateDataImpl.new(
-		data: _LazyNestedComponentListProp_TemplateDataPartialFields?
-	): LazyNestedComponentListProp_TemplateData
-		return setmetatable({
-			binding_path = if data == nil or data.binding_path == nil then "" else data.binding_path,
-			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
-			inputs = if data == nil or data.inputs == nil then {} else data.inputs,
-		}, _LazyNestedComponentListProp_TemplateDataImpl :: _LazyNestedComponentListProp_TemplateDataImpl)
-	end
-
-	function _LazyNestedComponentListProp_TemplateDataImpl.encode(
-		self: LazyNestedComponentListProp_TemplateData
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.binding_path ~= nil and self.binding_path ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.binding_path)
-		end
-
-		if self.roblox_component ~= nil and self.roblox_component ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.roblox_component)
-		end
-
-		if self.inputs ~= nil and next(self.inputs) ~= nil then
-			for key, value in self.inputs do
-				local mapBuffer = buffer.create(0)
-				local mapCursor = 0
-				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
-				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
-				local encoded = value:encode()
-				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
-				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
-				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _LazyNestedComponentListProp_TemplateDataImpl.decode(
-		input: buffer
-	): LazyNestedComponentListProp_TemplateData
-		local self = _LazyNestedComponentListProp_TemplateDataImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.binding_path = buffer.tostring(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.roblox_component = buffer.tostring(value)
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-
-					local mapEntry = messages.LazyNestedComponentListProp_TemplateData_InputsEntry.decode(value)
-
-					local keyDefault = ""
-					local valueDefault = messages.TemplateArg.new()
-
-					self.inputs[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
-
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _LazyNestedComponentListProp_TemplateDataImpl.jsonEncode(
-		self: LazyNestedComponentListProp_TemplateData
-	): any
-		local output = {}
-
-		if self.binding_path ~= nil and self.binding_path ~= "" then
-			output.bindingPath = self.binding_path
-		end
-
-		if self.roblox_component ~= nil and self.roblox_component ~= "" then
-			output.robloxComponent = self.roblox_component
-		end
-
-		if self.inputs ~= nil and next(self.inputs) ~= nil then
-			local newOutput = {}
-			for key, value in self.inputs do
-				newOutput[key] = value:jsonEncode()
-			end
-			output.inputs = newOutput
-		end
-
-		return output
-	end
-
-	function _LazyNestedComponentListProp_TemplateDataImpl.jsonDecode(
-		input: { [string]: any }
-	): LazyNestedComponentListProp_TemplateData
-		local self = _LazyNestedComponentListProp_TemplateDataImpl.new()
-
-		if input.binding_path ~= nil then
-			self.binding_path = input.binding_path
-		end
-
-		if input.bindingPath ~= nil then
-			self.binding_path = input.bindingPath
-		end
-
-		if input.roblox_component ~= nil then
-			self.roblox_component = input.roblox_component
-		end
-
-		if input.robloxComponent ~= nil then
-			self.roblox_component = input.robloxComponent
-		end
-
-		if input.inputs ~= nil then
-			local newOutput: { [string]: TemplateArg } = {}
-			for key, value in input.inputs do
-				newOutput[key] = messages.TemplateArg.jsonDecode(value)
-			end
-
-			self.inputs = newOutput
-		end
-
-		return self
-	end
-
-	_LazyNestedComponentListProp_TemplateDataImpl.descriptor = {
-		name = "LazyNestedComponentListProp_TemplateData",
-		fullName = "roblox.apppageplatform.shared.v1beta1.TemplateData",
-	}
-
-	messages.LazyNestedComponentListProp_TemplateData = _LazyNestedComponentListProp_TemplateDataImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.LazyNestedComponentListProp_TemplateData)
-end
-
-do
-	local _LazyNestedComponentListProp_TemplateData_InputsEntryImpl = {}
-	_LazyNestedComponentListProp_TemplateData_InputsEntryImpl.__index =
-		_LazyNestedComponentListProp_TemplateData_InputsEntryImpl
-
-	function _LazyNestedComponentListProp_TemplateData_InputsEntryImpl.new(
-		data: _LazyNestedComponentListProp_TemplateData_InputsEntryPartialFields?
-	): LazyNestedComponentListProp_TemplateData_InputsEntry
-		return setmetatable(
-			{
-				key = if data == nil or data.key == nil then "" else data.key,
-				value = if data == nil or data.value == nil then nil else data.value,
-			},
-			_LazyNestedComponentListProp_TemplateData_InputsEntryImpl :: _LazyNestedComponentListProp_TemplateData_InputsEntryImpl
-		)
-	end
-
-	function _LazyNestedComponentListProp_TemplateData_InputsEntryImpl.encode(
-		self: LazyNestedComponentListProp_TemplateData_InputsEntry
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.key ~= nil and self.key ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.key)
-		end
-
-		if self.value ~= nil then
-			local encoded = self.value:encode()
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _LazyNestedComponentListProp_TemplateData_InputsEntryImpl.decode(
-		input: buffer
-	): LazyNestedComponentListProp_TemplateData_InputsEntry
-		local self = _LazyNestedComponentListProp_TemplateData_InputsEntryImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.key = buffer.tostring(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.value = messages.TemplateArg.decode(value)
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _LazyNestedComponentListProp_TemplateData_InputsEntryImpl.jsonEncode(
-		self: LazyNestedComponentListProp_TemplateData_InputsEntry
-	): any
-		local output = {}
-
-		if self.key ~= nil and self.key ~= "" then
-			output.key = self.key
-		end
-
-		if self.value ~= nil then
-			output.value = self.value:jsonEncode()
-		end
-
-		return output
-	end
-
-	function _LazyNestedComponentListProp_TemplateData_InputsEntryImpl.jsonDecode(
-		input: { [string]: any }
-	): LazyNestedComponentListProp_TemplateData_InputsEntry
-		local self = _LazyNestedComponentListProp_TemplateData_InputsEntryImpl.new()
-
-		if input.key ~= nil then
-			self.key = input.key
-		end
-
-		if input.value ~= nil then
-			self.value = messages.TemplateArg.jsonDecode(input.value)
-		end
-
-		return self
-	end
-
-	_LazyNestedComponentListProp_TemplateData_InputsEntryImpl.descriptor = {
-		name = "LazyNestedComponentListProp_TemplateData_InputsEntry",
-		fullName = "roblox.apppageplatform.shared.v1beta1.InputsEntry",
-	}
-
-	messages.LazyNestedComponentListProp_TemplateData_InputsEntry =
-		_LazyNestedComponentListProp_TemplateData_InputsEntryImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.LazyNestedComponentListProp_TemplateData_InputsEntry)
-end
-
-do
-	local _LazyNestedComponentListProp_TemplateDataListImpl = {}
-	_LazyNestedComponentListProp_TemplateDataListImpl.__index = _LazyNestedComponentListProp_TemplateDataListImpl
-
-	function _LazyNestedComponentListProp_TemplateDataListImpl.new(
-		data: _LazyNestedComponentListProp_TemplateDataListPartialFields?
-	): LazyNestedComponentListProp_TemplateDataList
-		return setmetatable({
-			items = if data == nil or data.items == nil then {} else data.items,
-		}, _LazyNestedComponentListProp_TemplateDataListImpl :: _LazyNestedComponentListProp_TemplateDataListImpl)
-	end
-
-	function _LazyNestedComponentListProp_TemplateDataListImpl.encode(
-		self: LazyNestedComponentListProp_TemplateDataList
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.items ~= nil and #self.items > 0 then
-			for _, value in self.items do
-				local encoded = value:encode()
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _LazyNestedComponentListProp_TemplateDataListImpl.decode(
-		input: buffer
-	): LazyNestedComponentListProp_TemplateDataList
-		local self = _LazyNestedComponentListProp_TemplateDataListImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.items, messages.LazyNestedComponentListProp_TemplateData.decode(value))
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _LazyNestedComponentListProp_TemplateDataListImpl.jsonEncode(
-		self: LazyNestedComponentListProp_TemplateDataList
-	): any
-		local output = {}
-
-		if self.items ~= nil and #self.items > 0 then
-			local newOutput = {}
-			for _, value in self.items do
-				table.insert(newOutput, value:jsonEncode())
-			end
-			output.items = newOutput
-		end
-
-		return output
-	end
-
-	function _LazyNestedComponentListProp_TemplateDataListImpl.jsonDecode(
-		input: { [string]: any }
-	): LazyNestedComponentListProp_TemplateDataList
-		local self = _LazyNestedComponentListProp_TemplateDataListImpl.new()
-
-		if input.items ~= nil then
-			local newOutput: { LazyNestedComponentListProp_TemplateData } = {}
-			for _, value in input.items do
-				table.insert(newOutput, messages.LazyNestedComponentListProp_TemplateData.jsonDecode(value))
-			end
-
-			self.items = newOutput
-		end
-
-		return self
-	end
-
-	_LazyNestedComponentListProp_TemplateDataListImpl.descriptor = {
-		name = "LazyNestedComponentListProp_TemplateDataList",
-		fullName = "roblox.apppageplatform.shared.v1beta1.TemplateDataList",
-	}
-
-	messages.LazyNestedComponentListProp_TemplateDataList = _LazyNestedComponentListProp_TemplateDataListImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.LazyNestedComponentListProp_TemplateDataList)
-end
-
-do
-	local _LazyNestedComponentListProp_OrderedTemplateDataImpl = {}
-	_LazyNestedComponentListProp_OrderedTemplateDataImpl.__index = _LazyNestedComponentListProp_OrderedTemplateDataImpl
-
-	function _LazyNestedComponentListProp_OrderedTemplateDataImpl.new(
-		data: _LazyNestedComponentListProp_OrderedTemplateDataPartialFields?
-	): LazyNestedComponentListProp_OrderedTemplateData
-		return setmetatable({
-			entry_map_path = if data == nil or data.entry_map_path == nil then "" else data.entry_map_path,
-			entry_order = if data == nil or data.entry_order == nil then nil else data.entry_order,
-			template_data_map = if data == nil or data.template_data_map == nil then {} else data.template_data_map,
-		}, _LazyNestedComponentListProp_OrderedTemplateDataImpl :: _LazyNestedComponentListProp_OrderedTemplateDataImpl)
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateDataImpl.encode(
-		self: LazyNestedComponentListProp_OrderedTemplateData
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.entry_map_path ~= nil and self.entry_map_path ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.entry_map_path)
-		end
-
-		if self.entry_order ~= nil then
-			local encoded = self.entry_order:encode()
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		if self.template_data_map ~= nil and next(self.template_data_map) ~= nil then
-			for key, value in self.template_data_map do
-				local mapBuffer = buffer.create(0)
-				local mapCursor = 0
-				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
-				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
-				local encoded = value:encode()
-				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
-				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
-				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateDataImpl.decode(
-		input: buffer
-	): LazyNestedComponentListProp_OrderedTemplateData
-		local self = _LazyNestedComponentListProp_OrderedTemplateDataImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.entry_map_path = buffer.tostring(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.entry_order =
-						messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.decode(value)
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-
-					local mapEntry =
-						messages.LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry.decode(value)
-
-					local keyDefault = ""
-					local valueDefault = messages.LazyNestedComponentListProp_TemplateData.new()
-
-					self.template_data_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
-
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateDataImpl.jsonEncode(
-		self: LazyNestedComponentListProp_OrderedTemplateData
-	): any
-		local output = {}
-
-		if self.entry_map_path ~= nil and self.entry_map_path ~= "" then
-			output.entryMapPath = self.entry_map_path
-		end
-
-		if self.entry_order ~= nil then
-			output.entryOrder = self.entry_order:jsonEncode()
-		end
-
-		if self.template_data_map ~= nil and next(self.template_data_map) ~= nil then
-			local newOutput = {}
-			for key, value in self.template_data_map do
-				newOutput[key] = value:jsonEncode()
-			end
-			output.templateDataMap = newOutput
-		end
-
-		return output
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateDataImpl.jsonDecode(
-		input: { [string]: any }
-	): LazyNestedComponentListProp_OrderedTemplateData
-		local self = _LazyNestedComponentListProp_OrderedTemplateDataImpl.new()
-
-		if input.entry_map_path ~= nil then
-			self.entry_map_path = input.entry_map_path
-		end
-
-		if input.entryMapPath ~= nil then
-			self.entry_map_path = input.entryMapPath
-		end
-
-		if input.entry_order ~= nil then
-			self.entry_order =
-				messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.jsonDecode(input.entry_order)
-		end
-
-		if input.entryOrder ~= nil then
-			self.entry_order =
-				messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData.jsonDecode(input.entryOrder)
-		end
-
-		if input.template_data_map ~= nil then
-			local newOutput: { [string]: LazyNestedComponentListProp_TemplateData } = {}
-			for key, value in input.template_data_map do
-				newOutput[key] = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(value)
-			end
-
-			self.template_data_map = newOutput
-		end
-
-		if input.templateDataMap ~= nil then
-			local newOutput: { [string]: LazyNestedComponentListProp_TemplateData } = {}
-			for key, value in input.templateDataMap do
-				newOutput[key] = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(value)
-			end
-
-			self.template_data_map = newOutput
-		end
-
-		return self
-	end
-
-	_LazyNestedComponentListProp_OrderedTemplateDataImpl.descriptor = {
-		name = "LazyNestedComponentListProp_OrderedTemplateData",
-		fullName = "roblox.apppageplatform.shared.v1beta1.OrderedTemplateData",
-	}
-
-	messages.LazyNestedComponentListProp_OrderedTemplateData =
-		_LazyNestedComponentListProp_OrderedTemplateDataImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.LazyNestedComponentListProp_OrderedTemplateData)
-end
-
-do
-	local _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl = {}
-	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.__index =
-		_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.new(
-		data: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataPartialFields?
-	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData
-		return setmetatable(
-			{
-				kind = if data == nil or data.kind == nil then nil else data.kind,
-			},
-			_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl
-		)
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.encode(
-		self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "binding_path" then
-				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeString(output, cursor, self.kind.value)
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.decode(
-		input: buffer
-	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData
-		local self = _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = {
-						type = "literal",
-						value = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue.decode(
-							value
-						),
-					}
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "binding_path", value = buffer.tostring(value) }
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.jsonEncode(
-		self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData
-	): any
-		local output = {}
-
-		if self.kind ~= nil then
-			if self.kind.type == "literal" then
-				output.literal = self.kind.value:jsonEncode()
-			elseif self.kind.type == "binding_path" then
-				output.bindingPath = self.kind.value
-			end
-		end
-
-		return output
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.jsonDecode(
-		input: { [string]: any }
-	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData
-		local self = _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.new()
-
-		if input.literal ~= nil then
-			self.kind = {
-				type = "literal",
-				value = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue.jsonDecode(
-					input.literal
-				),
-			}
-		end
-
-		if input.binding_path ~= nil then
-			self.kind = { type = "binding_path", value = input.binding_path }
-		end
-
-		if input.bindingPath ~= nil then
-			self.kind = { type = "binding_path", value = input.bindingPath }
-		end
-
-		return self
-	end
-
-	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl.descriptor = {
-		name = "LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData",
-		fullName = "roblox.apppageplatform.shared.v1beta1.EntryOrderData",
-	}
-
-	messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData =
-		_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData)
-end
-
-do
-	local _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl = {}
-	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.__index =
-		_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.new(
-		data: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValuePartialFields?
-	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
-		return setmetatable(
-			{
-				items = if data == nil or data.items == nil then {} else data.items,
-			},
-			_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl :: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl
-		)
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.encode(
-		self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.items ~= nil and #self.items > 0 then
-			for _, value in self.items do
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeString(output, cursor, value)
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.decode(
-		input: buffer
-	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
-		local self = _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.items, buffer.tostring(value))
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.jsonEncode(
-		self: LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
-	): any
-		local output = {}
-
-		if self.items ~= nil and #self.items > 0 then
-			local newOutput = {}
-			for _, value in self.items do
-				table.insert(newOutput, value)
-			end
-			output.items = newOutput
-		end
-
-		return output
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.jsonDecode(
-		input: {
-			[string]: any,
-		}
-	): LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue
-		local self = _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.new()
-
-		if input.items ~= nil then
-			local newOutput: { string } = {}
-			for _, value in input.items do
-				table.insert(newOutput, value)
-			end
-
-			self.items = newOutput
-		end
-
-		return self
-	end
-
-	_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl.descriptor = {
-		name = "LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue",
-		fullName = "roblox.apppageplatform.shared.v1beta1.LiteralValue",
-	}
-
-	messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue =
-		_LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue)
-end
-
-do
-	local _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl = {}
-	_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.__index =
-		_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.new(
-		data: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryPartialFields?
-	): LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry
-		return setmetatable(
-			{
-				key = if data == nil or data.key == nil then "" else data.key,
-				value = if data == nil or data.value == nil then nil else data.value,
-			},
-			_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl :: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl
-		)
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.encode(
-		self: LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.key ~= nil and self.key ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.key)
-		end
-
-		if self.value ~= nil then
-			local encoded = self.value:encode()
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.decode(
-		input: buffer
-	): LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry
-		local self = _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.key = buffer.tostring(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.value = messages.LazyNestedComponentListProp_TemplateData.decode(value)
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.jsonEncode(
-		self: LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry
-	): any
-		local output = {}
-
-		if self.key ~= nil and self.key ~= "" then
-			output.key = self.key
-		end
-
-		if self.value ~= nil then
-			output.value = self.value:jsonEncode()
-		end
-
-		return output
-	end
-
-	function _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.jsonDecode(
-		input: { [string]: any }
-	): LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry
-		local self = _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.new()
-
-		if input.key ~= nil then
-			self.key = input.key
-		end
-
-		if input.value ~= nil then
-			self.value = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(input.value)
-		end
-
-		return self
-	end
-
-	_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl.descriptor = {
-		name = "LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry",
-		fullName = "roblox.apppageplatform.shared.v1beta1.TemplateDataMapEntry",
-	}
-
-	messages.LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry =
-		_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry)
-end
-
-do
-	local _NestedComponentListPropImpl = {}
-	_NestedComponentListPropImpl.__index = _NestedComponentListPropImpl
-
-	function _NestedComponentListPropImpl.new(data: _NestedComponentListPropPartialFields?): NestedComponentListProp
-		return setmetatable({
-			kind = if data == nil or data.kind == nil then nil else data.kind,
-		}, _NestedComponentListPropImpl :: _NestedComponentListPropImpl)
-	end
-
-	function _NestedComponentListPropImpl.encode(self: NestedComponentListProp): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.kind ~= nil then
-			if self.kind.type == "array_map" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "item_list" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "conditional" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			elseif self.kind.type == "ordered_template_data" then
-				local encoded = self.kind.value:encode()
-				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
-			end
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _NestedComponentListPropImpl.decode(input: buffer): NestedComponentListProp
-		local self = _NestedComponentListPropImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind =
-						{ type = "array_map", value = messages.LazyNestedComponentListProp_TemplateData.decode(value) }
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = {
-						type = "item_list",
-						value = messages.LazyNestedComponentListProp_TemplateDataList.decode(value),
-					}
-					continue
-				elseif field == 3 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = {
-						type = "conditional",
-						value = messages.LazyNestedComponentListProp_ConditionalOptions.decode(value),
-					}
-					continue
-				elseif field == 4 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = {
-						type = "ordered_template_data",
-						value = messages.LazyNestedComponentListProp_OrderedTemplateData.decode(value),
-					}
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _NestedComponentListPropImpl.jsonEncode(self: NestedComponentListProp): any
-		local output = {}
-
-		if self.kind ~= nil then
-			if self.kind.type == "array_map" then
-				output.arrayMap = self.kind.value:jsonEncode()
-			elseif self.kind.type == "item_list" then
-				output.itemList = self.kind.value:jsonEncode()
-			elseif self.kind.type == "conditional" then
-				output.conditional = self.kind.value:jsonEncode()
-			elseif self.kind.type == "ordered_template_data" then
-				output.orderedTemplateData = self.kind.value:jsonEncode()
-			end
-		end
-
-		return output
-	end
-
-	function _NestedComponentListPropImpl.jsonDecode(input: { [string]: any }): NestedComponentListProp
-		local self = _NestedComponentListPropImpl.new()
-
-		if input.array_map ~= nil then
-			self.kind = {
-				type = "array_map",
-				value = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(input.array_map),
-			}
-		end
-
-		if input.arrayMap ~= nil then
-			self.kind = {
-				type = "array_map",
-				value = messages.LazyNestedComponentListProp_TemplateData.jsonDecode(input.arrayMap),
-			}
-		end
-
-		if input.item_list ~= nil then
-			self.kind = {
-				type = "item_list",
-				value = messages.LazyNestedComponentListProp_TemplateDataList.jsonDecode(input.item_list),
-			}
-		end
-
-		if input.itemList ~= nil then
-			self.kind = {
-				type = "item_list",
-				value = messages.LazyNestedComponentListProp_TemplateDataList.jsonDecode(input.itemList),
-			}
-		end
-
-		if input.conditional ~= nil then
-			self.kind = {
-				type = "conditional",
-				value = messages.LazyNestedComponentListProp_ConditionalOptions.jsonDecode(input.conditional),
-			}
-		end
-
-		if input.ordered_template_data ~= nil then
-			self.kind = {
-				type = "ordered_template_data",
-				value = messages.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(
-					input.ordered_template_data
-				),
-			}
-		end
-
-		if input.orderedTemplateData ~= nil then
-			self.kind = {
-				type = "ordered_template_data",
-				value = messages.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(input.orderedTemplateData),
-			}
-		end
-
-		return self
-	end
-
-	_NestedComponentListPropImpl.descriptor = {
-		name = "NestedComponentListProp",
-		fullName = "roblox.apppageplatform.shared.v1beta1.NestedComponentListProp",
-	}
-
-	messages.NestedComponentListProp = _NestedComponentListPropImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.NestedComponentListProp)
-end
-
-do
 	local _IconPropImpl = {}
 	_IconPropImpl.__index = _IconPropImpl
 
@@ -14344,6 +11230,557 @@ do
 	messages.IconProp_ConditionalOptions = _IconProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.IconProp_ConditionalOptions)
+end
+
+do
+	local _FoundationIconConfigPropImpl = {}
+	_FoundationIconConfigPropImpl.__index = _FoundationIconConfigPropImpl
+
+	function _FoundationIconConfigPropImpl.new(data: _FoundationIconConfigPropPartialFields?): FoundationIconConfigProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _FoundationIconConfigPropImpl :: _FoundationIconConfigPropImpl)
+	end
+
+	function _FoundationIconConfigPropImpl.encode(self: FoundationIconConfigProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FoundationIconConfigPropImpl.decode(input: buffer): FoundationIconConfigProp
+		local self = _FoundationIconConfigPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.FoundationIconConfigProp_FoundationIconConfig.decode(value),
+					}
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "conditional",
+						value = messages.FoundationIconConfigProp_ConditionalOptions.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FoundationIconConfigPropImpl.jsonEncode(self: FoundationIconConfigProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _FoundationIconConfigPropImpl.jsonDecode(input: { [string]: any }): FoundationIconConfigProp
+		local self = _FoundationIconConfigPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.FoundationIconConfigProp_FoundationIconConfig.jsonDecode(input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.FoundationIconConfigProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_FoundationIconConfigPropImpl.descriptor = {
+		name = "FoundationIconConfigProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.FoundationIconConfigProp",
+	}
+
+	messages.FoundationIconConfigProp = _FoundationIconConfigPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FoundationIconConfigProp)
+end
+
+do
+	local _FoundationIconConfigProp_ConditionalOptionImpl = {}
+	_FoundationIconConfigProp_ConditionalOptionImpl.__index = _FoundationIconConfigProp_ConditionalOptionImpl
+
+	function _FoundationIconConfigProp_ConditionalOptionImpl.new(
+		data: _FoundationIconConfigProp_ConditionalOptionPartialFields?
+	): FoundationIconConfigProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _FoundationIconConfigProp_ConditionalOptionImpl :: _FoundationIconConfigProp_ConditionalOptionImpl)
+	end
+
+	function _FoundationIconConfigProp_ConditionalOptionImpl.encode(
+		self: FoundationIconConfigProp_ConditionalOption
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FoundationIconConfigProp_ConditionalOptionImpl.decode(
+		input: buffer
+	): FoundationIconConfigProp_ConditionalOption
+		local self = _FoundationIconConfigProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.FoundationIconConfigProp_FoundationIconConfig.decode(value),
+					}
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FoundationIconConfigProp_ConditionalOptionImpl.jsonEncode(
+		self: FoundationIconConfigProp_ConditionalOption
+	): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _FoundationIconConfigProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): FoundationIconConfigProp_ConditionalOption
+		local self = _FoundationIconConfigProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.FoundationIconConfigProp_FoundationIconConfig.jsonDecode(input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_FoundationIconConfigProp_ConditionalOptionImpl.descriptor = {
+		name = "FoundationIconConfigProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.FoundationIconConfigProp_ConditionalOption = _FoundationIconConfigProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FoundationIconConfigProp_ConditionalOption)
+end
+
+do
+	local _FoundationIconConfigProp_ConditionalOptionsImpl = {}
+	_FoundationIconConfigProp_ConditionalOptionsImpl.__index = _FoundationIconConfigProp_ConditionalOptionsImpl
+
+	function _FoundationIconConfigProp_ConditionalOptionsImpl.new(
+		data: _FoundationIconConfigProp_ConditionalOptionsPartialFields?
+	): FoundationIconConfigProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _FoundationIconConfigProp_ConditionalOptionsImpl :: _FoundationIconConfigProp_ConditionalOptionsImpl)
+	end
+
+	function _FoundationIconConfigProp_ConditionalOptionsImpl.encode(
+		self: FoundationIconConfigProp_ConditionalOptions
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FoundationIconConfigProp_ConditionalOptionsImpl.decode(
+		input: buffer
+	): FoundationIconConfigProp_ConditionalOptions
+		local self = _FoundationIconConfigProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.FoundationIconConfigProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FoundationIconConfigProp_ConditionalOptionsImpl.jsonEncode(
+		self: FoundationIconConfigProp_ConditionalOptions
+	): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _FoundationIconConfigProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): FoundationIconConfigProp_ConditionalOptions
+		local self = _FoundationIconConfigProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { FoundationIconConfigProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.FoundationIconConfigProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_FoundationIconConfigProp_ConditionalOptionsImpl.descriptor = {
+		name = "FoundationIconConfigProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.FoundationIconConfigProp_ConditionalOptions = _FoundationIconConfigProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FoundationIconConfigProp_ConditionalOptions)
+end
+
+do
+	local _FoundationIconConfigProp_FoundationIconConfigImpl = {}
+	_FoundationIconConfigProp_FoundationIconConfigImpl.__index = _FoundationIconConfigProp_FoundationIconConfigImpl
+
+	function _FoundationIconConfigProp_FoundationIconConfigImpl.new(
+		data: _FoundationIconConfigProp_FoundationIconConfigPartialFields?
+	): FoundationIconConfigProp_FoundationIconConfig
+		return setmetatable({
+			name = if data == nil or data.name == nil then nil else data.name,
+			variant = if data == nil or data.variant == nil then nil else data.variant,
+		}, _FoundationIconConfigProp_FoundationIconConfigImpl :: _FoundationIconConfigProp_FoundationIconConfigImpl)
+	end
+
+	function _FoundationIconConfigProp_FoundationIconConfigImpl.encode(
+		self: FoundationIconConfigProp_FoundationIconConfig
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.name ~= nil then
+			local encoded = self.name:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.variant ~= nil then
+			local encoded = self.variant:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _FoundationIconConfigProp_FoundationIconConfigImpl.decode(
+		input: buffer
+	): FoundationIconConfigProp_FoundationIconConfig
+		local self = _FoundationIconConfigProp_FoundationIconConfigImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.name = messages.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.variant = messages.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _FoundationIconConfigProp_FoundationIconConfigImpl.jsonEncode(
+		self: FoundationIconConfigProp_FoundationIconConfig
+	): any
+		local output = {}
+
+		if self.name ~= nil then
+			output.name = self.name:jsonEncode()
+		end
+
+		if self.variant ~= nil then
+			output.variant = self.variant:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _FoundationIconConfigProp_FoundationIconConfigImpl.jsonDecode(
+		input: { [string]: any }
+	): FoundationIconConfigProp_FoundationIconConfig
+		local self = _FoundationIconConfigProp_FoundationIconConfigImpl.new()
+
+		if input.name ~= nil then
+			self.name = messages.StringProp.jsonDecode(input.name)
+		end
+
+		if input.variant ~= nil then
+			self.variant = messages.StringProp.jsonDecode(input.variant)
+		end
+
+		return self
+	end
+
+	_FoundationIconConfigProp_FoundationIconConfigImpl.descriptor = {
+		name = "FoundationIconConfigProp_FoundationIconConfig",
+		fullName = "roblox.apppageplatform.shared.v1beta1.FoundationIconConfig",
+	}
+
+	messages.FoundationIconConfigProp_FoundationIconConfig = _FoundationIconConfigProp_FoundationIconConfigImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.FoundationIconConfigProp_FoundationIconConfig)
 end
 
 do
@@ -16858,24 +14295,13 @@ return {
 	Vector2Prop = messages.Vector2Prop,
 	Vector2Prop_ConditionalOption = messages.Vector2Prop_ConditionalOption,
 	Vector2Prop_ConditionalOptions = messages.Vector2Prop_ConditionalOptions,
-	TemplateArg = messages.TemplateArg,
-	TemplateArg_LiteralValue = messages.TemplateArg_LiteralValue,
-	NestedComponentProp = messages.NestedComponentProp,
-	NestedComponentProp_ConditionalOption = messages.NestedComponentProp_ConditionalOption,
-	NestedComponentProp_ConditionalOptions = messages.NestedComponentProp_ConditionalOptions,
-	NestedComponentProp_TemplateData = messages.NestedComponentProp_TemplateData,
-	LazyNestedComponentListProp = messages.LazyNestedComponentListProp,
-	LazyNestedComponentListProp_ConditionalOption = messages.LazyNestedComponentListProp_ConditionalOption,
-	LazyNestedComponentListProp_ConditionalOptions = messages.LazyNestedComponentListProp_ConditionalOptions,
-	LazyNestedComponentListProp_TemplateData = messages.LazyNestedComponentListProp_TemplateData,
-	LazyNestedComponentListProp_TemplateDataList = messages.LazyNestedComponentListProp_TemplateDataList,
-	LazyNestedComponentListProp_OrderedTemplateData = messages.LazyNestedComponentListProp_OrderedTemplateData,
-	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
-	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
-	NestedComponentListProp = messages.NestedComponentListProp,
 	IconProp = messages.IconProp,
 	IconProp_ConditionalOption = messages.IconProp_ConditionalOption,
 	IconProp_ConditionalOptions = messages.IconProp_ConditionalOptions,
+	FoundationIconConfigProp = messages.FoundationIconConfigProp,
+	FoundationIconConfigProp_ConditionalOption = messages.FoundationIconConfigProp_ConditionalOption,
+	FoundationIconConfigProp_ConditionalOptions = messages.FoundationIconConfigProp_ConditionalOptions,
+	FoundationIconConfigProp_FoundationIconConfig = messages.FoundationIconConfigProp_FoundationIconConfig,
 	IconSizeProp = messages.IconSizeProp,
 	GradientProp = messages.GradientProp,
 	GradientProp_ConditionalOption = messages.GradientProp_ConditionalOption,

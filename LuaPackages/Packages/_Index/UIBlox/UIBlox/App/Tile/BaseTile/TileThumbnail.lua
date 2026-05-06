@@ -5,12 +5,15 @@ local App = Tile.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local useStyleMetadata = require(UIBlox.Core.Style.useStyleMetadata)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local LoadableImage = require(UIBlox.App.Loading.LoadableImage)
 local TileSelectionOverlay = require(BaseTile.TileSelectionOverlay)
 local TileUnselectedOverlay = require(BaseTile.TileUnselectedOverlay)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local TileThumbnail = Roact.PureComponent:extend("TileThumbnail")
 
@@ -50,6 +53,9 @@ TileThumbnail.validateProps = t.strictInterface({
 
 	-- Optional callback for when the image is loaded
 	onThumbnailLoaded = t.optional(t.callback),
+
+	-- Set by React parents that can call useStyleMetadata (e.g. Tile) when surface token overrides should affect background tint
+	hasSurfaceOverrides = t.optional(t.boolean),
 })
 
 TileThumbnail.defaultProps = {
@@ -76,6 +82,7 @@ function TileThumbnail:render()
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
+		local hasSurfaceOverrides = self.props.hasSurfaceOverrides
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 1),
@@ -89,6 +96,12 @@ function TileThumbnail:render()
 			}, {
 				BackgroundImage = Roact.createElement(ImageSetComponent.Label, {
 					Image = backgroundImage,
+					ImageColor3 = if UIBloxConfig.useTokensToColorThemedAssets and hasSurfaceOverrides
+						then theme.BackgroundUIDefault.Color:Lerp(
+							theme.PlayerBackgroundDefault.Color,
+							theme.Overlay.Transparency
+						)
+						else nil,
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					AnchorPoint = Vector2.new(0.5, 0.5),
@@ -150,4 +163,15 @@ function TileThumbnail:render()
 	end)
 end
 
-return TileThumbnail
+local function TileThumbnailFunctionalWrapper(props)
+	local styleMetadata = useStyleMetadata()
+
+	return Roact.createElement(
+		TileThumbnail,
+		Cryo.Dictionary.join(props, {
+			hasSurfaceOverrides = if styleMetadata then styleMetadata.HasSurfaceOverrides else false,
+		})
+	)
+end
+
+return TileThumbnailFunctionalWrapper

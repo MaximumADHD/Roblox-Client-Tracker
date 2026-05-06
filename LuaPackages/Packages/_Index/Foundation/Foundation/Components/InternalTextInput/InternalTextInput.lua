@@ -89,13 +89,14 @@ type TextInputProps = {
 	backgroundGradient: React.ReactElement?,
 	leadingElement: React.ReactElement?,
 	trailingElement: React.ReactElement?,
-} & Types.CommonProps
+} & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	size = InputSize.Large,
 	variant = InputVariant.Standard,
 	numLines = 1,
 	testId = "--foundation-internal-text-input",
+	Selectable = true,
 }
 
 type TextBoxProps = {
@@ -166,6 +167,11 @@ end))
 
 -- selene: allow(high_cyclomatic_complexity) -- remove this when FoundationInternalTextInputScrolling is cleaned up
 local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<InternalTextInputRef>?)
+	-- for flag changes while storybook is open, remove with Flags.FoundationInputSelectionProps
+	if Flags.FoundationInputSelectionProps and textInputProps.Selectable == nil then
+		textInputProps.Selectable = true
+	end
+
 	local props = withDefaults(textInputProps, defaultProps)
 	local tokens = useTokens()
 	local lineCount = math.max(1, props.numLines :: number)
@@ -590,7 +596,13 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		withCommonProps(props, {
 			Size = UDim2.new(1, 0, 0, borderFrameHeight),
 			selection = {
-				Selectable = not props.isDisabled,
+				Selectable = if Flags.FoundationInputSelectionProps
+					then (props.Selectable and not props.isDisabled)
+					else not props.isDisabled,
+				NextSelectionUp = if Flags.FoundationInputSelectionProps then props.NextSelectionUp else nil,
+				NextSelectionDown = if Flags.FoundationInputSelectionProps then props.NextSelectionDown else nil,
+				NextSelectionLeft = if Flags.FoundationInputSelectionProps then props.NextSelectionLeft else nil,
+				NextSelectionRight = if Flags.FoundationInputSelectionProps then props.NextSelectionRight else nil,
 			},
 			cursor = cursor,
 			stroke = if containerProps.strokeStyle and containerProps.strokeThickness

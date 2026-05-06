@@ -89,6 +89,7 @@ local lastErrorTimeStamp = tick()
 local FFlagUpdateConnectionLocWarning = game:DefineFastFlag("UpdateConnectionLocWarning", false)
 
 local FFlagAddPlacelaunchDeviceBlock = game:DefineFastFlag("AddPlacelaunchDeviceBlock2", false)
+local FFlagAddContextualPlayabilityConnectionErrors = game:DefineFastFlag("AddContextualPlayabilityConnectionErrors", false)
 
 -- The new, supported way to translate strings in the client.
 -- This function should be used instead of coreScriptTableTranslator:FormatByKey.
@@ -281,6 +282,12 @@ end
 
 if FFlagAddPlacelaunchDeviceBlock then
 	reconnectDisabledList[Enum.ConnectionError.PlacelaunchDeviceBlock] = true
+end
+
+if FFlagAddContextualPlayabilityConnectionErrors then
+	reconnectDisabledList[Enum.ConnectionError.PlacelaunchAgeVerificationRequired] = true
+	reconnectDisabledList[Enum.ConnectionError.PlacelaunchParentalApprovalRequired] = true
+	reconnectDisabledList[Enum.ConnectionError.PlacelaunchCoreGated] = true
 end
 
 local ButtonList = {
@@ -762,6 +769,12 @@ end
 
 if FFlagAddPlacelaunchDeviceBlock then
 	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchDeviceBlock] = "InGame.ConnectionError.PlacelaunchDeviceBlock"
+end
+
+if FFlagAddContextualPlayabilityConnectionErrors then
+	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchAgeVerificationRequired] = "InGame.ConnectionError.Description.AgeCheckRequired"
+	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchParentalApprovalRequired] = "InGame.ConnectionError.Description.ParentalApprovalRequired"
+	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchCoreGated] = "InGame.ConnectionError.Description.LockedByAge"
 end
 
 -- Localize the error string, with a fallback to the original string upon failure.

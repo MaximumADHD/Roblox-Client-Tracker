@@ -1,5 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local FFlagEnableModerateChatRemoteEvent = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableModerateChatRemoteEvent
+local FFlagRemoteAllowListAddExpChatFeatureValueChanged =
+	game:DefineFastFlag("RemoteAllowListAddExpChatFeatureValueChanged", false)
 
 return function()
 	assert(game:FindService("NetworkServer") ~= nil)
@@ -42,6 +44,9 @@ return function()
 	end
 	if FFlagEnableModerateChatRemoteEvent then
 		table.insert(allowList, "ModerateChatSettingUpdated")
+	end
+	if FFlagRemoteAllowListAddExpChatFeatureValueChanged then
+		table.insert(allowList, "ExpChatFeatureValueChanged")
 	end
 
 	-- content/scripts/CoreScripts/ServerCoreScripts/ServerDialog.lua

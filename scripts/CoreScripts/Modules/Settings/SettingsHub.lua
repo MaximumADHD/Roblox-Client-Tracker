@@ -172,6 +172,8 @@ local Flags = {
 
 	FFlagMenuButtonsSkipAnimation = game:DefineFastFlag("MenuButtonsSkipAnimation", false),
 	FFlagAddAbilityToDisableIGMScroll = SharedFlags.FFlagAddAbilityToDisableIGMScroll,
+
+	FFlagEnableSideSheet = SharedFlags.FFlagEnableSideSheet,
 }
 
 --[[ SERVICES ]]
@@ -425,6 +427,9 @@ local function CreateSettingsHub()
 	if Flags.FFlagAddUILessMode and Flags.FIntAddUILessModeVariant ~= 0 then
 		this.uiLessStore = CoreGuiCommonStores.GetUILessStore(false)
 	end
+	this.PageTitleLabel = nil
+	this.PageTitleCloseButton = nil
+	this.PageTitleHeader = nil
 
 	this.isMuted = nil
 	this.lastVoiceRecordingIndicatorTextUpdated = nil
@@ -450,7 +455,16 @@ local function CreateSettingsHub()
 
 	local function shouldShowHubBar(whichPage)
 		whichPage = whichPage or this.Pages.CurrentPage
-		return whichPage.ShouldShowBottomBar == true
+		return if Flags.FFlagEnableSideSheet then whichPage.ShouldShowHubBar == true else whichPage.ShouldShowBottomBar == true
+	end
+
+	local function updatePageTitleHeader(page)
+		if not shouldShowHubBar(page) or not page.TabHeader then
+			this.PageTitleLabel.Text = ""
+			return
+		end
+
+		this.PageTitleLabel.Text = page.TabHeader.TabLabel.Title.Text
 	end
 
 	local function setTabHeaderSelection(pageToSwitchTo)
@@ -1568,15 +1582,63 @@ local function CreateSettingsHub()
 				Parent = menuParent
 			}
 
-			Create'Frame'
+			if not Flags.FFlagEnableSideSheet then
+				Create'Frame'
+				{
+					BackgroundColor3 = Theme.color("Divider"),
+					BackgroundTransparency = Theme.transparency("Divider"),
+					BorderSizePixel = 0,
+					Size = UDim2.new(1,0,0,1),
+					Position = UDim2.new(0,0,1,0),
+					AnchorPoint = Vector2.new(0,1),
+					Parent = this.HubBar,
+				}
+			end
+		end
+
+		if Flags.FFlagEnableSideSheet then
+			this.PageTitleHeader = Create'Frame'
 			{
-				BackgroundColor3 = Theme.color("Divider"),
-				BackgroundTransparency = Theme.transparency("Divider"),
-				BorderSizePixel = 0,
-				Size = UDim2.new(1,0,0,1),
-				Position = UDim2.new(0,0,1,0),
-				AnchorPoint = Vector2.new(0,1),
+				Name = "PageTitleHeader",
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				LayoutOrder = 0,
 				Parent = this.HubBar,
+				ZIndex = this.Shield.ZIndex + 1,
+			}
+
+			Create'UIPadding'
+			{
+				PaddingLeft = UDim.new(0, 12),
+				PaddingRight = UDim.new(0, 12),
+				Parent = this.PageTitleHeader,
+			}
+
+			this.PageTitleCloseButton = Create'ImageButton'
+			{
+				Name = 'PageTitleCloseButton',
+				BackgroundTransparency = 1,
+				Size = UDim2.new(0, 16, 0, 16),
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(1, 0, 0.5, 0),
+				Image = "rbxasset://textures/ui/InspectMenu/x.png",
+				Parent = this.PageTitleHeader,
+			}
+
+			this.PageTitleLabel = Create'TextLabel'
+			{
+				Name = "Title",
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, -36, 0, 0),
+				Position = UDim2.new(0, 0, 0.5, 0),
+				AnchorPoint = Vector2.new(0, 0.5),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Text = "",
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextColor3 = Color3.new(1, 1, 1),
+				Font = Theme.font(Enum.Font.SourceSansBold, "Confirmation"),
+				FontSize = Theme.fontSize(Enum.FontSize.Size36, "Confirmation"),
+				Parent = this.PageTitleHeader,
 			}
 		end
 
@@ -1868,6 +1930,11 @@ local function CreateSettingsHub()
 			end
 		end
 
+		if Flags.FFlagEnableSideSheet then
+			this.PageTitleCloseButton.Activated:Connect(function()
+				resumeFunc(Constants.AnalyticsResumeXButtonSource)
+			end)
+		end
 
 		if not Flags.FFlagMenuButtonsMountWithIEM then
 			if Flags.FFlagRelocateMobileMenuButtons and (Flags.FIntRelocateMobileMenuButtonsVariant == 1 or Flags.FIntRelocateMobileMenuButtonsVariant == 3 or (Flags.FIntRelocateMobileMenuButtonsVariant == 2 and not utility:IsSmallTouchScreen())) then
@@ -2018,6 +2085,7 @@ local function CreateSettingsHub()
 				BackgroundTransparency = 1,
 				Size = UDim2.fromScale(1, 1),
 				Parent = this.HubBar,
+				Visible = not Flags.FFlagEnableSideSheet,
 			}
 
 			this.TabHeaderContainerListLayout = Create "UIListLayout" {
@@ -2711,6 +2779,10 @@ local function CreateSettingsHub()
 		this.Pages.CurrentPage.Active = true
 		this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
 
+		if Flags.FFlagEnableSideSheet then
+			updatePageTitleHeader(this.Pages.CurrentPage)
+		end
+
 		local pageSize = this.Pages.CurrentPage:GetSize()
 		this.PageView.CanvasSize = UDim2.new(0,0, 0,pageSize.Y)
 
@@ -2821,6 +2893,10 @@ local function CreateSettingsHub()
 		this.Pages.CurrentPage:Display(this.PageViewInnerFrame, skipAnimation)
 		this.Pages.CurrentPage.Active = true
 		this.CurrentPageSignal:fire(this.Pages.CurrentPage and this.Pages.CurrentPage.Page.Name or nil)
+
+		if Flags.FFlagEnableSideSheet then
+			updatePageTitleHeader(this.Pages.CurrentPage)
+		end
 
 		-- Disable outer scrolling for any page that doesn't need it
 		if Flags.FFlagAddAbilityToDisableIGMScroll then

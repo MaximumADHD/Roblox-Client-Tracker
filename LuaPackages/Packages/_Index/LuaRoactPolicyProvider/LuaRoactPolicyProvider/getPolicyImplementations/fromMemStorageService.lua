@@ -6,6 +6,10 @@ local FFlagLogFirstGuacRead = game:DefineFastFlag("FFlagLogFirstGuacRead", false
 local FFlagLogAllGuacRead = game:DefineFastFlag("FFlagLogAllGuacRead", false)
 local FFlagCacheReadParsePolicy = game:DefineFastFlag("CacheReadParsePolicy", false)
 local FFlagFixPolicyStalePlayerUpdates = game:DefineFastFlag("FixPolicyStalePlayerUpdates", false)
+local FFlagClearPolicyOnLogout = game:DefineFastFlag("ClearPolicyOnLogout", false)
+
+-- AppConfiguration::generateStoreKey() uses -1 as the default userId for logged-out client
+local LOGGED_OUT_USER_ID = -1
 
 local CorePackages
 local LoggingProtocol
@@ -33,14 +37,15 @@ return function(dependencies)
 		assert(behavior, "expected behavior")
 
 		local function getStoreKey()
-			local userId = -1
-			-- AppConfiguration::generateStoreKey() uses -1 as the default userId
+			local userId = LOGGED_OUT_USER_ID
 			local player = PlayersService.LocalPlayer
 			if player and player.UserId > 0 then
 				userId = player.UserId
 			end
 			return "GUAC:" .. userId .. ":" .. behavior
 		end
+
+		local loggedOutStoreKey = "GUAC:" .. LOGGED_OUT_USER_ID .. ":" .. behavior
 
 		local connectionStoreKey
 		local memStorageConnection
@@ -70,6 +75,8 @@ return function(dependencies)
 			-- since storeKey uses player ID, let's make sure we invalidate if it ever changes
 			local userIdConn
 			local function invalidateForKeyChange()
+				local previousStoreKey = if FFlagClearPolicyOnLogout then connectionStoreKey else nil :: never
+
 				previouslyReadPolicy = nil
 				previouslyReadJsonValue = nil
 
@@ -78,6 +85,16 @@ return function(dependencies)
 					memStorageConnection = nil
 
 					local newStoreKey = getStoreKey()
+
+					if
+						FFlagClearPolicyOnLogout
+						and previousStoreKey
+						and previousStoreKey ~= newStoreKey
+						and newStoreKey == loggedOutStoreKey
+					then
+						MemStorageService:RemoveItem(newStoreKey)
+					end
+
 					connectionStoreKey = newStoreKey
 					memStorageConnection = MemStorageService:BindAndFire(newStoreKey, onPolicyUpdated)
 				else

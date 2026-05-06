@@ -42,7 +42,7 @@ export type TextInputProps = {
 	textInputType: Enum.TextInputType?,
 	-- Ran when return is pressed within the TextInput
 	onReturnPressed: (() -> ())?,
-} & Types.TextInputCommonProps & Types.CommonProps
+} & Types.TextInputCommonProps & Types.SelectionProps & Types.CommonProps
 
 local defaultProps = {
 	size = InputSize.Large,
@@ -78,6 +78,11 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 					focusBehavior = if Flags.FoundationTextInputFocusBehavior then props.focusBehavior else nil,
 					size = props.size,
 					variant = if Flags.FoundationTextInputVariant then props.variant else nil,
+					Selectable = if Flags.FoundationInputSelectionProps then props.Selectable else nil,
+					NextSelectionUp = if Flags.FoundationInputSelectionProps then props.NextSelectionUp else nil,
+					NextSelectionDown = if Flags.FoundationInputSelectionProps then props.NextSelectionDown else nil,
+					NextSelectionLeft = if Flags.FoundationInputSelectionProps then props.NextSelectionLeft else nil,
+					NextSelectionRight = if Flags.FoundationInputSelectionProps then props.NextSelectionRight else nil,
 					horizontalPadding = {
 						left = (if Flags.FoundationInputVariantsConsolidateContainer
 							then variantProps.container

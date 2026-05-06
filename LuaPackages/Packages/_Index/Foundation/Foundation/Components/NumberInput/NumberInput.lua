@@ -88,7 +88,7 @@ export type NumberInputProps = {
 	formatAsString: ((value: number) -> string)?,
 	-- Whether the input can be dragged to change the value
 	isScrubbable: boolean?,
-} & Types.CommonProps
+} & Types.SelectionProps & Types.CommonProps
 
 local function defaultFormatAsString(value: number)
 	return tostring(value)
@@ -135,7 +135,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		-- Called when focus is lost. The InputObject that caused focus to be lost is passed if available.
 		onFocusLost: ((inputObject: InputObject?) -> ())?,
 		onReturnPressed: (() -> ())?,
-	} & Types.CommonProps
+	} & Types.SelectionProps & Types.CommonProps
 
 	-- TODO: clean up with FFlagFoundationNumberInputVariant
 	if Flags.FoundationNumberInputVariant and props.variant == nil then
@@ -500,6 +500,19 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					hasError = hasError,
 					variant = if Flags.FoundationNumberInputVariant then props.variant else nil,
 					size = props.size,
+					Selectable = (if Flags.FoundationInputSelectionProps then props.Selectable else nil) :: any,
+					NextSelectionUp = (
+							if Flags.FoundationInputSelectionProps then props.NextSelectionUp else nil
+						) :: any,
+					NextSelectionDown = (
+							if Flags.FoundationInputSelectionProps then props.NextSelectionDown else nil
+						) :: any,
+					NextSelectionLeft = (
+							if Flags.FoundationInputSelectionProps then props.NextSelectionLeft else nil
+						) :: any,
+					NextSelectionRight = (
+							if Flags.FoundationInputSelectionProps then props.NextSelectionRight else nil
+						) :: any,
 					horizontalPadding = {
 						left = (if Flags.FoundationInputVariantsConsolidateContainer
 							then variantProps.container

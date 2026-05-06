@@ -82,6 +82,9 @@ ValidationEnums.ValidationModule = {
 
 	-- Layered clothing exploits
 	LCDeformationWithinBounds = "LCDeformationWithinBounds",
+
+	-- Eyelash Tests
+	LeaderSkinnedVertsNearCageIslands = "LeaderSkinnedVertsNearCageIslands",
 }
 finalizeEnumTable("ValidationModule")
 

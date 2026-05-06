@@ -48,7 +48,6 @@ if not Players.LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 end
 
-local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FStringPlayerListOverrideType = require(PlayerList.Flags.FStringPlayerListOverrideType)
 local FFlagReplacePlayerIconRoduxWithSignal = require(CorePackages.Workspace.Packages.SharedFlags).FFlagReplacePlayerIconRoduxWithSignal
@@ -137,12 +136,6 @@ function PlayerListMaster.new()
 		self.store:dispatch(SetSubjectToChinaPolicies(CachedPolicyService:IsSubjectToChinaPolicies()))
 	end)()
 
-	if not FFlagUseNewPlayerList then
-		local lastInputType = UserInputService:GetLastInputType()
-		local isGamepad = lastInputType and lastInputType.Name:find("Gamepad")
-		self.store:dispatch(SetIsUsingGamepad(isGamepad ~= nil))
-	end
-
 	self:_trackEnabled()
 
 	local appStyleForUiModeStyleProvider = {
@@ -187,17 +180,15 @@ function PlayerListMaster.new()
 		PlayerIconInfoStore.cleanUp()
 	end else nil
 
-	if FFlagUseNewPlayerList then
-		self._mountLeaderboardStore()
-		self._setIsUsingGamepad()
-		self.root = Roact.createElement(PlayerListContainer, {
-			leaderboardStore = LeaderboardStoreInstanceManager.getLeaderboardStoreInstance,
-			TopBarConstants = require(RobloxGui.Modules.TopBar.Constants),
-			isTenFoot = if FFlagEnableMobilePlayerListOnConsole then false else TenFootInterface:IsEnabled(),
-		}, {
-			PlayerListMaster = self.root,
-		})
-	end
+	self._mountLeaderboardStore()
+	self._setIsUsingGamepad()
+	self.root = Roact.createElement(PlayerListContainer, {
+		leaderboardStore = LeaderboardStoreInstanceManager.getLeaderboardStoreInstance,
+		TopBarConstants = require(RobloxGui.Modules.TopBar.Constants),
+		isTenFoot = if FFlagEnableMobilePlayerListOnConsole then false else TenFootInterface:IsEnabled(),
+	}, {
+		PlayerListMaster = self.root,
+	})
 
 	self.root = Roact.createElement("ScreenGui", {
 		AutoLocalize = false,
@@ -248,19 +239,15 @@ function PlayerListMaster:_updateMounted()
 	if FFlagEnableMobilePlayerListOnConsole or not TenFootInterface:IsEnabled() then
 		local shouldMount = self.coreGuiEnabled and self.topBarEnabled
 		if shouldMount and not self.mounted then
-			if FFlagUseNewPlayerList then
-				self._mountLeaderboardStore()
-				self._setIsUsingGamepad()
-			end
+			self._mountLeaderboardStore()
+			self._setIsUsingGamepad()
 			self.element = Roact.mount(self.root, CoreGui, "PlayerList")
 			self.mounted = true
 		elseif not shouldMount and self.mounted then
 			Roact.unmount(self.element)
-			if FFlagUseNewPlayerList then
-				self._unmountLeaderboardStore()
-				if self._unmountPlayerIconInfoStore then
-					self._unmountPlayerIconInfoStore()
-				end
+			self._unmountLeaderboardStore()
+			if self._unmountPlayerIconInfoStore then
+				self._unmountPlayerIconInfoStore()
 			end
 			self.mounted = false
 			if self.inspector then

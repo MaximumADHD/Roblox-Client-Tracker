@@ -24,7 +24,6 @@ local Colors = require(CorePackages.Workspace.Packages.Style).Colors
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 
-local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 
 local DropDownButton = Roact.PureComponent:extend("DropDownButton")
@@ -85,7 +84,7 @@ end
 function DropDownButton:render()
 	return WithLayoutValues(function(layoutValues)
 		return withStyle(function(style)
-			layoutValues = if FFlagUseNewPlayerList then self.props.layoutValues else layoutValues
+			layoutValues = self.props.layoutValues
 
 			local overlayStyle = {
 				Transparency = 1,
@@ -305,7 +304,7 @@ function DropDownButton:render()
 end
 
 local DropDownButtonWrapper = function(props)
-	local layoutValues = if FFlagUseNewPlayerList then useLayoutValues() else nil
+	local layoutValues = useLayoutValues()
 
 	return Roact.createElement(DropDownButton, Cryo.Dictionary.join(props, {
 		layoutValues = layoutValues,
@@ -319,8 +318,4 @@ local function mapStateToProps(state)
 	}
 end
 
-if FFlagUseNewPlayerList then
-	return RoactRodux.connect(mapStateToProps, nil)(DropDownButtonWrapper)
-else 
-	return RoactRodux.connect(mapStateToProps, nil)(DropDownButton)
-end
+return RoactRodux.connect(mapStateToProps, nil)(DropDownButtonWrapper)

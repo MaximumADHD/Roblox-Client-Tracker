@@ -28,7 +28,6 @@ local useVerifiedBadge = UserProfiles.Hooks.useVerifiedBadge
 local EmojiTextLabel = UIBlox.Core.Text.EmojiTextLabel
 local Emoji = UIBlox.App.Emoji.Enum.Emoji
 
-local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagEnableVerifiedBadgeStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableVerifiedBadgeStore
 local FFlagPlayerListDropDownShowPlatformName = PlayerListPackage.Flags.FFlagPlayerListDropDownShowPlatformName
@@ -36,10 +35,6 @@ local FFlagPlayerListDropDownShowPlatformName = PlayerListPackage.Flags.FFlagPla
 local _, PlatformFriendsService = pcall(function()
 	return game:GetService("PlatformFriendsService")
 end)
-
-local TEXT_HEIGHT = 22
-
-local X_OFFSET = 124
 
 local DropDownPlayerHeader = Roact.PureComponent:extend("DropDownPlayerHeader")
 
@@ -59,10 +54,10 @@ DropDownPlayerHeader.validateProps = t.strictInterface({
 function DropDownPlayerHeader:render()
 	return WithLayoutValues(function(layoutValues)
 		return withStyle(function(style)
-			layoutValues = if FFlagUseNewPlayerList then self.props.layoutValues else layoutValues
-			local tokens = if FFlagUseNewPlayerList then self.props.tokens else nil
-			local xOffset = if FFlagUseNewPlayerList then tokens.Size.Size_3000 else X_OFFSET
-			local textHeight = if FFlagUseNewPlayerList then tokens.Size.Size_500 else TEXT_HEIGHT
+			layoutValues = self.props.layoutValues
+			local tokens = self.props.tokens
+			local xOffset = tokens.Size.Size_3000
+			local textHeight = tokens.Size.Size_500
 
 			local player = self.props.player
 			local avatarBackgroundImage = "rbxasset://textures/ui/PlayerList/NewAvatarBackground.png"
@@ -95,7 +90,7 @@ function DropDownPlayerHeader:render()
 						Visible = self.props.contentVisible,
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, -xOffset, 1, 0),
-						Position = UDim2.new(0, if FFlagUseNewPlayerList then tokens.Size.Size_2700 else 107, 0, 0),
+						Position = UDim2.new(0, tokens.Size.Size_2700, 0, 0),
 					}, {
 						Layout = Roact.createElement("UIListLayout", {
 							SortOrder = Enum.SortOrder.LayoutOrder,
@@ -204,7 +199,7 @@ function DropDownPlayerHeader:render()
 				}),
 
 				AvatarImage = Roact.createElement("ImageLabel", {
-					Position = UDim2.new(0, if FFlagUseNewPlayerList then tokens.Size.Size_1400 else 112 / 2, 0, 0),
+					Position = UDim2.new(0, tokens.Size.Size_1400, 0, 0),
 					Size = UDim2.new(0, layoutValues.DropDownHeaderSizeY, 0, layoutValues.DropDownHeaderSizeY),
 					AnchorPoint = Vector2.new(0.5, 0),
 					BackgroundTransparency = 1,
@@ -229,8 +224,8 @@ function DropDownPlayerHeader:render()
 end
 
 local DropDownPlayerHeaderWrapper = function(props)
-	local layoutValues = if FFlagUseNewPlayerList then useLayoutValues() else nil
-	local tokens = if FFlagUseNewPlayerList then useTokens() else nil
+	local layoutValues = useLayoutValues()
+	local tokens = useTokens()
 	local showVerifiedBadge = if FFlagEnableVerifiedBadgeStore then useVerifiedBadge(props.player) else nil
 
 	local platformName
@@ -266,8 +261,4 @@ local DropDownPlayerHeaderWrapper = function(props)
 	}))
 end
 
-if FFlagUseNewPlayerList then
-	return DropDownPlayerHeaderWrapper
-else
-	return DropDownPlayerHeader
-end
+return DropDownPlayerHeaderWrapper

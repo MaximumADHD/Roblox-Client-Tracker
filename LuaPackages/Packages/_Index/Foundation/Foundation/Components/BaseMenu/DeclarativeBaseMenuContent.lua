@@ -4,8 +4,6 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local Types = require(Foundation.Components.Types)
 type ItemId = Types.ItemId
 type OnItemActivated = Types.OnItemActivated
@@ -40,8 +38,7 @@ local function DeclarativeBaseMenuContent(props: DeclarativeBaseMenuContentProps
 		-- Distinguish between flat items and grouped items:
 		-- BaseMenuItemGroup has `items` but no `id`; BaseMenuItem has `id` (and may have `items` for submenus)
 		local firstHasItems = Dash.get(props.items, { 1, "items" })
-		local firstHasId = if Flags.FoundationBaseMenuSubmenuSupport then Dash.get(props.items, { 1, "id" }) else nil
-
+		local firstHasId = Dash.get(props.items, { 1, "id" })
 		if firstHasItems and not firstHasId then
 			return props.items :: { BaseMenuItemGroup<BaseMenuItem> }
 		else
@@ -75,7 +72,7 @@ local function DeclarativeBaseMenuContent(props: DeclarativeBaseMenuContentProps
 							testId = if item.items then "--foundation-menu-submenu-item" else "--foundation-menu-item",
 							ref = item.ref,
 						},
-						if Flags.FoundationBaseMenuSubmenuSupport and item.items
+						if item.items
 							then React.createElement(DeclarativeBaseMenuContent, {
 								items = item.items,
 							})

@@ -15,8 +15,6 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local DropDownButton = require(script.Parent.DropDownButton)
 
-local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
-
 local POSITION_MOTOR_OPTIONS = {
 	dampingRatio = 1,
 	frequency = 4,
@@ -131,7 +129,7 @@ end
 
 function DropDownAnimator:render()
 	return WithLayoutValues(function(layoutValues)
-		layoutValues = if FFlagUseNewPlayerList then self.props.layoutValues else layoutValues
+		layoutValues = self.props.layoutValues
 		local children = {}
 
 		children.CurrentButtonContainer = Roact.createElement("Frame", {
@@ -216,15 +214,11 @@ function DropDownAnimator:willUnmount()
 end
 
 local DropDownAnimatorWrapper = function(props)
-	local layoutValues = if FFlagUseNewPlayerList then useLayoutValues() else nil
+	local layoutValues = useLayoutValues()
 
 	return Roact.createElement(DropDownAnimator, Cryo.Dictionary.join(props, {
 		layoutValues = layoutValues,
 	}))
 end
 
-if FFlagUseNewPlayerList then
-	return DropDownAnimatorWrapper
-else
-	return DropDownAnimator
-end
+return DropDownAnimatorWrapper

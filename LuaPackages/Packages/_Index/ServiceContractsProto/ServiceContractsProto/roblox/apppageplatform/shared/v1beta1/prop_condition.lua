@@ -12,6 +12,8 @@ type _Messages = {
 	ComparisonCondition_Op: _ComparisonCondition_OpMessage,
 	IsNullCondition: _IsNullConditionMessage,
 	IsNotNullCondition: _IsNotNullConditionMessage,
+	IsEmptyCondition: _IsEmptyConditionMessage,
+	IsNotEmptyCondition: _IsNotEmptyConditionMessage,
 	AndCondition: _AndConditionMessage,
 	OrCondition: _OrConditionMessage,
 }
@@ -34,6 +36,8 @@ type _PropConditionFields = {
 		| { type: "is_not_null", value: IsNotNullCondition }
 		| { type: "and_condition", value: AndCondition }
 		| { type: "or_condition", value: OrCondition }
+		| { type: "is_empty", value: IsEmptyCondition }
+		| { type: "is_not_empty", value: IsNotEmptyCondition }
 	)?,
 }
 
@@ -44,6 +48,8 @@ type _PropConditionPartialFields = {
 		| { type: "is_not_null", value: IsNotNullCondition }
 		| { type: "and_condition", value: AndCondition }
 		| { type: "or_condition", value: OrCondition }
+		| { type: "is_empty", value: IsEmptyCondition }
+		| { type: "is_not_empty", value: IsNotEmptyCondition }
 	)?,
 }
 
@@ -134,6 +140,48 @@ type _IsNotNullConditionPartialFields = {
 export type IsNotNullCondition = typeof(setmetatable({} :: _IsNotNullConditionFields, {} :: _IsNotNullConditionImpl))
 type _IsNotNullConditionMessage = proto.Message<IsNotNullCondition, _IsNotNullConditionPartialFields>
 
+type _IsEmptyConditionImpl = {
+	__index: _IsEmptyConditionImpl,
+	new: (fields: _IsEmptyConditionPartialFields?) -> IsEmptyCondition,
+	encode: (self: IsEmptyCondition) -> buffer,
+	decode: (input: buffer) -> IsEmptyCondition,
+	jsonEncode: (self: IsEmptyCondition) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> IsEmptyCondition,
+	descriptor: proto.Descriptor,
+}
+
+type _IsEmptyConditionFields = {
+	field: string,
+}
+
+type _IsEmptyConditionPartialFields = {
+	field: string?,
+}
+
+export type IsEmptyCondition = typeof(setmetatable({} :: _IsEmptyConditionFields, {} :: _IsEmptyConditionImpl))
+type _IsEmptyConditionMessage = proto.Message<IsEmptyCondition, _IsEmptyConditionPartialFields>
+
+type _IsNotEmptyConditionImpl = {
+	__index: _IsNotEmptyConditionImpl,
+	new: (fields: _IsNotEmptyConditionPartialFields?) -> IsNotEmptyCondition,
+	encode: (self: IsNotEmptyCondition) -> buffer,
+	decode: (input: buffer) -> IsNotEmptyCondition,
+	jsonEncode: (self: IsNotEmptyCondition) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> IsNotEmptyCondition,
+	descriptor: proto.Descriptor,
+}
+
+type _IsNotEmptyConditionFields = {
+	field: string,
+}
+
+type _IsNotEmptyConditionPartialFields = {
+	field: string?,
+}
+
+export type IsNotEmptyCondition = typeof(setmetatable({} :: _IsNotEmptyConditionFields, {} :: _IsNotEmptyConditionImpl))
+type _IsNotEmptyConditionMessage = proto.Message<IsNotEmptyCondition, _IsNotEmptyConditionPartialFields>
+
 type _AndConditionImpl = {
 	__index: _AndConditionImpl,
 	new: (fields: _AndConditionPartialFields?) -> AndCondition,
@@ -211,6 +259,14 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "is_empty" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "is_not_empty" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -258,6 +314,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "or_condition", value = messages.OrCondition.decode(value) }
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "is_empty", value = messages.IsEmptyCondition.decode(value) }
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "is_not_empty", value = messages.IsNotEmptyCondition.decode(value) }
+					continue
 				end
 
 				local length
@@ -296,6 +362,10 @@ do
 				output.andCondition = self.kind.value:jsonEncode()
 			elseif self.kind.type == "or_condition" then
 				output.orCondition = self.kind.value:jsonEncode()
+			elseif self.kind.type == "is_empty" then
+				output.isEmpty = self.kind.value:jsonEncode()
+			elseif self.kind.type == "is_not_empty" then
+				output.isNotEmpty = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -339,6 +409,22 @@ do
 
 		if input.orCondition ~= nil then
 			self.kind = { type = "or_condition", value = messages.OrCondition.jsonDecode(input.orCondition) }
+		end
+
+		if input.is_empty ~= nil then
+			self.kind = { type = "is_empty", value = messages.IsEmptyCondition.jsonDecode(input.is_empty) }
+		end
+
+		if input.isEmpty ~= nil then
+			self.kind = { type = "is_empty", value = messages.IsEmptyCondition.jsonDecode(input.isEmpty) }
+		end
+
+		if input.is_not_empty ~= nil then
+			self.kind = { type = "is_not_empty", value = messages.IsNotEmptyCondition.jsonDecode(input.is_not_empty) }
+		end
+
+		if input.isNotEmpty ~= nil then
+			self.kind = { type = "is_not_empty", value = messages.IsNotEmptyCondition.jsonDecode(input.isNotEmpty) }
 		end
 
 		return self
@@ -856,6 +942,200 @@ do
 end
 
 do
+	local _IsEmptyConditionImpl = {}
+	_IsEmptyConditionImpl.__index = _IsEmptyConditionImpl
+
+	function _IsEmptyConditionImpl.new(data: _IsEmptyConditionPartialFields?): IsEmptyCondition
+		return setmetatable({
+			field = if data == nil or data.field == nil then "" else data.field,
+		}, _IsEmptyConditionImpl :: _IsEmptyConditionImpl)
+	end
+
+	function _IsEmptyConditionImpl.encode(self: IsEmptyCondition): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.field ~= nil and self.field ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.field)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _IsEmptyConditionImpl.decode(input: buffer): IsEmptyCondition
+		local self = _IsEmptyConditionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.field = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _IsEmptyConditionImpl.jsonEncode(self: IsEmptyCondition): any
+		local output = {}
+
+		if self.field ~= nil and self.field ~= "" then
+			output.field = self.field
+		end
+
+		return output
+	end
+
+	function _IsEmptyConditionImpl.jsonDecode(input: { [string]: any }): IsEmptyCondition
+		local self = _IsEmptyConditionImpl.new()
+
+		if input.field ~= nil then
+			self.field = input.field
+		end
+
+		return self
+	end
+
+	_IsEmptyConditionImpl.descriptor = {
+		name = "IsEmptyCondition",
+		fullName = "roblox.apppageplatform.shared.v1beta1.IsEmptyCondition",
+	}
+
+	messages.IsEmptyCondition = _IsEmptyConditionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.IsEmptyCondition)
+end
+
+do
+	local _IsNotEmptyConditionImpl = {}
+	_IsNotEmptyConditionImpl.__index = _IsNotEmptyConditionImpl
+
+	function _IsNotEmptyConditionImpl.new(data: _IsNotEmptyConditionPartialFields?): IsNotEmptyCondition
+		return setmetatable({
+			field = if data == nil or data.field == nil then "" else data.field,
+		}, _IsNotEmptyConditionImpl :: _IsNotEmptyConditionImpl)
+	end
+
+	function _IsNotEmptyConditionImpl.encode(self: IsNotEmptyCondition): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.field ~= nil and self.field ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.field)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _IsNotEmptyConditionImpl.decode(input: buffer): IsNotEmptyCondition
+		local self = _IsNotEmptyConditionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.field = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _IsNotEmptyConditionImpl.jsonEncode(self: IsNotEmptyCondition): any
+		local output = {}
+
+		if self.field ~= nil and self.field ~= "" then
+			output.field = self.field
+		end
+
+		return output
+	end
+
+	function _IsNotEmptyConditionImpl.jsonDecode(input: { [string]: any }): IsNotEmptyCondition
+		local self = _IsNotEmptyConditionImpl.new()
+
+		if input.field ~= nil then
+			self.field = input.field
+		end
+
+		return self
+	end
+
+	_IsNotEmptyConditionImpl.descriptor = {
+		name = "IsNotEmptyCondition",
+		fullName = "roblox.apppageplatform.shared.v1beta1.IsNotEmptyCondition",
+	}
+
+	messages.IsNotEmptyCondition = _IsNotEmptyConditionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.IsNotEmptyCondition)
+end
+
+do
 	local _AndConditionImpl = {}
 	_AndConditionImpl.__index = _AndConditionImpl
 
@@ -1079,6 +1359,8 @@ return {
 	ComparisonCondition_Op = messages.ComparisonCondition_Op,
 	IsNullCondition = messages.IsNullCondition,
 	IsNotNullCondition = messages.IsNotNullCondition,
+	IsEmptyCondition = messages.IsEmptyCondition,
+	IsNotEmptyCondition = messages.IsNotEmptyCondition,
 	AndCondition = messages.AndCondition,
 	OrCondition = messages.OrCondition,
 }

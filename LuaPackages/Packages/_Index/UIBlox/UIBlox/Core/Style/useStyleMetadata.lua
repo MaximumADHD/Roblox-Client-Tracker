@@ -12,6 +12,9 @@ local React = require(Packages.React)
 
 local function useStyleMetadata()
 	local styleContainer = React.useContext(StyleContext)
+	if not styleContainer then
+		return nil
+	end
 	return styleContainer.styleMetadata
 end
 

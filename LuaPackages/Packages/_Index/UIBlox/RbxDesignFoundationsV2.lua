@@ -3,6 +3,9 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["RbxDesignFoundations-31ab8d40-2.0.163"]["RbxDesignFoundations"])
+local Package = require(PackageIndex["RbxDesignFoundations-31ab8d40-3.0.5"]["RbxDesignFoundations"])
+
+export type TokenPath = Package.TokenPath
+
 
 return Package

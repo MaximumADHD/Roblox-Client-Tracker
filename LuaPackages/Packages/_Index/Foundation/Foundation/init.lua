@@ -281,6 +281,9 @@ export type SnackbarAction = Snackbar.SnackbarAction
 local StatusIndicator = require(script.Components.StatusIndicator)
 export type StatusIndicatorProps = StatusIndicator.StatusIndicatorProps
 
+local AlertActions = require(script.Components.AlertActions)
+export type AlertAction = AlertActions.AlertAction
+
 local SystemBanner = require(script.Components.SystemBanner)
 export type SystemBannerProps = SystemBanner.SystemBannerProps
 
@@ -462,6 +465,7 @@ local Foundation = strict({
 		composeStyleVariant = require(script.Utility.composeStyleVariant),
 		getBuilderIconForKeycode = require(script.Utility.getBuilderIconForKeycode),
 		getBuilderIconForCurrentPlatform = require(script.Utility.getBuilderIconForCurrentPlatform),
+		getBuilderIconVariant = require(script.Utility.getBuilderIconVariant),
 		getGridMetrics = require(script.Utility.getGridMetrics),
 		getRbxThumb = require(script.Utility.getRbxThumb),
 		getIconRichText = require(script.Utility.getIconRichText),

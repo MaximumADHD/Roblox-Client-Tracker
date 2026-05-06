@@ -14,9 +14,12 @@
 ]]
 
 local useFocusNavigationScrolling = require(script.useFocusNavigationScrolling)
+local useVirtualizedList = require(script.useVirtualizedList)
 
 export type AnimatedScrollConfig<T> = useFocusNavigationScrolling.ScrollConfig<T>
+export type VirtualizedItem<T> = useVirtualizedList.VirtualizedItem<T>
 
 return {
 	useFocusNavigationScrolling = useFocusNavigationScrolling,
+	useVirtualizedList = useVirtualizedList,
 }

@@ -57,6 +57,8 @@ type _Messages =
 		BannerInputData: _BannerInputDataMessage,
 		TooltipInputData: _TooltipInputDataMessage,
 		CoachmarkInputData: _CoachmarkInputDataMessage,
+		SystemBannerInputData: _SystemBannerInputDataMessage,
+		AgeCheckUpsellInputData: _AgeCheckUpsellInputDataMessage,
 		EventDetailsFeedInputData: _EventDetailsFeedInputDataMessage,
 		EventDetailsFeedInputData_EntryMapEntry: _EventDetailsFeedInputData_EntryMapEntryMessage,
 		EventDetailsActionBarInputData: _EventDetailsActionBarInputDataMessage,
@@ -74,8 +76,7 @@ type _Messages =
 		UAMarketplaceCatalogItemGroupInputData: _UAMarketplaceCatalogItemGroupInputDataMessage,
 		UAMarketplaceCatalogItemCarouselInputData: _UAMarketplaceCatalogItemCarouselInputDataMessage,
 		UAMarketplaceCatalogFeedInputData: _UAMarketplaceCatalogFeedInputDataMessage,
-		UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemMessage,
-		UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryMessage,
+		UAMarketplaceCatalogFeedInputData_EntryMapEntry: _UAMarketplaceCatalogFeedInputData_EntryMapEntryMessage,
 		UAMarketplaceCatalogCategoryMenuInputData: _UAMarketplaceCatalogCategoryMenuInputDataMessage,
 		UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem: _UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItemMessage,
 		SearchResultsFeedInputData: _SearchResultsFeedInputDataMessage,
@@ -84,6 +85,7 @@ type _Messages =
 		UserListInputData_UserItem: _UserListInputData_UserItemMessage,
 		CatalogItemListInputData: _CatalogItemListInputDataMessage,
 		CatalogItemListInputData_CatalogItem: _CatalogItemListInputData_CatalogItemMessage,
+		ExperienceGuidelinesDialogInputData: _ExperienceGuidelinesDialogInputDataMessage,
 		PageEntryFormat: _PageEntryFormatMessage,
 	}
 local messages: _Messages = {} :: _Messages
@@ -170,11 +172,14 @@ type _PageEntryInputDataFields = {
 		| { type: "banner", value: BannerInputData }
 		| { type: "tooltip", value: TooltipInputData }
 		| { type: "coachmark", value: CoachmarkInputData }
+		| { type: "system_banner_prompt", value: SystemBannerInputData }
+		| { type: "age_check_upsell", value: AgeCheckUpsellInputData }
 		| { type: "catalog_item_list", value: CatalogItemListInputData }
 		| { type: "user_list", value: UserListInputData }
 		| { type: "experience_content_rating_label", value: ExperienceContentRatingLabelInputData }
 		| { type: "experience_refund_policy", value: ExperienceRefundPolicyInputData }
 		| { type: "experience_play_with_reward", value: ExperiencePlayWithRewardInputData }
+		| { type: "experience_guidelines_dialog", value: ExperienceGuidelinesDialogInputData }
 		| { type: "experience_details_feed", value: ExperienceDetailsFeedInputData }
 		| { type: "experience_details_action_bar", value: ExperienceDetailsActionBarInputData }
 		| { type: "experience_details_banner_image", value: ExperienceDetailsBannerImageInputData }
@@ -221,11 +226,14 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "banner", value: BannerInputData }
 		| { type: "tooltip", value: TooltipInputData }
 		| { type: "coachmark", value: CoachmarkInputData }
+		| { type: "system_banner_prompt", value: SystemBannerInputData }
+		| { type: "age_check_upsell", value: AgeCheckUpsellInputData }
 		| { type: "catalog_item_list", value: CatalogItemListInputData }
 		| { type: "user_list", value: UserListInputData }
 		| { type: "experience_content_rating_label", value: ExperienceContentRatingLabelInputData }
 		| { type: "experience_refund_policy", value: ExperienceRefundPolicyInputData }
 		| { type: "experience_play_with_reward", value: ExperiencePlayWithRewardInputData }
+		| { type: "experience_guidelines_dialog", value: ExperienceGuidelinesDialogInputData }
 		| { type: "experience_details_feed", value: ExperienceDetailsFeedInputData }
 		| { type: "experience_details_action_bar", value: ExperienceDetailsActionBarInputData }
 		| { type: "experience_details_banner_image", value: ExperienceDetailsBannerImageInputData }
@@ -1603,6 +1611,56 @@ type _CoachmarkInputDataPartialFields = {
 export type CoachmarkInputData = typeof(setmetatable({} :: _CoachmarkInputDataFields, {} :: _CoachmarkInputDataImpl))
 type _CoachmarkInputDataMessage = proto.Message<CoachmarkInputData, _CoachmarkInputDataPartialFields>
 
+type _SystemBannerInputDataImpl = {
+	__index: _SystemBannerInputDataImpl,
+	new: (fields: _SystemBannerInputDataPartialFields?) -> SystemBannerInputData,
+	encode: (self: SystemBannerInputData) -> buffer,
+	decode: (input: buffer) -> SystemBannerInputData,
+	jsonEncode: (self: SystemBannerInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SystemBannerInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _SystemBannerInputDataFields = {
+	prompt_id: string,
+	prompt_type: string,
+}
+
+type _SystemBannerInputDataPartialFields = {
+	prompt_id: string?,
+	prompt_type: string?,
+}
+
+export type SystemBannerInputData = typeof(setmetatable(
+	{} :: _SystemBannerInputDataFields,
+	{} :: _SystemBannerInputDataImpl
+))
+type _SystemBannerInputDataMessage = proto.Message<SystemBannerInputData, _SystemBannerInputDataPartialFields>
+
+type _AgeCheckUpsellInputDataImpl = {
+	__index: _AgeCheckUpsellInputDataImpl,
+	new: (fields: _AgeCheckUpsellInputDataPartialFields?) -> AgeCheckUpsellInputData,
+	encode: (self: AgeCheckUpsellInputData) -> buffer,
+	decode: (input: buffer) -> AgeCheckUpsellInputData,
+	jsonEncode: (self: AgeCheckUpsellInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AgeCheckUpsellInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _AgeCheckUpsellInputDataFields = {
+	upsell_prompt: string,
+}
+
+type _AgeCheckUpsellInputDataPartialFields = {
+	upsell_prompt: string?,
+}
+
+export type AgeCheckUpsellInputData = typeof(setmetatable(
+	{} :: _AgeCheckUpsellInputDataFields,
+	{} :: _AgeCheckUpsellInputDataImpl
+))
+type _AgeCheckUpsellInputDataMessage = proto.Message<AgeCheckUpsellInputData, _AgeCheckUpsellInputDataPartialFields>
+
 type _EventDetailsFeedInputDataImpl = {
 	__index: _EventDetailsFeedInputDataImpl,
 	new: (fields: _EventDetailsFeedInputDataPartialFields?) -> EventDetailsFeedInputData,
@@ -2087,13 +2145,13 @@ type _UAMarketplaceCatalogFeedInputDataImpl = {
 }
 
 type _UAMarketplaceCatalogFeedInputDataFields = {
-	feed_item_input_map: { [string]: PageEntryInputData },
-	marketplace_catalog_feed_items: { UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem },
+	entry_map: { [string]: FeedEntry },
+	entry_order: { string },
 }
 
 type _UAMarketplaceCatalogFeedInputDataPartialFields = {
-	feed_item_input_map: { [string]: PageEntryInputData }?,
-	marketplace_catalog_feed_items: { UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem }?,
+	entry_map: { [string]: FeedEntry }?,
+	entry_order: { string }?,
 }
 
 export type UAMarketplaceCatalogFeedInputData = typeof(setmetatable(
@@ -2105,66 +2163,35 @@ type _UAMarketplaceCatalogFeedInputDataMessage = proto.Message<
 	_UAMarketplaceCatalogFeedInputDataPartialFields
 >
 
-type _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl = {
-	__index: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl,
+type _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl = {
+	__index: _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl,
 	new: (
-		fields: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemPartialFields?
-	) -> UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem,
-	encode: (self: UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem) -> buffer,
-	decode: (input: buffer) -> UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem,
-	jsonEncode: (self: UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem,
+		fields: _UAMarketplaceCatalogFeedInputData_EntryMapEntryPartialFields?
+	) -> UAMarketplaceCatalogFeedInputData_EntryMapEntry,
+	encode: (self: UAMarketplaceCatalogFeedInputData_EntryMapEntry) -> buffer,
+	decode: (input: buffer) -> UAMarketplaceCatalogFeedInputData_EntryMapEntry,
+	jsonEncode: (self: UAMarketplaceCatalogFeedInputData_EntryMapEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogFeedInputData_EntryMapEntry,
 	descriptor: proto.Descriptor,
 }
 
-type _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemFields = {
-	roblox_component: string,
-	feed_item_id: string,
-}
-
-type _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemPartialFields = {
-	roblox_component: string?,
-	feed_item_id: string?,
-}
-
-export type UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem = typeof(setmetatable(
-	{} :: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemFields,
-	{} :: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl
-))
-type _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemMessage = proto.Message<
-	UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem,
-	_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemPartialFields
->
-
-type _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl = {
-	__index: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl,
-	new: (
-		fields: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryPartialFields?
-	) -> UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry,
-	encode: (self: UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry) -> buffer,
-	decode: (input: buffer) -> UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry,
-	jsonEncode: (self: UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry,
-	descriptor: proto.Descriptor,
-}
-
-type _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryFields = {
+type _UAMarketplaceCatalogFeedInputData_EntryMapEntryFields = {
 	key: string,
-	value: PageEntryInputData?,
+	value: FeedEntry?,
 }
 
-type _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryPartialFields = {
+type _UAMarketplaceCatalogFeedInputData_EntryMapEntryPartialFields = {
 	key: string?,
-	value: PageEntryInputData?,
+	value: FeedEntry?,
 }
 
-export type UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry = typeof(setmetatable(
-	{} :: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryFields,
-	{} :: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl
+export type UAMarketplaceCatalogFeedInputData_EntryMapEntry = typeof(setmetatable(
+	{} :: _UAMarketplaceCatalogFeedInputData_EntryMapEntryFields,
+	{} :: _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl
 ))
-type _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryMessage = proto.Message<
-	UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry,
-	_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryPartialFields
+type _UAMarketplaceCatalogFeedInputData_EntryMapEntryMessage = proto.Message<
+	UAMarketplaceCatalogFeedInputData_EntryMapEntry,
+	_UAMarketplaceCatalogFeedInputData_EntryMapEntryPartialFields
 >
 
 type _UAMarketplaceCatalogCategoryMenuInputDataImpl = {
@@ -2394,6 +2421,33 @@ export type CatalogItemListInputData_CatalogItem = typeof(setmetatable(
 type _CatalogItemListInputData_CatalogItemMessage = proto.Message<
 	CatalogItemListInputData_CatalogItem,
 	_CatalogItemListInputData_CatalogItemPartialFields
+>
+
+type _ExperienceGuidelinesDialogInputDataImpl = {
+	__index: _ExperienceGuidelinesDialogInputDataImpl,
+	new: (fields: _ExperienceGuidelinesDialogInputDataPartialFields?) -> ExperienceGuidelinesDialogInputData,
+	encode: (self: ExperienceGuidelinesDialogInputData) -> buffer,
+	decode: (input: buffer) -> ExperienceGuidelinesDialogInputData,
+	jsonEncode: (self: ExperienceGuidelinesDialogInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ExperienceGuidelinesDialogInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _ExperienceGuidelinesDialogInputDataFields = {
+	universe_id: string,
+}
+
+type _ExperienceGuidelinesDialogInputDataPartialFields = {
+	universe_id: string?,
+}
+
+export type ExperienceGuidelinesDialogInputData = typeof(setmetatable(
+	{} :: _ExperienceGuidelinesDialogInputDataFields,
+	{} :: _ExperienceGuidelinesDialogInputDataImpl
+))
+type _ExperienceGuidelinesDialogInputDataMessage = proto.Message<
+	ExperienceGuidelinesDialogInputData,
+	_ExperienceGuidelinesDialogInputDataPartialFields
 >
 
 type _PageEntryFormatMessage = proto.Enum<PageEntryFormat>
@@ -2753,6 +2807,14 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "system_banner_prompt" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 28, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "age_check_upsell" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 29, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "catalog_item_list" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
@@ -2772,6 +2834,10 @@ do
 			elseif self.kind.type == "experience_play_with_reward" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 32, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "experience_guidelines_dialog" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 33, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "experience_details_feed" then
 				local encoded = self.kind.value:encode()
@@ -3013,6 +3079,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "user_list", value = messages.UserListInputData.decode(value) }
 					continue
+				elseif field == 28 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "system_banner_prompt", value = messages.SystemBannerInputData.decode(value) }
+					continue
+				elseif field == 29 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "age_check_upsell", value = messages.AgeCheckUpsellInputData.decode(value) }
+					continue
 				elseif field == 30 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -3035,6 +3111,14 @@ do
 					self.kind = {
 						type = "experience_play_with_reward",
 						value = messages.ExperiencePlayWithRewardInputData.decode(value),
+					}
+					continue
+				elseif field == 33 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "experience_guidelines_dialog",
+						value = messages.ExperienceGuidelinesDialogInputData.decode(value),
 					}
 					continue
 				elseif field == 500 then
@@ -3237,6 +3321,10 @@ do
 				output.tooltip = self.kind.value:jsonEncode()
 			elseif self.kind.type == "coachmark" then
 				output.coachmark = self.kind.value:jsonEncode()
+			elseif self.kind.type == "system_banner_prompt" then
+				output.systemBannerPrompt = self.kind.value:jsonEncode()
+			elseif self.kind.type == "age_check_upsell" then
+				output.ageCheckUpsell = self.kind.value:jsonEncode()
 			elseif self.kind.type == "catalog_item_list" then
 				output.catalogItemList = self.kind.value:jsonEncode()
 			elseif self.kind.type == "user_list" then
@@ -3247,6 +3335,8 @@ do
 				output.experienceRefundPolicy = self.kind.value:jsonEncode()
 			elseif self.kind.type == "experience_play_with_reward" then
 				output.experiencePlayWithReward = self.kind.value:jsonEncode()
+			elseif self.kind.type == "experience_guidelines_dialog" then
+				output.experienceGuidelinesDialog = self.kind.value:jsonEncode()
 			elseif self.kind.type == "experience_details_feed" then
 				output.experienceDetailsFeed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "experience_details_action_bar" then
@@ -3520,6 +3610,32 @@ do
 			self.kind = { type = "coachmark", value = messages.CoachmarkInputData.jsonDecode(input.coachmark) }
 		end
 
+		if input.system_banner_prompt ~= nil then
+			self.kind = {
+				type = "system_banner_prompt",
+				value = messages.SystemBannerInputData.jsonDecode(input.system_banner_prompt),
+			}
+		end
+
+		if input.systemBannerPrompt ~= nil then
+			self.kind = {
+				type = "system_banner_prompt",
+				value = messages.SystemBannerInputData.jsonDecode(input.systemBannerPrompt),
+			}
+		end
+
+		if input.age_check_upsell ~= nil then
+			self.kind = {
+				type = "age_check_upsell",
+				value = messages.AgeCheckUpsellInputData.jsonDecode(input.age_check_upsell),
+			}
+		end
+
+		if input.ageCheckUpsell ~= nil then
+			self.kind =
+				{ type = "age_check_upsell", value = messages.AgeCheckUpsellInputData.jsonDecode(input.ageCheckUpsell) }
+		end
+
 		if input.catalog_item_list ~= nil then
 			self.kind = {
 				type = "catalog_item_list",
@@ -3583,6 +3699,20 @@ do
 			self.kind = {
 				type = "experience_play_with_reward",
 				value = messages.ExperiencePlayWithRewardInputData.jsonDecode(input.experiencePlayWithReward),
+			}
+		end
+
+		if input.experience_guidelines_dialog ~= nil then
+			self.kind = {
+				type = "experience_guidelines_dialog",
+				value = messages.ExperienceGuidelinesDialogInputData.jsonDecode(input.experience_guidelines_dialog),
+			}
+		end
+
+		if input.experienceGuidelinesDialog ~= nil then
+			self.kind = {
+				type = "experience_guidelines_dialog",
+				value = messages.ExperienceGuidelinesDialogInputData.jsonDecode(input.experienceGuidelinesDialog),
 			}
 		end
 
@@ -10686,6 +10816,231 @@ do
 end
 
 do
+	local _SystemBannerInputDataImpl = {}
+	_SystemBannerInputDataImpl.__index = _SystemBannerInputDataImpl
+
+	function _SystemBannerInputDataImpl.new(data: _SystemBannerInputDataPartialFields?): SystemBannerInputData
+		return setmetatable({
+			prompt_id = if data == nil or data.prompt_id == nil then "" else data.prompt_id,
+			prompt_type = if data == nil or data.prompt_type == nil then "" else data.prompt_type,
+		}, _SystemBannerInputDataImpl :: _SystemBannerInputDataImpl)
+	end
+
+	function _SystemBannerInputDataImpl.encode(self: SystemBannerInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.prompt_id ~= nil and self.prompt_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.prompt_id)
+		end
+
+		if self.prompt_type ~= nil and self.prompt_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.prompt_type)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SystemBannerInputDataImpl.decode(input: buffer): SystemBannerInputData
+		local self = _SystemBannerInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.prompt_type = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SystemBannerInputDataImpl.jsonEncode(self: SystemBannerInputData): any
+		local output = {}
+
+		if self.prompt_id ~= nil and self.prompt_id ~= "" then
+			output.promptId = self.prompt_id
+		end
+
+		if self.prompt_type ~= nil and self.prompt_type ~= "" then
+			output.promptType = self.prompt_type
+		end
+
+		return output
+	end
+
+	function _SystemBannerInputDataImpl.jsonDecode(input: { [string]: any }): SystemBannerInputData
+		local self = _SystemBannerInputDataImpl.new()
+
+		if input.prompt_id ~= nil then
+			self.prompt_id = input.prompt_id
+		end
+
+		if input.promptId ~= nil then
+			self.prompt_id = input.promptId
+		end
+
+		if input.prompt_type ~= nil then
+			self.prompt_type = input.prompt_type
+		end
+
+		if input.promptType ~= nil then
+			self.prompt_type = input.promptType
+		end
+
+		return self
+	end
+
+	_SystemBannerInputDataImpl.descriptor = {
+		name = "SystemBannerInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SystemBannerInputData",
+	}
+
+	messages.SystemBannerInputData = _SystemBannerInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SystemBannerInputData)
+end
+
+do
+	local _AgeCheckUpsellInputDataImpl = {}
+	_AgeCheckUpsellInputDataImpl.__index = _AgeCheckUpsellInputDataImpl
+
+	function _AgeCheckUpsellInputDataImpl.new(data: _AgeCheckUpsellInputDataPartialFields?): AgeCheckUpsellInputData
+		return setmetatable({
+			upsell_prompt = if data == nil or data.upsell_prompt == nil then "" else data.upsell_prompt,
+		}, _AgeCheckUpsellInputDataImpl :: _AgeCheckUpsellInputDataImpl)
+	end
+
+	function _AgeCheckUpsellInputDataImpl.encode(self: AgeCheckUpsellInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.upsell_prompt ~= nil and self.upsell_prompt ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.upsell_prompt)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AgeCheckUpsellInputDataImpl.decode(input: buffer): AgeCheckUpsellInputData
+		local self = _AgeCheckUpsellInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.upsell_prompt = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AgeCheckUpsellInputDataImpl.jsonEncode(self: AgeCheckUpsellInputData): any
+		local output = {}
+
+		if self.upsell_prompt ~= nil and self.upsell_prompt ~= "" then
+			output.upsellPrompt = self.upsell_prompt
+		end
+
+		return output
+	end
+
+	function _AgeCheckUpsellInputDataImpl.jsonDecode(input: { [string]: any }): AgeCheckUpsellInputData
+		local self = _AgeCheckUpsellInputDataImpl.new()
+
+		if input.upsell_prompt ~= nil then
+			self.upsell_prompt = input.upsell_prompt
+		end
+
+		if input.upsellPrompt ~= nil then
+			self.upsell_prompt = input.upsellPrompt
+		end
+
+		return self
+	end
+
+	_AgeCheckUpsellInputDataImpl.descriptor = {
+		name = "AgeCheckUpsellInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.AgeCheckUpsellInputData",
+	}
+
+	messages.AgeCheckUpsellInputData = _AgeCheckUpsellInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AgeCheckUpsellInputData)
+end
+
+do
 	local _EventDetailsFeedInputDataImpl = {}
 	_EventDetailsFeedInputDataImpl.__index = _EventDetailsFeedInputDataImpl
 
@@ -13105,12 +13460,8 @@ do
 		data: _UAMarketplaceCatalogFeedInputDataPartialFields?
 	): UAMarketplaceCatalogFeedInputData
 		return setmetatable({
-			feed_item_input_map = if data == nil or data.feed_item_input_map == nil
-				then {}
-				else data.feed_item_input_map,
-			marketplace_catalog_feed_items = if data == nil or data.marketplace_catalog_feed_items == nil
-				then {}
-				else data.marketplace_catalog_feed_items,
+			entry_map = if data == nil or data.entry_map == nil then {} else data.entry_map,
+			entry_order = if data == nil or data.entry_order == nil then {} else data.entry_order,
 		}, _UAMarketplaceCatalogFeedInputDataImpl :: _UAMarketplaceCatalogFeedInputDataImpl)
 	end
 
@@ -13118,8 +13469,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.feed_item_input_map ~= nil and next(self.feed_item_input_map) ~= nil then
-			for key, value in self.feed_item_input_map do
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
+			for key, value in self.entry_map do
 				local mapBuffer = buffer.create(0)
 				local mapCursor = 0
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
@@ -13132,11 +13483,10 @@ do
 			end
 		end
 
-		if self.marketplace_catalog_feed_items ~= nil and #self.marketplace_catalog_feed_items > 0 then
-			for _, value in self.marketplace_catalog_feed_items do
-				local encoded = value:encode()
+		if self.entry_order ~= nil and #self.entry_order > 0 then
+			for _, value in self.entry_order do
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeString(output, cursor, value)
 			end
 		end
 
@@ -13163,21 +13513,18 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 
-					local mapEntry = messages.UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry.decode(value)
+					local mapEntry = messages.UAMarketplaceCatalogFeedInputData_EntryMapEntry.decode(value)
 
 					local keyDefault = ""
-					local valueDefault = messages.PageEntryInputData.new()
+					local valueDefault = messages.FeedEntry.new()
 
-					self.feed_item_input_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+					self.entry_map[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(
-						self.marketplace_catalog_feed_items,
-						messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem.decode(value)
-					)
+					table.insert(self.entry_order, buffer.tostring(value))
 					continue
 				end
 
@@ -13206,20 +13553,20 @@ do
 	function _UAMarketplaceCatalogFeedInputDataImpl.jsonEncode(self: UAMarketplaceCatalogFeedInputData): any
 		local output = {}
 
-		if self.feed_item_input_map ~= nil and next(self.feed_item_input_map) ~= nil then
+		if self.entry_map ~= nil and next(self.entry_map) ~= nil then
 			local newOutput = {}
-			for key, value in self.feed_item_input_map do
+			for key, value in self.entry_map do
 				newOutput[key] = value:jsonEncode()
 			end
-			output.feedItemInputMap = newOutput
+			output.entryMap = newOutput
 		end
 
-		if self.marketplace_catalog_feed_items ~= nil and #self.marketplace_catalog_feed_items > 0 then
+		if self.entry_order ~= nil and #self.entry_order > 0 then
 			local newOutput = {}
-			for _, value in self.marketplace_catalog_feed_items do
-				table.insert(newOutput, value:jsonEncode())
+			for _, value in self.entry_order do
+				table.insert(newOutput, value)
 			end
-			output.marketplaceCatalogFeedItems = newOutput
+			output.entryOrder = newOutput
 		end
 
 		return output
@@ -13230,46 +13577,40 @@ do
 	): UAMarketplaceCatalogFeedInputData
 		local self = _UAMarketplaceCatalogFeedInputDataImpl.new()
 
-		if input.feed_item_input_map ~= nil then
-			local newOutput: { [string]: PageEntryInputData } = {}
-			for key, value in input.feed_item_input_map do
-				newOutput[key] = messages.PageEntryInputData.jsonDecode(value)
+		if input.entry_map ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entry_map do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
 			end
 
-			self.feed_item_input_map = newOutput
+			self.entry_map = newOutput
 		end
 
-		if input.feedItemInputMap ~= nil then
-			local newOutput: { [string]: PageEntryInputData } = {}
-			for key, value in input.feedItemInputMap do
-				newOutput[key] = messages.PageEntryInputData.jsonDecode(value)
+		if input.entryMap ~= nil then
+			local newOutput: { [string]: FeedEntry } = {}
+			for key, value in input.entryMap do
+				newOutput[key] = messages.FeedEntry.jsonDecode(value)
 			end
 
-			self.feed_item_input_map = newOutput
+			self.entry_map = newOutput
 		end
 
-		if input.marketplace_catalog_feed_items ~= nil then
-			local newOutput: { UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem } = {}
-			for _, value in input.marketplace_catalog_feed_items do
-				table.insert(
-					newOutput,
-					messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem.jsonDecode(value)
-				)
+		if input.entry_order ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entry_order do
+				table.insert(newOutput, value)
 			end
 
-			self.marketplace_catalog_feed_items = newOutput
+			self.entry_order = newOutput
 		end
 
-		if input.marketplaceCatalogFeedItems ~= nil then
-			local newOutput: { UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem } = {}
-			for _, value in input.marketplaceCatalogFeedItems do
-				table.insert(
-					newOutput,
-					messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem.jsonDecode(value)
-				)
+		if input.entryOrder ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.entryOrder do
+				table.insert(newOutput, value)
 			end
 
-			self.marketplace_catalog_feed_items = newOutput
+			self.entry_order = newOutput
 		end
 
 		return self
@@ -13286,163 +13627,20 @@ do
 end
 
 do
-	local _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl = {}
-	_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.__index =
-		_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl
+	local _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl = {}
+	_UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl.__index = _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl
 
-	function _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.new(
-		data: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemPartialFields?
-	): UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem
-		return setmetatable(
-			{
-				roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
-				feed_item_id = if data == nil or data.feed_item_id == nil then "" else data.feed_item_id,
-			},
-			_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl :: _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl
-		)
+	function _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl.new(
+		data: _UAMarketplaceCatalogFeedInputData_EntryMapEntryPartialFields?
+	): UAMarketplaceCatalogFeedInputData_EntryMapEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl :: _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl)
 	end
 
-	function _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.encode(
-		self: UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem
-	): buffer
-		local output = buffer.create(0)
-		local cursor = 0
-
-		if self.roblox_component ~= nil and self.roblox_component ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.roblox_component)
-		end
-
-		if self.feed_item_id ~= nil and self.feed_item_id ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.feed_item_id)
-		end
-
-		local shrunkBuffer = buffer.create(cursor)
-		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
-		return shrunkBuffer
-	end
-
-	function _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.decode(
-		input: buffer
-	): UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem
-		local self = _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.new()
-		local cursor = 0
-
-		while cursor < buffer.len(input) do
-			local field, wireType
-			field, wireType, cursor = proto.readTag(input, cursor)
-
-			if wireType == proto.wireTypes.varint then
-				-- No fields
-
-				local _
-				_, cursor = proto.readVarInt(input, cursor)
-			elseif wireType == proto.wireTypes.lengthDelimited then
-				if field == 1 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.roblox_component = buffer.tostring(value)
-					continue
-				elseif field == 2 then
-					local value
-					value, cursor = proto.readBuffer(input, cursor)
-					self.feed_item_id = buffer.tostring(value)
-					continue
-				end
-
-				local length
-				length, cursor = proto.readVarInt(input, cursor)
-
-				cursor += length
-			elseif wireType == proto.wireTypes.i32 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed32(input, cursor)
-			elseif wireType == proto.wireTypes.i64 then
-				-- No fields
-
-				local _
-				_, cursor = proto.readFixed64(input, cursor)
-			else
-				error("Unsupported wire type: " .. wireType)
-			end
-		end
-
-		return self
-	end
-
-	function _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.jsonEncode(
-		self: UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem
-	): any
-		local output = {}
-
-		if self.roblox_component ~= nil and self.roblox_component ~= "" then
-			output.robloxComponent = self.roblox_component
-		end
-
-		if self.feed_item_id ~= nil and self.feed_item_id ~= "" then
-			output.feedItemId = self.feed_item_id
-		end
-
-		return output
-	end
-
-	function _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.jsonDecode(
-		input: { [string]: any }
-	): UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem
-		local self = _UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.new()
-
-		if input.roblox_component ~= nil then
-			self.roblox_component = input.roblox_component
-		end
-
-		if input.robloxComponent ~= nil then
-			self.roblox_component = input.robloxComponent
-		end
-
-		if input.feed_item_id ~= nil then
-			self.feed_item_id = input.feed_item_id
-		end
-
-		if input.feedItemId ~= nil then
-			self.feed_item_id = input.feedItemId
-		end
-
-		return self
-	end
-
-	_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl.descriptor = {
-		name = "UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem",
-		fullName = "roblox.apppageplatform.shared.v1beta1.MarketplaceCatalogFeedItem",
-	}
-
-	messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem =
-		_UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItemImpl :: any -- Luau: Not sure why this intersection fails.
-
-	typeRegistry.default:register(messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem)
-end
-
-do
-	local _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl = {}
-	_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.__index =
-		_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl
-
-	function _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.new(
-		data: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryPartialFields?
-	): UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry
-		return setmetatable(
-			{
-				key = if data == nil or data.key == nil then "" else data.key,
-				value = if data == nil or data.value == nil then nil else data.value,
-			},
-			_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl :: _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl
-		)
-	end
-
-	function _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.encode(
-		self: UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry
+	function _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl.encode(
+		self: UAMarketplaceCatalogFeedInputData_EntryMapEntry
 	): buffer
 		local output = buffer.create(0)
 		local cursor = 0
@@ -13463,10 +13661,10 @@ do
 		return shrunkBuffer
 	end
 
-	function _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.decode(
+	function _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl.decode(
 		input: buffer
-	): UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry
-		local self = _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.new()
+	): UAMarketplaceCatalogFeedInputData_EntryMapEntry
+		local self = _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -13487,7 +13685,7 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.value = messages.PageEntryInputData.decode(value)
+					self.value = messages.FeedEntry.decode(value)
 					continue
 				end
 
@@ -13513,8 +13711,8 @@ do
 		return self
 	end
 
-	function _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.jsonEncode(
-		self: UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry
+	function _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl.jsonEncode(
+		self: UAMarketplaceCatalogFeedInputData_EntryMapEntry
 	): any
 		local output = {}
 
@@ -13529,31 +13727,31 @@ do
 		return output
 	end
 
-	function _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.jsonDecode(
+	function _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl.jsonDecode(
 		input: { [string]: any }
-	): UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry
-		local self = _UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.new()
+	): UAMarketplaceCatalogFeedInputData_EntryMapEntry
+		local self = _UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl.new()
 
 		if input.key ~= nil then
 			self.key = input.key
 		end
 
 		if input.value ~= nil then
-			self.value = messages.PageEntryInputData.jsonDecode(input.value)
+			self.value = messages.FeedEntry.jsonDecode(input.value)
 		end
 
 		return self
 	end
 
-	_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl.descriptor = {
-		name = "UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry",
-		fullName = "roblox.apppageplatform.shared.v1beta1.FeedItemInputMapEntry",
+	_UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl.descriptor = {
+		name = "UAMarketplaceCatalogFeedInputData_EntryMapEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EntryMapEntry",
 	}
 
-	messages.UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry =
-		_UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.UAMarketplaceCatalogFeedInputData_EntryMapEntry =
+		_UAMarketplaceCatalogFeedInputData_EntryMapEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.UAMarketplaceCatalogFeedInputData_FeedItemInputMapEntry)
+	typeRegistry.default:register(messages.UAMarketplaceCatalogFeedInputData_EntryMapEntry)
 end
 
 do
@@ -14704,6 +14902,111 @@ do
 	typeRegistry.default:register(messages.CatalogItemListInputData_CatalogItem)
 end
 
+do
+	local _ExperienceGuidelinesDialogInputDataImpl = {}
+	_ExperienceGuidelinesDialogInputDataImpl.__index = _ExperienceGuidelinesDialogInputDataImpl
+
+	function _ExperienceGuidelinesDialogInputDataImpl.new(
+		data: _ExperienceGuidelinesDialogInputDataPartialFields?
+	): ExperienceGuidelinesDialogInputData
+		return setmetatable({
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+		}, _ExperienceGuidelinesDialogInputDataImpl :: _ExperienceGuidelinesDialogInputDataImpl)
+	end
+
+	function _ExperienceGuidelinesDialogInputDataImpl.encode(self: ExperienceGuidelinesDialogInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ExperienceGuidelinesDialogInputDataImpl.decode(input: buffer): ExperienceGuidelinesDialogInputData
+		local self = _ExperienceGuidelinesDialogInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ExperienceGuidelinesDialogInputDataImpl.jsonEncode(self: ExperienceGuidelinesDialogInputData): any
+		local output = {}
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		return output
+	end
+
+	function _ExperienceGuidelinesDialogInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): ExperienceGuidelinesDialogInputData
+		local self = _ExperienceGuidelinesDialogInputDataImpl.new()
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		return self
+	end
+
+	_ExperienceGuidelinesDialogInputDataImpl.descriptor = {
+		name = "ExperienceGuidelinesDialogInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ExperienceGuidelinesDialogInputData",
+	}
+
+	messages.ExperienceGuidelinesDialogInputData = _ExperienceGuidelinesDialogInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ExperienceGuidelinesDialogInputData)
+end
+
 messages.PageEntryFormat = {
 	fromNumber = function(value: number): PageEntryFormat?
 		if value == 0 then
@@ -14784,6 +15087,8 @@ return {
 	BannerInputData = messages.BannerInputData,
 	TooltipInputData = messages.TooltipInputData,
 	CoachmarkInputData = messages.CoachmarkInputData,
+	SystemBannerInputData = messages.SystemBannerInputData,
+	AgeCheckUpsellInputData = messages.AgeCheckUpsellInputData,
 	EventDetailsFeedInputData = messages.EventDetailsFeedInputData,
 	EventDetailsActionBarInputData = messages.EventDetailsActionBarInputData,
 	EventDescriptionInputData = messages.EventDescriptionInputData,
@@ -14799,7 +15104,6 @@ return {
 	UAMarketplaceCatalogItemGroupInputData = messages.UAMarketplaceCatalogItemGroupInputData,
 	UAMarketplaceCatalogItemCarouselInputData = messages.UAMarketplaceCatalogItemCarouselInputData,
 	UAMarketplaceCatalogFeedInputData = messages.UAMarketplaceCatalogFeedInputData,
-	UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem = messages.UAMarketplaceCatalogFeedInputData_MarketplaceCatalogFeedItem,
 	UAMarketplaceCatalogCategoryMenuInputData = messages.UAMarketplaceCatalogCategoryMenuInputData,
 	UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem = messages.UAMarketplaceCatalogCategoryMenuInputData_MarketplaceCatalogCategoryItem,
 	SearchResultsFeedInputData = messages.SearchResultsFeedInputData,
@@ -14807,5 +15111,6 @@ return {
 	UserListInputData_UserItem = messages.UserListInputData_UserItem,
 	CatalogItemListInputData = messages.CatalogItemListInputData,
 	CatalogItemListInputData_CatalogItem = messages.CatalogItemListInputData_CatalogItem,
+	ExperienceGuidelinesDialogInputData = messages.ExperienceGuidelinesDialogInputData,
 	PageEntryFormat = messages.PageEntryFormat,
 }

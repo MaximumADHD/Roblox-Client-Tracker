@@ -82,21 +82,17 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 	local size: InputSize = props.size or context.size
 	local depth = context.depth
 
-	local isSubmenu = Flags.FoundationBaseMenuSubmenuSupport and props.children ~= nil
+	local isSubmenu = props.children ~= nil
 	local isOpen = isSubmenu and context.hoverOpenPath[depth] == props.id
 
 	local variantProps = useBaseMenuItemVariants(tokens, size, if isSubmenu then false else props.isChecked)
 
 	local itemRef = React.useRef(nil :: GuiObject?)
 
-	local submenuHasLeading, setSubmenuHasLeadingInternal, setSubmenuHasLeading
-
-	if Flags.FoundationBaseMenuSubmenuSupport then
-		submenuHasLeading, setSubmenuHasLeadingInternal = React.useState(false)
-		setSubmenuHasLeading = React.useCallback(function()
-			setSubmenuHasLeadingInternal(true)
-		end, {})
-	end
+	local submenuHasLeading, setSubmenuHasLeadingInternal = React.useState(false)
+	local setSubmenuHasLeading = React.useCallback(function()
+		setSubmenuHasLeadingInternal(true)
+	end, {})
 
 	React.useEffect(function()
 		if props.icon and context.setHasLeading then
@@ -104,17 +100,15 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 		end
 	end, { props.icon, context.setHasLeading } :: { unknown })
 
-	if Flags.FoundationBaseMenuSubmenuSupport then
-		useMenuItemHover({
-			itemRef = itemRef,
-			id = props.id,
-			depth = depth,
-			isSubmenu = isSubmenu,
-			isDisabled = props.isDisabled,
-			hoverOpenAtDepth = context.hoverOpenAtDepth,
-			hoverCloseAtDepth = context.hoverCloseAtDepth,
-		})
-	end
+	useMenuItemHover({
+		itemRef = itemRef,
+		id = props.id,
+		depth = depth,
+		isSubmenu = isSubmenu,
+		isDisabled = props.isDisabled,
+		hoverOpenAtDepth = context.hoverOpenAtDepth,
+		hoverCloseAtDepth = context.hoverCloseAtDepth,
+	})
 
 	local onActivated = React.useCallback(
 		function()
@@ -127,7 +121,7 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 					context.hoverOpenAtDepth(depth, props.id, true)
 				end
 			else
-				if Flags.FoundationBaseMenuSubmenuSupport and context.hoverReset then
+				if context.hoverReset then
 					context.hoverReset()
 				end
 
@@ -158,14 +152,11 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 		} :: { unknown }
 	)
 
-	local onSubmenuPressedOutside
-	if Flags.FoundationBaseMenuSubmenuSupport then
-		onSubmenuPressedOutside = React.useCallback(function()
-			if context.hoverReset then
-				context.hoverReset()
-			end
-		end, { context.hoverReset })
-	end
+	local onSubmenuPressedOutside = React.useCallback(function()
+		if context.hoverReset then
+			context.hoverReset()
+		end
+	end, { context.hoverReset })
 
 	local cursor = React.useMemo(function()
 		return {
@@ -192,7 +183,7 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 			},
 			cursor = cursor,
 			tag = variantProps.container.tag,
-			ref = if Flags.FoundationBaseMenuSubmenuSupport then combinedRef else ref,
+			ref = combinedRef,
 		}),
 		{
 			Icon = if props.icon or hasLeading

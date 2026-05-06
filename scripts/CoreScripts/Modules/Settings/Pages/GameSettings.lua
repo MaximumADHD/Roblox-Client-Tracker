@@ -64,8 +64,9 @@ local GetFFlagEnablePartyVoiceVolumeOnlyWhenInEligibleParty = SharedFlags.GetFFl
 local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
 local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSettings
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
-local GetFFlagDebounceConnectDisconnectSelector = require(RobloxGui.Modules.Settings.Flags.GetFFlagDebounceConnectDisconnectSelector)
+
 local GetFIntDebounceDisconnectButtonDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceDisconnectButtonDelay)
+local GetFIntDebounceAIRephraseSettingDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceAIRephraseSettingDelay)
 local isTouchDevice = UserInputService.TouchEnabled
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
@@ -86,6 +87,7 @@ local FFlagMicroProfilerReadOnlyInformationLabel = game:DefineFastFlag("MicroPro
 local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRemoteEvent
 local FFlagVoiceSelectorAvailableAfterFae = game:DefineFastFlag("VoiceSelectorAvailableAfterFae", false)
 local FFlagDifferentiateVoiceSelectorSystemAndUser = game:DefineFastFlag("DifferentiateVoiceSelectorSystemAndUser", false)
+local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 local FFlagVoiceRewarmTelemetry = SharedFlags.FFlagVoiceRewarmTelemetry
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
@@ -3180,6 +3182,69 @@ local function Initialize()
 		chatModerationStore.initialize()
 	end
 
+	local function createAIRephraseSettingOptions()
+		local title = RobloxTranslator:FormatByKey("CoreScripts.InGameMenu.GameSettings.AIRephraseMessages")
+		local description = RobloxTranslator:FormatByKey("CoreScripts.InGameMenu.GameSettings.AIRephraseMessagesDescription")
+		local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
+		local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
+
+		this.AIRephraseFrame, _, this.AIRephraseSelector = utility:AddNewRow(
+			this,
+			title,
+			"Selector",
+			{ offLabel, onLabel },
+			1,
+			nil,
+			description
+		)
+		this.AIRephraseFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["AIRephraseFrame"]
+		this.AIRephraseFrame.Visible = false
+
+		local getUserChatSettingsStore =
+			require(CorePackages.Workspace.Packages.ExpChat).Stores.GetUserChatSettingsStore
+		local aiRephraseSettingStore = getUserChatSettingsStore.getAIRephraseSettingStore(false)
+		local debounceDelay = GetFIntDebounceAIRephraseSettingDelay()
+		local useDebounce = debounceDelay > 0
+		local previousIndex = if aiRephraseSettingStore.getIsSettingEnabled(false) then 2 else 1
+
+		-- We do not dispose of this effect since this menu is not unmounted.
+		this.AIRephraseDisposeEffect = Signals.createEffect(function(scope)
+			this.AIRephraseFrame.Visible = aiRephraseSettingStore.getIsSettingVisible(scope)
+
+			local enabled = aiRephraseSettingStore.getIsSettingEnabled(scope)
+			local index = if enabled then 2 else 1
+			if this.AIRephraseSelector:GetSelectedIndex() ~= index then
+				previousIndex = index
+				this.AIRephraseSelector:SetSelectionIndex(index)
+			end
+		end)
+
+		local onAIRephraseIndexChanged = function(newIndex)
+			if newIndex == previousIndex then
+				return
+			end
+			local isEnabled = newIndex == 2
+
+			task.spawn(function()
+				local success = TextChatService:OnUserChatSettingUpdateAsync(
+					"allowAIRephrase",
+					if isEnabled then "Enabled" else "Disabled"
+				)
+				if success then
+					aiRephraseSettingStore.setIsSettingEnabled(isEnabled)
+					previousIndex = newIndex
+					reportSettingsChangeForAnalytics("ai_rephrase", not isEnabled, isEnabled)
+				else
+					this.AIRephraseSelector:SetSelectionIndex(previousIndex)
+				end
+			end)
+		end
+
+		this.AIRephraseSelector.IndexChanged:connect(
+			if useDebounce then throttle(debounceDelay, onAIRephraseIndexChanged) else onAIRephraseIndexChanged
+		)
+	end
+
 	------------------------------------------------------
 	------------------
 	------------------ Video Camera Device ---------------
@@ -3536,7 +3601,7 @@ local function Initialize()
 		local connectedIndex = 2
 
 		local debounceDelay = GetFIntDebounceDisconnectButtonDelay()
-		local useDebounce = GetFFlagDebounceConnectDisconnectSelector() and debounceDelay > 0
+		local useDebounce = debounceDelay > 0
 
 		local onSelectorIndexChanged = function(newIndex)
 			if newIndex == previousIndex then
@@ -4239,6 +4304,10 @@ local function Initialize()
 	end
 	if FFlagEnableModerateChatRemoteEvent then
 		createChatModerationOptions()
+	end
+
+	if FFlagAIRephraseSettingEnabled then
+		createAIRephraseSettingOptions()
 	end
 
 	-- dev console option only shows for place/group place owners

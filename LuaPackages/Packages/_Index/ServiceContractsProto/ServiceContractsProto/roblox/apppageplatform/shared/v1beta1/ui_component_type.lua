@@ -63,6 +63,9 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_BADGE"
 	| "UI_COMPONENT_TYPE_SUBSCRIPTION_CELL"
 	| "UI_COMPONENT_TYPE_SHEET_FULL_BLEED"
+	| "UI_COMPONENT_TYPE_SYSTEM_BANNER"
+	| "UI_COMPONENT_TYPE_PLAY_WITH_REWARD"
+	| "UI_COMPONENT_TYPE_ICON_BUTTON"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -176,6 +179,12 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SUBSCRIPTION_CELL"
 		elseif value == 238 then
 			return "UI_COMPONENT_TYPE_SHEET_FULL_BLEED"
+		elseif value == 239 then
+			return "UI_COMPONENT_TYPE_SYSTEM_BANNER"
+		elseif value == 240 then
+			return "UI_COMPONENT_TYPE_PLAY_WITH_REWARD"
+		elseif value == 241 then
+			return "UI_COMPONENT_TYPE_ICON_BUTTON"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -300,6 +309,12 @@ messages.UiComponentType = {
 			return 237
 		elseif self == "UI_COMPONENT_TYPE_SHEET_FULL_BLEED" then
 			return 238
+		elseif self == "UI_COMPONENT_TYPE_SYSTEM_BANNER" then
+			return 239
+		elseif self == "UI_COMPONENT_TYPE_PLAY_WITH_REWARD" then
+			return 240
+		elseif self == "UI_COMPONENT_TYPE_ICON_BUTTON" then
+			return 241
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -424,6 +439,12 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_SUBSCRIPTION_CELL"
 		elseif name == "UI_COMPONENT_TYPE_SHEET_FULL_BLEED" then
 			return "UI_COMPONENT_TYPE_SHEET_FULL_BLEED"
+		elseif name == "UI_COMPONENT_TYPE_SYSTEM_BANNER" then
+			return "UI_COMPONENT_TYPE_SYSTEM_BANNER"
+		elseif name == "UI_COMPONENT_TYPE_PLAY_WITH_REWARD" then
+			return "UI_COMPONENT_TYPE_PLAY_WITH_REWARD"
+		elseif name == "UI_COMPONENT_TYPE_ICON_BUTTON" then
+			return "UI_COMPONENT_TYPE_ICON_BUTTON"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

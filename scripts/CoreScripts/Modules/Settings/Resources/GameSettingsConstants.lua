@@ -16,6 +16,7 @@ local GetFFlagEnablePlayerNamesEnabledSetting = require(Modules.Settings.Flags.G
 local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
 local FFlagEnableModerateChatRemoteEvent = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableModerateChatRemoteEvent
 local FFlagIEMSettingsGroups = require(Modules.Settings.Flags.FFlagIEMSettingsGroups)
+local FFlagAIRephraseSettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAIRephraseSettingEnabled
 
 local isInExperienceUIVREnabled = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local ReactUtils = require(CorePackages.Packages.ReactUtils)
@@ -103,6 +104,9 @@ end
 if FFlagBadgeVisibilitySettingEnabled then
 	SETTINGS_MENU_LAYOUT_ORDER.BadgeVisibilityFrame = 106
 end
+if FFlagAIRephraseSettingEnabled then
+	SETTINGS_MENU_LAYOUT_ORDER.AIRephraseFrame = 43
+end
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRow = 200
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRowCustom = 200 -- Replaces "UiToggleRow" when FFlagUserShowGuiHideToggles == true
 SETTINGS_MENU_LAYOUT_ORDER.UiToggleRowBillboards = 201
@@ -135,6 +139,7 @@ if FFlagIEMSettingsGroups then
 		ChatTranslationFrame = nextOrder(),
 		ChatLanguageSelectorFrame = nextOrder(),
 		ChatTranslationToggleFrame = nextOrder(),
+		AIRephraseFrame = if FFlagAIRephraseSettingEnabled then nextOrder() else nil,
 		LanguageDivider = nextOrder(),
 
 		DisplayHeader = nextOrder(),

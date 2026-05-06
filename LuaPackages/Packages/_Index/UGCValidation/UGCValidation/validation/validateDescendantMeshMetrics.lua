@@ -29,7 +29,6 @@ local getExpectedPartSize = require(root.util.getExpectedPartSize)
 
 local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCValidateCoplanarTriTestBody)
 local getFIntUGCValidateTriangleLimitTolerance = require(root.flags.getFIntUGCValidateTriangleLimitTolerance)
-local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
 local getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning =
 	require(root.flags.getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning)
 
@@ -300,11 +299,7 @@ local function validateDescendantMeshMetrics(
 			Analytics.recordScriptTime("validateIsSkinned", startTime, validationContext)
 
 			if not getEngineFeatureEngineUGCValidationConsolidateAccessorySkinning() then
-				if getEngineUGCValidateRelativeSkinningTransfer() then
-					reasonsAccumulator:updateReasons(
-						validateSkinningTransfer(data.instance :: MeshPart, validationContext)
-					)
-				end
+				reasonsAccumulator:updateReasons(validateSkinningTransfer(data.instance :: MeshPart, validationContext))
 			end
 
 			reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))

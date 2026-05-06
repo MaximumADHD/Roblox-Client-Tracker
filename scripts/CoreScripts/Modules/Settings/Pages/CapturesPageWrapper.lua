@@ -17,20 +17,35 @@ local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled()
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
+local Foundation = require(CorePackages.Packages.Foundation)
 
 local GetFFlagFixIGMTabTransitions = require(script.Parent.Parent.Flags.GetFFlagFixIGMTabTransitions)
+local FFlagIGMChangeCapturesToGallery = require(script.Parent.Parent.Flags.FFlagIGMChangeCapturesToGallery)
+local FFlagIGMChangeGalleryHeaderIcon = require(script.Parent.Parent.Flags.FFlagIGMChangeGalleryHeaderIcon)
 
 -- Initialize page
 local this = SettingsPageFactory:CreateNewPage()
 
 -- Tab Header customization
 this.TabHeader.Name = "CapturesTab"
-local icon = if ChromeEnabled then migrationLookup["icons/controls/cameraOff"] else migrationLookup["icons/controls/screenshot"]
+local icon
+if FFlagIGMChangeGalleryHeaderIcon then
+	icon = {
+		name = "image",
+		variant = Foundation.Enums.IconVariant.Regular
+	}
+else
+	icon = if ChromeEnabled then migrationLookup["icons/controls/cameraOff"] else migrationLookup["icons/controls/screenshot"]
+end
 this.TabHeader.TabLabel.Icon.Text = icon.name
 this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
 
 this.TabHeader.TabLabel.Title.AutoLocalize = false
-this.TabHeader.TabLabel.Title.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Captures")
+if FFlagIGMChangeCapturesToGallery then
+	this.TabHeader.TabLabel.Title.Text = RobloxTranslator:FormatByKey("Feature.Captures.Title.Gallery")
+else
+	this.TabHeader.TabLabel.Title.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Captures")
+end
 
 this.PageListLayout.Parent = nil
 this.ShouldShowBottomBar = true

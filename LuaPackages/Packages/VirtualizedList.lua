@@ -12,6 +12,7 @@ export type AnimatedFlatListProps<T> = Package.AnimatedFlatListProps<T>
 export type AnimatedScrollConfig<T> = Package.AnimatedScrollConfig<T> 
 export type VirtualizedListProps = Package.VirtualizedListProps
 export type RenderItemProps<T> = Package.RenderItemProps<T> 
+export type VirtualizedItem<T> = Package.VirtualizedItem<T> 
 
 
 return Package

@@ -7,6 +7,7 @@ local proto = require(script.Parent.Parent.Parent.Parent.Parent.proto)
 local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typeRegistry)
 
 type _Messages = {
+	AccessibilityProps: _AccessibilityPropsMessage,
 	ComponentShared: _ComponentSharedMessage,
 	ComponentShared_AnalyticsDataEntry: _ComponentShared_AnalyticsDataEntryMessage,
 }
@@ -16,6 +17,27 @@ local _roblox_apppageplatform_shared_v1beta1_hydration_data_spec = require(scrip
 local _roblox_apppageplatform_shared_v1beta1_ui_component_type = require(script.Parent.ui_component_type)
 local _roblox_apppageplatform_shared_v1beta1_analytics_data = require(script.Parent.analytics_data)
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
+
+type _AccessibilityPropsImpl = {
+	__index: _AccessibilityPropsImpl,
+	new: (fields: _AccessibilityPropsPartialFields?) -> AccessibilityProps,
+	encode: (self: AccessibilityProps) -> buffer,
+	decode: (input: buffer) -> AccessibilityProps,
+	jsonEncode: (self: AccessibilityProps) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> AccessibilityProps,
+	descriptor: proto.Descriptor,
+}
+
+type _AccessibilityPropsFields = {
+	hidden: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+type _AccessibilityPropsPartialFields = {
+	hidden: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+}
+
+export type AccessibilityProps = typeof(setmetatable({} :: _AccessibilityPropsFields, {} :: _AccessibilityPropsImpl))
+type _AccessibilityPropsMessage = proto.Message<AccessibilityProps, _AccessibilityPropsPartialFields>
 
 type _ComponentSharedImpl = {
 	__index: _ComponentSharedImpl,
@@ -32,6 +54,7 @@ type _ComponentSharedFields = {
 	data: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec },
 	analytics_data: { [string]: _roblox_apppageplatform_shared_v1beta1_analytics_data.AnalyticsDataField },
 	is_component_filtered: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	accessibility: AccessibilityProps?,
 }
 
 type _ComponentSharedPartialFields = {
@@ -39,6 +62,7 @@ type _ComponentSharedPartialFields = {
 	data: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec }?,
 	analytics_data: { [string]: _roblox_apppageplatform_shared_v1beta1_analytics_data.AnalyticsDataField }?,
 	is_component_filtered: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	accessibility: AccessibilityProps?,
 }
 
 export type ComponentShared = typeof(setmetatable({} :: _ComponentSharedFields, {} :: _ComponentSharedImpl))
@@ -74,6 +98,104 @@ type _ComponentShared_AnalyticsDataEntryMessage = proto.Message<
 >
 
 do
+	local _AccessibilityPropsImpl = {}
+	_AccessibilityPropsImpl.__index = _AccessibilityPropsImpl
+
+	function _AccessibilityPropsImpl.new(data: _AccessibilityPropsPartialFields?): AccessibilityProps
+		return setmetatable({
+			hidden = if data == nil or data.hidden == nil then nil else data.hidden,
+		}, _AccessibilityPropsImpl :: _AccessibilityPropsImpl)
+	end
+
+	function _AccessibilityPropsImpl.encode(self: AccessibilityProps): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.hidden ~= nil then
+			local encoded = self.hidden:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _AccessibilityPropsImpl.decode(input: buffer): AccessibilityProps
+		local self = _AccessibilityPropsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.hidden = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _AccessibilityPropsImpl.jsonEncode(self: AccessibilityProps): any
+		local output = {}
+
+		if self.hidden ~= nil then
+			output.hidden = self.hidden:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _AccessibilityPropsImpl.jsonDecode(input: { [string]: any }): AccessibilityProps
+		local self = _AccessibilityPropsImpl.new()
+
+		if input.hidden ~= nil then
+			self.hidden = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.hidden)
+		end
+
+		return self
+	end
+
+	_AccessibilityPropsImpl.descriptor = {
+		name = "AccessibilityProps",
+		fullName = "roblox.apppageplatform.shared.v1beta1.AccessibilityProps",
+	}
+
+	messages.AccessibilityProps = _AccessibilityPropsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.AccessibilityProps)
+end
+
+do
 	local _ComponentSharedImpl = {}
 	_ComponentSharedImpl.__index = _ComponentSharedImpl
 
@@ -90,6 +212,7 @@ do
 			is_component_filtered = if data == nil or data.is_component_filtered == nil
 				then nil
 				else data.is_component_filtered,
+			accessibility = if data == nil or data.accessibility == nil then nil else data.accessibility,
 		}, _ComponentSharedImpl :: _ComponentSharedImpl)
 	end
 
@@ -140,6 +263,12 @@ do
 		if self.is_component_filtered ~= nil then
 			local encoded = self.is_component_filtered:encode()
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.accessibility ~= nil then
+			local encoded = self.accessibility:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -195,6 +324,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.is_component_filtered =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.accessibility = messages.AccessibilityProps.decode(value)
 					continue
 				end
 
@@ -256,6 +390,10 @@ do
 
 		if self.is_component_filtered ~= nil then
 			output.isComponentFiltered = self.is_component_filtered:jsonEncode()
+		end
+
+		if self.accessibility ~= nil then
+			output.accessibility = self.accessibility:jsonEncode()
 		end
 
 		return output
@@ -324,6 +462,10 @@ do
 		if input.isComponentFiltered ~= nil then
 			self.is_component_filtered =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isComponentFiltered)
+		end
+
+		if input.accessibility ~= nil then
+			self.accessibility = messages.AccessibilityProps.jsonDecode(input.accessibility)
 		end
 
 		return self
@@ -462,5 +604,6 @@ do
 end
 
 return {
+	AccessibilityProps = messages.AccessibilityProps,
 	ComponentShared = messages.ComponentShared,
 }
