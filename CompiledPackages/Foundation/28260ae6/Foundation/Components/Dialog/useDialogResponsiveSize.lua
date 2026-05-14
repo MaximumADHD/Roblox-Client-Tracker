@@ -1,0 +1,43 @@
+local Foundation = script:FindFirstAncestor("Foundation")
+local Packages = Foundation.Parent
+local React = require(Packages.React)
+
+local DialogSize = require(Foundation.Enums.DialogSize)
+type DialogSize = DialogSize.DialogSize
+
+local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+
+local getResponsiveSize = require(script.Parent.getResponsiveSize)
+local useDialog = require(script.Parent.useDialog)
+
+type EffectHook = typeof(React.useLayoutEffect)
+
+local function useDialogResponsiveSize(size: DialogSize)
+	local tokens = useTokens()
+	local overlay = useOverlay()
+	local dialog = useDialog()
+
+	local updateSize = React.useCallback(function()
+		if not overlay then
+			return
+		end
+		dialog.setResponsiveSize(getResponsiveSize(overlay.AbsoluteSize.X, size, tokens))
+	end, { overlay, size, tokens, dialog.size } :: { unknown })
+
+	React.useLayoutEffect(function()
+		if not overlay then
+			return
+		end
+
+		updateSize()
+
+		local connection = overlay:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateSize)
+
+		return function()
+			connection:Disconnect()
+		end
+	end, { overlay, size, updateSize } :: { unknown })
+end
+
+return useDialogResponsiveSize

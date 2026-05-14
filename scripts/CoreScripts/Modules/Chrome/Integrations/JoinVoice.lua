@@ -25,6 +25,8 @@ local GetFFlagIntegratePhoneUpsellJoinVoice =
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
+local GetFFlagVoiceChatLogConnectionSource =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatLogConnectionSource
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
@@ -69,6 +71,9 @@ joinVoice = ChromeService:register({
 		local SettingsHub = if GetFFlagIntegratePhoneUpsellJoinVoice()
 			then require(RobloxGui.Modules.Settings.SettingsHub)
 			else nil
+		if GetFFlagVoiceChatLogConnectionSource() then
+			VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.IN_EXPERIENCE
+		end
 		VoiceChatServiceManager:JoinVoice(SettingsHub)
 	end,
 	components = {

@@ -41,17 +41,11 @@ return {
 	-- Enable icon scaling for some icons used by experience details
 	enableScalingForSomeEdpIcons = false,
 
-	-- Use Foundation Checkbox
-	useFoundationCheckbox = false,
-
 	-- Use Foundation Loading spinner
 	useFoundationLoading = false,
 
 	-- Disable token scaling so scale is always 1
 	disableTokenScaling = false,
-
-	-- Enable mapping V2 foundation tokens into the style token pipeline
-	enableFoundationTokenMapping = false,
 
 	-- Use Color tokens (Surface, Content) instead of Semantic.Color tokens for theme mapping
 	-- This enables surface color overrides to work through the theme system

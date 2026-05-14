@@ -28,6 +28,7 @@ local ThumbstickFadeTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.
 local CommonUtils = require(script.Parent.Parent:WaitForChild("CommonUtils"))
 local FlagUtil = CommonUtils.get("FlagUtil")
 local FFlagUserAllowAbilityControls = FlagUtil.getUserFlag("UserAllowAbilityControls")
+local FFlagUserAllowAbilityControlsBonus = FlagUtil.getUserFlag("UserAllowAbilityControlsBonus")
 
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
@@ -471,6 +472,10 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 
 		if FFlagUserAllowAbilityControls then
 			local scaleFactor = isBigScreen and 2 or 1
+			if FFlagUserAllowAbilityControlsBonus and AvatarAbilitiesInterface.isEnabled() and isBigScreen then
+				local scaledOuterRingSize = 120
+				scaleFactor = scaledOuterRingSize / DEFAULT_OUTER_RING_SIZE
+			end
 
 			self.thumbstickSize = DEFAULT_THUMBSTICK_SIZE * scaleFactor
 			self.thumbstickRingSize = DEFAULT_RING_SIZE * scaleFactor

@@ -16,8 +16,8 @@ type _Messages = {
 	HydrationContent_GamePassEntry: _HydrationContent_GamePassEntryMessage,
 	HydrationContent_MediaAssetEntry: _HydrationContent_MediaAssetEntryMessage,
 	HydrationContent_SocialLinkEntry: _HydrationContent_SocialLinkEntryMessage,
-	HydrationContent_DeveloperProductEntry: _HydrationContent_DeveloperProductEntryMessage,
-	HydrationContent_SubscriptionEntry: _HydrationContent_SubscriptionEntryMessage,
+	HydrationContent_GameDeveloperProductEntry: _HydrationContent_GameDeveloperProductEntryMessage,
+	HydrationContent_GameSubscriptionEntry: _HydrationContent_GameSubscriptionEntryMessage,
 	HydrationContent_MarketplaceCatalogCategoryEntry: _HydrationContent_MarketplaceCatalogCategoryEntryMessage,
 	HydrationContent_MarketplaceAssetEntry: _HydrationContent_MarketplaceAssetEntryMessage,
 	HydrationContent_MarketplaceBundleEntry: _HydrationContent_MarketplaceBundleEntryMessage,
@@ -31,6 +31,7 @@ type _Messages = {
 	HydrationContent_PlayabilityEntry: _HydrationContent_PlayabilityEntryMessage,
 	HydrationContent_UniverseUserFollowLimitEntry: _HydrationContent_UniverseUserFollowLimitEntryMessage,
 	HydrationContent_UniverseUserVoteFeedbackMetadataEntry: _HydrationContent_UniverseUserVoteFeedbackMetadataEntryMessage,
+	HydrationContent_UniverseUserConnectionsPlayedEntry: _HydrationContent_UniverseUserConnectionsPlayedEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -45,6 +46,8 @@ local _roblox_apppageplatform_shared_v1beta1_universe_user_follow_limit_data =
 local _roblox_apppageplatform_shared_v1beta1_universe_user_vote_data = require(script.Parent.universe_user_vote_data)
 local _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data =
 	require(script.Parent.universe_user_vote_feedback_metadata_data)
+local _roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data =
+	require(script.Parent.universe_user_connections_played_data)
 local _roblox_apppageplatform_shared_v1beta1_creator_data = require(script.Parent.creator_data)
 local _roblox_apppageplatform_shared_v1beta1_event_data = require(script.Parent.event_data)
 local _roblox_apppageplatform_shared_v1beta1_song_data = require(script.Parent.song_data)
@@ -58,8 +61,9 @@ local _roblox_apppageplatform_shared_v1beta1_marketplace_asset_data = require(sc
 local _roblox_apppageplatform_shared_v1beta1_marketplace_bundle_data = require(script.Parent.marketplace_bundle_data)
 local _roblox_apppageplatform_shared_v1beta1_marketplace_look_data = require(script.Parent.marketplace_look_data)
 local _roblox_apppageplatform_shared_v1beta1_catalog_sort_data = require(script.Parent.catalog_sort_data)
-local _roblox_apppageplatform_shared_v1beta1_developer_product_data = require(script.Parent.developer_product_data)
-local _roblox_apppageplatform_shared_v1beta1_subscription_data = require(script.Parent.subscription_data)
+local _roblox_apppageplatform_shared_v1beta1_game_developer_product_data =
+	require(script.Parent.game_developer_product_data)
+local _roblox_apppageplatform_shared_v1beta1_game_subscription_data = require(script.Parent.game_subscription_data)
 local _roblox_apppageplatform_shared_v1beta1_age_recommendation_data = require(script.Parent.age_recommendation_data)
 local _roblox_apppageplatform_shared_v1beta1_user_data = require(script.Parent.user_data)
 
@@ -83,10 +87,12 @@ type _HydrationContentFields =
 		game_pass: { [string]: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData },
 		media_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData },
 		social_link: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData },
-		developer_product: {
-			[string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData,
+		game_developer_product: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_game_developer_product_data.GameDeveloperProductData,
 		},
-		subscription: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData },
+		game_subscription: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_game_subscription_data.GameSubscriptionData,
+		},
 		marketplace_catalog_category: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData,
 		},
@@ -118,6 +124,9 @@ type _HydrationContentFields =
 		universe_user_vote_feedback_metadata: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData,
 		},
+		universe_user_connections_played: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data.UniverseUserConnectionsPlayedData,
+		},
 	}
 
 type _HydrationContentPartialFields =
@@ -130,10 +139,12 @@ type _HydrationContentPartialFields =
 		game_pass: { [string]: _roblox_apppageplatform_shared_v1beta1_game_pass_data.GamePassData }?,
 		media_asset: { [string]: _roblox_apppageplatform_shared_v1beta1_media_asset_data.MediaAssetData }?,
 		social_link: { [string]: _roblox_apppageplatform_shared_v1beta1_social_link_data.SocialLinkData }?,
-		developer_product: {
-			[string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData,
+		game_developer_product: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_game_developer_product_data.GameDeveloperProductData,
 		}?,
-		subscription: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData }?,
+		game_subscription: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_game_subscription_data.GameSubscriptionData,
+		}?,
 		marketplace_catalog_category: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_marketplace_catalog_category_data.MarketplaceCatalogCategoryData,
 		}?,
@@ -164,6 +175,9 @@ type _HydrationContentPartialFields =
 		}?,
 		universe_user_vote_feedback_metadata: {
 			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_vote_feedback_metadata_data.UniverseUserVoteFeedbackMetadataData,
+		}?,
+		universe_user_connections_played: {
+			[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data.UniverseUserConnectionsPlayedData,
 		}?,
 	}
 
@@ -402,62 +416,64 @@ type _HydrationContent_SocialLinkEntryMessage = proto.Message<
 	_HydrationContent_SocialLinkEntryPartialFields
 >
 
-type _HydrationContent_DeveloperProductEntryImpl = {
-	__index: _HydrationContent_DeveloperProductEntryImpl,
-	new: (fields: _HydrationContent_DeveloperProductEntryPartialFields?) -> HydrationContent_DeveloperProductEntry,
-	encode: (self: HydrationContent_DeveloperProductEntry) -> buffer,
-	decode: (input: buffer) -> HydrationContent_DeveloperProductEntry,
-	jsonEncode: (self: HydrationContent_DeveloperProductEntry) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> HydrationContent_DeveloperProductEntry,
+type _HydrationContent_GameDeveloperProductEntryImpl = {
+	__index: _HydrationContent_GameDeveloperProductEntryImpl,
+	new: (
+		fields: _HydrationContent_GameDeveloperProductEntryPartialFields?
+	) -> HydrationContent_GameDeveloperProductEntry,
+	encode: (self: HydrationContent_GameDeveloperProductEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_GameDeveloperProductEntry,
+	jsonEncode: (self: HydrationContent_GameDeveloperProductEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_GameDeveloperProductEntry,
 	descriptor: proto.Descriptor,
 }
 
-type _HydrationContent_DeveloperProductEntryFields = {
+type _HydrationContent_GameDeveloperProductEntryFields = {
 	key: string,
-	value: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData?,
+	value: _roblox_apppageplatform_shared_v1beta1_game_developer_product_data.GameDeveloperProductData?,
 }
 
-type _HydrationContent_DeveloperProductEntryPartialFields = {
+type _HydrationContent_GameDeveloperProductEntryPartialFields = {
 	key: string?,
-	value: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData?,
+	value: _roblox_apppageplatform_shared_v1beta1_game_developer_product_data.GameDeveloperProductData?,
 }
 
-export type HydrationContent_DeveloperProductEntry = typeof(setmetatable(
-	{} :: _HydrationContent_DeveloperProductEntryFields,
-	{} :: _HydrationContent_DeveloperProductEntryImpl
+export type HydrationContent_GameDeveloperProductEntry = typeof(setmetatable(
+	{} :: _HydrationContent_GameDeveloperProductEntryFields,
+	{} :: _HydrationContent_GameDeveloperProductEntryImpl
 ))
-type _HydrationContent_DeveloperProductEntryMessage = proto.Message<
-	HydrationContent_DeveloperProductEntry,
-	_HydrationContent_DeveloperProductEntryPartialFields
+type _HydrationContent_GameDeveloperProductEntryMessage = proto.Message<
+	HydrationContent_GameDeveloperProductEntry,
+	_HydrationContent_GameDeveloperProductEntryPartialFields
 >
 
-type _HydrationContent_SubscriptionEntryImpl = {
-	__index: _HydrationContent_SubscriptionEntryImpl,
-	new: (fields: _HydrationContent_SubscriptionEntryPartialFields?) -> HydrationContent_SubscriptionEntry,
-	encode: (self: HydrationContent_SubscriptionEntry) -> buffer,
-	decode: (input: buffer) -> HydrationContent_SubscriptionEntry,
-	jsonEncode: (self: HydrationContent_SubscriptionEntry) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> HydrationContent_SubscriptionEntry,
+type _HydrationContent_GameSubscriptionEntryImpl = {
+	__index: _HydrationContent_GameSubscriptionEntryImpl,
+	new: (fields: _HydrationContent_GameSubscriptionEntryPartialFields?) -> HydrationContent_GameSubscriptionEntry,
+	encode: (self: HydrationContent_GameSubscriptionEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_GameSubscriptionEntry,
+	jsonEncode: (self: HydrationContent_GameSubscriptionEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_GameSubscriptionEntry,
 	descriptor: proto.Descriptor,
 }
 
-type _HydrationContent_SubscriptionEntryFields = {
+type _HydrationContent_GameSubscriptionEntryFields = {
 	key: string,
-	value: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData?,
+	value: _roblox_apppageplatform_shared_v1beta1_game_subscription_data.GameSubscriptionData?,
 }
 
-type _HydrationContent_SubscriptionEntryPartialFields = {
+type _HydrationContent_GameSubscriptionEntryPartialFields = {
 	key: string?,
-	value: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData?,
+	value: _roblox_apppageplatform_shared_v1beta1_game_subscription_data.GameSubscriptionData?,
 }
 
-export type HydrationContent_SubscriptionEntry = typeof(setmetatable(
-	{} :: _HydrationContent_SubscriptionEntryFields,
-	{} :: _HydrationContent_SubscriptionEntryImpl
+export type HydrationContent_GameSubscriptionEntry = typeof(setmetatable(
+	{} :: _HydrationContent_GameSubscriptionEntryFields,
+	{} :: _HydrationContent_GameSubscriptionEntryImpl
 ))
-type _HydrationContent_SubscriptionEntryMessage = proto.Message<
-	HydrationContent_SubscriptionEntry,
-	_HydrationContent_SubscriptionEntryPartialFields
+type _HydrationContent_GameSubscriptionEntryMessage = proto.Message<
+	HydrationContent_GameSubscriptionEntry,
+	_HydrationContent_GameSubscriptionEntryPartialFields
 >
 
 type _HydrationContent_MarketplaceCatalogCategoryEntryImpl = {
@@ -847,6 +863,37 @@ type _HydrationContent_UniverseUserVoteFeedbackMetadataEntryMessage = proto.Mess
 	_HydrationContent_UniverseUserVoteFeedbackMetadataEntryPartialFields
 >
 
+type _HydrationContent_UniverseUserConnectionsPlayedEntryImpl = {
+	__index: _HydrationContent_UniverseUserConnectionsPlayedEntryImpl,
+	new: (
+		fields: _HydrationContent_UniverseUserConnectionsPlayedEntryPartialFields?
+	) -> HydrationContent_UniverseUserConnectionsPlayedEntry,
+	encode: (self: HydrationContent_UniverseUserConnectionsPlayedEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_UniverseUserConnectionsPlayedEntry,
+	jsonEncode: (self: HydrationContent_UniverseUserConnectionsPlayedEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_UniverseUserConnectionsPlayedEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_UniverseUserConnectionsPlayedEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data.UniverseUserConnectionsPlayedData?,
+}
+
+type _HydrationContent_UniverseUserConnectionsPlayedEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data.UniverseUserConnectionsPlayedData?,
+}
+
+export type HydrationContent_UniverseUserConnectionsPlayedEntry = typeof(setmetatable(
+	{} :: _HydrationContent_UniverseUserConnectionsPlayedEntryFields,
+	{} :: _HydrationContent_UniverseUserConnectionsPlayedEntryImpl
+))
+type _HydrationContent_UniverseUserConnectionsPlayedEntryMessage = proto.Message<
+	HydrationContent_UniverseUserConnectionsPlayedEntry,
+	_HydrationContent_UniverseUserConnectionsPlayedEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -861,8 +908,10 @@ do
 			game_pass = if data == nil or data.game_pass == nil then {} else data.game_pass,
 			media_asset = if data == nil or data.media_asset == nil then {} else data.media_asset,
 			social_link = if data == nil or data.social_link == nil then {} else data.social_link,
-			developer_product = if data == nil or data.developer_product == nil then {} else data.developer_product,
-			subscription = if data == nil or data.subscription == nil then {} else data.subscription,
+			game_developer_product = if data == nil or data.game_developer_product == nil
+				then {}
+				else data.game_developer_product,
+			game_subscription = if data == nil or data.game_subscription == nil then {} else data.game_subscription,
 			marketplace_catalog_category = if data == nil or data.marketplace_catalog_category == nil
 				then {}
 				else data.marketplace_catalog_category,
@@ -887,6 +936,9 @@ do
 					or data.universe_user_vote_feedback_metadata == nil
 				then {}
 				else data.universe_user_vote_feedback_metadata,
+			universe_user_connections_played = if data == nil or data.universe_user_connections_played == nil
+				then {}
+				else data.universe_user_connections_played,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -1006,8 +1058,8 @@ do
 			end
 		end
 
-		if self.developer_product ~= nil and next(self.developer_product) ~= nil then
-			for key, value in self.developer_product do
+		if self.game_developer_product ~= nil and next(self.game_developer_product) ~= nil then
+			for key, value in self.game_developer_product do
 				local mapBuffer = buffer.create(0)
 				local mapCursor = 0
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
@@ -1020,8 +1072,8 @@ do
 			end
 		end
 
-		if self.subscription ~= nil and next(self.subscription) ~= nil then
-			for key, value in self.subscription do
+		if self.game_subscription ~= nil and next(self.game_subscription) ~= nil then
+			for key, value in self.game_subscription do
 				local mapBuffer = buffer.create(0)
 				local mapCursor = 0
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
@@ -1219,6 +1271,20 @@ do
 			end
 		end
 
+		if self.universe_user_connections_played ~= nil and next(self.universe_user_connections_played) ~= nil then
+			for key, value in self.universe_user_connections_played do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -1338,25 +1404,26 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 
-					local mapEntry = messages.HydrationContent_DeveloperProductEntry.decode(value)
+					local mapEntry = messages.HydrationContent_GameDeveloperProductEntry.decode(value)
 
 					local keyDefault = ""
 					local valueDefault =
-						_roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData.new()
+						_roblox_apppageplatform_shared_v1beta1_game_developer_product_data.GameDeveloperProductData.new()
 
-					self.developer_product[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+					self.game_developer_product[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
 				elseif field == 10 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 
-					local mapEntry = messages.HydrationContent_SubscriptionEntry.decode(value)
+					local mapEntry = messages.HydrationContent_GameSubscriptionEntry.decode(value)
 
 					local keyDefault = ""
-					local valueDefault = _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData.new()
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_game_subscription_data.GameSubscriptionData.new()
 
-					self.subscription[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+					self.game_subscription[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
 				elseif field == 11 then
@@ -1526,6 +1593,19 @@ do
 						or valueDefault
 
 					continue
+				elseif field == 24 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_UniverseUserConnectionsPlayedEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault =
+						_roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data.UniverseUserConnectionsPlayedData.new()
+
+					self.universe_user_connections_played[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
 				end
 
 				local length
@@ -1617,20 +1697,20 @@ do
 			output.socialLink = newOutput
 		end
 
-		if self.developer_product ~= nil and next(self.developer_product) ~= nil then
+		if self.game_developer_product ~= nil and next(self.game_developer_product) ~= nil then
 			local newOutput = {}
-			for key, value in self.developer_product do
+			for key, value in self.game_developer_product do
 				newOutput[key] = value:jsonEncode()
 			end
-			output.developerProduct = newOutput
+			output.gameDeveloperProduct = newOutput
 		end
 
-		if self.subscription ~= nil and next(self.subscription) ~= nil then
+		if self.game_subscription ~= nil and next(self.game_subscription) ~= nil then
 			local newOutput = {}
-			for key, value in self.subscription do
+			for key, value in self.game_subscription do
 				newOutput[key] = value:jsonEncode()
 			end
-			output.subscription = newOutput
+			output.gameSubscription = newOutput
 		end
 
 		if self.marketplace_catalog_category ~= nil and next(self.marketplace_catalog_category) ~= nil then
@@ -1738,6 +1818,14 @@ do
 				newOutput[key] = value:jsonEncode()
 			end
 			output.universeUserVoteFeedbackMetadata = newOutput
+		end
+
+		if self.universe_user_connections_played ~= nil and next(self.universe_user_connections_played) ~= nil then
+			local newOutput = {}
+			for key, value in self.universe_user_connections_played do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.universeUserConnectionsPlayed = newOutput
 		end
 
 		return output
@@ -1849,37 +1937,52 @@ do
 			self.social_link = newOutput
 		end
 
-		if input.developer_product ~= nil then
-			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData } =
+		if input.game_developer_product ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_game_developer_product_data.GameDeveloperProductData } =
 				{}
-			for key, value in input.developer_product do
+			for key, value in input.game_developer_product do
 				newOutput[key] =
-					_roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData.jsonDecode(value)
+					_roblox_apppageplatform_shared_v1beta1_game_developer_product_data.GameDeveloperProductData.jsonDecode(
+						value
+					)
 			end
 
-			self.developer_product = newOutput
+			self.game_developer_product = newOutput
 		end
 
-		if input.developerProduct ~= nil then
-			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData } =
+		if input.gameDeveloperProduct ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_game_developer_product_data.GameDeveloperProductData } =
 				{}
-			for key, value in input.developerProduct do
+			for key, value in input.gameDeveloperProduct do
 				newOutput[key] =
-					_roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData.jsonDecode(value)
+					_roblox_apppageplatform_shared_v1beta1_game_developer_product_data.GameDeveloperProductData.jsonDecode(
+						value
+					)
 			end
 
-			self.developer_product = newOutput
+			self.game_developer_product = newOutput
 		end
 
-		if input.subscription ~= nil then
-			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData } =
+		if input.game_subscription ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_game_subscription_data.GameSubscriptionData } =
 				{}
-			for key, value in input.subscription do
+			for key, value in input.game_subscription do
 				newOutput[key] =
-					_roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData.jsonDecode(value)
+					_roblox_apppageplatform_shared_v1beta1_game_subscription_data.GameSubscriptionData.jsonDecode(value)
 			end
 
-			self.subscription = newOutput
+			self.game_subscription = newOutput
+		end
+
+		if input.gameSubscription ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_game_subscription_data.GameSubscriptionData } =
+				{}
+			for key, value in input.gameSubscription do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_game_subscription_data.GameSubscriptionData.jsonDecode(value)
+			end
+
+			self.game_subscription = newOutput
 		end
 
 		if input.marketplace_catalog_category ~= nil then
@@ -2183,6 +2286,36 @@ do
 			end
 
 			self.universe_user_vote_feedback_metadata = newOutput
+		end
+
+		if input.universe_user_connections_played ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data.UniverseUserConnectionsPlayedData,
+			} =
+				{}
+			for key, value in input.universe_user_connections_played do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data.UniverseUserConnectionsPlayedData.jsonDecode(
+						value
+					)
+			end
+
+			self.universe_user_connections_played = newOutput
+		end
+
+		if input.universeUserConnectionsPlayed ~= nil then
+			local newOutput: {
+				[string]: _roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data.UniverseUserConnectionsPlayedData,
+			} =
+				{}
+			for key, value in input.universeUserConnectionsPlayed do
+				newOutput[key] =
+					_roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data.UniverseUserConnectionsPlayedData.jsonDecode(
+						value
+					)
+			end
+
+			self.universe_user_connections_played = newOutput
 		end
 
 		return self
@@ -3155,19 +3288,21 @@ do
 end
 
 do
-	local _HydrationContent_DeveloperProductEntryImpl = {}
-	_HydrationContent_DeveloperProductEntryImpl.__index = _HydrationContent_DeveloperProductEntryImpl
+	local _HydrationContent_GameDeveloperProductEntryImpl = {}
+	_HydrationContent_GameDeveloperProductEntryImpl.__index = _HydrationContent_GameDeveloperProductEntryImpl
 
-	function _HydrationContent_DeveloperProductEntryImpl.new(
-		data: _HydrationContent_DeveloperProductEntryPartialFields?
-	): HydrationContent_DeveloperProductEntry
+	function _HydrationContent_GameDeveloperProductEntryImpl.new(
+		data: _HydrationContent_GameDeveloperProductEntryPartialFields?
+	): HydrationContent_GameDeveloperProductEntry
 		return setmetatable({
 			key = if data == nil or data.key == nil then "" else data.key,
 			value = if data == nil or data.value == nil then nil else data.value,
-		}, _HydrationContent_DeveloperProductEntryImpl :: _HydrationContent_DeveloperProductEntryImpl)
+		}, _HydrationContent_GameDeveloperProductEntryImpl :: _HydrationContent_GameDeveloperProductEntryImpl)
 	end
 
-	function _HydrationContent_DeveloperProductEntryImpl.encode(self: HydrationContent_DeveloperProductEntry): buffer
+	function _HydrationContent_GameDeveloperProductEntryImpl.encode(
+		self: HydrationContent_GameDeveloperProductEntry
+	): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -3187,8 +3322,10 @@ do
 		return shrunkBuffer
 	end
 
-	function _HydrationContent_DeveloperProductEntryImpl.decode(input: buffer): HydrationContent_DeveloperProductEntry
-		local self = _HydrationContent_DeveloperProductEntryImpl.new()
+	function _HydrationContent_GameDeveloperProductEntryImpl.decode(
+		input: buffer
+	): HydrationContent_GameDeveloperProductEntry
+		local self = _HydrationContent_GameDeveloperProductEntryImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -3210,7 +3347,9 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.value =
-						_roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData.decode(value)
+						_roblox_apppageplatform_shared_v1beta1_game_developer_product_data.GameDeveloperProductData.decode(
+							value
+						)
 					continue
 				end
 
@@ -3236,7 +3375,9 @@ do
 		return self
 	end
 
-	function _HydrationContent_DeveloperProductEntryImpl.jsonEncode(self: HydrationContent_DeveloperProductEntry): any
+	function _HydrationContent_GameDeveloperProductEntryImpl.jsonEncode(
+		self: HydrationContent_GameDeveloperProductEntry
+	): any
 		local output = {}
 
 		if self.key ~= nil and self.key ~= "" then
@@ -3250,48 +3391,49 @@ do
 		return output
 	end
 
-	function _HydrationContent_DeveloperProductEntryImpl.jsonDecode(
+	function _HydrationContent_GameDeveloperProductEntryImpl.jsonDecode(
 		input: { [string]: any }
-	): HydrationContent_DeveloperProductEntry
-		local self = _HydrationContent_DeveloperProductEntryImpl.new()
+	): HydrationContent_GameDeveloperProductEntry
+		local self = _HydrationContent_GameDeveloperProductEntryImpl.new()
 
 		if input.key ~= nil then
 			self.key = input.key
 		end
 
 		if input.value ~= nil then
-			self.value = _roblox_apppageplatform_shared_v1beta1_developer_product_data.DeveloperProductData.jsonDecode(
-				input.value
-			)
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_game_developer_product_data.GameDeveloperProductData.jsonDecode(
+					input.value
+				)
 		end
 
 		return self
 	end
 
-	_HydrationContent_DeveloperProductEntryImpl.descriptor = {
-		name = "HydrationContent_DeveloperProductEntry",
-		fullName = "roblox.apppageplatform.shared.v1beta1.DeveloperProductEntry",
+	_HydrationContent_GameDeveloperProductEntryImpl.descriptor = {
+		name = "HydrationContent_GameDeveloperProductEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GameDeveloperProductEntry",
 	}
 
-	messages.HydrationContent_DeveloperProductEntry = _HydrationContent_DeveloperProductEntryImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.HydrationContent_GameDeveloperProductEntry = _HydrationContent_GameDeveloperProductEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.HydrationContent_DeveloperProductEntry)
+	typeRegistry.default:register(messages.HydrationContent_GameDeveloperProductEntry)
 end
 
 do
-	local _HydrationContent_SubscriptionEntryImpl = {}
-	_HydrationContent_SubscriptionEntryImpl.__index = _HydrationContent_SubscriptionEntryImpl
+	local _HydrationContent_GameSubscriptionEntryImpl = {}
+	_HydrationContent_GameSubscriptionEntryImpl.__index = _HydrationContent_GameSubscriptionEntryImpl
 
-	function _HydrationContent_SubscriptionEntryImpl.new(
-		data: _HydrationContent_SubscriptionEntryPartialFields?
-	): HydrationContent_SubscriptionEntry
+	function _HydrationContent_GameSubscriptionEntryImpl.new(
+		data: _HydrationContent_GameSubscriptionEntryPartialFields?
+	): HydrationContent_GameSubscriptionEntry
 		return setmetatable({
 			key = if data == nil or data.key == nil then "" else data.key,
 			value = if data == nil or data.value == nil then nil else data.value,
-		}, _HydrationContent_SubscriptionEntryImpl :: _HydrationContent_SubscriptionEntryImpl)
+		}, _HydrationContent_GameSubscriptionEntryImpl :: _HydrationContent_GameSubscriptionEntryImpl)
 	end
 
-	function _HydrationContent_SubscriptionEntryImpl.encode(self: HydrationContent_SubscriptionEntry): buffer
+	function _HydrationContent_GameSubscriptionEntryImpl.encode(self: HydrationContent_GameSubscriptionEntry): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -3311,8 +3453,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _HydrationContent_SubscriptionEntryImpl.decode(input: buffer): HydrationContent_SubscriptionEntry
-		local self = _HydrationContent_SubscriptionEntryImpl.new()
+	function _HydrationContent_GameSubscriptionEntryImpl.decode(input: buffer): HydrationContent_GameSubscriptionEntry
+		local self = _HydrationContent_GameSubscriptionEntryImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -3333,7 +3475,8 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.value = _roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData.decode(value)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_game_subscription_data.GameSubscriptionData.decode(value)
 					continue
 				end
 
@@ -3359,7 +3502,7 @@ do
 		return self
 	end
 
-	function _HydrationContent_SubscriptionEntryImpl.jsonEncode(self: HydrationContent_SubscriptionEntry): any
+	function _HydrationContent_GameSubscriptionEntryImpl.jsonEncode(self: HydrationContent_GameSubscriptionEntry): any
 		local output = {}
 
 		if self.key ~= nil and self.key ~= "" then
@@ -3373,31 +3516,32 @@ do
 		return output
 	end
 
-	function _HydrationContent_SubscriptionEntryImpl.jsonDecode(
+	function _HydrationContent_GameSubscriptionEntryImpl.jsonDecode(
 		input: { [string]: any }
-	): HydrationContent_SubscriptionEntry
-		local self = _HydrationContent_SubscriptionEntryImpl.new()
+	): HydrationContent_GameSubscriptionEntry
+		local self = _HydrationContent_GameSubscriptionEntryImpl.new()
 
 		if input.key ~= nil then
 			self.key = input.key
 		end
 
 		if input.value ~= nil then
-			self.value =
-				_roblox_apppageplatform_shared_v1beta1_subscription_data.SubscriptionData.jsonDecode(input.value)
+			self.value = _roblox_apppageplatform_shared_v1beta1_game_subscription_data.GameSubscriptionData.jsonDecode(
+				input.value
+			)
 		end
 
 		return self
 	end
 
-	_HydrationContent_SubscriptionEntryImpl.descriptor = {
-		name = "HydrationContent_SubscriptionEntry",
-		fullName = "roblox.apppageplatform.shared.v1beta1.SubscriptionEntry",
+	_HydrationContent_GameSubscriptionEntryImpl.descriptor = {
+		name = "HydrationContent_GameSubscriptionEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.GameSubscriptionEntry",
 	}
 
-	messages.HydrationContent_SubscriptionEntry = _HydrationContent_SubscriptionEntryImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.HydrationContent_GameSubscriptionEntry = _HydrationContent_GameSubscriptionEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.HydrationContent_SubscriptionEntry)
+	typeRegistry.default:register(messages.HydrationContent_GameSubscriptionEntry)
 end
 
 do
@@ -5062,6 +5206,144 @@ do
 		_HydrationContent_UniverseUserVoteFeedbackMetadataEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_UniverseUserVoteFeedbackMetadataEntry)
+end
+
+do
+	local _HydrationContent_UniverseUserConnectionsPlayedEntryImpl = {}
+	_HydrationContent_UniverseUserConnectionsPlayedEntryImpl.__index =
+		_HydrationContent_UniverseUserConnectionsPlayedEntryImpl
+
+	function _HydrationContent_UniverseUserConnectionsPlayedEntryImpl.new(
+		data: _HydrationContent_UniverseUserConnectionsPlayedEntryPartialFields?
+	): HydrationContent_UniverseUserConnectionsPlayedEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then nil else data.value,
+			},
+			_HydrationContent_UniverseUserConnectionsPlayedEntryImpl :: _HydrationContent_UniverseUserConnectionsPlayedEntryImpl
+		)
+	end
+
+	function _HydrationContent_UniverseUserConnectionsPlayedEntryImpl.encode(
+		self: HydrationContent_UniverseUserConnectionsPlayedEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_UniverseUserConnectionsPlayedEntryImpl.decode(
+		input: buffer
+	): HydrationContent_UniverseUserConnectionsPlayedEntry
+		local self = _HydrationContent_UniverseUserConnectionsPlayedEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value =
+						_roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data.UniverseUserConnectionsPlayedData.decode(
+							value
+						)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_UniverseUserConnectionsPlayedEntryImpl.jsonEncode(
+		self: HydrationContent_UniverseUserConnectionsPlayedEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_UniverseUserConnectionsPlayedEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): HydrationContent_UniverseUserConnectionsPlayedEntry
+		local self = _HydrationContent_UniverseUserConnectionsPlayedEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value =
+				_roblox_apppageplatform_shared_v1beta1_universe_user_connections_played_data.UniverseUserConnectionsPlayedData.jsonDecode(
+					input.value
+				)
+		end
+
+		return self
+	end
+
+	_HydrationContent_UniverseUserConnectionsPlayedEntryImpl.descriptor = {
+		name = "HydrationContent_UniverseUserConnectionsPlayedEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UniverseUserConnectionsPlayedEntry",
+	}
+
+	messages.HydrationContent_UniverseUserConnectionsPlayedEntry =
+		_HydrationContent_UniverseUserConnectionsPlayedEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_UniverseUserConnectionsPlayedEntry)
 end
 
 return {

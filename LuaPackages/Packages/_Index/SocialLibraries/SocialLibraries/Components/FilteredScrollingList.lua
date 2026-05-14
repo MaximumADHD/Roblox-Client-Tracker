@@ -6,20 +6,17 @@ local Roact = dependencies.Roact
 local SortedList = require(script.Parent.SortedList)
 local CallbackInputBoxWithIcon = require(script.Parent.CallbackInputBoxWithIcon)
 
-local GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled =
-	require(SocialLibraries.Flags.GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled)
-
 local FilteredScrollingList = Roact.Component:extend("FilteredScrollingList")
 FilteredScrollingList.defaultProps = {
-	searchBoxCornerRadius = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 0 else nil,
+	searchBoxCornerRadius = 0,
 	searchBoxHeight = 48,
-	searchBoxTopPadding = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 0 else nil,
-	searchBoxLeftPadding = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 0 else nil,
-	searchBoxRightPadding = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 0 else nil,
-	searchBoxBottomPadding = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 0 else nil,
+	searchBoxTopPadding = 0,
+	searchBoxLeftPadding = 0,
+	searchBoxRightPadding = 0,
+	searchBoxBottomPadding = 0,
 	searchBackgroundTransparency = 0,
 	searchBackgroundColor3 = Color3.new(1, 0, 1),
-	searchBoxBorderThickness = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 0 else nil,
+	searchBoxBorderThickness = 0,
 
 	searchIconCellWidth = 60,
 	searchIconSize = 24,
@@ -156,31 +153,27 @@ function FilteredScrollingList:render()
 
 		callbackBoxContainer = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled()
-				then UDim2.new(
-					1,
-					-self.props.searchBoxBorderThickness * 2,
-					0,
-					self.props.searchBoxHeight + self.props.searchBoxTopPadding + self.props.searchBoxBottomPadding
-				)
-				else UDim2.new(1, 0, 0, self.props.searchBoxHeight),
+			Size = UDim2.new(
+				1,
+				-self.props.searchBoxBorderThickness * 2,
+				0,
+				self.props.searchBoxHeight + self.props.searchBoxTopPadding + self.props.searchBoxBottomPadding
+			),
 			LayoutOrder = 2,
 		}, {
-			UIPadding = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled()
-				then Roact.createElement("UIPadding", {
-					PaddingBottom = UDim.new(0, self.props.searchBoxBottomPadding),
-					PaddingLeft = UDim.new(0, self.props.searchBoxLeftPadding),
-					PaddingRight = UDim.new(0, self.props.searchBoxRightPadding),
-					PaddingTop = UDim.new(0, self.props.searchBoxTopPadding),
-				})
-				else nil,
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingBottom = UDim.new(0, self.props.searchBoxBottomPadding),
+				PaddingLeft = UDim.new(0, self.props.searchBoxLeftPadding),
+				PaddingRight = UDim.new(0, self.props.searchBoxRightPadding),
+				PaddingTop = UDim.new(0, self.props.searchBoxTopPadding),
+			}),
 			callbackBox = Roact.createElement(CallbackInputBoxWithIcon, {
 				backgroundTransparency = self.props.searchBackgroundTransparency,
 				backgroundColor3 = self.props.searchBackgroundColor3,
-				borderColor = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then self.props.searchBoxBorderColor else nil,
-				borderTransparency = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then self.props.searchBoxBorderTransparency else nil,
-				borderThickness = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then self.props.searchBoxBorderThickness else nil,
-				cornerRadius = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then self.props.searchBoxCornerRadius else nil,
+				borderColor = self.props.searchBoxBorderColor,
+				borderTransparency = self.props.searchBoxBorderTransparency,
+				borderThickness = self.props.searchBoxBorderThickness,
+				cornerRadius = self.props.searchBoxCornerRadius,
 
 				iconCellWidth = self.props.searchIconCellWidth,
 				iconSize = self.props.searchIconSize,
@@ -214,17 +207,15 @@ function FilteredScrollingList:render()
 		}),
 
 		entryList = Roact.createElement("ScrollingFrame", {
-			Size = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled()
-				then UDim2.new(
-					1,
-					0,
-					1,
-					-self.props.searchBoxHeight
-						- self.props.searchBoxTopPadding
-						- self.props.searchBoxBottomPadding
-						- (self.props.searchDividerHeight * 2)
-				)
-				else UDim2.new(1, 0, 1, -self.props.searchBoxHeight - (self.props.searchDividerHeight * 2)),
+			Size = UDim2.new(
+				1,
+				0,
+				1,
+				-self.props.searchBoxHeight
+					- self.props.searchBoxTopPadding
+					- self.props.searchBoxBottomPadding
+					- (self.props.searchDividerHeight * 2)
+			),
 			CanvasSize = UDim2.new(0, 0, 0, numValidEntries * self.props.entryHeight),
 			BackgroundTransparency = 1,
 			ScrollBarThickness = 5,

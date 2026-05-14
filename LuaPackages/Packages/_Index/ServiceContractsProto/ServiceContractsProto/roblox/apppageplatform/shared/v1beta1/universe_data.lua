@@ -22,33 +22,33 @@ type _UniverseDataImpl = {
 }
 
 type _UniverseDataFields = {
-	id: number,
-	name: string,
-	description: string,
-	root_place_id: number,
-	creator_type: string,
-	creator_id: number,
-	player_count: number,
-	total_up_votes: number,
-	total_down_votes: number,
-	is_voice_supported: boolean,
-	is_camera_supported: boolean,
-	localized_fiat_price: string,
-	genre_l1: string,
-	genre_l2: string,
-	maximum_server_size: number,
-	created_date: string,
-	updated_date: string,
-	favorite_count: number,
-	total_visits: number,
-	canonical_url_path: string,
-	game_minimum_age: number,
-	game_age_display_name: string,
-	content_maturity: string,
-	is_officially_licensed: boolean,
-	refund_policy_text: string,
-	refund_article_id: string,
-	preview_video_id: number,
+	id: number?,
+	name: string?,
+	description: string?,
+	root_place_id: number?,
+	creator_type: string?,
+	creator_id: number?,
+	player_count: number?,
+	total_up_votes: number?,
+	total_down_votes: number?,
+	is_voice_supported: boolean?,
+	is_camera_supported: boolean?,
+	localized_fiat_price: string?,
+	genre_l1: string?,
+	genre_l2: string?,
+	maximum_server_size: number?,
+	created_date: string?,
+	updated_date: string?,
+	favorite_count: number?,
+	total_visits: number?,
+	canonical_url_path: string?,
+	game_minimum_age: number?,
+	game_age_display_name: string?,
+	content_maturity: string?,
+	is_officially_licensed: boolean?,
+	refund_policy_text: string?,
+	refund_article_id: string?,
+	preview_video_id: number?,
 }
 
 type _UniverseDataPartialFields = {
@@ -90,45 +90,43 @@ do
 
 	function _UniverseDataImpl.new(data: _UniverseDataPartialFields?): UniverseData
 		return setmetatable({
-			id = if data == nil or data.id == nil then 0 else data.id,
-			name = if data == nil or data.name == nil then "" else data.name,
-			description = if data == nil or data.description == nil then "" else data.description,
-			root_place_id = if data == nil or data.root_place_id == nil then 0 else data.root_place_id,
-			creator_type = if data == nil or data.creator_type == nil then "" else data.creator_type,
-			creator_id = if data == nil or data.creator_id == nil then 0 else data.creator_id,
-			player_count = if data == nil or data.player_count == nil then 0 else data.player_count,
-			total_up_votes = if data == nil or data.total_up_votes == nil then 0 else data.total_up_votes,
-			total_down_votes = if data == nil or data.total_down_votes == nil then 0 else data.total_down_votes,
-			is_voice_supported = if data == nil or data.is_voice_supported == nil
-				then false
-				else data.is_voice_supported,
+			id = if data == nil or data.id == nil then nil else data.id,
+			name = if data == nil or data.name == nil then nil else data.name,
+			description = if data == nil or data.description == nil then nil else data.description,
+			root_place_id = if data == nil or data.root_place_id == nil then nil else data.root_place_id,
+			creator_type = if data == nil or data.creator_type == nil then nil else data.creator_type,
+			creator_id = if data == nil or data.creator_id == nil then nil else data.creator_id,
+			player_count = if data == nil or data.player_count == nil then nil else data.player_count,
+			total_up_votes = if data == nil or data.total_up_votes == nil then nil else data.total_up_votes,
+			total_down_votes = if data == nil or data.total_down_votes == nil then nil else data.total_down_votes,
+			is_voice_supported = if data == nil or data.is_voice_supported == nil then nil else data.is_voice_supported,
 			is_camera_supported = if data == nil or data.is_camera_supported == nil
-				then false
+				then nil
 				else data.is_camera_supported,
 			localized_fiat_price = if data == nil or data.localized_fiat_price == nil
-				then ""
+				then nil
 				else data.localized_fiat_price,
-			genre_l1 = if data == nil or data.genre_l1 == nil then "" else data.genre_l1,
-			genre_l2 = if data == nil or data.genre_l2 == nil then "" else data.genre_l2,
+			genre_l1 = if data == nil or data.genre_l1 == nil then nil else data.genre_l1,
+			genre_l2 = if data == nil or data.genre_l2 == nil then nil else data.genre_l2,
 			maximum_server_size = if data == nil or data.maximum_server_size == nil
-				then 0
+				then nil
 				else data.maximum_server_size,
-			created_date = if data == nil or data.created_date == nil then "" else data.created_date,
-			updated_date = if data == nil or data.updated_date == nil then "" else data.updated_date,
-			favorite_count = if data == nil or data.favorite_count == nil then 0 else data.favorite_count,
-			total_visits = if data == nil or data.total_visits == nil then 0 else data.total_visits,
-			canonical_url_path = if data == nil or data.canonical_url_path == nil then "" else data.canonical_url_path,
-			game_minimum_age = if data == nil or data.game_minimum_age == nil then 0 else data.game_minimum_age,
+			created_date = if data == nil or data.created_date == nil then nil else data.created_date,
+			updated_date = if data == nil or data.updated_date == nil then nil else data.updated_date,
+			favorite_count = if data == nil or data.favorite_count == nil then nil else data.favorite_count,
+			total_visits = if data == nil or data.total_visits == nil then nil else data.total_visits,
+			canonical_url_path = if data == nil or data.canonical_url_path == nil then nil else data.canonical_url_path,
+			game_minimum_age = if data == nil or data.game_minimum_age == nil then nil else data.game_minimum_age,
 			game_age_display_name = if data == nil or data.game_age_display_name == nil
-				then ""
+				then nil
 				else data.game_age_display_name,
-			content_maturity = if data == nil or data.content_maturity == nil then "" else data.content_maturity,
+			content_maturity = if data == nil or data.content_maturity == nil then nil else data.content_maturity,
 			is_officially_licensed = if data == nil or data.is_officially_licensed == nil
-				then false
+				then nil
 				else data.is_officially_licensed,
-			refund_policy_text = if data == nil or data.refund_policy_text == nil then "" else data.refund_policy_text,
-			refund_article_id = if data == nil or data.refund_article_id == nil then "" else data.refund_article_id,
-			preview_video_id = if data == nil or data.preview_video_id == nil then 0 else data.preview_video_id,
+			refund_policy_text = if data == nil or data.refund_policy_text == nil then nil else data.refund_policy_text,
+			refund_article_id = if data == nil or data.refund_article_id == nil then nil else data.refund_article_id,
+			preview_video_id = if data == nil or data.preview_video_id == nil then nil else data.preview_video_id,
 		}, _UniverseDataImpl :: _UniverseDataImpl)
 	end
 
@@ -136,137 +134,137 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.id ~= nil and self.id ~= 0 then
+		if self.id ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.id)
 		end
 
-		if self.name ~= nil and self.name ~= "" then
+		if self.name ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.name)
 		end
 
-		if self.description ~= nil and self.description ~= "" then
+		if self.description ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.description)
 		end
 
-		if self.root_place_id ~= nil and self.root_place_id ~= 0 then
+		if self.root_place_id ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.root_place_id)
 		end
 
-		if self.creator_type ~= nil and self.creator_type ~= "" then
+		if self.creator_type ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.creator_type)
 		end
 
-		if self.creator_id ~= nil and self.creator_id ~= 0 then
+		if self.creator_id ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.creator_id)
 		end
 
-		if self.player_count ~= nil and self.player_count ~= 0 then
+		if self.player_count ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.player_count)
 		end
 
-		if self.total_up_votes ~= nil and self.total_up_votes ~= 0 then
+		if self.total_up_votes ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.total_up_votes)
 		end
 
-		if self.total_down_votes ~= nil and self.total_down_votes ~= 0 then
+		if self.total_down_votes ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.total_down_votes)
 		end
 
-		if self.is_voice_supported then
+		if self.is_voice_supported ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_voice_supported then 1 else 0)
 		end
 
-		if self.is_camera_supported then
+		if self.is_camera_supported ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_camera_supported then 1 else 0)
 		end
 
-		if self.localized_fiat_price ~= nil and self.localized_fiat_price ~= "" then
+		if self.localized_fiat_price ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.localized_fiat_price)
 		end
 
-		if self.genre_l1 ~= nil and self.genre_l1 ~= "" then
+		if self.genre_l1 ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.genre_l1)
 		end
 
-		if self.genre_l2 ~= nil and self.genre_l2 ~= "" then
+		if self.genre_l2 ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.genre_l2)
 		end
 
-		if self.maximum_server_size ~= nil and self.maximum_server_size ~= 0 then
+		if self.maximum_server_size ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.maximum_server_size)
 		end
 
-		if self.created_date ~= nil and self.created_date ~= "" then
+		if self.created_date ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.created_date)
 		end
 
-		if self.updated_date ~= nil and self.updated_date ~= "" then
+		if self.updated_date ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.updated_date)
 		end
 
-		if self.favorite_count ~= nil and self.favorite_count ~= 0 then
+		if self.favorite_count ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.favorite_count)
 		end
 
-		if self.total_visits ~= nil and self.total_visits ~= 0 then
+		if self.total_visits ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.total_visits)
 		end
 
-		if self.canonical_url_path ~= nil and self.canonical_url_path ~= "" then
+		if self.canonical_url_path ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.canonical_url_path)
 		end
 
-		if self.game_minimum_age ~= nil and self.game_minimum_age ~= 0 then
+		if self.game_minimum_age ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.game_minimum_age)
 		end
 
-		if self.game_age_display_name ~= nil and self.game_age_display_name ~= "" then
+		if self.game_age_display_name ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.game_age_display_name)
 		end
 
-		if self.content_maturity ~= nil and self.content_maturity ~= "" then
+		if self.content_maturity ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 23, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.content_maturity)
 		end
 
-		if self.is_officially_licensed then
+		if self.is_officially_licensed ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 24, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_officially_licensed then 1 else 0)
 		end
 
-		if self.refund_policy_text ~= nil and self.refund_policy_text ~= "" then
+		if self.refund_policy_text ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 25, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.refund_policy_text)
 		end
 
-		if self.refund_article_id ~= nil and self.refund_article_id ~= "" then
+		if self.refund_article_id ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 26, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.refund_article_id)
 		end
 
-		if self.preview_video_id ~= nil and self.preview_video_id ~= 0 then
+		if self.preview_video_id ~= nil then
 			output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.varint)
 			output, cursor = proto.writeVarInt(output, cursor, self.preview_video_id)
 		end
@@ -452,111 +450,111 @@ do
 	function _UniverseDataImpl.jsonEncode(self: UniverseData): any
 		local output = {}
 
-		if self.id ~= nil and self.id ~= 0 then
+		if self.id ~= nil then
 			output.id = self.id
 		end
 
-		if self.name ~= nil and self.name ~= "" then
+		if self.name ~= nil then
 			output.name = self.name
 		end
 
-		if self.description ~= nil and self.description ~= "" then
+		if self.description ~= nil then
 			output.description = self.description
 		end
 
-		if self.root_place_id ~= nil and self.root_place_id ~= 0 then
+		if self.root_place_id ~= nil then
 			output.rootPlaceId = self.root_place_id
 		end
 
-		if self.creator_type ~= nil and self.creator_type ~= "" then
+		if self.creator_type ~= nil then
 			output.creatorType = self.creator_type
 		end
 
-		if self.creator_id ~= nil and self.creator_id ~= 0 then
+		if self.creator_id ~= nil then
 			output.creatorId = self.creator_id
 		end
 
-		if self.player_count ~= nil and self.player_count ~= 0 then
+		if self.player_count ~= nil then
 			output.playerCount = self.player_count
 		end
 
-		if self.total_up_votes ~= nil and self.total_up_votes ~= 0 then
+		if self.total_up_votes ~= nil then
 			output.totalUpVotes = self.total_up_votes
 		end
 
-		if self.total_down_votes ~= nil and self.total_down_votes ~= 0 then
+		if self.total_down_votes ~= nil then
 			output.totalDownVotes = self.total_down_votes
 		end
 
-		if self.is_voice_supported then
+		if self.is_voice_supported ~= nil then
 			output.isVoiceSupported = self.is_voice_supported
 		end
 
-		if self.is_camera_supported then
+		if self.is_camera_supported ~= nil then
 			output.isCameraSupported = self.is_camera_supported
 		end
 
-		if self.localized_fiat_price ~= nil and self.localized_fiat_price ~= "" then
+		if self.localized_fiat_price ~= nil then
 			output.localizedFiatPrice = self.localized_fiat_price
 		end
 
-		if self.genre_l1 ~= nil and self.genre_l1 ~= "" then
+		if self.genre_l1 ~= nil then
 			output.genreL1 = self.genre_l1
 		end
 
-		if self.genre_l2 ~= nil and self.genre_l2 ~= "" then
+		if self.genre_l2 ~= nil then
 			output.genreL2 = self.genre_l2
 		end
 
-		if self.maximum_server_size ~= nil and self.maximum_server_size ~= 0 then
+		if self.maximum_server_size ~= nil then
 			output.maximumServerSize = self.maximum_server_size
 		end
 
-		if self.created_date ~= nil and self.created_date ~= "" then
+		if self.created_date ~= nil then
 			output.createdDate = self.created_date
 		end
 
-		if self.updated_date ~= nil and self.updated_date ~= "" then
+		if self.updated_date ~= nil then
 			output.updatedDate = self.updated_date
 		end
 
-		if self.favorite_count ~= nil and self.favorite_count ~= 0 then
+		if self.favorite_count ~= nil then
 			output.favoriteCount = self.favorite_count
 		end
 
-		if self.total_visits ~= nil and self.total_visits ~= 0 then
+		if self.total_visits ~= nil then
 			output.totalVisits = self.total_visits
 		end
 
-		if self.canonical_url_path ~= nil and self.canonical_url_path ~= "" then
+		if self.canonical_url_path ~= nil then
 			output.canonicalUrlPath = self.canonical_url_path
 		end
 
-		if self.game_minimum_age ~= nil and self.game_minimum_age ~= 0 then
+		if self.game_minimum_age ~= nil then
 			output.gameMinimumAge = self.game_minimum_age
 		end
 
-		if self.game_age_display_name ~= nil and self.game_age_display_name ~= "" then
+		if self.game_age_display_name ~= nil then
 			output.gameAgeDisplayName = self.game_age_display_name
 		end
 
-		if self.content_maturity ~= nil and self.content_maturity ~= "" then
+		if self.content_maturity ~= nil then
 			output.contentMaturity = self.content_maturity
 		end
 
-		if self.is_officially_licensed then
+		if self.is_officially_licensed ~= nil then
 			output.isOfficiallyLicensed = self.is_officially_licensed
 		end
 
-		if self.refund_policy_text ~= nil and self.refund_policy_text ~= "" then
+		if self.refund_policy_text ~= nil then
 			output.refundPolicyText = self.refund_policy_text
 		end
 
-		if self.refund_article_id ~= nil and self.refund_article_id ~= "" then
+		if self.refund_article_id ~= nil then
 			output.refundArticleId = self.refund_article_id
 		end
 
-		if self.preview_video_id ~= nil and self.preview_video_id ~= 0 then
+		if self.preview_video_id ~= nil then
 			output.previewVideoId = self.preview_video_id
 		end
 

@@ -90,6 +90,23 @@ local FFlagUpdateConnectionLocWarning = game:DefineFastFlag("UpdateConnectionLoc
 
 local FFlagAddPlacelaunchDeviceBlock = game:DefineFastFlag("AddPlacelaunchDeviceBlock2", false)
 local FFlagAddContextualPlayabilityConnectionErrors = game:DefineFastFlag("AddContextualPlayabilityConnectionErrors", false)
+local FFlagAddVipOwnerNotPresentConnectionError = game:DefineFastFlag("AddVipOwnerNotPresentConnectionError", false)
+local FFlagVipOwnerNotPresentEnableReconnect = game:DefineFastFlag("VipOwnerNotPresentEnableReconnect", false)
+
+local FFlagConnectionAmpUpsellOnLeave =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionAmpUpsellOnLeave
+local FFlagConnectionAmpParentalApprovalUpsell =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionAmpParentalApprovalUpsell
+local FFlagConnectionUpsellAnalytics =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagConnectionUpsellAnalytics
+
+-- ConnectionAmpUpsellOnLeave owns AMP-specific bits (ApolloClient lookup,
+-- feature names, telemetry, wizard display order). Required only when the
+-- flag is on so the disabled path pays nothing.
+local ConnectionAmpUpsellOnLeave
+if FFlagConnectionAmpUpsellOnLeave then
+	ConnectionAmpUpsellOnLeave = require(RobloxGui.Modules.ConnectionAmpUpsellOnLeave)
+end
 
 -- The new, supported way to translate strings in the client.
 -- This function should be used instead of coreScriptTableTranslator:FormatByKey.
@@ -130,6 +147,8 @@ local ConnectionPromptState = {
 	OUT_OF_MEMORY_KEEPPLAYING_LEAVE = 9, -- Show Out Of Memory with Keep Playing/Leave Message
 	RECONNECT_CONNECT_FAILURE = 10, -- Show Connect Failure Reconnect Options
 	RECONNECT_DISABLED_CONNECT_FAILURE = 11, -- i.e. Version out of date
+	RECONNECT_AGE_CHECK_REQUIRED = 12, -- Placelaunch blocked by age verification; Leave opens the AMP age-check wizard
+	RECONNECT_PARENT_APPROVAL_REQUIRED = 13, -- Placelaunch blocked by parental approval; Leave opens the AMP CanApproveExperience wizard
 }
 
 local connectionPromptState = ConnectionPromptState.NONE
@@ -150,6 +169,11 @@ local ErrorTitles = {
 	[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = "Connection Failed",
 }
 
+if FFlagConnectionAmpUpsellOnLeave then
+	ErrorTitles[ConnectionPromptState.RECONNECT_AGE_CHECK_REQUIRED] = "Join Error"
+	ErrorTitles[ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED] = "Join Error"
+end
+
 local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = "InGame.ConnectionError.Title.JoinError",
 	[ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH] = "InGame.ConnectionError.Title.JoinError",
@@ -162,12 +186,22 @@ local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = "InGame.ConnectionError.Title.ConnectionFailed",
 }
 
+if FFlagConnectionAmpUpsellOnLeave then
+	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_AGE_CHECK_REQUIRED] = "InGame.ConnectionError.Title.JoinError"
+	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED] = "InGame.ConnectionError.Title.JoinError"
+end
+
+-- DisplayOrder for the connection-error prompt. Exposed as a local so the
+-- ConnectionAmpUpsellOnLeave module can position the wizard one order above
+-- it without hardcoding a number on the other side.
+local ROBLOX_PROMPT_DISPLAY_ORDER = 9
+
 -- Screengui holding the prompt and make it on top of blur
 local screenGui = Create("ScreenGui")({
 	Parent = CoreGui,
 	Name = "RobloxPromptGui",
 	OnTopOfCoreBlur = true,
-	DisplayOrder = 9,
+	DisplayOrder = ROBLOX_PROMPT_DISPLAY_ORDER,
 	AutoLocalize = false,
 })
 
@@ -215,6 +249,33 @@ local reconnectFunction = function()
 			GuiService:SetMenuIsOpen(false, DEFAULT_ERROR_PROMPT_KEY)
 		end
 	end
+end
+
+-- For placelaunch errors that require the user to clear a backend gate before
+-- retrying (PlacelaunchAgeVerificationRequired / PlacelaunchParentalApprovalRequired),
+-- TeleportReconnect is a no-op engine-side because the original placelaunch was
+-- marked non-auto-retryable. Re-issue the placelaunch explicitly using the
+-- PlaceId already on the DataModel (game.PlaceId is populated with the target
+-- place during placelaunch, including while the error prompt is up); the
+-- engine's join flow owns the loading UI from there.
+local reconnectViaPlacelaunch = function()
+	if connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
+		TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "UserClickWhileReconnecting"}}, 1.0)
+		return
+	end
+
+	local placeId = game.PlaceId
+	if not placeId or placeId == 0 then
+		TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "PlacelaunchRetryMissingPlaceId"}}, 1.0)
+		return
+	end
+
+	TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "PlacelaunchRetryInitiated"}}, 1.0)
+	connectionPromptState = ConnectionPromptState.IS_RECONNECTING
+	errorPrompt:primaryShimmerPlay()
+
+	GuiService:ClearError()
+	TeleportService:Teleport(placeId)
 end
 
 local leaveFunction = function()
@@ -288,6 +349,10 @@ if FFlagAddContextualPlayabilityConnectionErrors then
 	reconnectDisabledList[Enum.ConnectionError.PlacelaunchAgeVerificationRequired] = true
 	reconnectDisabledList[Enum.ConnectionError.PlacelaunchParentalApprovalRequired] = true
 	reconnectDisabledList[Enum.ConnectionError.PlacelaunchCoreGated] = true
+end
+
+if FFlagAddVipOwnerNotPresentConnectionError and not FFlagVipOwnerNotPresentEnableReconnect then
+	reconnectDisabledList[Enum.ConnectionError.PlacelaunchVipOwnerNotPresent] = true
 end
 
 local ButtonList = {
@@ -398,6 +463,52 @@ local ButtonList = {
 	},
 }
 
+if FFlagConnectionAmpUpsellOnLeave then
+	local openAgeCheckWizardThenReconnect = ConnectionAmpUpsellOnLeave.createAgeCheckCallback(
+		connectionEventConfig,
+		reconnectViaPlacelaunch,
+		ROBLOX_PROMPT_DISPLAY_ORDER
+	)
+	ButtonList[ConnectionPromptState.RECONNECT_AGE_CHECK_REQUIRED] = {
+		{
+			Text = "Leave",
+			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
+			LayoutOrder = 1,
+			Callback = leaveFunction,
+		},
+		{
+			Text = ConnectionAmpUpsellOnLeave.PrimaryButtonText,
+			LocalizationKey = ConnectionAmpUpsellOnLeave.PrimaryButtonLocalizationKey,
+			LayoutOrder = 2,
+			Callback = openAgeCheckWizardThenReconnect,
+			Primary = true,
+		},
+	}
+end
+
+if FFlagConnectionAmpParentalApprovalUpsell then
+	local openParentApprovalWizardThenReconnect = ConnectionAmpUpsellOnLeave.createParentalApprovalCallback(
+		connectionEventConfig,
+		reconnectViaPlacelaunch,
+		ROBLOX_PROMPT_DISPLAY_ORDER
+	)
+	ButtonList[ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED] = {
+		{
+			Text = "Leave",
+			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
+			LayoutOrder = 1,
+			Callback = leaveFunction,
+		},
+		{
+			Text = ConnectionAmpUpsellOnLeave.PrimaryButtonText,
+			LocalizationKey = ConnectionAmpUpsellOnLeave.PrimaryButtonLocalizationKey,
+			LayoutOrder = 2,
+			Callback = openParentApprovalWizardThenReconnect,
+			Primary = true,
+		},
+	}
+end
+
 local updateFullScreenEffect = {
 	[ConnectionPromptState.NONE] = function()
 		RunService:SetRobloxGuiFocused(false)
@@ -457,6 +568,18 @@ local updateFullScreenEffect = {
 		promptOverlay.Transparency = 0.3
 	end,
 }
+
+if FFlagConnectionAmpUpsellOnLeave then
+	-- The new AMP-on-Leave states reuse RECONNECT_PLACELAUNCH's full-screen
+	-- effect verbatim (the AMP wizard renders above the prompt at a higher
+	-- DisplayOrder); aliasing keeps them in sync if the placelaunch effect
+	-- ever changes.
+	local placelaunchEffect = updateFullScreenEffect[ConnectionPromptState.RECONNECT_PLACELAUNCH]
+	updateFullScreenEffect[ConnectionPromptState.RECONNECT_AGE_CHECK_REQUIRED] = placelaunchEffect
+	if FFlagConnectionAmpParentalApprovalUpsell then
+		updateFullScreenEffect[ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED] = placelaunchEffect
+	end
+end
 
 local function onEnter(newState)
 	if not errorPrompt then
@@ -536,6 +659,26 @@ local function stateTransit(errorType, errorCode, oldState)
 			return ConnectionPromptState.RECONNECT_DISCONNECT
 		elseif errorType == Enum.ConnectionError.PlacelaunchErrors then
 			errorForReconnect = Enum.ConnectionError.PlacelaunchErrors
+			if FFlagConnectionAmpUpsellOnLeave then
+				local ageEnum = ConnectionAmpUpsellOnLeave.AgeVerificationRequiredEnum
+				if ageEnum and errorCode == ageEnum then
+					TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "PlaceLaunchAgeVerificationRequired"}}, 1.0)
+					if FFlagConnectionUpsellAnalytics then
+						ConnectionAmpUpsellOnLeave.fireImpressionAgeCheck(connectionEventConfig, game.PlaceId)
+					end
+					return ConnectionPromptState.RECONNECT_AGE_CHECK_REQUIRED
+				end
+			end
+			if FFlagConnectionAmpParentalApprovalUpsell then
+				local parentEnum = ConnectionAmpUpsellOnLeave.ParentalApprovalRequiredEnum
+				if parentEnum and errorCode == parentEnum then
+					TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "PlaceLaunchParentalApprovalRequired"}}, 1.0)
+					if FFlagConnectionUpsellAnalytics then
+						ConnectionAmpUpsellOnLeave.fireImpressionParentalApproval(connectionEventConfig, game.PlaceId)
+					end
+					return ConnectionPromptState.RECONNECT_PARENT_APPROVAL_REQUIRED
+				end
+			end
 			if reconnectDisabledList[errorCode] then
 				return ConnectionPromptState.RECONNECT_DISABLED_PLACELAUNCH
 			end
@@ -775,6 +918,10 @@ if FFlagAddContextualPlayabilityConnectionErrors then
 	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchAgeVerificationRequired] = "InGame.ConnectionError.Description.AgeCheckRequired"
 	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchParentalApprovalRequired] = "InGame.ConnectionError.Description.ParentalApprovalRequired"
 	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchCoreGated] = "InGame.ConnectionError.Description.LockedByAge"
+end
+
+if FFlagAddVipOwnerNotPresentConnectionError then
+	enumToLocalizationKey[Enum.ConnectionError.PlacelaunchVipOwnerNotPresent] = "InGame.ConnectionError.Description.VipOwnerNotPresent"
 end
 
 -- Localize the error string, with a fallback to the original string upon failure.

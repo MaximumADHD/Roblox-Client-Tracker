@@ -7,10 +7,14 @@ local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 
+
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local Checkbox = Foundation.Checkbox
+
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
-local Checkbox = UIBlox.App.InputButton.Checkbox
+
 local Images = UIBlox.App.ImageSet.Images
 
 local Assets = require(script.Parent.Parent.Parent.InGameMenu.Resources.Assets)
@@ -211,13 +215,13 @@ local function VoiceChatConsentModal(props: Props, ref: React.Ref<GuiObject>?)
 						HorizontalAlignment = Enum.HorizontalAlignment.Left,
 					}),
 					Checkbox = props.showCheckbox and Roact.createElement(Checkbox, {
-						text = "",
-						isSelected = isSelected,
+						label = "",
+						isChecked = isSelected,
 						isDisabled = false,
 						onActivated = function(selected)
 							setIsSelected(selected)
 						end,
-						layoutOrder = 1,
+						LayoutOrder = 1,
 					}),
 					TextContainer = Roact.createElement("Frame", {
 						BackgroundTransparency = 1,

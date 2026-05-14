@@ -7,6 +7,9 @@ local Roact = require(CorePackages.Packages.Roact)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
+local Foundation = require(CorePackages.Packages.Foundation)
+local IconName = Foundation.Enums.IconName
+local IconVariant = Foundation.Enums.IconVariant
 
 local AbuseReportMenu = require(RobloxGui.Modules.AbuseReportMenu).AbuseReportMenu
 local AbuseReportMenuV2 = require(RobloxGui.Modules.AbuseReportMenu).AbuseReportMenuV2
@@ -22,6 +25,7 @@ local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReport
 local FFlagHideShortcutsOnReportDropdown = require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagAbuseReportMenuV2 = SharedFlags.FFlagAbuseReportMenuV2
 local FFlagReportFocusNavIEMButtons =  require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagReportFocusNavIEMButtons)
+local FFlagStandardizeSafetyIcon = SharedFlags.FFlagStandardizeSafetyIcon
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -86,6 +90,12 @@ local function Initialize()
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "ReportAbuseTab"
 	local icon = migrationLookup["icons/actions/feedback"]
+	if FFlagStandardizeSafetyIcon then
+		icon = {
+			name = IconName.Flag,
+			variant = IconVariant.Regular,
+		}
+	end
 	this.TabHeader.TabLabel.Icon.Text = icon.name
 	this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
 	this.TabHeader.TabLabel.Title.Text = "Report"

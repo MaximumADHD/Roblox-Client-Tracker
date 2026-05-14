@@ -35,6 +35,9 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local VRHub = require(CorePackages.Workspace.Packages.VrCommon).VRHub
 local VRUtil = require(CorePackages.Workspace.Packages.VrCommon).VRUtil
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
+local GetFFlagVoiceChatLogConnectionSource =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatLogConnectionSource
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
@@ -430,6 +433,9 @@ local JoinVoice = {
 	iconOff = Images["icons/controls/publicAudioJoin"],
 	text = "Join Voice",
 	onActivated = function()
+		if GetFFlagVoiceChatLogConnectionSource() then
+			VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.IN_EXPERIENCE
+		end
 		VoiceChatServiceManager:JoinVoice()
 		if FFlagEnableJoinVoiceVrTelemetry then
 			local isToggleOn = VoiceChatServiceManager:ShouldShowJoinVoice()

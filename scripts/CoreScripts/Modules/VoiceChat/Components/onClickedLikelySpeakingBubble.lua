@@ -10,6 +10,8 @@ local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
 local GetFFlagSeamlessVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeamlessVoiceFTUX
 local GetFFlagEnableSeamlessVoiceV2 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSeamlessVoiceV2
+local GetFFlagVoiceChatLogConnectionSource =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatLogConnectionSource
 
 return function()
 	if
@@ -22,6 +24,9 @@ return function()
 			VoiceConstants.IN_EXP_PHONE_UPSELL_IXP_LAYER
 		)
 	elseif GetFFlagEnableSeamlessVoiceV2() and VoiceChatServiceManager:IsSeamlessVoice() then
+		if GetFFlagVoiceChatLogConnectionSource() then
+			VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.IN_EXPERIENCE
+		end
 		VoiceChatServiceManager:JoinVoice()
 		ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
 		VoiceChatServiceManager:RecordUserSeenModal("m3-likely-speaking-bubble-upsell")

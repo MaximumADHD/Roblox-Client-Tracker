@@ -36,6 +36,7 @@ local TweenService = game:GetService("TweenService")
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 local FFlagUserAllowAbilityControls = FlagUtil.getUserFlag("UserAllowAbilityControls")
+local FFlagUserAllowAbilityControlsBonus = FlagUtil.getUserFlag("UserAllowAbilityControlsBonus")
 
 local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	local success, result = pcall(function()
@@ -476,6 +477,10 @@ function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 
 		if FFlagUserAllowAbilityControls then
 			local scaleFactor = isBigScreen and 2 or 1
+			if FFlagUserAllowAbilityControlsBonus and AvatarAbilitiesInterface.isEnabled() and isBigScreen then
+				local scaledOuterRingSize = 120
+				scaleFactor = scaledOuterRingSize / DEFAULT_OUTER_RING_SIZE
+			end
 
 			self.thumbstickSize = DEFAULT_THUMBSTICK_SIZE * scaleFactor
 			self.thumbstickRingSize = DEFAULT_RING_SIZE * scaleFactor

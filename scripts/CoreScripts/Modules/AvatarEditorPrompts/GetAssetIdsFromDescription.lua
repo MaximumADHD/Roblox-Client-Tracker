@@ -1,7 +1,5 @@
 --!nonstrict
 
-local FFlagPromptSaveAvatarShowMakeup = game:DefineFastFlag("PromptSaveAvatarShowMakeup", false)
-
 local HumanoidDescriptionAssetProperties = {
 	"ClimbAnimation",
 	"Face",
@@ -41,16 +39,14 @@ return function(humanoidDescription)
 		table.insert(assetIdList, accessoryMetadata.AssetId)
 	end
 
-	if FFlagPromptSaveAvatarShowMakeup then
-		local humanoidDescriptionChildren = humanoidDescription:GetChildren()
-		for _, child in humanoidDescriptionChildren do
-			if not child:IsA("MakeupDescription") then
-				continue
-			end
+	local humanoidDescriptionChildren = humanoidDescription:GetChildren()
+	for _, child in humanoidDescriptionChildren do
+		if not child:IsA("MakeupDescription") then
+			continue
+		end
 
-			if child.AssetId > 0 then
-				table.insert(assetIdList, child.AssetId)
-			end
+		if child.AssetId > 0 then
+			table.insert(assetIdList, child.AssetId)
 		end
 	end
 

@@ -32,6 +32,7 @@ local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.Sha
 
 local FFlagRemoveDependencyArrayAntipattern =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveDependencyArrayAntipattern
+local FFlagVoiceRewarmTelemetry = require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
 
 local Once = function(fn)
 	local called = false
@@ -46,7 +47,10 @@ end
 
 -- This will ensure we only send the "show" event once per session, for some reason it get's called twice on initialization
 local sendVoiceJoinUpsellShownEvent = Once(function()
-	VoiceChatServiceManager:reportJoinVoiceUpsellEvent("Shown")
+	VoiceChatServiceManager:reportJoinVoiceUpsellEvent(
+		"Shown",
+		if FFlagVoiceRewarmTelemetry then VoiceChatServiceManager.joinVoiceButtonContext else nil
+	)
 end)
 
 local function JoinVoiceBinder()

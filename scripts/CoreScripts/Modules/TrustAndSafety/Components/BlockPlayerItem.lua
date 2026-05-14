@@ -3,6 +3,9 @@ local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Packages.Roact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local CheckBox = Foundation.Checkbox
+
 local t = require(CorePackages.Packages.t)
 
 local TnsModule = script.Parent.Parent
@@ -12,7 +15,7 @@ local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
 local withStyle = UIBlox.Style.withStyle
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
-local CheckBox = UIBlox.App.InputButton.Checkbox
+
 
 local BlockPlayerItem = Roact.PureComponent:extend("BlockPlayerItem")
 
@@ -70,11 +73,10 @@ function BlockPlayerItem:render()
 				Size = UDim2.fromOffset(24, 24),
 			}, {
 				CheckBox = Roact.createElement(CheckBox, {
-					size = UDim2.new(1, 0, 1, 0),
-					text = "",
+					label = "",
 					isDisabled = props.isDisabled,
 					onActivated = props.onCheckBoxActivated,
-					isSelected = props.isCheckBoxSelected,
+					isChecked = props.isCheckBoxSelected,
 				}),
 			}),
 			TextFrame = Roact.createElement("Frame", {

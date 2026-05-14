@@ -66,6 +66,7 @@ type _Messages =
 		EventAttributionRowInputData: _EventAttributionRowInputDataMessage,
 		EventInfoTableInputData: _EventInfoTableInputDataMessage,
 		EventDetailsSheetFullBleedInputData: _EventDetailsSheetFullBleedInputDataMessage,
+		EventNotificationsModalInputData: _EventNotificationsModalInputDataMessage,
 		ChartsFeedInputData: _ChartsFeedInputDataMessage,
 		ChartsFeedInputData_EntryMapEntry: _ChartsFeedInputData_EntryMapEntryMessage,
 		FilterPillsInputData: _FilterPillsInputDataMessage,
@@ -190,6 +191,7 @@ type _PageEntryInputDataFields = {
 		| { type: "event_description", value: EventDescriptionInputData }
 		| { type: "event_info_table", value: EventInfoTableInputData }
 		| { type: "event_details_sheet_full_bleed", value: EventDetailsSheetFullBleedInputData }
+		| { type: "event_notifications_modal", value: EventNotificationsModalInputData }
 		| { type: "dev_store_feed", value: DevStoreFeedInputData }
 		| { type: "charts_feed", value: ChartsFeedInputData }
 		| { type: "filter_pills", value: FilterPillsInputData }
@@ -244,6 +246,7 @@ type _PageEntryInputDataPartialFields = {
 		| { type: "event_description", value: EventDescriptionInputData }
 		| { type: "event_info_table", value: EventInfoTableInputData }
 		| { type: "event_details_sheet_full_bleed", value: EventDetailsSheetFullBleedInputData }
+		| { type: "event_notifications_modal", value: EventNotificationsModalInputData }
 		| { type: "dev_store_feed", value: DevStoreFeedInputData }
 		| { type: "charts_feed", value: ChartsFeedInputData }
 		| { type: "filter_pills", value: FilterPillsInputData }
@@ -684,10 +687,14 @@ type _ExperienceActionModuleInputDataImpl = {
 
 type _ExperienceActionModuleInputDataFields = {
 	universe_id: string,
+	root_place_id: string,
+	connection_played_display_name: string,
 }
 
 type _ExperienceActionModuleInputDataPartialFields = {
 	universe_id: string?,
+	root_place_id: string?,
+	connection_played_display_name: string?,
 }
 
 export type ExperienceActionModuleInputData = typeof(setmetatable(
@@ -825,10 +832,14 @@ type _ExperienceInfoTableInputDataImpl = {
 
 type _ExperienceInfoTableInputDataFields = {
 	universe_id: string,
+	has_store_items: boolean,
+	has_badges: boolean,
 }
 
 type _ExperienceInfoTableInputDataPartialFields = {
 	universe_id: string?,
+	has_store_items: boolean?,
+	has_badges: boolean?,
 }
 
 export type ExperienceInfoTableInputData = typeof(setmetatable(
@@ -1035,6 +1046,11 @@ type _ExperienceCarouselInputData_UniverseItemFields = {
 	roblox_component: string,
 	native_ad_data: string,
 	is_content_locked: boolean,
+	title: string,
+	subtitle: string,
+	image_asset_id: number,
+	video_asset_id: number,
+	badge_text: string,
 }
 
 type _ExperienceCarouselInputData_UniverseItemPartialFields = {
@@ -1043,6 +1059,11 @@ type _ExperienceCarouselInputData_UniverseItemPartialFields = {
 	roblox_component: string?,
 	native_ad_data: string?,
 	is_content_locked: boolean?,
+	title: string?,
+	subtitle: string?,
+	image_asset_id: number?,
+	video_asset_id: number?,
+	badge_text: string?,
 }
 
 export type ExperienceCarouselInputData_UniverseItem = typeof(setmetatable(
@@ -1857,6 +1878,35 @@ export type EventDetailsSheetFullBleedInputData = typeof(setmetatable(
 type _EventDetailsSheetFullBleedInputDataMessage = proto.Message<
 	EventDetailsSheetFullBleedInputData,
 	_EventDetailsSheetFullBleedInputDataPartialFields
+>
+
+type _EventNotificationsModalInputDataImpl = {
+	__index: _EventNotificationsModalInputDataImpl,
+	new: (fields: _EventNotificationsModalInputDataPartialFields?) -> EventNotificationsModalInputData,
+	encode: (self: EventNotificationsModalInputData) -> buffer,
+	decode: (input: buffer) -> EventNotificationsModalInputData,
+	jsonEncode: (self: EventNotificationsModalInputData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> EventNotificationsModalInputData,
+	descriptor: proto.Descriptor,
+}
+
+type _EventNotificationsModalInputDataFields = {
+	event_id: string,
+	universe_id: string,
+}
+
+type _EventNotificationsModalInputDataPartialFields = {
+	event_id: string?,
+	universe_id: string?,
+}
+
+export type EventNotificationsModalInputData = typeof(setmetatable(
+	{} :: _EventNotificationsModalInputDataFields,
+	{} :: _EventNotificationsModalInputDataImpl
+))
+type _EventNotificationsModalInputDataMessage = proto.Message<
+	EventNotificationsModalInputData,
+	_EventNotificationsModalInputDataPartialFields
 >
 
 type _ChartsFeedInputDataImpl = {
@@ -2879,6 +2929,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 605, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "event_notifications_modal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 606, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			elseif self.kind.type == "dev_store_feed" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 700, proto.wireTypes.lengthDelimited)
@@ -3191,6 +3245,14 @@ do
 						value = messages.EventDetailsSheetFullBleedInputData.decode(value),
 					}
 					continue
+				elseif field == 606 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "event_notifications_modal",
+						value = messages.EventNotificationsModalInputData.decode(value),
+					}
+					continue
 				elseif field == 700 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
@@ -3357,6 +3419,8 @@ do
 				output.eventInfoTable = self.kind.value:jsonEncode()
 			elseif self.kind.type == "event_details_sheet_full_bleed" then
 				output.eventDetailsSheetFullBleed = self.kind.value:jsonEncode()
+			elseif self.kind.type == "event_notifications_modal" then
+				output.eventNotificationsModal = self.kind.value:jsonEncode()
 			elseif self.kind.type == "dev_store_feed" then
 				output.devStoreFeed = self.kind.value:jsonEncode()
 			elseif self.kind.type == "charts_feed" then
@@ -3855,6 +3919,20 @@ do
 			self.kind = {
 				type = "event_details_sheet_full_bleed",
 				value = messages.EventDetailsSheetFullBleedInputData.jsonDecode(input.eventDetailsSheetFullBleed),
+			}
+		end
+
+		if input.event_notifications_modal ~= nil then
+			self.kind = {
+				type = "event_notifications_modal",
+				value = messages.EventNotificationsModalInputData.jsonDecode(input.event_notifications_modal),
+			}
+		end
+
+		if input.eventNotificationsModal ~= nil then
+			self.kind = {
+				type = "event_notifications_modal",
+				value = messages.EventNotificationsModalInputData.jsonDecode(input.eventNotificationsModal),
 			}
 		end
 
@@ -6043,6 +6121,10 @@ do
 	): ExperienceActionModuleInputData
 		return setmetatable({
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+			root_place_id = if data == nil or data.root_place_id == nil then "" else data.root_place_id,
+			connection_played_display_name = if data == nil or data.connection_played_display_name == nil
+				then ""
+				else data.connection_played_display_name,
 		}, _ExperienceActionModuleInputDataImpl :: _ExperienceActionModuleInputDataImpl)
 	end
 
@@ -6053,6 +6135,16 @@ do
 		if self.universe_id ~= nil and self.universe_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.root_place_id ~= nil and self.root_place_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.root_place_id)
+		end
+
+		if self.connection_played_display_name ~= nil and self.connection_played_display_name ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.connection_played_display_name)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -6078,6 +6170,16 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.universe_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.root_place_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.connection_played_display_name = buffer.tostring(value)
 					continue
 				end
 
@@ -6110,6 +6212,14 @@ do
 			output.universeId = self.universe_id
 		end
 
+		if self.root_place_id ~= nil and self.root_place_id ~= "" then
+			output.rootPlaceId = self.root_place_id
+		end
+
+		if self.connection_played_display_name ~= nil and self.connection_played_display_name ~= "" then
+			output.connectionPlayedDisplayName = self.connection_played_display_name
+		end
+
 		return output
 	end
 
@@ -6122,6 +6232,22 @@ do
 
 		if input.universeId ~= nil then
 			self.universe_id = input.universeId
+		end
+
+		if input.root_place_id ~= nil then
+			self.root_place_id = input.root_place_id
+		end
+
+		if input.rootPlaceId ~= nil then
+			self.root_place_id = input.rootPlaceId
+		end
+
+		if input.connection_played_display_name ~= nil then
+			self.connection_played_display_name = input.connection_played_display_name
+		end
+
+		if input.connectionPlayedDisplayName ~= nil then
+			self.connection_played_display_name = input.connectionPlayedDisplayName
 		end
 
 		return self
@@ -6629,6 +6755,8 @@ do
 	): ExperienceInfoTableInputData
 		return setmetatable({
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+			has_store_items = if data == nil or data.has_store_items == nil then false else data.has_store_items,
+			has_badges = if data == nil or data.has_badges == nil then false else data.has_badges,
 		}, _ExperienceInfoTableInputDataImpl :: _ExperienceInfoTableInputDataImpl)
 	end
 
@@ -6639,6 +6767,16 @@ do
 		if self.universe_id ~= nil and self.universe_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.has_store_items then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.has_store_items then 1 else 0)
+		end
+
+		if self.has_badges then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, if self.has_badges then 1 else 0)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -6655,7 +6793,17 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				-- No fields
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.has_store_items = value ~= 0
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.has_badges = value ~= 0
+					continue
+				end
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -6696,6 +6844,14 @@ do
 			output.universeId = self.universe_id
 		end
 
+		if self.has_store_items then
+			output.hasStoreItems = self.has_store_items
+		end
+
+		if self.has_badges then
+			output.hasBadges = self.has_badges
+		end
+
 		return output
 	end
 
@@ -6708,6 +6864,22 @@ do
 
 		if input.universeId ~= nil then
 			self.universe_id = input.universeId
+		end
+
+		if input.has_store_items ~= nil then
+			self.has_store_items = input.has_store_items
+		end
+
+		if input.hasStoreItems ~= nil then
+			self.has_store_items = input.hasStoreItems
+		end
+
+		if input.has_badges ~= nil then
+			self.has_badges = input.has_badges
+		end
+
+		if input.hasBadges ~= nil then
+			self.has_badges = input.hasBadges
 		end
 
 		return self
@@ -7616,6 +7788,11 @@ do
 			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
 			native_ad_data = if data == nil or data.native_ad_data == nil then "" else data.native_ad_data,
 			is_content_locked = if data == nil or data.is_content_locked == nil then false else data.is_content_locked,
+			title = if data == nil or data.title == nil then "" else data.title,
+			subtitle = if data == nil or data.subtitle == nil then "" else data.subtitle,
+			image_asset_id = if data == nil or data.image_asset_id == nil then 0 else data.image_asset_id,
+			video_asset_id = if data == nil or data.video_asset_id == nil then 0 else data.video_asset_id,
+			badge_text = if data == nil or data.badge_text == nil then "" else data.badge_text,
 		}, _ExperienceCarouselInputData_UniverseItemImpl :: _ExperienceCarouselInputData_UniverseItemImpl)
 	end
 
@@ -7650,6 +7827,31 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, if self.is_content_locked then 1 else 0)
 		end
 
+		if self.title ~= nil and self.title ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.title)
+		end
+
+		if self.subtitle ~= nil and self.subtitle ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.subtitle)
+		end
+
+		if self.image_asset_id ~= nil and self.image_asset_id ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.image_asset_id)
+		end
+
+		if self.video_asset_id ~= nil and self.video_asset_id ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.video_asset_id)
+		end
+
+		if self.badge_text ~= nil and self.badge_text ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.badge_text)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -7676,6 +7878,16 @@ do
 					value, cursor = proto.readVarInt(input, cursor)
 					self.is_content_locked = value ~= 0
 					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.image_asset_id = value
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.video_asset_id = value
+					continue
 				end
 
 				local _
@@ -7695,6 +7907,21 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.native_ad_data = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = buffer.tostring(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.badge_text = buffer.tostring(value)
 					continue
 				end
 
@@ -7745,6 +7972,26 @@ do
 			output.isContentLocked = self.is_content_locked
 		end
 
+		if self.title ~= nil and self.title ~= "" then
+			output.title = self.title
+		end
+
+		if self.subtitle ~= nil and self.subtitle ~= "" then
+			output.subtitle = self.subtitle
+		end
+
+		if self.image_asset_id ~= nil and self.image_asset_id ~= 0 then
+			output.imageAssetId = self.image_asset_id
+		end
+
+		if self.video_asset_id ~= nil and self.video_asset_id ~= 0 then
+			output.videoAssetId = self.video_asset_id
+		end
+
+		if self.badge_text ~= nil and self.badge_text ~= "" then
+			output.badgeText = self.badge_text
+		end
+
 		return output
 	end
 
@@ -7791,6 +8038,38 @@ do
 
 		if input.isContentLocked ~= nil then
 			self.is_content_locked = input.isContentLocked
+		end
+
+		if input.title ~= nil then
+			self.title = input.title
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = input.subtitle
+		end
+
+		if input.image_asset_id ~= nil then
+			self.image_asset_id = input.image_asset_id
+		end
+
+		if input.imageAssetId ~= nil then
+			self.image_asset_id = input.imageAssetId
+		end
+
+		if input.video_asset_id ~= nil then
+			self.video_asset_id = input.video_asset_id
+		end
+
+		if input.videoAssetId ~= nil then
+			self.video_asset_id = input.videoAssetId
+		end
+
+		if input.badge_text ~= nil then
+			self.badge_text = input.badge_text
+		end
+
+		if input.badgeText ~= nil then
+			self.badge_text = input.badgeText
 		end
 
 		return self
@@ -11941,6 +12220,134 @@ do
 end
 
 do
+	local _EventNotificationsModalInputDataImpl = {}
+	_EventNotificationsModalInputDataImpl.__index = _EventNotificationsModalInputDataImpl
+
+	function _EventNotificationsModalInputDataImpl.new(
+		data: _EventNotificationsModalInputDataPartialFields?
+	): EventNotificationsModalInputData
+		return setmetatable({
+			event_id = if data == nil or data.event_id == nil then "" else data.event_id,
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+		}, _EventNotificationsModalInputDataImpl :: _EventNotificationsModalInputDataImpl)
+	end
+
+	function _EventNotificationsModalInputDataImpl.encode(self: EventNotificationsModalInputData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.event_id ~= nil and self.event_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.event_id)
+		end
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _EventNotificationsModalInputDataImpl.decode(input: buffer): EventNotificationsModalInputData
+		local self = _EventNotificationsModalInputDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.event_id = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _EventNotificationsModalInputDataImpl.jsonEncode(self: EventNotificationsModalInputData): any
+		local output = {}
+
+		if self.event_id ~= nil and self.event_id ~= "" then
+			output.eventId = self.event_id
+		end
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
+		return output
+	end
+
+	function _EventNotificationsModalInputDataImpl.jsonDecode(
+		input: { [string]: any }
+	): EventNotificationsModalInputData
+		local self = _EventNotificationsModalInputDataImpl.new()
+
+		if input.event_id ~= nil then
+			self.event_id = input.event_id
+		end
+
+		if input.eventId ~= nil then
+			self.event_id = input.eventId
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
+		end
+
+		return self
+	end
+
+	_EventNotificationsModalInputDataImpl.descriptor = {
+		name = "EventNotificationsModalInputData",
+		fullName = "roblox.apppageplatform.shared.v1beta1.EventNotificationsModalInputData",
+	}
+
+	messages.EventNotificationsModalInputData = _EventNotificationsModalInputDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.EventNotificationsModalInputData)
+end
+
+do
 	local _ChartsFeedInputDataImpl = {}
 	_ChartsFeedInputDataImpl.__index = _ChartsFeedInputDataImpl
 
@@ -15095,6 +15502,7 @@ return {
 	EventAttributionRowInputData = messages.EventAttributionRowInputData,
 	EventInfoTableInputData = messages.EventInfoTableInputData,
 	EventDetailsSheetFullBleedInputData = messages.EventDetailsSheetFullBleedInputData,
+	EventNotificationsModalInputData = messages.EventNotificationsModalInputData,
 	ChartsFeedInputData = messages.ChartsFeedInputData,
 	FilterPillsInputData = messages.FilterPillsInputData,
 	FilterPillsInputData_FilterGroup = messages.FilterPillsInputData_FilterGroup,

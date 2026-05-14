@@ -26,7 +26,19 @@ local VOICE_STATE = {
 
 local BAN_REASON = { NUDGE_V3 = 7, }
 
+local VOICE_CONNECTION_SOURCE = {
+	AUTO_CONNECT = 1,
+	IN_EXPERIENCE = 2,
+	SETTINGS_TOGGLE_ON = 3,
+}
+
 export type VoiceJoinProgressType = "Idle" | "Suspended" | "Joining" | "Joined" | "Left"
+
+local VOICE_DISCONNECT_REASON = {
+	USER_DISCONNECT = 1,
+	MODERATED = 2,
+	SYSTEM = 3,
+}
 
 local VOICE_JOIN_PROGRESS = {
 	Idle = "Idle" :: VoiceJoinProgressType, -- Initialization has not been started
@@ -72,6 +84,8 @@ local VOICE_WITH_TC_TOAST_KEY = "VoiceWithTcToast"
 
 return {
 	VOICE_CONTEXT_TYPE = VOICE_CONTEXT_TYPE,
+	VOICE_CONNECTION_SOURCE = VOICE_CONNECTION_SOURCE,
+	VOICE_DISCONNECT_REASON = VOICE_DISCONNECT_REASON,
 	VOICE_JOIN_PROGRESS = VOICE_JOIN_PROGRESS,
 	VOICE_GROUP_TYPE = VOICE_GROUP_TYPE,
 	VOICE_STATE = VOICE_STATE,

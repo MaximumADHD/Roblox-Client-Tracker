@@ -111,14 +111,12 @@ local function AppStyleProvider(props: Props)
 	assert(validateTokens(baseTokens), "Invalid tokens!")
 	-- Use contextTokens (reactive with tokenOverrides) when FoundationProvider is present,
 	-- otherwise fall back to static foundationTokens
-	local tokens: Tokens = if UIBloxConfig.enableFoundationTokenMapping
-		then TokensMappers.addFoundationFlatKeys(
-			baseTokens,
-			if UIBloxConfig.useColorTokensForThemeMapping and foundationProviderPresent
-				then contextTokens
-				else foundationTokens
-		)
-		else baseTokens :: any
+	local tokens: Tokens = TokensMappers.addFoundationFlatKeys(
+		baseTokens,
+		if UIBloxConfig.useColorTokensForThemeMapping and foundationProviderPresent
+			then contextTokens
+			else foundationTokens
+	)
 
 	local appStyle: AppStyle = {
 		Font = getFontFromName(style.fontName, tokens),

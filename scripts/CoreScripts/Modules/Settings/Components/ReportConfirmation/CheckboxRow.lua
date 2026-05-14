@@ -4,11 +4,14 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local Foundation = require(CorePackages.Packages.Foundation)
+local Checkbox = Foundation.Checkbox
+
 
 local withStyle = UIBlox.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
-local Checkbox = UIBlox.App.InputButton.Checkbox
+
 
 local CheckboxRow = Roact.PureComponent:extend("CheckboxRow")
 
@@ -83,12 +86,11 @@ function CheckboxRow:render()
 			}),
 
 			checkbox = Roact.createElement(Checkbox, {
-				size = UDim2.fromOffset(self.props.height, self.props.height),
 				isDisabled = self.props.actionDisabled,
-				isSelected = self.props.checkboxSelected,
+				isChecked = self.props.checkboxSelected,
 				onActivated = self.props.onCheckboxActivated,
-				text = "",
-				layoutOrder = 3,
+				label = "",
+				LayoutOrder = 3,
 			}),
 		})
 	end)

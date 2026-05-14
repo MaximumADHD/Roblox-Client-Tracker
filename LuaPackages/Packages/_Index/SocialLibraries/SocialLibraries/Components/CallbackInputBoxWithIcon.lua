@@ -6,16 +6,13 @@ local Roact = dependencies.Roact
 local CallbackInputBox = require(script.Parent.CallbackInputBox)
 local CallbackInputBoxWithIcon = Roact.PureComponent:extend("CallbackInputBoxWithIcon")
 
-local GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled =
-	require(SocialLibraries.Flags.GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled)
-
 CallbackInputBoxWithIcon.defaultProps = {
 	backgroundTransparency = 0,
 	backgroundColor3 = Color3.new(1, 1, 1),
 	borderColor = nil,
-	borderThickness = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 0 else nil,
-	borderTransparency = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 1 else nil,
-	cornerRadius = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled() then 0 else nil,
+	borderThickness = 0,
+	borderTransparency = 1,
+	cornerRadius = 0,
 
 	iconCellWidth = 60,
 	iconSize = 24,
@@ -50,18 +47,14 @@ function CallbackInputBoxWithIcon:render()
 		BorderSizePixel = 0,
 		Size = UDim2.new(1, 0, 1, 0),
 	}, {
-		UIStroke = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled()
-			then Roact.createElement("UIStroke", {
-				Thickness = self.props.borderThickness,
-				Color = self.props.borderColor,
-				Transparency = self.props.borderTransparency,
-			})
-			else nil,
-		UICorner = if GetFFlagFilteredScrollingListAdditionalCustomizationsEnabled()
-			then Roact.createElement("UICorner", {
-				CornerRadius = UDim.new(0, self.props.cornerRadius),
-			})
-			else nil,
+		UIStroke = Roact.createElement("UIStroke", {
+			Thickness = self.props.borderThickness,
+			Color = self.props.borderColor,
+			Transparency = self.props.borderTransparency,
+		}),
+		UICorner = Roact.createElement("UICorner", {
+			CornerRadius = UDim.new(0, self.props.cornerRadius),
+		}),
 		layout = Roact.createElement("UIListLayout", {
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,

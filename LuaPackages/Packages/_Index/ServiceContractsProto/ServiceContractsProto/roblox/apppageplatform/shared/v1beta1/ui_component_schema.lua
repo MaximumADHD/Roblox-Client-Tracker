@@ -10,6 +10,10 @@ type _Messages =
 	{
 		TemplateArg: _TemplateArgMessage,
 		TemplateArg_LiteralValue: _TemplateArg_LiteralValueMessage,
+		StringArrayProp: _StringArrayPropMessage,
+		StringArrayProp_LiteralValue: _StringArrayProp_LiteralValueMessage,
+		StringArrayProp_ConditionalOption: _StringArrayProp_ConditionalOptionMessage,
+		StringArrayProp_ConditionalOptions: _StringArrayProp_ConditionalOptionsMessage,
 		NestedComponentProp: _NestedComponentPropMessage,
 		NestedComponentProp_ConditionalOption: _NestedComponentProp_ConditionalOptionMessage,
 		NestedComponentProp_ConditionalOptions: _NestedComponentProp_ConditionalOptionsMessage,
@@ -25,6 +29,11 @@ type _Messages =
 		LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderDataMessage,
 		LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue: _LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValueMessage,
 		LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntry: _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryMessage,
+		LazyNestedComponentListProp_Item: _LazyNestedComponentListProp_ItemMessage,
+		LazyNestedComponentListProp_Item_InputsEntry: _LazyNestedComponentListProp_Item_InputsEntryMessage,
+		LazyNestedComponentListProp_ItemList: _LazyNestedComponentListProp_ItemListMessage,
+		LazyNestedComponentListProp_ComponentList: _LazyNestedComponentListProp_ComponentListMessage,
+		LazyNestedComponentListProp_ComponentList_ItemOverridesEntry: _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryMessage,
 		NestedComponentListProp: _NestedComponentListPropMessage,
 		TileSchema: _TileSchemaMessage,
 		TileSchema_Props: _TileSchema_PropsMessage,
@@ -207,7 +216,10 @@ type _Messages =
 		SheetFullBleedSchema_Props: _SheetFullBleedSchema_PropsMessage,
 		SubscriptionCellSchema: _SubscriptionCellSchemaMessage,
 		SubscriptionCellSchema_Props: _SubscriptionCellSchema_PropsMessage,
+		SystemBannerAction: _SystemBannerActionMessage,
 		SystemBannerActionProp: _SystemBannerActionPropMessage,
+		SystemBannerActionProp_ConditionalOption: _SystemBannerActionProp_ConditionalOptionMessage,
+		SystemBannerActionProp_ConditionalOptions: _SystemBannerActionProp_ConditionalOptionsMessage,
 		ArrayOfSystemBannerActionsProp: _ArrayOfSystemBannerActionsPropMessage,
 		ArrayOfSystemBannerActionsProp_ConditionalOption: _ArrayOfSystemBannerActionsProp_ConditionalOptionMessage,
 		ArrayOfSystemBannerActionsProp_ConditionalOptions: _ArrayOfSystemBannerActionsProp_ConditionalOptionsMessage,
@@ -297,6 +309,126 @@ export type TemplateArg_LiteralValue = typeof(setmetatable(
 	{} :: _TemplateArg_LiteralValueImpl
 ))
 type _TemplateArg_LiteralValueMessage = proto.Message<TemplateArg_LiteralValue, _TemplateArg_LiteralValuePartialFields>
+
+type _StringArrayPropImpl = {
+	__index: _StringArrayPropImpl,
+	new: (fields: _StringArrayPropPartialFields?) -> StringArrayProp,
+	encode: (self: StringArrayProp) -> buffer,
+	decode: (input: buffer) -> StringArrayProp,
+	jsonEncode: (self: StringArrayProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StringArrayProp,
+	descriptor: proto.Descriptor,
+}
+
+type _StringArrayPropFields = {
+	kind: (
+		{ type: "literal", value: StringArrayProp_LiteralValue }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
+	)?,
+}
+
+type _StringArrayPropPartialFields = {
+	kind: (
+		{ type: "literal", value: StringArrayProp_LiteralValue }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
+	)?,
+}
+
+export type StringArrayProp = typeof(setmetatable({} :: _StringArrayPropFields, {} :: _StringArrayPropImpl))
+type _StringArrayPropMessage = proto.Message<StringArrayProp, _StringArrayPropPartialFields>
+
+type _StringArrayProp_LiteralValueImpl = {
+	__index: _StringArrayProp_LiteralValueImpl,
+	new: (fields: _StringArrayProp_LiteralValuePartialFields?) -> StringArrayProp_LiteralValue,
+	encode: (self: StringArrayProp_LiteralValue) -> buffer,
+	decode: (input: buffer) -> StringArrayProp_LiteralValue,
+	jsonEncode: (self: StringArrayProp_LiteralValue) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StringArrayProp_LiteralValue,
+	descriptor: proto.Descriptor,
+}
+
+type _StringArrayProp_LiteralValueFields = {
+	items: { string },
+}
+
+type _StringArrayProp_LiteralValuePartialFields = {
+	items: { string }?,
+}
+
+export type StringArrayProp_LiteralValue = typeof(setmetatable(
+	{} :: _StringArrayProp_LiteralValueFields,
+	{} :: _StringArrayProp_LiteralValueImpl
+))
+type _StringArrayProp_LiteralValueMessage = proto.Message<
+	StringArrayProp_LiteralValue,
+	_StringArrayProp_LiteralValuePartialFields
+>
+
+type _StringArrayProp_ConditionalOptionImpl = {
+	__index: _StringArrayProp_ConditionalOptionImpl,
+	new: (fields: _StringArrayProp_ConditionalOptionPartialFields?) -> StringArrayProp_ConditionalOption,
+	encode: (self: StringArrayProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> StringArrayProp_ConditionalOption,
+	jsonEncode: (self: StringArrayProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StringArrayProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _StringArrayProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: StringArrayProp_LiteralValue }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
+	)?,
+}
+
+type _StringArrayProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: StringArrayProp_LiteralValue }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: StringArrayProp_ConditionalOptions }
+	)?,
+}
+
+export type StringArrayProp_ConditionalOption = typeof(setmetatable(
+	{} :: _StringArrayProp_ConditionalOptionFields,
+	{} :: _StringArrayProp_ConditionalOptionImpl
+))
+type _StringArrayProp_ConditionalOptionMessage = proto.Message<
+	StringArrayProp_ConditionalOption,
+	_StringArrayProp_ConditionalOptionPartialFields
+>
+
+type _StringArrayProp_ConditionalOptionsImpl = {
+	__index: _StringArrayProp_ConditionalOptionsImpl,
+	new: (fields: _StringArrayProp_ConditionalOptionsPartialFields?) -> StringArrayProp_ConditionalOptions,
+	encode: (self: StringArrayProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> StringArrayProp_ConditionalOptions,
+	jsonEncode: (self: StringArrayProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> StringArrayProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _StringArrayProp_ConditionalOptionsFields = {
+	options: { StringArrayProp_ConditionalOption },
+}
+
+type _StringArrayProp_ConditionalOptionsPartialFields = {
+	options: { StringArrayProp_ConditionalOption }?,
+}
+
+export type StringArrayProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _StringArrayProp_ConditionalOptionsFields,
+	{} :: _StringArrayProp_ConditionalOptionsImpl
+))
+type _StringArrayProp_ConditionalOptionsMessage = proto.Message<
+	StringArrayProp_ConditionalOptions,
+	_StringArrayProp_ConditionalOptionsPartialFields
+>
 
 type _NestedComponentPropImpl = {
 	__index: _NestedComponentPropImpl,
@@ -459,6 +591,7 @@ type _LazyNestedComponentListPropFields = {
 		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
 		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
 		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
+		| { type: "component_list", value: LazyNestedComponentListProp_ComponentList }
 	)?,
 }
 
@@ -468,6 +601,7 @@ type _LazyNestedComponentListPropPartialFields = {
 		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
 		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
 		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
+		| { type: "component_list", value: LazyNestedComponentListProp_ComponentList }
 	)?,
 }
 
@@ -497,6 +631,7 @@ type _LazyNestedComponentListProp_ConditionalOptionFields = {
 	kind: (
 		{ type: "literal", value: LazyNestedComponentListProp_TemplateData }
 		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
+		| { type: "component_list", value: LazyNestedComponentListProp_ComponentList }
 	)?,
 }
 
@@ -505,6 +640,7 @@ type _LazyNestedComponentListProp_ConditionalOptionPartialFields = {
 	kind: (
 		{ type: "literal", value: LazyNestedComponentListProp_TemplateData }
 		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
+		| { type: "component_list", value: LazyNestedComponentListProp_ComponentList }
 	)?,
 }
 
@@ -771,6 +907,169 @@ type _LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryMessag
 	_LazyNestedComponentListProp_OrderedTemplateData_TemplateDataMapEntryPartialFields
 >
 
+type _LazyNestedComponentListProp_ItemImpl = {
+	__index: _LazyNestedComponentListProp_ItemImpl,
+	new: (fields: _LazyNestedComponentListProp_ItemPartialFields?) -> LazyNestedComponentListProp_Item,
+	encode: (self: LazyNestedComponentListProp_Item) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_Item,
+	jsonEncode: (self: LazyNestedComponentListProp_Item) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_Item,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_ItemFields = {
+	identifier: string?,
+	roblox_component: string?,
+	inline_component: UiComponentSchema?,
+	inputs: { [string]: TemplateArg },
+	sort_rank: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+}
+
+type _LazyNestedComponentListProp_ItemPartialFields = {
+	identifier: string?,
+	roblox_component: string?,
+	inline_component: UiComponentSchema?,
+	inputs: { [string]: TemplateArg }?,
+	sort_rank: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+}
+
+export type LazyNestedComponentListProp_Item = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_ItemFields,
+	{} :: _LazyNestedComponentListProp_ItemImpl
+))
+type _LazyNestedComponentListProp_ItemMessage = proto.Message<
+	LazyNestedComponentListProp_Item,
+	_LazyNestedComponentListProp_ItemPartialFields
+>
+
+type _LazyNestedComponentListProp_Item_InputsEntryImpl = {
+	__index: _LazyNestedComponentListProp_Item_InputsEntryImpl,
+	new: (
+		fields: _LazyNestedComponentListProp_Item_InputsEntryPartialFields?
+	) -> LazyNestedComponentListProp_Item_InputsEntry,
+	encode: (self: LazyNestedComponentListProp_Item_InputsEntry) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_Item_InputsEntry,
+	jsonEncode: (self: LazyNestedComponentListProp_Item_InputsEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_Item_InputsEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_Item_InputsEntryFields = {
+	key: string,
+	value: TemplateArg?,
+}
+
+type _LazyNestedComponentListProp_Item_InputsEntryPartialFields = {
+	key: string?,
+	value: TemplateArg?,
+}
+
+export type LazyNestedComponentListProp_Item_InputsEntry = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_Item_InputsEntryFields,
+	{} :: _LazyNestedComponentListProp_Item_InputsEntryImpl
+))
+type _LazyNestedComponentListProp_Item_InputsEntryMessage = proto.Message<
+	LazyNestedComponentListProp_Item_InputsEntry,
+	_LazyNestedComponentListProp_Item_InputsEntryPartialFields
+>
+
+type _LazyNestedComponentListProp_ItemListImpl = {
+	__index: _LazyNestedComponentListProp_ItemListImpl,
+	new: (fields: _LazyNestedComponentListProp_ItemListPartialFields?) -> LazyNestedComponentListProp_ItemList,
+	encode: (self: LazyNestedComponentListProp_ItemList) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_ItemList,
+	jsonEncode: (self: LazyNestedComponentListProp_ItemList) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_ItemList,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_ItemListFields = {
+	items: { LazyNestedComponentListProp_Item },
+}
+
+type _LazyNestedComponentListProp_ItemListPartialFields = {
+	items: { LazyNestedComponentListProp_Item }?,
+}
+
+export type LazyNestedComponentListProp_ItemList = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_ItemListFields,
+	{} :: _LazyNestedComponentListProp_ItemListImpl
+))
+type _LazyNestedComponentListProp_ItemListMessage = proto.Message<
+	LazyNestedComponentListProp_ItemList,
+	_LazyNestedComponentListProp_ItemListPartialFields
+>
+
+type _LazyNestedComponentListProp_ComponentListImpl = {
+	__index: _LazyNestedComponentListProp_ComponentListImpl,
+	new: (
+		fields: _LazyNestedComponentListProp_ComponentListPartialFields?
+	) -> LazyNestedComponentListProp_ComponentList,
+	encode: (self: LazyNestedComponentListProp_ComponentList) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_ComponentList,
+	jsonEncode: (self: LazyNestedComponentListProp_ComponentList) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_ComponentList,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_ComponentListFields = {
+	source: (
+		{ type: "literal", value: LazyNestedComponentListProp_ItemList } | { type: "binding_path", value: string }
+	)?,
+	default_item: LazyNestedComponentListProp_Item?,
+	ordered_identifiers: StringArrayProp?,
+	item_overrides: { [string]: LazyNestedComponentListProp_Item },
+}
+
+type _LazyNestedComponentListProp_ComponentListPartialFields = {
+	source: (
+		{ type: "literal", value: LazyNestedComponentListProp_ItemList } | { type: "binding_path", value: string }
+	)?,
+	default_item: LazyNestedComponentListProp_Item?,
+	ordered_identifiers: StringArrayProp?,
+	item_overrides: { [string]: LazyNestedComponentListProp_Item }?,
+}
+
+export type LazyNestedComponentListProp_ComponentList = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_ComponentListFields,
+	{} :: _LazyNestedComponentListProp_ComponentListImpl
+))
+type _LazyNestedComponentListProp_ComponentListMessage = proto.Message<
+	LazyNestedComponentListProp_ComponentList,
+	_LazyNestedComponentListProp_ComponentListPartialFields
+>
+
+type _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl = {
+	__index: _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl,
+	new: (
+		fields: _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryPartialFields?
+	) -> LazyNestedComponentListProp_ComponentList_ItemOverridesEntry,
+	encode: (self: LazyNestedComponentListProp_ComponentList_ItemOverridesEntry) -> buffer,
+	decode: (input: buffer) -> LazyNestedComponentListProp_ComponentList_ItemOverridesEntry,
+	jsonEncode: (self: LazyNestedComponentListProp_ComponentList_ItemOverridesEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LazyNestedComponentListProp_ComponentList_ItemOverridesEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryFields = {
+	key: string,
+	value: LazyNestedComponentListProp_Item?,
+}
+
+type _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryPartialFields = {
+	key: string?,
+	value: LazyNestedComponentListProp_Item?,
+}
+
+export type LazyNestedComponentListProp_ComponentList_ItemOverridesEntry = typeof(setmetatable(
+	{} :: _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryFields,
+	{} :: _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl
+))
+type _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryMessage = proto.Message<
+	LazyNestedComponentListProp_ComponentList_ItemOverridesEntry,
+	_LazyNestedComponentListProp_ComponentList_ItemOverridesEntryPartialFields
+>
+
 type _NestedComponentListPropImpl = {
 	__index: _NestedComponentListPropImpl,
 	new: (fields: _NestedComponentListPropPartialFields?) -> NestedComponentListProp,
@@ -787,6 +1086,7 @@ type _NestedComponentListPropFields = {
 		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
 		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
 		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
+		| { type: "component_list", value: LazyNestedComponentListProp_ComponentList }
 	)?,
 }
 
@@ -796,6 +1096,7 @@ type _NestedComponentListPropPartialFields = {
 		| { type: "item_list", value: LazyNestedComponentListProp_TemplateDataList }
 		| { type: "conditional", value: LazyNestedComponentListProp_ConditionalOptions }
 		| { type: "ordered_template_data", value: LazyNestedComponentListProp_OrderedTemplateData }
+		| { type: "component_list", value: LazyNestedComponentListProp_ComponentList }
 	)?,
 }
 
@@ -1253,6 +1554,7 @@ type _ButtonSchema_PropsFields = {
 	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	input_delay: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	fill_behavior: _roblox_apppageplatform_shared_v1beta1_prop_types.FillBehaviorProp?,
 }
 
 type _ButtonSchema_PropsPartialFields = {
@@ -1273,6 +1575,7 @@ type _ButtonSchema_PropsPartialFields = {
 	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	input_delay: _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp?,
+	fill_behavior: _roblox_apppageplatform_shared_v1beta1_prop_types.FillBehaviorProp?,
 }
 
 export type ButtonSchema_Props = typeof(setmetatable({} :: _ButtonSchema_PropsFields, {} :: _ButtonSchema_PropsImpl))
@@ -1323,6 +1626,8 @@ type _IconButtonSchema_PropsFields = {
 	is_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.InputSizeProp?,
 }
 
 type _IconButtonSchema_PropsPartialFields = {
@@ -1337,6 +1642,8 @@ type _IconButtonSchema_PropsPartialFields = {
 	is_disabled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.InputSizeProp?,
 }
 
 export type IconButtonSchema_Props = typeof(setmetatable(
@@ -2489,6 +2796,7 @@ type _PlayButtonSchema_PropsFields = {
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	experience_join_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
 	applied_filters: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _PlayButtonSchema_PropsPartialFields = {
@@ -2509,6 +2817,7 @@ type _PlayButtonSchema_PropsPartialFields = {
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	experience_join_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
 	applied_filters: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type PlayButtonSchema_Props = typeof(setmetatable(
@@ -3143,6 +3452,7 @@ type _InfoTableSchema_PropsFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	header_component: NestedComponentProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _InfoTableSchema_PropsPartialFields = {
@@ -3154,6 +3464,7 @@ type _InfoTableSchema_PropsPartialFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	header_component: NestedComponentProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type InfoTableSchema_Props = typeof(setmetatable(
@@ -3200,6 +3511,7 @@ type _InfoTableCellSchema_PropsFields = {
 	value_component: NestedComponentProp?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	selectable: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _InfoTableCellSchema_PropsPartialFields = {
@@ -3207,6 +3519,7 @@ type _InfoTableCellSchema_PropsPartialFields = {
 	value_component: NestedComponentProp?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	selectable: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type InfoTableCellSchema_Props = typeof(setmetatable(
@@ -3410,6 +3723,8 @@ type _ExpandableTextSchema_PropsFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	header_component: NestedComponentProp?,
+	text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	pressed_text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 }
 
 type _ExpandableTextSchema_PropsPartialFields = {
@@ -3421,6 +3736,8 @@ type _ExpandableTextSchema_PropsPartialFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	header_component: NestedComponentProp?,
+	text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	pressed_text_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
 }
 
 export type ExpandableTextSchema_Props = typeof(setmetatable(
@@ -7100,19 +7417,23 @@ type _SubscriptionCellSchema_PropsImpl = {
 }
 
 type _SubscriptionCellSchema_PropsFields = {
-	content_row: NestedComponentProp?,
-	button: NestedComponentProp?,
+	content_row_component: NestedComponentProp?,
+	button_component: NestedComponentProp?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	content_row_slot_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	button_slot_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _SubscriptionCellSchema_PropsPartialFields = {
-	content_row: NestedComponentProp?,
-	button: NestedComponentProp?,
+	content_row_component: NestedComponentProp?,
+	button_component: NestedComponentProp?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	content_row_slot_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	button_slot_tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type SubscriptionCellSchema_Props = typeof(setmetatable(
@@ -7123,6 +7444,31 @@ type _SubscriptionCellSchema_PropsMessage = proto.Message<
 	SubscriptionCellSchema_Props,
 	_SubscriptionCellSchema_PropsPartialFields
 >
+
+type _SystemBannerActionImpl = {
+	__index: _SystemBannerActionImpl,
+	new: (fields: _SystemBannerActionPartialFields?) -> SystemBannerAction,
+	encode: (self: SystemBannerAction) -> buffer,
+	decode: (input: buffer) -> SystemBannerAction,
+	jsonEncode: (self: SystemBannerAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SystemBannerAction,
+	descriptor: proto.Descriptor,
+}
+
+type _SystemBannerActionFields = {
+	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _SystemBannerActionPartialFields = {
+	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type SystemBannerAction = typeof(setmetatable({} :: _SystemBannerActionFields, {} :: _SystemBannerActionImpl))
+type _SystemBannerActionMessage = proto.Message<SystemBannerAction, _SystemBannerActionPartialFields>
 
 type _SystemBannerActionPropImpl = {
 	__index: _SystemBannerActionPropImpl,
@@ -7135,15 +7481,19 @@ type _SystemBannerActionPropImpl = {
 }
 
 type _SystemBannerActionPropFields = {
-	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
-	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	kind: (
+		{ type: "literal", value: SystemBannerAction }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: SystemBannerActionProp_ConditionalOptions }
+	)?,
 }
 
 type _SystemBannerActionPropPartialFields = {
-	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
-	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	kind: (
+		{ type: "literal", value: SystemBannerAction }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: SystemBannerActionProp_ConditionalOptions }
+	)?,
 }
 
 export type SystemBannerActionProp = typeof(setmetatable(
@@ -7151,6 +7501,64 @@ export type SystemBannerActionProp = typeof(setmetatable(
 	{} :: _SystemBannerActionPropImpl
 ))
 type _SystemBannerActionPropMessage = proto.Message<SystemBannerActionProp, _SystemBannerActionPropPartialFields>
+
+type _SystemBannerActionProp_ConditionalOptionImpl = {
+	__index: _SystemBannerActionProp_ConditionalOptionImpl,
+	new: (fields: _SystemBannerActionProp_ConditionalOptionPartialFields?) -> SystemBannerActionProp_ConditionalOption,
+	encode: (self: SystemBannerActionProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> SystemBannerActionProp_ConditionalOption,
+	jsonEncode: (self: SystemBannerActionProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SystemBannerActionProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _SystemBannerActionProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: SystemBannerAction } | { type: "binding_path", value: string })?,
+}
+
+type _SystemBannerActionProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: SystemBannerAction } | { type: "binding_path", value: string })?,
+}
+
+export type SystemBannerActionProp_ConditionalOption = typeof(setmetatable(
+	{} :: _SystemBannerActionProp_ConditionalOptionFields,
+	{} :: _SystemBannerActionProp_ConditionalOptionImpl
+))
+type _SystemBannerActionProp_ConditionalOptionMessage = proto.Message<
+	SystemBannerActionProp_ConditionalOption,
+	_SystemBannerActionProp_ConditionalOptionPartialFields
+>
+
+type _SystemBannerActionProp_ConditionalOptionsImpl = {
+	__index: _SystemBannerActionProp_ConditionalOptionsImpl,
+	new: (
+		fields: _SystemBannerActionProp_ConditionalOptionsPartialFields?
+	) -> SystemBannerActionProp_ConditionalOptions,
+	encode: (self: SystemBannerActionProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> SystemBannerActionProp_ConditionalOptions,
+	jsonEncode: (self: SystemBannerActionProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> SystemBannerActionProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _SystemBannerActionProp_ConditionalOptionsFields = {
+	options: { SystemBannerActionProp_ConditionalOption },
+}
+
+type _SystemBannerActionProp_ConditionalOptionsPartialFields = {
+	options: { SystemBannerActionProp_ConditionalOption }?,
+}
+
+export type SystemBannerActionProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _SystemBannerActionProp_ConditionalOptionsFields,
+	{} :: _SystemBannerActionProp_ConditionalOptionsImpl
+))
+type _SystemBannerActionProp_ConditionalOptionsMessage = proto.Message<
+	SystemBannerActionProp_ConditionalOptions,
+	_SystemBannerActionProp_ConditionalOptionsPartialFields
+>
 
 type _ArrayOfSystemBannerActionsPropImpl = {
 	__index: _ArrayOfSystemBannerActionsPropImpl,
@@ -7388,11 +7796,17 @@ type _PlayWithRewardSchema_PropsImpl = {
 type _PlayWithRewardSchema_PropsFields = {
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id_override: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	experience_join_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	use_larger_styles: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _PlayWithRewardSchema_PropsPartialFields = {
 	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	place_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	place_id_override: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	experience_join_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	use_larger_styles: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type PlayWithRewardSchema_Props = typeof(setmetatable(
@@ -7903,6 +8317,532 @@ do
 end
 
 do
+	local _StringArrayPropImpl = {}
+	_StringArrayPropImpl.__index = _StringArrayPropImpl
+
+	function _StringArrayPropImpl.new(data: _StringArrayPropPartialFields?): StringArrayProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _StringArrayPropImpl :: _StringArrayPropImpl)
+	end
+
+	function _StringArrayPropImpl.encode(self: StringArrayProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StringArrayPropImpl.decode(input: buffer): StringArrayProp
+		local self = _StringArrayPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.StringArrayProp_ConditionalOptions.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StringArrayPropImpl.jsonEncode(self: StringArrayProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _StringArrayPropImpl.jsonDecode(input: { [string]: any }): StringArrayProp
+		local self = _StringArrayPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.StringArrayProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_StringArrayPropImpl.descriptor = {
+		name = "StringArrayProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.StringArrayProp",
+	}
+
+	messages.StringArrayProp = _StringArrayPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StringArrayProp)
+end
+
+do
+	local _StringArrayProp_LiteralValueImpl = {}
+	_StringArrayProp_LiteralValueImpl.__index = _StringArrayProp_LiteralValueImpl
+
+	function _StringArrayProp_LiteralValueImpl.new(
+		data: _StringArrayProp_LiteralValuePartialFields?
+	): StringArrayProp_LiteralValue
+		return setmetatable({
+			items = if data == nil or data.items == nil then {} else data.items,
+		}, _StringArrayProp_LiteralValueImpl :: _StringArrayProp_LiteralValueImpl)
+	end
+
+	function _StringArrayProp_LiteralValueImpl.encode(self: StringArrayProp_LiteralValue): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StringArrayProp_LiteralValueImpl.decode(input: buffer): StringArrayProp_LiteralValue
+		local self = _StringArrayProp_LiteralValueImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.items, buffer.tostring(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StringArrayProp_LiteralValueImpl.jsonEncode(self: StringArrayProp_LiteralValue): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value)
+			end
+			output.items = newOutput
+		end
+
+		return output
+	end
+
+	function _StringArrayProp_LiteralValueImpl.jsonDecode(input: { [string]: any }): StringArrayProp_LiteralValue
+		local self = _StringArrayProp_LiteralValueImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { string } = {}
+			for _, value in input.items do
+				table.insert(newOutput, value)
+			end
+
+			self.items = newOutput
+		end
+
+		return self
+	end
+
+	_StringArrayProp_LiteralValueImpl.descriptor = {
+		name = "StringArrayProp_LiteralValue",
+		fullName = "roblox.apppageplatform.shared.v1beta1.LiteralValue",
+	}
+
+	messages.StringArrayProp_LiteralValue = _StringArrayProp_LiteralValueImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StringArrayProp_LiteralValue)
+end
+
+do
+	local _StringArrayProp_ConditionalOptionImpl = {}
+	_StringArrayProp_ConditionalOptionImpl.__index = _StringArrayProp_ConditionalOptionImpl
+
+	function _StringArrayProp_ConditionalOptionImpl.new(
+		data: _StringArrayProp_ConditionalOptionPartialFields?
+	): StringArrayProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _StringArrayProp_ConditionalOptionImpl :: _StringArrayProp_ConditionalOptionImpl)
+	end
+
+	function _StringArrayProp_ConditionalOptionImpl.encode(self: StringArrayProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StringArrayProp_ConditionalOptionImpl.decode(input: buffer): StringArrayProp_ConditionalOption
+		local self = _StringArrayProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.StringArrayProp_ConditionalOptions.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StringArrayProp_ConditionalOptionImpl.jsonEncode(self: StringArrayProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _StringArrayProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): StringArrayProp_ConditionalOption
+		local self = _StringArrayProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = messages.StringArrayProp_LiteralValue.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.StringArrayProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_StringArrayProp_ConditionalOptionImpl.descriptor = {
+		name = "StringArrayProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.StringArrayProp_ConditionalOption = _StringArrayProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StringArrayProp_ConditionalOption)
+end
+
+do
+	local _StringArrayProp_ConditionalOptionsImpl = {}
+	_StringArrayProp_ConditionalOptionsImpl.__index = _StringArrayProp_ConditionalOptionsImpl
+
+	function _StringArrayProp_ConditionalOptionsImpl.new(
+		data: _StringArrayProp_ConditionalOptionsPartialFields?
+	): StringArrayProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _StringArrayProp_ConditionalOptionsImpl :: _StringArrayProp_ConditionalOptionsImpl)
+	end
+
+	function _StringArrayProp_ConditionalOptionsImpl.encode(self: StringArrayProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = (value :: any):encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _StringArrayProp_ConditionalOptionsImpl.decode(input: buffer): StringArrayProp_ConditionalOptions
+		local self = _StringArrayProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.StringArrayProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _StringArrayProp_ConditionalOptionsImpl.jsonEncode(self: StringArrayProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, (value :: any):jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _StringArrayProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): StringArrayProp_ConditionalOptions
+		local self = _StringArrayProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { StringArrayProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.StringArrayProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_StringArrayProp_ConditionalOptionsImpl.descriptor = {
+		name = "StringArrayProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.StringArrayProp_ConditionalOptions = _StringArrayProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.StringArrayProp_ConditionalOptions)
+end
+
+do
 	local _NestedComponentPropImpl = {}
 	_NestedComponentPropImpl.__index = _NestedComponentPropImpl
 
@@ -8289,7 +9229,7 @@ do
 				local mapCursor = 0
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
-				local encoded = value:encode()
+				local encoded = (value :: any):encode()
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
@@ -8379,7 +9319,7 @@ do
 		if self.inputs ~= nil and next(self.inputs) ~= nil then
 			local newOutput = {}
 			for key, value in self.inputs do
-				newOutput[key] = value:jsonEncode()
+				newOutput[key] = (value :: any):jsonEncode()
 			end
 			output.inputs = newOutput
 		end
@@ -8598,6 +9538,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "component_list" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -8650,6 +9594,14 @@ do
 						value = messages.LazyNestedComponentListProp_OrderedTemplateData.decode(value),
 					}
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "component_list",
+						value = messages.LazyNestedComponentListProp_ComponentList.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -8686,6 +9638,8 @@ do
 				output.conditional = self.kind.value:jsonEncode()
 			elseif self.kind.type == "ordered_template_data" then
 				output.orderedTemplateData = self.kind.value:jsonEncode()
+			elseif self.kind.type == "component_list" then
+				output.componentList = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -8746,6 +9700,20 @@ do
 			}
 		end
 
+		if input.component_list ~= nil then
+			self.kind = {
+				type = "component_list",
+				value = messages.LazyNestedComponentListProp_ComponentList.jsonDecode(input.component_list),
+			}
+		end
+
+		if input.componentList ~= nil then
+			self.kind = {
+				type = "component_list",
+				value = messages.LazyNestedComponentListProp_ComponentList.jsonDecode(input.componentList),
+			}
+		end
+
 		return self
 	end
 
@@ -8793,6 +9761,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "component_list" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -8836,6 +9808,14 @@ do
 						value = messages.LazyNestedComponentListProp_TemplateDataList.decode(value),
 					}
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "component_list",
+						value = messages.LazyNestedComponentListProp_ComponentList.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -8874,6 +9854,8 @@ do
 				output.literal = self.kind.value:jsonEncode()
 			elseif self.kind.type == "item_list" then
 				output.itemList = self.kind.value:jsonEncode()
+			elseif self.kind.type == "component_list" then
+				output.componentList = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -8908,6 +9890,20 @@ do
 			self.kind = {
 				type = "item_list",
 				value = messages.LazyNestedComponentListProp_TemplateDataList.jsonDecode(input.itemList),
+			}
+		end
+
+		if input.component_list ~= nil then
+			self.kind = {
+				type = "component_list",
+				value = messages.LazyNestedComponentListProp_ComponentList.jsonDecode(input.component_list),
+			}
+		end
+
+		if input.componentList ~= nil then
+			self.kind = {
+				type = "component_list",
+				value = messages.LazyNestedComponentListProp_ComponentList.jsonDecode(input.componentList),
 			}
 		end
 
@@ -9080,7 +10076,7 @@ do
 				local mapCursor = 0
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
-				local encoded = value:encode()
+				local encoded = (value :: any):encode()
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
@@ -9182,7 +10178,7 @@ do
 		if self.inputs ~= nil and next(self.inputs) ~= nil then
 			local newOutput = {}
 			for key, value in self.inputs do
-				newOutput[key] = value:jsonEncode()
+				newOutput[key] = (value :: any):jsonEncode()
 			end
 			output.inputs = newOutput
 		end
@@ -9533,7 +10529,7 @@ do
 				local mapCursor = 0
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
-				local encoded = value:encode()
+				local encoded = (value :: any):encode()
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
@@ -9626,7 +10622,7 @@ do
 		if self.template_data_map ~= nil and next(self.template_data_map) ~= nil then
 			local newOutput = {}
 			for key, value in self.template_data_map do
-				newOutput[key] = value:jsonEncode()
+				newOutput[key] = (value :: any):jsonEncode()
 			end
 			output.templateDataMap = newOutput
 		end
@@ -10092,6 +11088,829 @@ do
 end
 
 do
+	local _LazyNestedComponentListProp_ItemImpl = {}
+	_LazyNestedComponentListProp_ItemImpl.__index = _LazyNestedComponentListProp_ItemImpl
+
+	function _LazyNestedComponentListProp_ItemImpl.new(
+		data: _LazyNestedComponentListProp_ItemPartialFields?
+	): LazyNestedComponentListProp_Item
+		return setmetatable({
+			identifier = if data == nil or data.identifier == nil then nil else data.identifier,
+			roblox_component = if data == nil or data.roblox_component == nil then nil else data.roblox_component,
+			inline_component = if data == nil or data.inline_component == nil then nil else data.inline_component,
+			inputs = if data == nil or data.inputs == nil then {} else data.inputs,
+			sort_rank = if data == nil or data.sort_rank == nil then nil else data.sort_rank,
+		}, _LazyNestedComponentListProp_ItemImpl :: _LazyNestedComponentListProp_ItemImpl)
+	end
+
+	function _LazyNestedComponentListProp_ItemImpl.encode(self: LazyNestedComponentListProp_Item): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.identifier ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.identifier)
+		end
+
+		if self.roblox_component ~= nil then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.roblox_component)
+		end
+
+		if self.inline_component ~= nil then
+			local encoded = self.inline_component:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.inputs ~= nil and next(self.inputs) ~= nil then
+			for key, value in self.inputs do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = (value :: any):encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.sort_rank ~= nil then
+			local encoded = self.sort_rank:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_ItemImpl.decode(input: buffer): LazyNestedComponentListProp_Item
+		local self = _LazyNestedComponentListProp_ItemImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.identifier = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.roblox_component = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.inline_component = messages.UiComponentSchema.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.LazyNestedComponentListProp_Item_InputsEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.TemplateArg.new()
+
+					self.inputs[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sort_rank = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_ItemImpl.jsonEncode(self: LazyNestedComponentListProp_Item): any
+		local output = {}
+
+		if self.identifier ~= nil then
+			output.identifier = self.identifier
+		end
+
+		if self.roblox_component ~= nil then
+			output.robloxComponent = self.roblox_component
+		end
+
+		if self.inline_component ~= nil then
+			output.inlineComponent = self.inline_component:jsonEncode()
+		end
+
+		if self.inputs ~= nil and next(self.inputs) ~= nil then
+			local newOutput = {}
+			for key, value in self.inputs do
+				newOutput[key] = (value :: any):jsonEncode()
+			end
+			output.inputs = newOutput
+		end
+
+		if self.sort_rank ~= nil then
+			output.sortRank = self.sort_rank:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_ItemImpl.jsonDecode(
+		input: { [string]: any }
+	): LazyNestedComponentListProp_Item
+		local self = _LazyNestedComponentListProp_ItemImpl.new()
+
+		if input.identifier ~= nil then
+			self.identifier = input.identifier
+		end
+
+		if input.roblox_component ~= nil then
+			self.roblox_component = input.roblox_component
+		end
+
+		if input.robloxComponent ~= nil then
+			self.roblox_component = input.robloxComponent
+		end
+
+		if input.inline_component ~= nil then
+			self.inline_component = messages.UiComponentSchema.jsonDecode(input.inline_component)
+		end
+
+		if input.inlineComponent ~= nil then
+			self.inline_component = messages.UiComponentSchema.jsonDecode(input.inlineComponent)
+		end
+
+		if input.inputs ~= nil then
+			local newOutput: { [string]: TemplateArg } = {}
+			for key, value in input.inputs do
+				newOutput[key] = messages.TemplateArg.jsonDecode(value)
+			end
+
+			self.inputs = newOutput
+		end
+
+		if input.sort_rank ~= nil then
+			self.sort_rank = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.sort_rank)
+		end
+
+		if input.sortRank ~= nil then
+			self.sort_rank = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.sortRank)
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_ItemImpl.descriptor = {
+		name = "LazyNestedComponentListProp_Item",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Item",
+	}
+
+	messages.LazyNestedComponentListProp_Item = _LazyNestedComponentListProp_ItemImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_Item)
+end
+
+do
+	local _LazyNestedComponentListProp_Item_InputsEntryImpl = {}
+	_LazyNestedComponentListProp_Item_InputsEntryImpl.__index = _LazyNestedComponentListProp_Item_InputsEntryImpl
+
+	function _LazyNestedComponentListProp_Item_InputsEntryImpl.new(
+		data: _LazyNestedComponentListProp_Item_InputsEntryPartialFields?
+	): LazyNestedComponentListProp_Item_InputsEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _LazyNestedComponentListProp_Item_InputsEntryImpl :: _LazyNestedComponentListProp_Item_InputsEntryImpl)
+	end
+
+	function _LazyNestedComponentListProp_Item_InputsEntryImpl.encode(
+		self: LazyNestedComponentListProp_Item_InputsEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_Item_InputsEntryImpl.decode(
+		input: buffer
+	): LazyNestedComponentListProp_Item_InputsEntry
+		local self = _LazyNestedComponentListProp_Item_InputsEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.TemplateArg.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_Item_InputsEntryImpl.jsonEncode(
+		self: LazyNestedComponentListProp_Item_InputsEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_Item_InputsEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): LazyNestedComponentListProp_Item_InputsEntry
+		local self = _LazyNestedComponentListProp_Item_InputsEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.TemplateArg.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_Item_InputsEntryImpl.descriptor = {
+		name = "LazyNestedComponentListProp_Item_InputsEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.InputsEntry",
+	}
+
+	messages.LazyNestedComponentListProp_Item_InputsEntry = _LazyNestedComponentListProp_Item_InputsEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_Item_InputsEntry)
+end
+
+do
+	local _LazyNestedComponentListProp_ItemListImpl = {}
+	_LazyNestedComponentListProp_ItemListImpl.__index = _LazyNestedComponentListProp_ItemListImpl
+
+	function _LazyNestedComponentListProp_ItemListImpl.new(
+		data: _LazyNestedComponentListProp_ItemListPartialFields?
+	): LazyNestedComponentListProp_ItemList
+		return setmetatable({
+			items = if data == nil or data.items == nil then {} else data.items,
+		}, _LazyNestedComponentListProp_ItemListImpl :: _LazyNestedComponentListProp_ItemListImpl)
+	end
+
+	function _LazyNestedComponentListProp_ItemListImpl.encode(self: LazyNestedComponentListProp_ItemList): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				local encoded = (value :: any):encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_ItemListImpl.decode(input: buffer): LazyNestedComponentListProp_ItemList
+		local self = _LazyNestedComponentListProp_ItemListImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.items, messages.LazyNestedComponentListProp_Item.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_ItemListImpl.jsonEncode(self: LazyNestedComponentListProp_ItemList): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, (value :: any):jsonEncode())
+			end
+			output.items = newOutput
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_ItemListImpl.jsonDecode(
+		input: { [string]: any }
+	): LazyNestedComponentListProp_ItemList
+		local self = _LazyNestedComponentListProp_ItemListImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { LazyNestedComponentListProp_Item } = {}
+			for _, value in input.items do
+				table.insert(newOutput, messages.LazyNestedComponentListProp_Item.jsonDecode(value))
+			end
+
+			self.items = newOutput
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_ItemListImpl.descriptor = {
+		name = "LazyNestedComponentListProp_ItemList",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ItemList",
+	}
+
+	messages.LazyNestedComponentListProp_ItemList = _LazyNestedComponentListProp_ItemListImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_ItemList)
+end
+
+do
+	local _LazyNestedComponentListProp_ComponentListImpl = {}
+	_LazyNestedComponentListProp_ComponentListImpl.__index = _LazyNestedComponentListProp_ComponentListImpl
+
+	function _LazyNestedComponentListProp_ComponentListImpl.new(
+		data: _LazyNestedComponentListProp_ComponentListPartialFields?
+	): LazyNestedComponentListProp_ComponentList
+		return setmetatable({
+			source = if data == nil or data.source == nil then nil else data.source,
+			default_item = if data == nil or data.default_item == nil then nil else data.default_item,
+			ordered_identifiers = if data == nil or data.ordered_identifiers == nil
+				then nil
+				else data.ordered_identifiers,
+			item_overrides = if data == nil or data.item_overrides == nil then {} else data.item_overrides,
+		}, _LazyNestedComponentListProp_ComponentListImpl :: _LazyNestedComponentListProp_ComponentListImpl)
+	end
+
+	function _LazyNestedComponentListProp_ComponentListImpl.encode(
+		self: LazyNestedComponentListProp_ComponentList
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.source ~= nil then
+			if self.source.type == "literal" then
+				local encoded = self.source.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.source.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.source.value)
+			end
+		end
+
+		if self.default_item ~= nil then
+			local encoded = self.default_item:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.ordered_identifiers ~= nil then
+			local encoded = self.ordered_identifiers:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.item_overrides ~= nil and next(self.item_overrides) ~= nil then
+			for key, value in self.item_overrides do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = (value :: any):encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_ComponentListImpl.decode(
+		input: buffer
+	): LazyNestedComponentListProp_ComponentList
+		local self = _LazyNestedComponentListProp_ComponentListImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source =
+						{ type = "literal", value = messages.LazyNestedComponentListProp_ItemList.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.default_item = messages.LazyNestedComponentListProp_Item.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.ordered_identifiers = messages.StringArrayProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.LazyNestedComponentListProp_ComponentList_ItemOverridesEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = messages.LazyNestedComponentListProp_Item.new()
+
+					self.item_overrides[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_ComponentListImpl.jsonEncode(
+		self: LazyNestedComponentListProp_ComponentList
+	): any
+		local output = {}
+
+		if self.source ~= nil then
+			if self.source.type == "literal" then
+				output.literal = self.source.value:jsonEncode()
+			elseif self.source.type == "binding_path" then
+				output.bindingPath = self.source.value
+			end
+		end
+
+		if self.default_item ~= nil then
+			output.defaultItem = self.default_item:jsonEncode()
+		end
+
+		if self.ordered_identifiers ~= nil then
+			output.orderedIdentifiers = self.ordered_identifiers:jsonEncode()
+		end
+
+		if self.item_overrides ~= nil and next(self.item_overrides) ~= nil then
+			local newOutput = {}
+			for key, value in self.item_overrides do
+				newOutput[key] = (value :: any):jsonEncode()
+			end
+			output.itemOverrides = newOutput
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_ComponentListImpl.jsonDecode(
+		input: { [string]: any }
+	): LazyNestedComponentListProp_ComponentList
+		local self = _LazyNestedComponentListProp_ComponentListImpl.new()
+
+		if input.literal ~= nil then
+			self.source =
+				{ type = "literal", value = messages.LazyNestedComponentListProp_ItemList.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.source = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.source = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.default_item ~= nil then
+			self.default_item = messages.LazyNestedComponentListProp_Item.jsonDecode(input.default_item)
+		end
+
+		if input.defaultItem ~= nil then
+			self.default_item = messages.LazyNestedComponentListProp_Item.jsonDecode(input.defaultItem)
+		end
+
+		if input.ordered_identifiers ~= nil then
+			self.ordered_identifiers = messages.StringArrayProp.jsonDecode(input.ordered_identifiers)
+		end
+
+		if input.orderedIdentifiers ~= nil then
+			self.ordered_identifiers = messages.StringArrayProp.jsonDecode(input.orderedIdentifiers)
+		end
+
+		if input.item_overrides ~= nil then
+			local newOutput: { [string]: LazyNestedComponentListProp_Item } = {}
+			for key, value in input.item_overrides do
+				newOutput[key] = messages.LazyNestedComponentListProp_Item.jsonDecode(value)
+			end
+
+			self.item_overrides = newOutput
+		end
+
+		if input.itemOverrides ~= nil then
+			local newOutput: { [string]: LazyNestedComponentListProp_Item } = {}
+			for key, value in input.itemOverrides do
+				newOutput[key] = messages.LazyNestedComponentListProp_Item.jsonDecode(value)
+			end
+
+			self.item_overrides = newOutput
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_ComponentListImpl.descriptor = {
+		name = "LazyNestedComponentListProp_ComponentList",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ComponentList",
+	}
+
+	messages.LazyNestedComponentListProp_ComponentList = _LazyNestedComponentListProp_ComponentListImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_ComponentList)
+end
+
+do
+	local _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl = {}
+	_LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl.__index =
+		_LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl
+
+	function _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl.new(
+		data: _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryPartialFields?
+	): LazyNestedComponentListProp_ComponentList_ItemOverridesEntry
+		return setmetatable(
+			{
+				key = if data == nil or data.key == nil then "" else data.key,
+				value = if data == nil or data.value == nil then nil else data.value,
+			},
+			_LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl :: _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl
+		)
+	end
+
+	function _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl.encode(
+		self: LazyNestedComponentListProp_ComponentList_ItemOverridesEntry
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl.decode(
+		input: buffer
+	): LazyNestedComponentListProp_ComponentList_ItemOverridesEntry
+		local self = _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = messages.LazyNestedComponentListProp_Item.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl.jsonEncode(
+		self: LazyNestedComponentListProp_ComponentList_ItemOverridesEntry
+	): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl.jsonDecode(
+		input: { [string]: any }
+	): LazyNestedComponentListProp_ComponentList_ItemOverridesEntry
+		local self = _LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = messages.LazyNestedComponentListProp_Item.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl.descriptor = {
+		name = "LazyNestedComponentListProp_ComponentList_ItemOverridesEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ItemOverridesEntry",
+	}
+
+	messages.LazyNestedComponentListProp_ComponentList_ItemOverridesEntry =
+		_LazyNestedComponentListProp_ComponentList_ItemOverridesEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LazyNestedComponentListProp_ComponentList_ItemOverridesEntry)
+end
+
+do
 	local _NestedComponentListPropImpl = {}
 	_NestedComponentListPropImpl.__index = _NestedComponentListPropImpl
 
@@ -10121,6 +11940,10 @@ do
 			elseif self.kind.type == "ordered_template_data" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "component_list" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -10174,6 +11997,14 @@ do
 						value = messages.LazyNestedComponentListProp_OrderedTemplateData.decode(value),
 					}
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "component_list",
+						value = messages.LazyNestedComponentListProp_ComponentList.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -10210,6 +12041,8 @@ do
 				output.conditional = self.kind.value:jsonEncode()
 			elseif self.kind.type == "ordered_template_data" then
 				output.orderedTemplateData = self.kind.value:jsonEncode()
+			elseif self.kind.type == "component_list" then
+				output.componentList = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -10267,6 +12100,20 @@ do
 			self.kind = {
 				type = "ordered_template_data",
 				value = messages.LazyNestedComponentListProp_OrderedTemplateData.jsonDecode(input.orderedTemplateData),
+			}
+		end
+
+		if input.component_list ~= nil then
+			self.kind = {
+				type = "component_list",
+				value = messages.LazyNestedComponentListProp_ComponentList.jsonDecode(input.component_list),
+			}
+		end
+
+		if input.componentList ~= nil then
+			self.kind = {
+				type = "component_list",
+				value = messages.LazyNestedComponentListProp_ComponentList.jsonDecode(input.componentList),
 			}
 		end
 
@@ -13452,6 +15299,7 @@ do
 			visible = if data == nil or data.visible == nil then nil else data.visible,
 			z_index = if data == nil or data.z_index == nil then nil else data.z_index,
 			input_delay = if data == nil or data.input_delay == nil then nil else data.input_delay,
+			fill_behavior = if data == nil or data.fill_behavior == nil then nil else data.fill_behavior,
 		}, _ButtonSchema_PropsImpl :: _ButtonSchema_PropsImpl)
 	end
 
@@ -13561,6 +15409,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.fill_behavior ~= nil then
+			local encoded = self.fill_behavior:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -13665,6 +15519,12 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.input_delay = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.decode(value)
 					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.fill_behavior =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.FillBehaviorProp.decode(value)
+					continue
 				end
 
 				local length
@@ -13758,6 +15618,10 @@ do
 
 		if self.input_delay ~= nil then
 			output.inputDelay = self.input_delay:jsonEncode()
+		end
+
+		if self.fill_behavior ~= nil then
+			output.fillBehavior = self.fill_behavior:jsonEncode()
 		end
 
 		return output
@@ -13869,6 +15733,16 @@ do
 
 		if input.inputDelay ~= nil then
 			self.input_delay = _roblox_apppageplatform_shared_v1beta1_prop_types.FloatProp.jsonDecode(input.inputDelay)
+		end
+
+		if input.fill_behavior ~= nil then
+			self.fill_behavior =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FillBehaviorProp.jsonDecode(input.fill_behavior)
+		end
+
+		if input.fillBehavior ~= nil then
+			self.fill_behavior =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.FillBehaviorProp.jsonDecode(input.fillBehavior)
 		end
 
 		return self
@@ -14020,6 +15894,8 @@ do
 			is_disabled = if data == nil or data.is_disabled == nil then nil else data.is_disabled,
 			visible = if data == nil or data.visible == nil then nil else data.visible,
 			z_index = if data == nil or data.z_index == nil then nil else data.z_index,
+			variant = if data == nil or data.variant == nil then nil else data.variant,
+			size = if data == nil or data.size == nil then nil else data.size,
 		}, _IconButtonSchema_PropsImpl :: _IconButtonSchema_PropsImpl)
 	end
 
@@ -14090,6 +15966,18 @@ do
 		if self.z_index ~= nil then
 			local encoded = self.z_index:encode()
 			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.variant ~= nil then
+			local encoded = self.variant:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.size ~= nil then
+			local encoded = self.size:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -14167,6 +16055,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.variant = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.InputSizeProp.decode(value)
+					continue
 				end
 
 				local length
@@ -14236,6 +16134,14 @@ do
 
 		if self.z_index ~= nil then
 			output.zIndex = self.z_index:jsonEncode()
+		end
+
+		if self.variant ~= nil then
+			output.variant = self.variant:jsonEncode()
+		end
+
+		if self.size ~= nil then
+			output.size = self.size:jsonEncode()
 		end
 
 		return output
@@ -14319,6 +16225,14 @@ do
 
 		if input.zIndex ~= nil then
 			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.zIndex)
+		end
+
+		if input.variant ~= nil then
+			self.variant = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.variant)
+		end
+
+		if input.size ~= nil then
+			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.InputSizeProp.jsonDecode(input.size)
 		end
 
 		return self
@@ -22955,6 +24869,7 @@ do
 				then nil
 				else data.experience_join_data,
 			applied_filters = if data == nil or data.applied_filters == nil then nil else data.applied_filters,
+			tag = if data == nil or data.tag == nil then nil else data.tag,
 		}, _PlayButtonSchema_PropsImpl :: _PlayButtonSchema_PropsImpl)
 	end
 
@@ -23061,6 +24976,12 @@ do
 		if self.applied_filters ~= nil then
 			local encoded = self.applied_filters:encode()
 			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tag ~= nil then
+			local encoded = self.tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -23172,6 +25093,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.applied_filters = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -23265,6 +25191,10 @@ do
 
 		if self.applied_filters ~= nil then
 			output.appliedFilters = self.applied_filters:jsonEncode()
+		end
+
+		if self.tag ~= nil then
+			output.tag = self.tag:jsonEncode()
 		end
 
 		return output
@@ -23430,6 +25360,10 @@ do
 		if input.appliedFilters ~= nil then
 			self.applied_filters =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.appliedFilters)
+		end
+
+		if input.tag ~= nil then
+			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
 		end
 
 		return self
@@ -27633,6 +29567,7 @@ do
 			position = if data == nil or data.position == nil then nil else data.position,
 			size = if data == nil or data.size == nil then nil else data.size,
 			header_component = if data == nil or data.header_component == nil then nil else data.header_component,
+			tag = if data == nil or data.tag == nil then nil else data.tag,
 		}, _InfoTableSchema_PropsImpl :: _InfoTableSchema_PropsImpl)
 	end
 
@@ -27685,6 +29620,12 @@ do
 		if self.header_component ~= nil then
 			local encoded = self.header_component:encode()
 			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tag ~= nil then
+			local encoded = self.tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -27747,6 +29688,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.header_component = messages.NestedComponentProp.decode(value)
 					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -27804,6 +29750,10 @@ do
 
 		if self.header_component ~= nil then
 			output.headerComponent = self.header_component:jsonEncode()
+		end
+
+		if self.tag ~= nil then
+			output.tag = self.tag:jsonEncode()
 		end
 
 		return output
@@ -27866,6 +29816,10 @@ do
 
 		if input.headerComponent ~= nil then
 			self.header_component = messages.NestedComponentProp.jsonDecode(input.headerComponent)
+		end
+
+		if input.tag ~= nil then
+			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
 		end
 
 		return self
@@ -28012,6 +29966,7 @@ do
 			value_component = if data == nil or data.value_component == nil then nil else data.value_component,
 			on_activated = if data == nil or data.on_activated == nil then nil else data.on_activated,
 			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
+			selectable = if data == nil or data.selectable == nil then nil else data.selectable,
 		}, _InfoTableCellSchema_PropsImpl :: _InfoTableCellSchema_PropsImpl)
 	end
 
@@ -28040,6 +29995,12 @@ do
 		if self.layout_order ~= nil then
 			local encoded = self.layout_order:encode()
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.selectable ~= nil then
+			local encoded = self.selectable:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -28081,6 +30042,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.layout_order = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.selectable = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -28125,6 +30091,10 @@ do
 			output.layoutOrder = self.layout_order:jsonEncode()
 		end
 
+		if self.selectable ~= nil then
+			output.selectable = self.selectable:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -28163,6 +30133,10 @@ do
 		if input.layoutOrder ~= nil then
 			self.layout_order =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layoutOrder)
+		end
+
+		if input.selectable ~= nil then
+			self.selectable = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.selectable)
 		end
 
 		return self
@@ -29395,6 +31369,8 @@ do
 			position = if data == nil or data.position == nil then nil else data.position,
 			size = if data == nil or data.size == nil then nil else data.size,
 			header_component = if data == nil or data.header_component == nil then nil else data.header_component,
+			text_style = if data == nil or data.text_style == nil then nil else data.text_style,
+			pressed_text_style = if data == nil or data.pressed_text_style == nil then nil else data.pressed_text_style,
 		}, _ExpandableTextSchema_PropsImpl :: _ExpandableTextSchema_PropsImpl)
 	end
 
@@ -29447,6 +31423,18 @@ do
 		if self.header_component ~= nil then
 			local encoded = self.header_component:encode()
 			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_style ~= nil then
+			local encoded = self.text_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.pressed_text_style ~= nil then
+			local encoded = self.pressed_text_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -29510,6 +31498,17 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.header_component = messages.NestedComponentProp.decode(value)
 					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.pressed_text_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
+					continue
 				end
 
 				local length
@@ -29567,6 +31566,14 @@ do
 
 		if self.header_component ~= nil then
 			output.headerComponent = self.header_component:jsonEncode()
+		end
+
+		if self.text_style ~= nil then
+			output.textStyle = self.text_style:jsonEncode()
+		end
+
+		if self.pressed_text_style ~= nil then
+			output.pressedTextStyle = self.pressed_text_style:jsonEncode()
 		end
 
 		return output
@@ -29633,6 +31640,26 @@ do
 
 		if input.headerComponent ~= nil then
 			self.header_component = messages.NestedComponentProp.jsonDecode(input.headerComponent)
+		end
+
+		if input.text_style ~= nil then
+			self.text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.text_style)
+		end
+
+		if input.textStyle ~= nil then
+			self.text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.textStyle)
+		end
+
+		if input.pressed_text_style ~= nil then
+			self.pressed_text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.pressed_text_style)
+		end
+
+		if input.pressedTextStyle ~= nil then
+			self.pressed_text_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.pressedTextStyle)
 		end
 
 		return self
@@ -50325,11 +52352,17 @@ do
 		data: _SubscriptionCellSchema_PropsPartialFields?
 	): SubscriptionCellSchema_Props
 		return setmetatable({
-			content_row = if data == nil or data.content_row == nil then nil else data.content_row,
-			button = if data == nil or data.button == nil then nil else data.button,
+			content_row_component = if data == nil or data.content_row_component == nil
+				then nil
+				else data.content_row_component,
+			button_component = if data == nil or data.button_component == nil then nil else data.button_component,
 			on_activated = if data == nil or data.on_activated == nil then nil else data.on_activated,
 			tag = if data == nil or data.tag == nil then nil else data.tag,
 			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
+			content_row_slot_tag = if data == nil or data.content_row_slot_tag == nil
+				then nil
+				else data.content_row_slot_tag,
+			button_slot_tag = if data == nil or data.button_slot_tag == nil then nil else data.button_slot_tag,
 		}, _SubscriptionCellSchema_PropsImpl :: _SubscriptionCellSchema_PropsImpl)
 	end
 
@@ -50337,14 +52370,14 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.content_row ~= nil then
-			local encoded = self.content_row:encode()
+		if self.content_row_component ~= nil then
+			local encoded = self.content_row_component:encode()
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.button ~= nil then
-			local encoded = self.button:encode()
+		if self.button_component ~= nil then
+			local encoded = self.button_component:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
@@ -50364,6 +52397,18 @@ do
 		if self.layout_order ~= nil then
 			local encoded = self.layout_order:encode()
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.content_row_slot_tag ~= nil then
+			local encoded = self.content_row_slot_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.button_slot_tag ~= nil then
+			local encoded = self.button_slot_tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -50389,12 +52434,12 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.content_row = messages.NestedComponentProp.decode(value)
+					self.content_row_component = messages.NestedComponentProp.decode(value)
 					continue
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.button = messages.NestedComponentProp.decode(value)
+					self.button_component = messages.NestedComponentProp.decode(value)
 					continue
 				elseif field == 3 then
 					local value
@@ -50410,6 +52455,17 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.layout_order = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.content_row_slot_tag =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.button_slot_tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -50438,12 +52494,12 @@ do
 	function _SubscriptionCellSchema_PropsImpl.jsonEncode(self: SubscriptionCellSchema_Props): any
 		local output = {}
 
-		if self.content_row ~= nil then
-			output.contentRow = self.content_row:jsonEncode()
+		if self.content_row_component ~= nil then
+			output.contentRowComponent = self.content_row_component:jsonEncode()
 		end
 
-		if self.button ~= nil then
-			output.button = self.button:jsonEncode()
+		if self.button_component ~= nil then
+			output.buttonComponent = self.button_component:jsonEncode()
 		end
 
 		if self.on_activated ~= nil then
@@ -50458,22 +52514,34 @@ do
 			output.layoutOrder = self.layout_order:jsonEncode()
 		end
 
+		if self.content_row_slot_tag ~= nil then
+			output.contentRowSlotTag = self.content_row_slot_tag:jsonEncode()
+		end
+
+		if self.button_slot_tag ~= nil then
+			output.buttonSlotTag = self.button_slot_tag:jsonEncode()
+		end
+
 		return output
 	end
 
 	function _SubscriptionCellSchema_PropsImpl.jsonDecode(input: { [string]: any }): SubscriptionCellSchema_Props
 		local self = _SubscriptionCellSchema_PropsImpl.new()
 
-		if input.content_row ~= nil then
-			self.content_row = messages.NestedComponentProp.jsonDecode(input.content_row)
+		if input.content_row_component ~= nil then
+			self.content_row_component = messages.NestedComponentProp.jsonDecode(input.content_row_component)
 		end
 
-		if input.contentRow ~= nil then
-			self.content_row = messages.NestedComponentProp.jsonDecode(input.contentRow)
+		if input.contentRowComponent ~= nil then
+			self.content_row_component = messages.NestedComponentProp.jsonDecode(input.contentRowComponent)
 		end
 
-		if input.button ~= nil then
-			self.button = messages.NestedComponentProp.jsonDecode(input.button)
+		if input.button_component ~= nil then
+			self.button_component = messages.NestedComponentProp.jsonDecode(input.button_component)
+		end
+
+		if input.buttonComponent ~= nil then
+			self.button_component = messages.NestedComponentProp.jsonDecode(input.buttonComponent)
 		end
 
 		if input.on_activated ~= nil then
@@ -50498,6 +52566,26 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.layoutOrder)
 		end
 
+		if input.content_row_slot_tag ~= nil then
+			self.content_row_slot_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.content_row_slot_tag)
+		end
+
+		if input.contentRowSlotTag ~= nil then
+			self.content_row_slot_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.contentRowSlotTag)
+		end
+
+		if input.button_slot_tag ~= nil then
+			self.button_slot_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.button_slot_tag)
+		end
+
+		if input.buttonSlotTag ~= nil then
+			self.button_slot_tag =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.buttonSlotTag)
+		end
+
 		return self
 	end
 
@@ -50512,18 +52600,18 @@ do
 end
 
 do
-	local _SystemBannerActionPropImpl = {}
-	_SystemBannerActionPropImpl.__index = _SystemBannerActionPropImpl
+	local _SystemBannerActionImpl = {}
+	_SystemBannerActionImpl.__index = _SystemBannerActionImpl
 
-	function _SystemBannerActionPropImpl.new(data: _SystemBannerActionPropPartialFields?): SystemBannerActionProp
+	function _SystemBannerActionImpl.new(data: _SystemBannerActionPartialFields?): SystemBannerAction
 		return setmetatable({
 			on_activated = if data == nil or data.on_activated == nil then nil else data.on_activated,
 			text = if data == nil or data.text == nil then nil else data.text,
 			variant = if data == nil or data.variant == nil then nil else data.variant,
-		}, _SystemBannerActionPropImpl :: _SystemBannerActionPropImpl)
+		}, _SystemBannerActionImpl :: _SystemBannerActionImpl)
 	end
 
-	function _SystemBannerActionPropImpl.encode(self: SystemBannerActionProp): buffer
+	function _SystemBannerActionImpl.encode(self: SystemBannerAction): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
@@ -50550,8 +52638,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _SystemBannerActionPropImpl.decode(input: buffer): SystemBannerActionProp
-		local self = _SystemBannerActionPropImpl.new()
+	function _SystemBannerActionImpl.decode(input: buffer): SystemBannerAction
+		local self = _SystemBannerActionImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -50603,7 +52691,7 @@ do
 		return self
 	end
 
-	function _SystemBannerActionPropImpl.jsonEncode(self: SystemBannerActionProp): any
+	function _SystemBannerActionImpl.jsonEncode(self: SystemBannerAction): any
 		local output = {}
 
 		if self.on_activated ~= nil then
@@ -50621,8 +52709,8 @@ do
 		return output
 	end
 
-	function _SystemBannerActionPropImpl.jsonDecode(input: { [string]: any }): SystemBannerActionProp
-		local self = _SystemBannerActionPropImpl.new()
+	function _SystemBannerActionImpl.jsonDecode(input: { [string]: any }): SystemBannerAction
+		local self = _SystemBannerActionImpl.new()
 
 		if input.on_activated ~= nil then
 			self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_activated)
@@ -50643,6 +52731,147 @@ do
 		return self
 	end
 
+	_SystemBannerActionImpl.descriptor = {
+		name = "SystemBannerAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.SystemBannerAction",
+	}
+
+	messages.SystemBannerAction = _SystemBannerActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SystemBannerAction)
+end
+
+do
+	local _SystemBannerActionPropImpl = {}
+	_SystemBannerActionPropImpl.__index = _SystemBannerActionPropImpl
+
+	function _SystemBannerActionPropImpl.new(data: _SystemBannerActionPropPartialFields?): SystemBannerActionProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _SystemBannerActionPropImpl :: _SystemBannerActionPropImpl)
+	end
+
+	function _SystemBannerActionPropImpl.encode(self: SystemBannerActionProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SystemBannerActionPropImpl.decode(input: buffer): SystemBannerActionProp
+		local self = _SystemBannerActionPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.SystemBannerAction.decode(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "conditional",
+						value = messages.SystemBannerActionProp_ConditionalOptions.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SystemBannerActionPropImpl.jsonEncode(self: SystemBannerActionProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _SystemBannerActionPropImpl.jsonDecode(input: { [string]: any }): SystemBannerActionProp
+		local self = _SystemBannerActionPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = messages.SystemBannerAction.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.SystemBannerActionProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
 	_SystemBannerActionPropImpl.descriptor = {
 		name = "SystemBannerActionProp",
 		fullName = "roblox.apppageplatform.shared.v1beta1.SystemBannerActionProp",
@@ -50651,6 +52880,276 @@ do
 	messages.SystemBannerActionProp = _SystemBannerActionPropImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.SystemBannerActionProp)
+end
+
+do
+	local _SystemBannerActionProp_ConditionalOptionImpl = {}
+	_SystemBannerActionProp_ConditionalOptionImpl.__index = _SystemBannerActionProp_ConditionalOptionImpl
+
+	function _SystemBannerActionProp_ConditionalOptionImpl.new(
+		data: _SystemBannerActionProp_ConditionalOptionPartialFields?
+	): SystemBannerActionProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _SystemBannerActionProp_ConditionalOptionImpl :: _SystemBannerActionProp_ConditionalOptionImpl)
+	end
+
+	function _SystemBannerActionProp_ConditionalOptionImpl.encode(
+		self: SystemBannerActionProp_ConditionalOption
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SystemBannerActionProp_ConditionalOptionImpl.decode(
+		input: buffer
+	): SystemBannerActionProp_ConditionalOption
+		local self = _SystemBannerActionProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = messages.SystemBannerAction.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SystemBannerActionProp_ConditionalOptionImpl.jsonEncode(
+		self: SystemBannerActionProp_ConditionalOption
+	): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _SystemBannerActionProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): SystemBannerActionProp_ConditionalOption
+		local self = _SystemBannerActionProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = messages.SystemBannerAction.jsonDecode(input.literal) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_SystemBannerActionProp_ConditionalOptionImpl.descriptor = {
+		name = "SystemBannerActionProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.SystemBannerActionProp_ConditionalOption = _SystemBannerActionProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SystemBannerActionProp_ConditionalOption)
+end
+
+do
+	local _SystemBannerActionProp_ConditionalOptionsImpl = {}
+	_SystemBannerActionProp_ConditionalOptionsImpl.__index = _SystemBannerActionProp_ConditionalOptionsImpl
+
+	function _SystemBannerActionProp_ConditionalOptionsImpl.new(
+		data: _SystemBannerActionProp_ConditionalOptionsPartialFields?
+	): SystemBannerActionProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _SystemBannerActionProp_ConditionalOptionsImpl :: _SystemBannerActionProp_ConditionalOptionsImpl)
+	end
+
+	function _SystemBannerActionProp_ConditionalOptionsImpl.encode(
+		self: SystemBannerActionProp_ConditionalOptions
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = (value :: any):encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _SystemBannerActionProp_ConditionalOptionsImpl.decode(
+		input: buffer
+	): SystemBannerActionProp_ConditionalOptions
+		local self = _SystemBannerActionProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.SystemBannerActionProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _SystemBannerActionProp_ConditionalOptionsImpl.jsonEncode(
+		self: SystemBannerActionProp_ConditionalOptions
+	): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, (value :: any):jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _SystemBannerActionProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): SystemBannerActionProp_ConditionalOptions
+		local self = _SystemBannerActionProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { SystemBannerActionProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.SystemBannerActionProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_SystemBannerActionProp_ConditionalOptionsImpl.descriptor = {
+		name = "SystemBannerActionProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.SystemBannerActionProp_ConditionalOptions = _SystemBannerActionProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.SystemBannerActionProp_ConditionalOptions)
 end
 
 do
@@ -51779,6 +54278,11 @@ do
 		return setmetatable({
 			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
 			place_id = if data == nil or data.place_id == nil then nil else data.place_id,
+			place_id_override = if data == nil or data.place_id_override == nil then nil else data.place_id_override,
+			experience_join_data = if data == nil or data.experience_join_data == nil
+				then nil
+				else data.experience_join_data,
+			use_larger_styles = if data == nil or data.use_larger_styles == nil then nil else data.use_larger_styles,
 		}, _PlayWithRewardSchema_PropsImpl :: _PlayWithRewardSchema_PropsImpl)
 	end
 
@@ -51795,6 +54299,24 @@ do
 		if self.place_id ~= nil then
 			local encoded = self.place_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.place_id_override ~= nil then
+			local encoded = self.place_id_override:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.experience_join_data ~= nil then
+			local encoded = self.experience_join_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.use_larger_styles ~= nil then
+			local encoded = self.use_larger_styles:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -51826,6 +54348,22 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.place_id_override = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.experience_join_data =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.use_larger_styles = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -51862,6 +54400,18 @@ do
 			output.placeId = self.place_id:jsonEncode()
 		end
 
+		if self.place_id_override ~= nil then
+			output.placeIdOverride = self.place_id_override:jsonEncode()
+		end
+
+		if self.experience_join_data ~= nil then
+			output.experienceJoinData = self.experience_join_data:jsonEncode()
+		end
+
+		if self.use_larger_styles ~= nil then
+			output.useLargerStyles = self.use_larger_styles:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -51883,6 +54433,36 @@ do
 
 		if input.placeId ~= nil then
 			self.place_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeId)
+		end
+
+		if input.place_id_override ~= nil then
+			self.place_id_override =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.place_id_override)
+		end
+
+		if input.placeIdOverride ~= nil then
+			self.place_id_override =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.placeIdOverride)
+		end
+
+		if input.experience_join_data ~= nil then
+			self.experience_join_data =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.experience_join_data)
+		end
+
+		if input.experienceJoinData ~= nil then
+			self.experience_join_data =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.experienceJoinData)
+		end
+
+		if input.use_larger_styles ~= nil then
+			self.use_larger_styles =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.use_larger_styles)
+		end
+
+		if input.useLargerStyles ~= nil then
+			self.use_larger_styles =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.useLargerStyles)
 		end
 
 		return self
@@ -53177,6 +55757,10 @@ end
 return {
 	TemplateArg = messages.TemplateArg,
 	TemplateArg_LiteralValue = messages.TemplateArg_LiteralValue,
+	StringArrayProp = messages.StringArrayProp,
+	StringArrayProp_LiteralValue = messages.StringArrayProp_LiteralValue,
+	StringArrayProp_ConditionalOption = messages.StringArrayProp_ConditionalOption,
+	StringArrayProp_ConditionalOptions = messages.StringArrayProp_ConditionalOptions,
 	NestedComponentProp = messages.NestedComponentProp,
 	NestedComponentProp_ConditionalOption = messages.NestedComponentProp_ConditionalOption,
 	NestedComponentProp_ConditionalOptions = messages.NestedComponentProp_ConditionalOptions,
@@ -53189,6 +55773,9 @@ return {
 	LazyNestedComponentListProp_OrderedTemplateData = messages.LazyNestedComponentListProp_OrderedTemplateData,
 	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData,
 	LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue = messages.LazyNestedComponentListProp_OrderedTemplateData_EntryOrderData_LiteralValue,
+	LazyNestedComponentListProp_Item = messages.LazyNestedComponentListProp_Item,
+	LazyNestedComponentListProp_ItemList = messages.LazyNestedComponentListProp_ItemList,
+	LazyNestedComponentListProp_ComponentList = messages.LazyNestedComponentListProp_ComponentList,
 	NestedComponentListProp = messages.NestedComponentListProp,
 	TileSchema = messages.TileSchema,
 	TileSchema_Props = messages.TileSchema_Props,
@@ -53371,7 +55958,10 @@ return {
 	SheetFullBleedSchema_Props = messages.SheetFullBleedSchema_Props,
 	SubscriptionCellSchema = messages.SubscriptionCellSchema,
 	SubscriptionCellSchema_Props = messages.SubscriptionCellSchema_Props,
+	SystemBannerAction = messages.SystemBannerAction,
 	SystemBannerActionProp = messages.SystemBannerActionProp,
+	SystemBannerActionProp_ConditionalOption = messages.SystemBannerActionProp_ConditionalOption,
+	SystemBannerActionProp_ConditionalOptions = messages.SystemBannerActionProp_ConditionalOptions,
 	ArrayOfSystemBannerActionsProp = messages.ArrayOfSystemBannerActionsProp,
 	ArrayOfSystemBannerActionsProp_ConditionalOption = messages.ArrayOfSystemBannerActionsProp_ConditionalOption,
 	ArrayOfSystemBannerActionsProp_ConditionalOptions = messages.ArrayOfSystemBannerActionsProp_ConditionalOptions,

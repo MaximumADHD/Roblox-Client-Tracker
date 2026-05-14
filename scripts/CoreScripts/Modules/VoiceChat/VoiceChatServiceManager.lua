@@ -33,6 +33,10 @@ local GetFFlagUpdateVoiceConnectionToasts = require(script.Parent.Flags.GetFFlag
 
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
+local GetFFlagVoiceChatLogConnectionSource =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatLogConnectionSource
+local GetFFlagVoiceChatLogDisconnectReason =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatLogDisconnectReason
 local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local GetFFlagVoiceChatServiceManagerUseAvatarChat = VoiceChatCore.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat
@@ -93,7 +97,7 @@ local GetFFlagShowDevicePermissionsModal =
 local FFlagEnableRetryForLinkingProtocolFetch =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableRetryForLinkingProtocolFetch
 local FFlagSeamlessVoiceBugfixes = game:DefineFastFlag("SeamlessVoiceBugfixesV1", false)
-local FFlagShowJoinVoiceWhenDisconnected = game:DefineFastFlag("ShowJoinVoiceWhenDisconnected", false)
+local FFlagShowJoinVoiceWhenDisconnected = game:DefineFastFlag("ShowJoinVoiceWhenDisconnectedV2", false)
 local FFlagVoiceRewarmTelemetry =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagVoiceRewarmTelemetry
 
@@ -122,7 +126,6 @@ local FIntLinkingProtocolFetchRetries =
 	require(CorePackages.Workspace.Packages.SharedFlags).FIntLinkingProtocolFetchRetries
 local FIntLinkingProtocolFetchTimeoutMS =
 	require(CorePackages.Workspace.Packages.SharedFlags).FIntLinkingProtocolFetchTimeoutMS
-local FFlagFixOutputDeviceChange = game:DefineFastFlag("FixOutputDeviceChange", false)
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 local Constants = VoiceChat.Constants
 local PostRecordUserSeenGeneralModal = VoiceChat.AgeVerificationOverlay.PostRecordUserSeenGeneralModal
@@ -139,8 +142,6 @@ local SeamlessVoiceStatus = require(RobloxGui.Modules.Settings.Enum.SeamlessVoic
 local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
 local GetFFlagVoiceChatClientRewriteMasterLua =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatClientRewriteMasterLua
-local GetFFlagVoiceChatClientRewriteDisableVCSDevice =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagVoiceChatClientRewriteDisableVCSDevice
 local GetFFlagEnableSeamlessVoiceV2 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSeamlessVoiceV2
 local GetFFlagDisconnectToastClientRewrite =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisconnectToastClientRewrite
@@ -245,6 +246,7 @@ local VoiceChatServiceManager = {
 	isTalking = false,
 	previousGroupId = nil,
 	previousMutedState = nil,
+	pendingDisconnectReason = nil,
 	userEligible = false,
 	HttpRbxApiService = HttpRbxApiService,
 	NotificationService = NotificationService,
@@ -296,6 +298,7 @@ local VoiceChatServiceManager = {
 	deniedMicPermissions = nil,
 	isInitialJoin = false,
 	joinVoiceButtonContext = nil,
+	pendingConnectionSource = nil,
 	joinVoiceButtonConsequence = nil,
 	CaptureService = CaptureService,
 }
@@ -413,6 +416,7 @@ function VoiceChatServiceManager.new(
 		coreVoiceManager = coreVoiceManager,
 		_mutedAnyone = false,
 		CaptureService = CaptureService,
+		voiceConnectEventReportedForActiveSession = false,
 	}, VoiceChatServiceManager)
 
 	if GetFFlagUseLuaSignalrConsumer() then
@@ -542,7 +546,33 @@ function VoiceChatServiceManager.new(
 	end
 	self.coreVoiceManager:subscribe("OnStateChanged", function(oldState, newState)
 		MicrophoneDevicePermissionsLogging:setClientSessionId(self.coreVoiceManager:GetSessionId())
+
+		if GetFFlagVoiceChatLogConnectionSource() and (newState == (Enum :: any).VoiceChatState.Ended or newState == (Enum :: any).VoiceChatState.Failed) then
+			self.voiceConnectEventReportedForActiveSession = false
+		end
+
+		if
+			GetFFlagVoiceChatLogConnectionSource()
+			and newState == (Enum :: any).VoiceChatState.Joined
+			and self:GetVoiceJoinProgress() == VOICE_JOIN_PROGRESS.Idle
+			and not self.voiceConnectEventReportedForActiveSession
+		then
+			local connectData = self:GetConnectDisconnectAnalyticsData()
+			connectData.connectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.AUTO_CONNECT
+			self.pendingConnectionSource = nil
+			self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", connectData)
+			self.voiceConnectEventReportedForActiveSession = true
+			shouldSendConnectDisconnectAnalytics = false
+			attemptVoiceRejoinConnection:Disconnect()
+		end
 		local inEndedState = newState == (Enum :: any).VoiceChatState.Ended
+		if inEndedState and GetFFlagVoiceChatLogDisconnectReason() then
+			local reasonData = self:GetConnectDisconnectAnalyticsData()
+			reasonData.disconnectReason = self.pendingDisconnectReason or VoiceConstants.VOICE_DISCONNECT_REASON.SYSTEM
+			self.Analytics:reportConnectDisconnectEvents("voiceDisconnectReasonEvent", reasonData)
+			self.pendingDisconnectReason = nil
+		end
+
 		if inEndedState and self.bannedUntil == nil then
 			if not GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
 				self:HideVoiceUI()
@@ -593,6 +623,9 @@ function VoiceChatServiceManager.new(
 		self:InitialJoinFailedPrompt()
 	end)
 	self.coreVoiceManager:subscribe("OnPlayerModerated", function()
+		if GetFFlagVoiceChatLogDisconnectReason() then
+			self.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.MODERATED
+		end
 		self:ShowPlayerModeratedMessage()
 	end)
 
@@ -681,7 +714,16 @@ function VoiceChatServiceManager.new(
 		end
 
 		if shouldSendConnectDisconnectAnalytics then
-			self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", self:GetConnectDisconnectAnalyticsData())
+			local connectData = self:GetConnectDisconnectAnalyticsData()
+			if GetFFlagVoiceChatLogConnectionSource() then
+				connectData.connectionSource = self.pendingConnectionSource
+				self.pendingConnectionSource = nil
+			end
+			self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", connectData)
+			if GetFFlagVoiceChatLogConnectionSource() then
+				self.voiceConnectEventReportedForActiveSession = true
+			end
+			shouldSendConnectDisconnectAnalytics = false
 			attemptVoiceRejoinConnection:Disconnect()
 		end
 	end)
@@ -1094,6 +1136,9 @@ function VoiceChatServiceManager:ShowInExperiencePhoneVoiceUpsell(entrypoint: st
 			PostPhoneUpsellDisplayed(bind(self, "PostRequest"), layerName, os.time(), false)
 		end,
 		onSuccess = function()
+			if GetFFlagVoiceChatLogConnectionSource() and self.pendingConnectionSource == nil then
+				self.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.IN_EXPERIENCE
+			end
 			self:EnableVoice()
 		end,
 		closeUpsell = function()
@@ -1402,6 +1447,9 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 						self.inExpUpsellEntrypoint,
 						self:GetInExpUpsellAnalyticsData()
 					)
+					if GetFFlagVoiceChatLogConnectionSource() and self.pendingConnectionSource == nil then
+						self.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.IN_EXPERIENCE
+					end
 					self:EnableVoice()
 				end
 				else nil,
@@ -1847,11 +1895,12 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 		if FFlagVoiceRewarmTelemetry then
 			buttonConsequence = JOIN_VOICE_BUTTON_CONSEQUENCE.FAE_UPSELL
 		end
+		if GetFFlagVoiceChatLogConnectionSource() and self.pendingConnectionSource == nil then
+			self.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.IN_EXPERIENCE
+		end
 		self.coreVoiceManager:OptUserToJoinVoice() -- User has opted in to voice chat, so when FAE finishes, join the voice call
 		local overlayStore = getOverlayStore(false)
-		if FFlagVoiceRewarmTelemetry then
-			self:reportJoinVoiceUpsellEvent("Click", buttonContext, buttonConsequence)
-		else
+		if not FFlagVoiceRewarmTelemetry then
 			self:reportJoinVoiceUpsellEvent("Click")
 		end
 		overlayStore.setCurrentOverlay(OverlayTypes.SocialUpsell, {
@@ -1871,6 +1920,7 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 	if FFlagVoiceRewarmTelemetry then
 		local universeId, placeId, playSessionId = self:GetInExpUpsellAnalyticsData()
 		self.Analytics:reportJoinVoiceButtonEvent("clicked", universeId, placeId, playSessionId, buttonContext, buttonConsequence)
+		self:reportJoinVoiceUpsellEvent("Click", buttonContext, buttonConsequence)
 	end
 
 	if FFlagSendUserConnectionStatus and self:IsSeamlessVoice() then
@@ -2134,10 +2184,15 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 	pcall(function()
 		if GetFFlagVoiceChatClientRewriteMasterLua() then
 			self.coreVoiceManager:RejoinVoice()
-			self.Analytics:reportConnectDisconnectEvents(
-				"voiceConnectEvent",
-				self:GetConnectDisconnectAnalyticsData()
-			)
+			local connectData = self:GetConnectDisconnectAnalyticsData()
+			if GetFFlagVoiceChatLogConnectionSource() then
+				connectData.connectionSource = self.pendingConnectionSource
+				self.pendingConnectionSource = nil
+			end
+			self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", connectData)
+			if GetFFlagVoiceChatLogConnectionSource() then
+				self.voiceConnectEventReportedForActiveSession = true
+			end
 		else
 			if groupId and groupId ~= "" then
 				self.service:Leave()
@@ -2145,58 +2200,19 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 				if not joinInProgress then
 					self:InitialJoinFailedPrompt()
 				else
-					self.Analytics:reportConnectDisconnectEvents(
-						"voiceConnectEvent",
-						self:GetConnectDisconnectAnalyticsData()
-					)
+					local connectData = self:GetConnectDisconnectAnalyticsData()
+					if GetFFlagVoiceChatLogConnectionSource() then
+						connectData.connectionSource = self.pendingConnectionSource
+						self.pendingConnectionSource = nil
+					end
+					self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", connectData)
+					if GetFFlagVoiceChatLogConnectionSource() then
+						self.voiceConnectEventReportedForActiveSession = true
+					end
 				end
 			end
 		end
 	end)
-end
-
-local function isValidDeviceList(deviceNames, deviceGuids, index)
-	return deviceNames
-		and deviceGuids
-		and index
-		and #deviceNames > 0
-		and index > 0
-		and index <= #deviceNames
-		and #deviceNames == #deviceGuids
-end
-
-local function setVCSOutput(soundServiceOutputName, VCService)
-	if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
-		log:error("[OutputDeviceSelection] setVCSOutput is deprecated")
-		return {}
-	end
-
-	local VCSSuccess, VCSDeviceNames, VCSDeviceGuids, VCSIndex = pcall(function()
-		return VCService:GetSpeakerDevices()
-	end)
-
-	if VCSSuccess and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex) then
-		-- Find the matching VCS Device
-		local VCSDeviceIndex = 0
-		for deviceIndex, deviceName in ipairs(VCSDeviceNames) do
-			if deviceName == soundServiceOutputName then
-				VCSDeviceIndex = deviceIndex
-			end
-		end
-
-		if VCSDeviceIndex > 0 then
-			log:info(
-				"[OutputDeviceSelection] Setting VCS Speaker Device To {} {}",
-				VCSDeviceNames[VCSDeviceIndex],
-				VCSDeviceGuids[VCSDeviceIndex]
-			)
-			VCService:SetSpeakerDevice(VCSDeviceNames[VCSDeviceIndex], VCSDeviceGuids[VCSDeviceIndex])
-		else
-			log:warning("Could not find equivalent VoiceChatService Device")
-		end
-	else
-		log:warning("Could not connect to Voice Chat Service to change Output Device")
-	end
 end
 
 function VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid)
@@ -2206,9 +2222,6 @@ function VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid
 	else
 		SoundService:SetOutputDevice(deviceName, deviceGuid)
 		log:info("[OutputDeviceSelection] Setting SS Speaker Device To {} {}", deviceName, deviceGuid)
-		if not GetFFlagVoiceChatClientRewriteMasterLua() then
-			setVCSOutput(deviceName, if FFlagFixOutputDeviceChange then self.service else nil)
-		end
 	end
 end
 

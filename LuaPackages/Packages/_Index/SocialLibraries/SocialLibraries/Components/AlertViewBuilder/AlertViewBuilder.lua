@@ -10,7 +10,6 @@ local AlertViewTextbox = require(Components.AlertView.AlertViewTextbox)
 local AlertViewSoakArea = require(Components.AlertView.AlertViewSoakArea)
 local FitFrameVertical = require(script.Parent.Parent.FitFrameVertical)
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
-local CheckboxList = UIBlox.App.InputButton.CheckboxList
 
 local AlertViewBuilder = Roact.Component:extend("AlertViewBuilder")
 
@@ -18,24 +17,22 @@ local AlertViewBuilder = Roact.Component:extend("AlertViewBuilder")
 	A component that wraps around AlertView and provides an interface to allow for the easy creation of AlertView
 	modals.
 	If this component does not support your use case, you will have to interface with AlertView directly.
-	It handles the state of the textboxes and checkboxes and injects that information into the callback functions
+	It handles the state of the textboxes and injects that information into the callback functions
 	provided for the buttons.
 
 	Props:
 	title: string; Title displayed at top of modal. Required.
 	bodyText: string; Main body text of modal. Default empty string.
-	childComponentWidth: number; The width in pixels of child components of this alert (eg textboxes, checkboxes, etc)
+	childComponentWidth: number; The width in pixels of child components of this alert (eg textboxes)
 								Default 220.
-	checkboxHeight: number; The height of a checkbox in this Alert. Default 50.
 	buttons: [
 		{
 			buttonType: ButtonType; Type of button to display. Default to ButtonType.Secondary
 			props = {
 				text: string; Text to display on the button. Required.
-				onActivated: function; Callback function that gets injected with (texts, checkboxStatuses),
-										where texts is a dictionary string -> string representing the text of the
-										textbox with a given key and checkboxStatuses is a numerical index -> bool
-										representing whether each checkbox is checked upon activating the button.
+				onActivated: function; Callback function that gets injected with (texts), where texts is a
+										dictionary string -> string representing the text of the textbox with
+										a given key upon activating the button.
 										Can return a bool indicating whether the modal should remain open.
 										(i.e. onModalClose will be called if the bool is false).
 										This can be helpful if the text entered into the textbox
@@ -45,20 +42,13 @@ local AlertViewBuilder = Roact.Component:extend("AlertViewBuilder")
 			}
 		}
 	]; 1-D array of buttons to be rendered.
-	checkboxes = [
-			{
-				label: string; Label for the checkbox. The checkboxes will be displayed in the order
-							   in which they are given in the array. Default empty string.
-			}
-		]
-	}; List of checkboxes where the index is used to identify the checkbox
 	textboxes = {
 		TextboxKey = {
 			belowText: string; Text to be rendered below the textbox. Renders nothing if nil or empty string. Default nil.
 			warningText: string; Text to be rendered in red below the textbox (and below belowTextboxText, if provided).
 								This text appears in red and should be provided as a warning/caution relating to user
 								input. Renders nothing if nil or empty string. Default nil.
-			LayoutOrder: int; LayoutOrder for the checkbox. Required.
+			LayoutOrder: int; LayoutOrder for the textbox. Required.
 		}
 	}; Dictionary of key-value pairs where key is used to identify the textbox
 	onModalOpen: function; Callback function that fires after the modal mounts. Default does nothing.
@@ -73,7 +63,6 @@ local AlertViewBuilder = Roact.Component:extend("AlertViewBuilder")
 AlertViewBuilder.defaultProps = {
 	bodyText = "",
 	buttons = {},
-	checkboxes = {},
 	textboxes = {},
 	displayTextbox = false,
 	onActivated = function() end,
@@ -82,7 +71,6 @@ AlertViewBuilder.defaultProps = {
 	onModalOpen = function() end,
 	title = "",
 
-	checkboxHeight = 50,
 	childComponentWidth = 220,
 	screenSize = Vector2.new(0, 0),
 
@@ -93,20 +81,13 @@ AlertViewBuilder.defaultProps = {
 }
 
 function AlertViewBuilder:init()
-	local checkboxStatuses = {}
-	local numCheckboxes, numTextboxes = 0, 0
-	for key, _ in pairs(self.props.checkboxes) do
-		checkboxStatuses[key] = false
-		numCheckboxes = numCheckboxes + 1
-	end
+	local numTextboxes = 0
 	self.refs = {}
 	for key, _ in pairs(self.props.textboxes) do
 		self.refs[key] = Roact.createRef()
 		numTextboxes = numTextboxes + 1
 	end
 	self.state = {
-		checkboxStatuses = checkboxStatuses,
-		numCheckboxes = numCheckboxes,
 		numTextboxes = numTextboxes,
 	}
 	self.calcTextboxTextHeight = function(styles, text)
@@ -133,13 +114,6 @@ function AlertViewBuilder:reset()
 			ref.current.Text = ""
 		end
 	end
-	local falseDictionary = {}
-	for key, _ in pairs(self.state.checkboxStatuses) do
-		falseDictionary[key] = false
-	end
-	self:setState({
-		checkboxStatuses = falseDictionary,
-	})
 end
 
 function AlertViewBuilder:makeButtonTable()
@@ -150,14 +124,14 @@ function AlertViewBuilder:makeButtonTable()
 		local updatedButton = Cryo.Dictionary.join(button, {
 			props = Cryo.Dictionary.join(button.props, {
 				layoutOrder = rowIndex,
-				-- Grabs information about the textboxes and checkboxes and injects it into the callback
+				-- Grabs information about the textboxes and injects it into the callback
 				onActivated = function()
 					self.props.onActivated()
 					local texts = {}
 					for key, ref in pairs(self.refs) do
 						texts[key] = ref.current and ref.current.Text or ""
 					end
-					local leaveModalOpen = button.props.onActivated(texts, self.state.checkboxStatuses)
+					local leaveModalOpen = button.props.onActivated(texts)
 					if not leaveModalOpen then
 						self:reset()
 						self:setState({
@@ -229,27 +203,12 @@ function AlertViewBuilder:makeTextboxList(styles)
 	return textboxDisplay
 end
 
-function AlertViewBuilder:makeCheckboxList()
-	return Roact.createElement(CheckboxList, {
-		checkboxes = self.props.checkboxes,
-		atMost = self.state.numCheckboxes + 1,
-		elementSize = UDim2.new(0, self.props.childComponentWidth, 0, self.props.checkboxHeight),
-		onActivated = function(selectedIndicies)
-			self:setState({
-				checkboxStatuses = Cryo.Dictionary.join(self.state.checkboxStatuses, selectedIndicies),
-			})
-		end,
-	})
-end
-
 function AlertViewBuilder:makeMiddleContent(styles)
 	local textboxLayout = self:makeTextboxList(styles)
-	local checkboxLayout = self:makeCheckboxList()
-	local checkboxFrameHeight = self.state.numCheckboxes * self.props.checkboxHeight
 
 	-- Returning nil prevents the Alert from having an extra blank area
 	-- when we have nothing to put in the middle
-	if self.state.numTextboxes == 0 and self.state.numCheckboxes == 0 then
+	if self.state.numTextboxes == 0 then
 		return nil
 	end
 
@@ -265,11 +224,6 @@ function AlertViewBuilder:makeMiddleContent(styles)
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
 			}, textboxLayout),
-			Checkboxes = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, checkboxFrameHeight),
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-			}, checkboxLayout),
 		})
 	end
 end

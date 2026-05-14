@@ -85,6 +85,7 @@ export type BaseMenuItemGroup<Item = BaseMenuItem> = Package.BaseMenuItemGroup<I
 export type ButtonProps = Package.ButtonProps
 export type CheckboxProps = Package.CheckboxProps
 export type CoachmarkProps = Package.CoachmarkProps
+export type EducationalTooltipProps = Package.EducationalTooltipProps
 export type ChipProps = Package.ChipProps
 export type ColorPickerProps = Package.ColorPickerProps
 export type DialogProps = Package.DialogProps

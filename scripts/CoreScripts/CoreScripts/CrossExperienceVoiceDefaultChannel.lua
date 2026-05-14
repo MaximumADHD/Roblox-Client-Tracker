@@ -151,7 +151,6 @@ local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificat
 local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChannelEnableDefaultVoice", true)
 local FFlagAlwaysJoinWhenUsingAudioAPI = game:DefineFastFlag("AlwaysJoinWhenUsingAudioAPI", false)
 local FFlagEnableCrossExpVoiceDebug = game:DefineFastFlag("EnableCrossExpVoiceDebug", false)
-local GetFFlagEnableLuaVoiceChatAnalytics = VoiceChatCore.Flags.GetFFlagEnableLuaVoiceChatAnalytics
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagEnableCrossExperienceVoiceCaptureMute =
@@ -650,13 +649,10 @@ local function initializeDefaultChannel(defaultMuted)
 	log:info("Joining default channel")
 
 	local success = VoiceChatInternal:JoinByGroupIdToken("default", defaultMuted)
-
-	if GetFFlagEnableLuaVoiceChatAnalytics() then
-		if success then
-			Analytics:reportVoiceChatJoinResult(true, "defaultJoinSuccess")
-		else
-			Analytics:reportVoiceChatJoinResult(false, "defaultJoinFailed", "error")
-		end
+	if success then
+		Analytics:reportVoiceChatJoinResult(true, "defaultJoinSuccess")
+	else
+		Analytics:reportVoiceChatJoinResult(false, "defaultJoinFailed", "error")
 	end
 
 	return success
@@ -688,10 +684,8 @@ local function validateSetup()
 				-- We only don't want to early out when the new audio API is enabled
 			elseif not VoiceChatService.EnableDefaultVoice and not VoiceChatService.UseNewAudioApi then
 				log:debug("Default channel is disabled.")
-				if GetFFlagEnableLuaVoiceChatAnalytics() then
-					Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
-					notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_SETUP, "Default channel disabled")
-				end
+				Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
+				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_SETUP, "Default channel disabled")
 				return false
 			end
 		else
@@ -699,10 +693,8 @@ local function validateSetup()
 				log:info("VoiceChatService not found. Assuming default values.")
 			elseif not VoiceChatService.EnableDefaultVoice then
 				log:debug("Default channel is disabled.")
-				if GetFFlagEnableLuaVoiceChatAnalytics() then
-					Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
-					notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_SETUP, "Default channel disabled")
-				end
+				Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
+				notifyVoiceStatusChange(Constants.VOICE_STATUS.ERROR_VOICE_SETUP, "Default channel disabled")
 				return false
 			end
 		end

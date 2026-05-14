@@ -13,6 +13,8 @@ type _Messages =
 		ArrayOfItemFooterProp_ConditionalOption: _ArrayOfItemFooterProp_ConditionalOptionMessage,
 		ArrayOfItemFooterProp_ConditionalOptions: _ArrayOfItemFooterProp_ConditionalOptionsMessage,
 		ArrayOfItemFooterProp_ArrayOfItemFooter: _ArrayOfItemFooterProp_ArrayOfItemFooterMessage,
+		ArrayOfItemFooterProp_ArrayMap: _ArrayOfItemFooterProp_ArrayMapMessage,
+		ArrayOfItemFooterProp_ArrayMap_LiteralItems: _ArrayOfItemFooterProp_ArrayMap_LiteralItemsMessage,
 		CardStyle: _CardStyleMessage,
 		CardStyleProp: _CardStylePropMessage,
 		CardStyleProp_ConditionalOption: _CardStyleProp_ConditionalOptionMessage,
@@ -22,9 +24,13 @@ type _Messages =
 		ArrayOfCatalogSortContentProp_ConditionalOption: _ArrayOfCatalogSortContentProp_ConditionalOptionMessage,
 		ArrayOfCatalogSortContentProp_ConditionalOptions: _ArrayOfCatalogSortContentProp_ConditionalOptionsMessage,
 		ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContent: _ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContentMessage,
+		ArrayOfCatalogSortContentProp_ArrayMap: _ArrayOfCatalogSortContentProp_ArrayMapMessage,
+		ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems: _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsMessage,
 	}
 local messages: _Messages = {} :: _Messages
 
+local _roblox_apppageplatform_shared_v1beta1_catalog_sort_data = require(script.Parent.catalog_sort_data)
+local _roblox_apppageplatform_shared_v1beta1_hydration_data_spec = require(script.Parent.hydration_data_spec)
 local _roblox_apppageplatform_shared_v1beta1_prop_condition = require(script.Parent.prop_condition)
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
 
@@ -64,6 +70,7 @@ type _ArrayOfItemFooterPropFields = {
 		{ type: "literal", value: ArrayOfItemFooterProp_ArrayOfItemFooter }
 		| { type: "binding_path", value: string }
 		| { type: "conditional", value: ArrayOfItemFooterProp_ConditionalOptions }
+		| { type: "array_map", value: ArrayOfItemFooterProp_ArrayMap }
 	)?,
 }
 
@@ -72,6 +79,7 @@ type _ArrayOfItemFooterPropPartialFields = {
 		{ type: "literal", value: ArrayOfItemFooterProp_ArrayOfItemFooter }
 		| { type: "binding_path", value: string }
 		| { type: "conditional", value: ArrayOfItemFooterProp_ConditionalOptions }
+		| { type: "array_map", value: ArrayOfItemFooterProp_ArrayMap }
 	)?,
 }
 
@@ -166,6 +174,72 @@ export type ArrayOfItemFooterProp_ArrayOfItemFooter = typeof(setmetatable(
 type _ArrayOfItemFooterProp_ArrayOfItemFooterMessage = proto.Message<
 	ArrayOfItemFooterProp_ArrayOfItemFooter,
 	_ArrayOfItemFooterProp_ArrayOfItemFooterPartialFields
+>
+
+type _ArrayOfItemFooterProp_ArrayMapImpl = {
+	__index: _ArrayOfItemFooterProp_ArrayMapImpl,
+	new: (fields: _ArrayOfItemFooterProp_ArrayMapPartialFields?) -> ArrayOfItemFooterProp_ArrayMap,
+	encode: (self: ArrayOfItemFooterProp_ArrayMap) -> buffer,
+	decode: (input: buffer) -> ArrayOfItemFooterProp_ArrayMap,
+	jsonEncode: (self: ArrayOfItemFooterProp_ArrayMap) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfItemFooterProp_ArrayMap,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfItemFooterProp_ArrayMapFields = {
+	kind: (
+		{ type: "binding_path", value: string }
+		| { type: "literal", value: ArrayOfItemFooterProp_ArrayMap_LiteralItems }
+	)?,
+	item_hydration_specs: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec },
+	field_map: ItemFooter?,
+}
+
+type _ArrayOfItemFooterProp_ArrayMapPartialFields = {
+	kind: (
+		{ type: "binding_path", value: string }
+		| { type: "literal", value: ArrayOfItemFooterProp_ArrayMap_LiteralItems }
+	)?,
+	item_hydration_specs: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec }?,
+	field_map: ItemFooter?,
+}
+
+export type ArrayOfItemFooterProp_ArrayMap = typeof(setmetatable(
+	{} :: _ArrayOfItemFooterProp_ArrayMapFields,
+	{} :: _ArrayOfItemFooterProp_ArrayMapImpl
+))
+type _ArrayOfItemFooterProp_ArrayMapMessage = proto.Message<
+	ArrayOfItemFooterProp_ArrayMap,
+	_ArrayOfItemFooterProp_ArrayMapPartialFields
+>
+
+type _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl = {
+	__index: _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl,
+	new: (
+		fields: _ArrayOfItemFooterProp_ArrayMap_LiteralItemsPartialFields?
+	) -> ArrayOfItemFooterProp_ArrayMap_LiteralItems,
+	encode: (self: ArrayOfItemFooterProp_ArrayMap_LiteralItems) -> buffer,
+	decode: (input: buffer) -> ArrayOfItemFooterProp_ArrayMap_LiteralItems,
+	jsonEncode: (self: ArrayOfItemFooterProp_ArrayMap_LiteralItems) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfItemFooterProp_ArrayMap_LiteralItems,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfItemFooterProp_ArrayMap_LiteralItemsFields = {
+	items: { _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortCardItemFooter },
+}
+
+type _ArrayOfItemFooterProp_ArrayMap_LiteralItemsPartialFields = {
+	items: { _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortCardItemFooter }?,
+}
+
+export type ArrayOfItemFooterProp_ArrayMap_LiteralItems = typeof(setmetatable(
+	{} :: _ArrayOfItemFooterProp_ArrayMap_LiteralItemsFields,
+	{} :: _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl
+))
+type _ArrayOfItemFooterProp_ArrayMap_LiteralItemsMessage = proto.Message<
+	ArrayOfItemFooterProp_ArrayMap_LiteralItems,
+	_ArrayOfItemFooterProp_ArrayMap_LiteralItemsPartialFields
 >
 
 type _CardStyleImpl = {
@@ -312,6 +386,7 @@ type _ArrayOfCatalogSortContentPropFields = {
 		{ type: "literal", value: ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContent }
 		| { type: "binding_path", value: string }
 		| { type: "conditional", value: ArrayOfCatalogSortContentProp_ConditionalOptions }
+		| { type: "array_map", value: ArrayOfCatalogSortContentProp_ArrayMap }
 	)?,
 }
 
@@ -320,6 +395,7 @@ type _ArrayOfCatalogSortContentPropPartialFields = {
 		{ type: "literal", value: ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContent }
 		| { type: "binding_path", value: string }
 		| { type: "conditional", value: ArrayOfCatalogSortContentProp_ConditionalOptions }
+		| { type: "array_map", value: ArrayOfCatalogSortContentProp_ArrayMap }
 	)?,
 }
 
@@ -425,6 +501,72 @@ export type ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContent = typeof(set
 type _ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContentMessage = proto.Message<
 	ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContent,
 	_ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContentPartialFields
+>
+
+type _ArrayOfCatalogSortContentProp_ArrayMapImpl = {
+	__index: _ArrayOfCatalogSortContentProp_ArrayMapImpl,
+	new: (fields: _ArrayOfCatalogSortContentProp_ArrayMapPartialFields?) -> ArrayOfCatalogSortContentProp_ArrayMap,
+	encode: (self: ArrayOfCatalogSortContentProp_ArrayMap) -> buffer,
+	decode: (input: buffer) -> ArrayOfCatalogSortContentProp_ArrayMap,
+	jsonEncode: (self: ArrayOfCatalogSortContentProp_ArrayMap) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfCatalogSortContentProp_ArrayMap,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfCatalogSortContentProp_ArrayMapFields = {
+	kind: (
+		{ type: "binding_path", value: string }
+		| { type: "literal", value: ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems }
+	)?,
+	item_hydration_specs: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec },
+	field_map: CatalogSortContent?,
+}
+
+type _ArrayOfCatalogSortContentProp_ArrayMapPartialFields = {
+	kind: (
+		{ type: "binding_path", value: string }
+		| { type: "literal", value: ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems }
+	)?,
+	item_hydration_specs: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec }?,
+	field_map: CatalogSortContent?,
+}
+
+export type ArrayOfCatalogSortContentProp_ArrayMap = typeof(setmetatable(
+	{} :: _ArrayOfCatalogSortContentProp_ArrayMapFields,
+	{} :: _ArrayOfCatalogSortContentProp_ArrayMapImpl
+))
+type _ArrayOfCatalogSortContentProp_ArrayMapMessage = proto.Message<
+	ArrayOfCatalogSortContentProp_ArrayMap,
+	_ArrayOfCatalogSortContentProp_ArrayMapPartialFields
+>
+
+type _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl = {
+	__index: _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl,
+	new: (
+		fields: _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsPartialFields?
+	) -> ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems,
+	encode: (self: ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems) -> buffer,
+	decode: (input: buffer) -> ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems,
+	jsonEncode: (self: ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems,
+	descriptor: proto.Descriptor,
+}
+
+type _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsFields = {
+	items: { _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortContentData },
+}
+
+type _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsPartialFields = {
+	items: { _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortContentData }?,
+}
+
+export type ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems = typeof(setmetatable(
+	{} :: _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsFields,
+	{} :: _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl
+))
+type _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsMessage = proto.Message<
+	ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems,
+	_ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsPartialFields
 >
 
 do
@@ -557,6 +699,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "array_map" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -598,6 +744,11 @@ do
 						value = messages.ArrayOfItemFooterProp_ConditionalOptions.decode(value),
 					}
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "array_map", value = messages.ArrayOfItemFooterProp_ArrayMap.decode(value) }
+					continue
 				end
 
 				local length
@@ -632,6 +783,8 @@ do
 				output.bindingPath = self.kind.value
 			elseif self.kind.type == "conditional" then
 				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "array_map" then
+				output.arrayMap = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -659,6 +812,16 @@ do
 				type = "conditional",
 				value = messages.ArrayOfItemFooterProp_ConditionalOptions.jsonDecode(input.conditional),
 			}
+		end
+
+		if input.array_map ~= nil then
+			self.kind =
+				{ type = "array_map", value = messages.ArrayOfItemFooterProp_ArrayMap.jsonDecode(input.array_map) }
+		end
+
+		if input.arrayMap ~= nil then
+			self.kind =
+				{ type = "array_map", value = messages.ArrayOfItemFooterProp_ArrayMap.jsonDecode(input.arrayMap) }
 		end
 
 		return self
@@ -1051,6 +1214,332 @@ do
 	messages.ArrayOfItemFooterProp_ArrayOfItemFooter = _ArrayOfItemFooterProp_ArrayOfItemFooterImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.ArrayOfItemFooterProp_ArrayOfItemFooter)
+end
+
+do
+	local _ArrayOfItemFooterProp_ArrayMapImpl = {}
+	_ArrayOfItemFooterProp_ArrayMapImpl.__index = _ArrayOfItemFooterProp_ArrayMapImpl
+
+	function _ArrayOfItemFooterProp_ArrayMapImpl.new(
+		data: _ArrayOfItemFooterProp_ArrayMapPartialFields?
+	): ArrayOfItemFooterProp_ArrayMap
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+			item_hydration_specs = if data == nil or data.item_hydration_specs == nil
+				then {}
+				else data.item_hydration_specs,
+			field_map = if data == nil or data.field_map == nil then nil else data.field_map,
+		}, _ArrayOfItemFooterProp_ArrayMapImpl :: _ArrayOfItemFooterProp_ArrayMapImpl)
+	end
+
+	function _ArrayOfItemFooterProp_ArrayMapImpl.encode(self: ArrayOfItemFooterProp_ArrayMap): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.item_hydration_specs ~= nil and #self.item_hydration_specs > 0 then
+			for _, value in self.item_hydration_specs do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.field_map ~= nil then
+			local encoded = self.field_map:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfItemFooterProp_ArrayMapImpl.decode(input: buffer): ArrayOfItemFooterProp_ArrayMap
+		local self = _ArrayOfItemFooterProp_ArrayMapImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "literal", value = messages.ArrayOfItemFooterProp_ArrayMap_LiteralItems.decode(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.item_hydration_specs,
+						_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.decode(value)
+					)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.field_map = messages.ItemFooter.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfItemFooterProp_ArrayMapImpl.jsonEncode(self: ArrayOfItemFooterProp_ArrayMap): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			end
+		end
+
+		if self.item_hydration_specs ~= nil and #self.item_hydration_specs > 0 then
+			local newOutput = {}
+			for _, value in self.item_hydration_specs do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.itemHydrationSpecs = newOutput
+		end
+
+		if self.field_map ~= nil then
+			output.fieldMap = self.field_map:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ArrayOfItemFooterProp_ArrayMapImpl.jsonDecode(input: { [string]: any }): ArrayOfItemFooterProp_ArrayMap
+		local self = _ArrayOfItemFooterProp_ArrayMapImpl.new()
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.ArrayOfItemFooterProp_ArrayMap_LiteralItems.jsonDecode(input.literal),
+			}
+		end
+
+		if input.item_hydration_specs ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec } = {}
+			for _, value in input.item_hydration_specs do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.jsonDecode(value)
+				)
+			end
+
+			self.item_hydration_specs = newOutput
+		end
+
+		if input.itemHydrationSpecs ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec } = {}
+			for _, value in input.itemHydrationSpecs do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.jsonDecode(value)
+				)
+			end
+
+			self.item_hydration_specs = newOutput
+		end
+
+		if input.field_map ~= nil then
+			self.field_map = messages.ItemFooter.jsonDecode(input.field_map)
+		end
+
+		if input.fieldMap ~= nil then
+			self.field_map = messages.ItemFooter.jsonDecode(input.fieldMap)
+		end
+
+		return self
+	end
+
+	_ArrayOfItemFooterProp_ArrayMapImpl.descriptor = {
+		name = "ArrayOfItemFooterProp_ArrayMap",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ArrayMap",
+	}
+
+	messages.ArrayOfItemFooterProp_ArrayMap = _ArrayOfItemFooterProp_ArrayMapImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfItemFooterProp_ArrayMap)
+end
+
+do
+	local _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl = {}
+	_ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl.__index = _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl
+
+	function _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl.new(
+		data: _ArrayOfItemFooterProp_ArrayMap_LiteralItemsPartialFields?
+	): ArrayOfItemFooterProp_ArrayMap_LiteralItems
+		return setmetatable({
+			items = if data == nil or data.items == nil then {} else data.items,
+		}, _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl :: _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl)
+	end
+
+	function _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl.encode(
+		self: ArrayOfItemFooterProp_ArrayMap_LiteralItems
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl.decode(
+		input: buffer
+	): ArrayOfItemFooterProp_ArrayMap_LiteralItems
+		local self = _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.items,
+						_roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortCardItemFooter.decode(value)
+					)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl.jsonEncode(
+		self: ArrayOfItemFooterProp_ArrayMap_LiteralItems
+	): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.items = newOutput
+		end
+
+		return output
+	end
+
+	function _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfItemFooterProp_ArrayMap_LiteralItems
+		local self = _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortCardItemFooter } = {}
+			for _, value in input.items do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortCardItemFooter.jsonDecode(value)
+				)
+			end
+
+			self.items = newOutput
+		end
+
+		return self
+	end
+
+	_ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl.descriptor = {
+		name = "ArrayOfItemFooterProp_ArrayMap_LiteralItems",
+		fullName = "roblox.apppageplatform.shared.v1beta1.LiteralItems",
+	}
+
+	messages.ArrayOfItemFooterProp_ArrayMap_LiteralItems = _ArrayOfItemFooterProp_ArrayMap_LiteralItemsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfItemFooterProp_ArrayMap_LiteralItems)
 end
 
 do
@@ -1701,6 +2190,10 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "array_map" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
 
@@ -1744,6 +2237,12 @@ do
 						value = messages.ArrayOfCatalogSortContentProp_ConditionalOptions.decode(value),
 					}
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "array_map", value = messages.ArrayOfCatalogSortContentProp_ArrayMap.decode(value) }
+					continue
 				end
 
 				local length
@@ -1778,6 +2277,8 @@ do
 				output.bindingPath = self.kind.value
 			elseif self.kind.type == "conditional" then
 				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "array_map" then
+				output.arrayMap = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -1806,6 +2307,20 @@ do
 			self.kind = {
 				type = "conditional",
 				value = messages.ArrayOfCatalogSortContentProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		if input.array_map ~= nil then
+			self.kind = {
+				type = "array_map",
+				value = messages.ArrayOfCatalogSortContentProp_ArrayMap.jsonDecode(input.array_map),
+			}
+		end
+
+		if input.arrayMap ~= nil then
+			self.kind = {
+				type = "array_map",
+				value = messages.ArrayOfCatalogSortContentProp_ArrayMap.jsonDecode(input.arrayMap),
 			}
 		end
 
@@ -2228,12 +2743,349 @@ do
 	typeRegistry.default:register(messages.ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContent)
 end
 
+do
+	local _ArrayOfCatalogSortContentProp_ArrayMapImpl = {}
+	_ArrayOfCatalogSortContentProp_ArrayMapImpl.__index = _ArrayOfCatalogSortContentProp_ArrayMapImpl
+
+	function _ArrayOfCatalogSortContentProp_ArrayMapImpl.new(
+		data: _ArrayOfCatalogSortContentProp_ArrayMapPartialFields?
+	): ArrayOfCatalogSortContentProp_ArrayMap
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+			item_hydration_specs = if data == nil or data.item_hydration_specs == nil
+				then {}
+				else data.item_hydration_specs,
+			field_map = if data == nil or data.field_map == nil then nil else data.field_map,
+		}, _ArrayOfCatalogSortContentProp_ArrayMapImpl :: _ArrayOfCatalogSortContentProp_ArrayMapImpl)
+	end
+
+	function _ArrayOfCatalogSortContentProp_ArrayMapImpl.encode(self: ArrayOfCatalogSortContentProp_ArrayMap): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.item_hydration_specs ~= nil and #self.item_hydration_specs > 0 then
+			for _, value in self.item_hydration_specs do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		if self.field_map ~= nil then
+			local encoded = self.field_map:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfCatalogSortContentProp_ArrayMapImpl.decode(input: buffer): ArrayOfCatalogSortContentProp_ArrayMap
+		local self = _ArrayOfCatalogSortContentProp_ArrayMapImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = messages.ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems.decode(value),
+					}
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.item_hydration_specs,
+						_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.decode(value)
+					)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.field_map = messages.CatalogSortContent.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfCatalogSortContentProp_ArrayMapImpl.jsonEncode(self: ArrayOfCatalogSortContentProp_ArrayMap): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			end
+		end
+
+		if self.item_hydration_specs ~= nil and #self.item_hydration_specs > 0 then
+			local newOutput = {}
+			for _, value in self.item_hydration_specs do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.itemHydrationSpecs = newOutput
+		end
+
+		if self.field_map ~= nil then
+			output.fieldMap = self.field_map:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ArrayOfCatalogSortContentProp_ArrayMapImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfCatalogSortContentProp_ArrayMap
+		local self = _ArrayOfCatalogSortContentProp_ArrayMapImpl.new()
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = messages.ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems.jsonDecode(input.literal),
+			}
+		end
+
+		if input.item_hydration_specs ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec } = {}
+			for _, value in input.item_hydration_specs do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.jsonDecode(value)
+				)
+			end
+
+			self.item_hydration_specs = newOutput
+		end
+
+		if input.itemHydrationSpecs ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec } = {}
+			for _, value in input.itemHydrationSpecs do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec.jsonDecode(value)
+				)
+			end
+
+			self.item_hydration_specs = newOutput
+		end
+
+		if input.field_map ~= nil then
+			self.field_map = messages.CatalogSortContent.jsonDecode(input.field_map)
+		end
+
+		if input.fieldMap ~= nil then
+			self.field_map = messages.CatalogSortContent.jsonDecode(input.fieldMap)
+		end
+
+		return self
+	end
+
+	_ArrayOfCatalogSortContentProp_ArrayMapImpl.descriptor = {
+		name = "ArrayOfCatalogSortContentProp_ArrayMap",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ArrayMap",
+	}
+
+	messages.ArrayOfCatalogSortContentProp_ArrayMap = _ArrayOfCatalogSortContentProp_ArrayMapImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfCatalogSortContentProp_ArrayMap)
+end
+
+do
+	local _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl = {}
+	_ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl.__index =
+		_ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl
+
+	function _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl.new(
+		data: _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsPartialFields?
+	): ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems
+		return setmetatable(
+			{
+				items = if data == nil or data.items == nil then {} else data.items,
+			},
+			_ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl :: _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl
+		)
+	end
+
+	function _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl.encode(
+		self: ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.items ~= nil and #self.items > 0 then
+			for _, value in self.items do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl.decode(
+		input: buffer
+	): ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems
+		local self = _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(
+						self.items,
+						_roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortContentData.decode(value)
+					)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl.jsonEncode(
+		self: ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems
+	): any
+		local output = {}
+
+		if self.items ~= nil and #self.items > 0 then
+			local newOutput = {}
+			for _, value in self.items do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.items = newOutput
+		end
+
+		return output
+	end
+
+	function _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl.jsonDecode(
+		input: { [string]: any }
+	): ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems
+		local self = _ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl.new()
+
+		if input.items ~= nil then
+			local newOutput: { _roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortContentData } = {}
+			for _, value in input.items do
+				table.insert(
+					newOutput,
+					_roblox_apppageplatform_shared_v1beta1_catalog_sort_data.CatalogSortContentData.jsonDecode(value)
+				)
+			end
+
+			self.items = newOutput
+		end
+
+		return self
+	end
+
+	_ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl.descriptor = {
+		name = "ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems",
+		fullName = "roblox.apppageplatform.shared.v1beta1.LiteralItems",
+	}
+
+	messages.ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems =
+		_ArrayOfCatalogSortContentProp_ArrayMap_LiteralItemsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems)
+end
+
 return {
 	ItemFooter = messages.ItemFooter,
 	ArrayOfItemFooterProp = messages.ArrayOfItemFooterProp,
 	ArrayOfItemFooterProp_ConditionalOption = messages.ArrayOfItemFooterProp_ConditionalOption,
 	ArrayOfItemFooterProp_ConditionalOptions = messages.ArrayOfItemFooterProp_ConditionalOptions,
 	ArrayOfItemFooterProp_ArrayOfItemFooter = messages.ArrayOfItemFooterProp_ArrayOfItemFooter,
+	ArrayOfItemFooterProp_ArrayMap = messages.ArrayOfItemFooterProp_ArrayMap,
+	ArrayOfItemFooterProp_ArrayMap_LiteralItems = messages.ArrayOfItemFooterProp_ArrayMap_LiteralItems,
 	CardStyle = messages.CardStyle,
 	CardStyleProp = messages.CardStyleProp,
 	CardStyleProp_ConditionalOption = messages.CardStyleProp_ConditionalOption,
@@ -2243,4 +3095,6 @@ return {
 	ArrayOfCatalogSortContentProp_ConditionalOption = messages.ArrayOfCatalogSortContentProp_ConditionalOption,
 	ArrayOfCatalogSortContentProp_ConditionalOptions = messages.ArrayOfCatalogSortContentProp_ConditionalOptions,
 	ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContent = messages.ArrayOfCatalogSortContentProp_ArrayOfCatalogSortContent,
+	ArrayOfCatalogSortContentProp_ArrayMap = messages.ArrayOfCatalogSortContentProp_ArrayMap,
+	ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems = messages.ArrayOfCatalogSortContentProp_ArrayMap_LiteralItems,
 }

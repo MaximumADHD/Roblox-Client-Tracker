@@ -25,7 +25,6 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
-local FFlagClampHealthPercentage = CoreGuiCommon.Flags.FFlagClampHealthPercentage
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(CorePackages.Workspace.Packages.Chrome).Enabled
@@ -115,11 +114,7 @@ function HealthBar:init()
 			if isDead then
 				healthPercent = 0
 			elseif maxHealth > 0 then
-				if FFlagClampHealthPercentage then
 					healthPercent = math.clamp(health / maxHealth, 0, 1)
-				else
-					healthPercent = health / maxHealth
-				end
 			end
 
 			return healthPercent
@@ -202,11 +197,7 @@ function HealthBar:renderHealth()
 		if self.props.isDead then
 			healthPercent = 0
 		elseif self.props.maxHealth > 0 then
-			if FFlagClampHealthPercentage then
 				healthPercent = math.clamp(self.props.health / self.props.maxHealth, 0, 1)
-			else
-				healthPercent = self.props.health / self.props.maxHealth
-			end
 		end
 	end
 

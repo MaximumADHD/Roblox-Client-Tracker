@@ -8,6 +8,11 @@ local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
+local Foundation = require(CorePackages.Packages.Foundation)
+local IconName = Foundation.Enums.IconName
+local IconVariant = Foundation.Enums.IconVariant
+local IconSize = Foundation.Enums.IconSize
+
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 
 local withStyle = UIBlox.Style.withStyle
@@ -25,6 +30,13 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
+
+local PlayerList = Components.Parent
+local FFlagAllowDisplayingFoundationIconsForDropdown = require(PlayerList.Flags.FFlagAllowDisplayingFoundationIconsForDropdown)
+
+local function isFoundationIconName(icon: any): boolean
+	return IconName[icon] ~= nil
+end
 
 local DropDownButton = Roact.PureComponent:extend("DropDownButton")
 
@@ -119,6 +131,36 @@ function DropDownButton:render()
 			local rightButtonsSize = layoutValues.DropDownRightOptionSize * 2
 			if rightButtonsVisible then
 				textLabelSizeOffset = textLabelSizeOffset + rightButtonsSize
+			end
+
+			local dropdownIcon
+			local iconProp = self.props.icon
+			if FFlagAllowDisplayingFoundationIconsForDropdown and isFoundationIconName(iconProp) then
+				dropdownIcon = Roact.createElement("Frame", {
+					LayoutOrder = 1,
+					Size = UDim2.new(0, layoutValues.DropDownIconSize, 0, layoutValues.DropDownIconSize),
+					BackgroundTransparency = 1,
+				}, {
+					Icon = Roact.createElement(Foundation.Icon, {
+						name = IconName[iconProp],
+						variant = IconVariant.Regular,
+						size = IconSize.Large,
+						style = {
+							Color3 = style.Theme.IconEmphasis.Color,
+							Transparency = style.Theme.IconEmphasis.Transparency,
+						},
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+					}),
+				})
+			else
+				dropdownIcon = Roact.createElement(ImageSetLabel, {
+					LayoutOrder = 1,
+					Size = UDim2.new(0, layoutValues.DropDownIconSize, 0, layoutValues.DropDownIconSize),
+					ImageColor3 = style.Theme.IconEmphasis.Color,
+					Image = self.props.icon,
+					BackgroundTransparency = 1,
+				})
 			end
 
 			local function onMouseButton1Down()
@@ -231,13 +273,7 @@ function DropDownButton:render()
 						Padding = UDim.new(0, layoutValues.DropDownPadding),
 					}),
 
-					Icon = Roact.createElement(ImageSetLabel, {
-						LayoutOrder = 1,
-						Size = UDim2.fromOffset(layoutValues.DropDownIconSize, layoutValues.DropDownIconSize),
-						ImageColor3 = style.Theme.IconEmphasis.Color,
-						Image = self.props.icon,
-						BackgroundTransparency = 1,
-					}),
+					Icon = dropdownIcon,
 
 					Text = Roact.createElement("TextLabel", {
 						LayoutOrder = 2,

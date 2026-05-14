@@ -5,8 +5,6 @@ local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
-local FFlagEnableCallbackInputBoxSelectionFixes = game:DefineFastFlag("EnableCallbackInputBoxSelectionFixes", false)
-
 local CallbackInputBox = Roact.PureComponent:extend("CallbackInputBox")
 
 CallbackInputBox.defaultProps = {
@@ -125,9 +123,7 @@ function CallbackInputBox:render()
 				TextWrapped = self.props.textWrapped,
 				TextInputType = self.props.textInputType,
 				ReturnKeyType = self.props.returnKeyType,
-				SelectionImageObject = if FFlagEnableCallbackInputBoxSelectionFixes
-					then self.props.inputBoxSelectionImageObject
-					else nil,
+				SelectionImageObject = self.props.inputBoxSelectionImageObject,
 
 				-- When TextInputType is Enum.TextInputType.NoSuggestions, enterPressed in FocusLost will be false
 				-- so any events that fire on enter will need to be duplicated in ReturnPressedFromOnScreenKeyboard
@@ -194,18 +190,12 @@ function CallbackInputBox:render()
 
 			Clear = Roact.createElement("ImageButton", {
 				BackgroundTransparency = 1,
-				Size = if FFlagEnableCallbackInputBoxSelectionFixes
-					then UDim2.new(0, self.props.clearButtonSize, 0, self.props.clearButtonSize)
-					else UDim2.new(0, self.props.clearButtonSize, 1, 0),
+				Size = UDim2.new(0, self.props.clearButtonSize, 0, self.props.clearButtonSize),
 				AutoButtonColor = false,
 				LayoutOrder = 2,
 				Visible = not self.props.clearButtonDisabled,
-				SelectionImageObject = if FFlagEnableCallbackInputBoxSelectionFixes
-					then self.props.clearButtonSelectionImageObject
-					else nil,
-				Selectable = if FFlagEnableCallbackInputBoxSelectionFixes
-					then self.clearRef.current and self.clearRef.current.Visible == true
-					else nil,
+				SelectionImageObject = self.props.clearButtonSelectionImageObject,
+				Selectable = self.clearRef.current and self.clearRef.current.Visible == true,
 
 				[Roact.Event.Activated] = function()
 					if self.inputBoxRef.current then

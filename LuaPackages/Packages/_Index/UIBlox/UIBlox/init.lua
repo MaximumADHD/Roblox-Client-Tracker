@@ -213,12 +213,6 @@ local function initializeLibrary(configs)
 			RadioButtonList = lazify(function()
 				return require(script.App.InputButton.RadioButtonList)
 			end),
-			CheckboxList = lazify(function()
-				return require(script.App.InputButton.CheckboxList)
-			end),
-			Checkbox = lazify(function()
-				return require(script.App.InputButton.Checkbox)
-			end),
 		}),
 
 		Container = strict({

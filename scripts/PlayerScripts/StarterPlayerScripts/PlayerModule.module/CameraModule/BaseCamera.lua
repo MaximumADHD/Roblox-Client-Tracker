@@ -19,14 +19,6 @@ local CameraUI = require(script.Parent:WaitForChild("CameraUI"))
 
 local player = Players.LocalPlayer
 
-local FFlagUserFixGamepadMaxZoom
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixGamepadMaxZoom")
-	end)
-	FFlagUserFixGamepadMaxZoom = success and result
-end
-
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
 
@@ -467,16 +459,8 @@ function BaseCamera:GamepadZoomPress()
 		
 		if zoom < player.CameraMinZoomDistance then
 			zoom = player.CameraMinZoomDistance
-			if FFlagUserFixGamepadMaxZoom then
-				-- no more zoom levels to check, all the remaining ones
-				-- are < min
-				if max == zoom then
-					break
-				end
-			end
-		end
-
-		if not FFlagUserFixGamepadMaxZoom then
+			-- no more zoom levels to check, all the remaining ones
+			-- are < min
 			if max == zoom then
 				break
 			end

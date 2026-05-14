@@ -17,8 +17,6 @@ local getTokens = Tokens.getTokens
 local getFoundationTokens = Tokens.getFoundationTokens
 local TokensMappers = Tokens.Mappers
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local Packages = UIBlox.Parent
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
@@ -27,7 +25,6 @@ local EngineFeaturedPreferredTextSizeExists = GetEngineFeatureSafe("EnablePrefer
 
 type DeviceType = Constants.DeviceType
 type ThemeName = Constants.ThemeName
-type Tokens = StyleTypes.Tokens
 
 local StyleProvider = Roact.Component:extend("StyleProvider")
 
@@ -95,15 +92,11 @@ function StyleProvider:render()
 		local deviceType: DeviceType = Constants.DefaultDeviceType :: any
 		local scale = (style.Settings :: any).Scale
 
-		if UIBloxConfig.enableFoundationTokenMapping then
-			local baseTokens = getTokens(deviceType, themeName, scale)
-			local foundationTokens = getFoundationTokens(deviceType, themeName, scale)
-			baseTokens = TokensMappers.mapColorTokensToFoundation(baseTokens, foundationTokens)
-			style.Theme = TokensMappers.mapThemeToFoundation(style.Theme, foundationTokens)
-			style.Tokens = TokensMappers.addFoundationFlatKeys(baseTokens, foundationTokens)
-		else
-			style.Tokens = getTokens(deviceType, themeName, scale) :: Tokens
-		end
+		local baseTokens = getTokens(deviceType, themeName, scale)
+		local foundationTokens = getFoundationTokens(deviceType, themeName, scale)
+		baseTokens = TokensMappers.mapColorTokensToFoundation(baseTokens, foundationTokens)
+		style.Theme = TokensMappers.mapThemeToFoundation(style.Theme, foundationTokens)
+		style.Tokens = TokensMappers.addFoundationFlatKeys(baseTokens, foundationTokens)
 	end
 
 	if style.Font == nil then

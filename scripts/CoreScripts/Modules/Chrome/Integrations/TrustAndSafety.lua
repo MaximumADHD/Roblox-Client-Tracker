@@ -4,6 +4,8 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+
 local ChromeService = require(Chrome.Service)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
@@ -14,6 +16,9 @@ local SideSheetPlacement = ChromePackage.Enums.SideSheetPlacement
 
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local MappedSignal = ChromeUtils.MappedSignal
+
+local FFlagAddIGMToSideSheet = SharedFlags.FFlagAddIGMToSideSheet
+local FFlagStandardizeSafetyIcon = SharedFlags.FFlagStandardizeSafetyIcon
 
 -- This is an indirect way of setting up the mapped signal for the icon state
 -- We need to ensure we don't require SettingsHub before TopBar has finished
@@ -55,7 +60,11 @@ return ChromeService:register({
 	end,
 	components = {
 		Icon = function(props)
-			return CommonIcon("icons/menu/safety_off", "icons/menu/safety_on", mappedReportPageOpenSignal)
+			if FFlagStandardizeSafetyIcon and FFlagAddIGMToSideSheet then
+				return CommonIcon("Flag", nil, mappedReportPageOpenSignal)
+			else
+				return CommonIcon("icons/menu/safety_off", "icons/menu/safety_on", mappedReportPageOpenSignal)
+			end
 		end,
 	},
 })

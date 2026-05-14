@@ -45,6 +45,8 @@ local isShowUKOSAIllegalContentReportingLink = DSAReportingPackage.isShowUKOSAIl
 local OSAReportLink = DSAReportingPackage.OSAReportLink
 local isShowGenericIllegalContentReportingLink = DSAReportingPackage.isShowGenericIllegalContentReportingLink
 local GenericReportLink = DSAReportingPackage.GenericReportLink
+local getTakeItDownReportLinkVisibility = DSAReportingPackage.getTakeItDownReportLinkVisibility
+local TakeItDownReportLink = DSAReportingPackage.TakeItDownReportLink
 
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusRoot = FocusNavigationUtils.FocusRoot
@@ -68,6 +70,7 @@ local FFlagMigrateAllOsaMessagingToCentralService =
 local FFlagIEMReportScrollingFix = game:DefineFastFlag("IEMReportScrollingFix", false)
 local FFlagReportFocusNavIEMButtons = require(root.Flags.FFlagReportFocusNavIEMButtons)
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
+local FFlagAddTakeItDownReportLinkToSurfaces = SharedFlags.FFlagAddTakeItDownReportLinkToSurfaces
 
 local isShowSelectInSceneReportMenu = require(root.Utility.isShowSelectInSceneReportMenu)
 
@@ -518,6 +521,12 @@ local AbuseReportMenuNew = function(props: Props)
 									tag = "size-full-0 auto-y",
 									LayoutOrder = 3,
 								}, React.createElement(GenericReportLink))
+								else nil,
+							TakeItDownReportLink = if FFlagAddTakeItDownReportLinkToSurfaces
+									and getTakeItDownReportLinkVisibility()
+								then React.createElement(TakeItDownReportLink, {
+									layoutOrder = 4,
+								})
 								else nil,
 						})
 						else nil,

@@ -3,11 +3,12 @@ local ModalRoot = script.Parent
 local DialogRoot = ModalRoot.Parent
 local AppRoot = DialogRoot.Parent
 local UIBlox = AppRoot.Parent
-local Packages = UIBlox.Parent
 
+local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local FitFrame = require(Packages.FitFrame)
+local Foundation = require(Packages.Foundation)
 local FitFrameVertical = FitFrame.FitFrameVertical
 
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
@@ -17,7 +18,7 @@ local ButtonType = require(UIBlox.App.Button.Enum.ButtonType)
 local getIconSize = require(AppRoot.ImageSet.getIconSize)
 local IconSize = require(AppRoot.ImageSet.Enum.IconSize)
 
-local Checkbox = require(UIBlox.App.InputButton.Checkbox)
+local Checkbox = Foundation.Checkbox
 
 local PartialPageModal = require(ModalRoot.PartialPageModal)
 
@@ -197,10 +198,10 @@ function EducationalModal:render()
 					Size = UDim2.new(1, 0, 0, 1),
 				}),
 				DoNotShowCheckbox = Roact.createElement(Checkbox, {
-					text = props.doNotShowText,
+					label = props.doNotShowText,
 					onActivated = self.toggleDoNotShow,
-					isSelected = self.state.shouldNotShowAgain,
-					layoutOrder = 2,
+					isChecked = self.state.shouldNotShowAgain,
+					LayoutOrder = 2,
 				}),
 			})
 			table.insert(elements, DoNotShow)

@@ -50,6 +50,9 @@ local SetPlayerIsBlocked = require(PlayerList.Actions.SetPlayerIsBlocked)
 
 local PlayerDropDown = Roact.PureComponent:extend("PlayerDropDown")
 
+local FFlagStandardizeSafetyIcon = require(CorePackages.Workspace.Packages.SharedFlags).FFlagStandardizeSafetyIcon
+local FFlagAllowDisplayingFoundationIconsForDropdown = require(PlayerList.Flags.FFlagAllowDisplayingFoundationIconsForDropdown)
+
 PlayerDropDown.validateProps = t.strictInterface({
 	contentsVisible = t.boolean,
 
@@ -173,7 +176,10 @@ end
 
 function PlayerDropDown:createReportButton()
 	local selectedPlayer = self.props.selectedPlayer
-	local reportIcon = Images["icons/actions/feedback"]
+	local reportIcon = if FFlagStandardizeSafetyIcon and FFlagAllowDisplayingFoundationIconsForDropdown then
+		"Flag"
+	else
+		Images["icons/actions/feedback"]
 
 	return Roact.createElement(DropDownButton, {
 		contentVisible = self.state.contentVisible,

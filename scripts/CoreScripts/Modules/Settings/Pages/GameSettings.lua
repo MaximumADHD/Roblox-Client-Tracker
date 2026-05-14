@@ -71,6 +71,8 @@ local isTouchDevice = UserInputService.TouchEnabled
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
 local GetFFlagVoiceChatClientRewriteDisableVCSDevice = SharedFlags.GetFFlagVoiceChatClientRewriteDisableVCSDevice
+local GetFFlagVoiceChatLogConnectionSource = SharedFlags.GetFFlagVoiceChatLogConnectionSource
+local GetFFlagVoiceChatLogDisconnectReason = SharedFlags.GetFFlagVoiceChatLogDisconnectReason
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagIEMTabFocusNav = SharedFlags.FFlagIEMTabFocusNav
 local FFlagShowAntiHarassmentSettings = game:DefineFastFlag("ShowAntiHarassmentSettings", false)
@@ -272,6 +274,7 @@ local UseMicroProfiler = if isInExperienceUIVREnabled
 local GetFIntVoiceChatDeviceChangeDebounceDelay =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceChatDeviceChangeDebounceDelay)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
+local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableExplicitSettingsChangeAnalytics =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
@@ -297,6 +300,7 @@ local CreatePlayerChoiceTranslationOptions = require(
 )
 
 local FFlagUpdateVisibilitySettingsCopy = game:DefineFastFlag("UpdateVisibilitySettingsCopy", false)
+local FFlagEraseFPSFromDefaultSetting = game:DefineFastFlag("EraseFPSFromDefaultSetting", false)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if
@@ -554,9 +558,11 @@ local function Initialize()
 			if not VRService.VREnabled then
 				local framerateCaps = table.clone(Constants.FramerateCaps)
 				local framerateCapsToText = {
-					RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.FramerateCapDefaultEntry", {
-						Frames = GameSettings:GetDefaultFramerateCap(),
-					}),
+					if FFlagEraseFPSFromDefaultSetting
+						then RobloxTranslator:FormatByKey("CoreScripts.InGameMenu.GameSettings.Default")
+						else RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.FramerateCapDefaultEntry", {
+							Frames = GameSettings:GetDefaultFramerateCap(),
+						}),
 				}
 
 				for _, framerate in framerateCaps do
@@ -3627,9 +3633,15 @@ local function Initialize()
 			end
 
 			if newIndex == connectedIndex then
+				if GetFFlagVoiceChatLogConnectionSource() then
+					VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.SETTINGS_TOGGLE_ON
+				end
 				VoiceChatServiceManager:JoinVoice()
 			else
 				if not VoiceChatServiceManager:VoiceChatEnded() then
+					if GetFFlagVoiceChatLogDisconnectReason() then
+						VoiceChatServiceManager.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.USER_DISCONNECT
+					end
 					VoiceChatServiceManager:Leave()
 				end
 			end
@@ -3731,6 +3743,9 @@ local function Initialize()
 						)
 					end
 				end
+				if GetFFlagVoiceChatLogConnectionSource() then
+					VoiceChatServiceManager.pendingConnectionSource = VoiceConstants.VOICE_CONNECTION_SOURCE.SETTINGS_TOGGLE_ON
+				end
 				VoiceChatServiceManager:JoinVoice()
 			end
 
@@ -3739,6 +3754,9 @@ local function Initialize()
 					"clicked",
 					VoiceChatServiceManager:GetConnectDisconnectButtonAnalyticsData(true)
 				)
+				if GetFFlagVoiceChatLogDisconnectReason() then
+					VoiceChatServiceManager.pendingDisconnectReason = VoiceConstants.VOICE_DISCONNECT_REASON.USER_DISCONNECT
+				end
 				VoiceChatServiceManager:Leave()
 			end
 
